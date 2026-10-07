@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://riwaazekashmir.com/sitemap.xml
