@@ -1,798 +1,362 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Riwaaz-e-Kashmir | Authentic Kashmiri Saffron, Dry Fruits &amp; Kahwa</title>
-<meta name="description" content="Riwaaz-e-Kashmir: authentic Kashmiri saffron, walnuts, dry fruits and kahwa, sourced directly from Kashmir Valley and delivered across India.">
-<link rel="canonical" href="https://riwaazekashmir.com/">
-<link rel="icon" type="image/png" sizes="192x192" href="/favicon.png">
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Riwaaz-e-Kashmir">
-<meta property="og:title" content="Riwaaz-e-Kashmir | Authentic Kashmiri Saffron, Dry Fruits &amp; Kahwa">
-<meta property="og:description" content="Authentic Kashmiri saffron, dry fruits and kahwa, direct from Kashmir Valley.">
-<meta property="og:url" content="https://riwaazekashmir.com/">
-<meta property="og:image" content="https://riwaazekashmir.com/logo.jpg">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Organization",
-      "@id": "https://riwaazekashmir.com/#organization",
-      "name": "Riwaaz-e-Kashmir",
-      "alternateName": ["Riwaaz e Kashmir", "RiwaazEKashmir"],
-      "url": "https://riwaazekashmir.com/",
-      "logo": "https://riwaazekashmir.com/logo.jpg",
-      "description": "Authentic Kashmiri saffron, dry fruits and kahwa, sourced directly from Kashmir Valley and delivered across India.",
-      "email": "riwaazekashmir@gmail.com",
-      "telephone": ["+919149480384", "+918450982382"],
-      "address": {"@type": "PostalAddress", "addressLocality": "Srinagar", "addressRegion": "Jammu and Kashmir", "addressCountry": "IN"},
-      "sameAs": ["https://www.instagram.com/riwaazekashmir"]
-    },
-    {
-      "@type": "WebSite",
-      "@id": "https://riwaazekashmir.com/#website",
-      "name": "Riwaaz-e-Kashmir",
-      "url": "https://riwaazekashmir.com/",
-      "publisher": {"@id": "https://riwaazekashmir.com/#organization"}
-    }
-  ]
-}
-</script>
+<title>Riwaaz-e-Kashmir | Kashmiri Saffron, Shawls & Dry Fruits</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&display=swap');
-
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Georgia', serif; background: #0f1a13; }
-
-.navbar { background: #0f1a13; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; border-bottom: 0.5px solid rgba(201,169,97,0.2); }
-.nav-brand { display: flex; align-items: center; gap: 8px; }
-.nav-logo { height: 34px; width: auto; }
-.nav-brand span { color: #c9a961; font-size: 15px; letter-spacing: 1px; font-variant: small-caps; }
-.cart-icon { color: #c9a961; font-size: 11px; font-style: normal; cursor: pointer; letter-spacing: 0.5px; }
-
-.hero { position: relative; width: 100%; height: 100vh; overflow: hidden; }
-.slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0; transition: opacity 2s ease-in-out; animation: kenburns 8s ease-in-out infinite alternate; }
-.slide.active { opacity: 1; }
-@keyframes kenburns { 0% { transform: scale(1); } 100% { transform: scale(1.08); } }
-
-.badge { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 230px; height: 230px; border-radius: 50%; background: rgba(10, 20, 15, 0.9); border: 1.5px solid #c9a961; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; z-index: 10; padding: 14px; overflow: hidden; animation: badgeFadeIn 1.5s ease-out; }
-@keyframes badgeFadeIn { 0% { opacity: 0; transform: translate(-50%, -50%) scale(0.85); } 100% { opacity: 1; transform: translate(-50%, -50%) scale(1); } }
-.badge .logo-img { width: 82%; height: auto; margin-bottom: 4px; }
-.badge .tagline { font-size: 0.65rem; letter-spacing: 1.3px; color: #f5f0e6; font-variant: small-caps; }
-
-.section { padding: 32px 16px; }
-.section-title { text-align: center; font-size: 13px; letter-spacing: 2.5px; color: #c9a961; margin-bottom: 16px; font-variant: small-caps; }
-
-.category-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-width: 500px; margin: 0 auto; }
-.cat-card { background: rgba(201,169,97,0.06); border: 0.5px solid rgba(201,169,97,0.3); border-radius: 8px; overflow: hidden; text-align: center; cursor: pointer; }
-.cat-card.featured { border: 1px solid #c9a961; }
-.cat-img { width: 100%; height: 70px; object-fit: cover; object-position: top; }
-.cat-placeholder { width: 100%; height: 70px; background: rgba(201,169,97,0.15); }
-.featured-placeholder { background: rgba(201,169,97,0.25); }
-.cat-card p { color: #f0ece2; font-size: 10.5px; margin: 8px 4px; font-variant: small-caps; }
-.cat-card.featured p { color: #c9a961; }
-
-.pricing-section { background: #14201a; padding: 32px 16px; }
-.product-box { max-width: 340px; margin: 0 auto; background: rgba(245,240,230,0.03); border: 0.5px solid rgba(201,169,97,0.3); border-radius: 10px; padding: 18px; }
-.product-hero-img { width: 100%; height: 130px; object-fit: cover; object-position: top; border-radius: 8px; margin-bottom: 14px; }
-
-.product-description { margin-bottom: 16px; max-width: 500px; margin-left: auto; margin-right: auto; }
-.desc-text { color: #a8a89c; font-size: 11px; line-height: 1.6; margin-bottom: 12px; text-align: center; }
-.benefits-list p { color: #d8d4c8; font-size: 10.5px; margin-bottom: 6px; line-height: 1.5; text-align: center; }
-
-.type-toggle { display: flex; gap: 8px; margin-bottom: 14px; }
-.type-btn { flex: 1; border: 0.5px solid rgba(201,169,97,0.3); border-radius: 6px; text-align: center; padding: 10px; font-size: 11px; color: #a8a89c; cursor: pointer; line-height: 1.4; }
-.type-btn.active { border: 1.5px solid #c9a961; background: rgba(201,169,97,0.1); color: #c9a961; }
-
-.size-row { display: flex; gap: 8px; margin-bottom: 12px; }
-.size-btn { flex: 1; border: 0.5px solid rgba(201,169,97,0.3); border-radius: 6px; text-align: center; padding: 8px 4px; font-size: 11px; color: #a8a89c; cursor: pointer; line-height: 1.5; }
-.size-btn.active { border: 1.5px solid #c9a961; background: rgba(201,169,97,0.1); color: #c9a961; }
-
-.name-input { width: 100%; background: rgba(245,240,230,0.05); border: 0.5px solid rgba(201,169,97,0.3); border-radius: 5px; padding: 10px; color: #f0ece2; font-size: 12px; margin-bottom: 12px; font-family: 'Georgia', serif; }
-select.name-input {
-  appearance: none;
-  -webkit-appearance: none;
-  background: rgba(245,240,230,0.05) url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="6"><polygon points="0,0 10,0 5,6" fill="%23c9a961"/></svg>') no-repeat right 12px center;
-}
-
-.qty-row { display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 14px; }
-.qty-btn { width: 30px; height: 30px; border: 0.5px solid #c9a961; border-radius: 5px; color: #c9a961; text-align: center; line-height: 28px; font-size: 15px; cursor: pointer; }
-#qty-display, #wqty-display { color: #f0ece2; font-size: 13px; }
-
-.add-cart-btn { background: #c9a961; color: #0f1a13; text-align: center; font-size: 11px; letter-spacing: 1px; padding: 12px; border-radius: 5px; font-weight: bold; cursor: pointer; }
-
-.price-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; max-width: 500px; margin: 0 auto; }
-.price-card { background: rgba(245, 240, 230, 0.03); border: 0.5px solid rgba(201, 169, 97, 0.35); border-radius: 10px; padding: 18px; text-align: center; position: relative; }
-.price-card.featured { grid-column: span 2; background: rgba(201, 169, 97, 0.08); border: 1.5px solid #c9a961; }
-.product-img { width: 100%; height: 100px; object-fit: cover; border-radius: 6px; margin-bottom: 12px; }
-.size-label { font-size: 13px; color: #f0ece2; margin: 0 0 6px; font-variant: small-caps; }
-.original-price { font-size: 11px; color: #7a7a70; margin: 0; text-decoration: line-through; }
-.final-price { font-size: 16px; color: #c9a961; margin: 0 0 10px; }
-.buy-btn { border: 0.5px solid rgba(201, 169, 97, 0.5); color: #c9a961; font-size: 10px; letter-spacing: 1px; padding: 8px; border-radius: 4px; cursor: pointer; }
-.featured-btn { background: #c9a961; color: #14201a; font-weight: bold; }
-
-.why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 500px; margin: 0 auto; }
-.why-item { text-align: center; padding: 14px 8px; }
-.why-title { color: #c9a961; font-size: 12px; margin-bottom: 6px; font-variant: small-caps; }
-.why-text { color: #a8a89c; font-size: 10px; }
-
-.footer { text-align: center; padding: 30px 16px; border-top: 0.5px solid rgba(201,169,97,0.2); }
-.footer p:first-child { color: #c9a961; font-size: 14px; letter-spacing: 2px; font-variant: small-caps; }
-.footer-sub { color: #7a7a70; font-size: 10px; margin-top: 4px; }
-.social-row { display: flex; justify-content: center; gap: 12px; margin-top: 16px; }
-.social-btn { border: 0.5px solid #c9a961; color: #c9a961; font-size: 10px; letter-spacing: 1px; padding: 8px 16px; border-radius: 4px; text-decoration: none; font-family: 'Georgia', serif; }
-
-.cart-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 100; }
-.cart-overlay.active { display: block; }
-.cart-drawer { display: none; position: fixed; top: 0; right: 0; width: 85%; max-width: 340px; height: 100%; background: #14201a; z-index: 101; padding: 20px; overflow-y: auto; }
-.cart-drawer.active { display: block; }
-.cart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; color: #c9a961; font-size: 14px; }
-.cart-header i { cursor: pointer; font-style: normal; color: #7a7a70; }
-.cart-item-row { display: flex; gap: 10px; padding: 10px 0; border-top: 0.5px solid rgba(201,169,97,0.2); align-items: center; }
-.cart-item-name { color: #f0ece2; font-size: 11px; flex: 1; }
-.cart-item-price { color: #c9a961; font-size: 12px; }
-.cart-total-row { display: flex; justify-content: space-between; padding-top: 14px; margin-top: 10px; border-top: 0.5px solid rgba(201,169,97,0.3); color: #f0ece2; font-size: 13px; }
-#cart-total { color: #c9a961; }
-.checkout-btn { background: #c9a961; color: #0f1a13; text-align: center; font-size: 11px; letter-spacing: 1px; padding: 12px; border-radius: 5px; margin-top: 16px; cursor: pointer; font-weight: bold; }
-
-.checkout-overlay, .confirmation-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 200; align-items: center; justify-content: center; }
-.checkout-overlay.active, .confirmation-overlay.active { display: flex; }
-.checkout-form, .confirmation-box { background: #14201a; border: 1px solid rgba(201,169,97,0.3); border-radius: 10px; padding: 24px 20px; width: 85%; max-width: 320px; }
-.checkout-title, .confirm-title { color: #c9a961; font-size: 14px; margin-bottom: 16px; text-align: center; font-variant: small-caps; }
-.checkout-form input, .checkout-form textarea { width: 100%; background: rgba(245,240,230,0.05); border: 0.5px solid rgba(201,169,97,0.3); border-radius: 5px; padding: 10px; color: #f0ece2; font-size: 12px; margin-bottom: 10px; font-family: 'Georgia', serif; }
-.checkout-form textarea { height: 60px; resize: none; }
-.place-order-btn { background: #c9a961; color: #0f1a13; text-align: center; font-size: 11px; letter-spacing: 1px; padding: 12px; border-radius: 5px; cursor: pointer; font-weight: bold; margin-top: 4px; }
-.checkout-close { text-align: center; color: #7a7a70; font-size: 10px; margin-top: 12px; cursor: pointer; }
-.confirm-text { color: #a8a89c; font-size: 11px; text-align: center; margin-bottom: 16px; line-height: 1.5; }
-.confirm-close-btn { background: transparent; border: 0.5px solid #c9a961; color: #c9a961; text-align: center; font-size: 11px; padding: 10px; border-radius: 5px; cursor: pointer; }
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Jost:wght@300;400;500&display=swap');
+:root{--bg:#0f1a13;--bg2:#14201a;--gold:#c9a961;--ivory:#f0ece2;--mute:#a8a89c;--red:#e5484d}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Jost',sans-serif;background:var(--bg);color:var(--ivory);font-size:14px}
+.serif{font-family:'Cormorant Garamond',Georgia,serif}
+.strip{background:var(--gold);color:var(--bg);overflow:hidden;white-space:nowrap;font-size:12px;letter-spacing:1px;padding:7px 0}
+.strip div{display:inline-block;padding-left:100%;animation:run 22s linear infinite}
+@keyframes run{to{transform:translateX(-100%)}}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:.5px solid rgba(201,169,97,.25);position:sticky;top:0;background:var(--bg);z-index:50}
+.nav b{font-family:'Cormorant Garamond',serif;color:var(--gold);font-size:19px;font-weight:600;letter-spacing:1px}
+.nav img{height:32px;margin-right:8px;vertical-align:middle}
+.cartbtn{color:var(--gold);font-size:13px;cursor:pointer}
+.hero{position:relative;height:62vh;min-height:360px;max-height:520px;overflow:hidden;background:#0a120d}
+.slide{position:absolute;inset:0;background-size:cover;background-position:center top;opacity:0;transition:opacity 1.6s}
+.slide.on{opacity:1}
+.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 45%,rgba(10,18,13,.92))}
+.hero-t{position:absolute;left:0;right:0;bottom:22px;z-index:2;text-align:center;padding:0 16px}
+.hero-t img{height:54px;margin-bottom:6px}
+.hero-t h1{font-size:26px;font-weight:600;color:var(--ivory);line-height:1.15}
+.hero-t p{color:var(--gold);font-size:12px;letter-spacing:2px;margin:6px 0 14px}
+.btn{display:inline-block;background:var(--gold);color:var(--bg);font-weight:500;font-size:12px;letter-spacing:1px;padding:11px 20px;border-radius:4px;cursor:pointer;text-decoration:none;border:0}
+.btn.o{background:transparent;border:1px solid var(--gold);color:var(--gold);margin-left:8px}
+.trust{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;padding:14px 8px;background:var(--bg2);text-align:center;font-size:10.5px;color:var(--mute)}
+.trust b{display:block;color:var(--gold);font-weight:500;font-size:11px;margin-bottom:2px}
+.shawl{margin:22px 14px;border:1px solid var(--gold);border-radius:6px;padding:26px 18px;text-align:center;background:radial-gradient(circle at 50% 0,#1d3326,#0b130e 70%);position:relative}
+.shawl:before{content:"";position:absolute;inset:6px;border:.5px solid rgba(201,169,97,.4);border-radius:3px;pointer-events:none}
+.shawl small{color:var(--gold);letter-spacing:4px;font-size:10px}
+.shawl h2{font-size:30px;font-weight:600;margin:8px 0 6px}
+.shawl p{color:var(--mute);font-size:13px;line-height:1.6;max-width:420px;margin:0 auto 14px}
+.imgs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}
+.imgs img{width:100%;height:190px;object-fit:cover;border-radius:4px}
+.tags{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:16px}
+.tags span{border:.5px solid rgba(201,169,97,.5);color:var(--gold);font-size:11px;padding:5px 11px;border-radius:20px}
+.sec{padding:22px 12px 8px}
+.st{text-align:center;color:var(--gold);font-size:24px;font-weight:600;margin-bottom:12px}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:2px 4px 14px;scrollbar-width:none}
+.chip{flex:none;border:.5px solid rgba(201,169,97,.4);color:var(--mute);padding:7px 14px;border-radius:20px;font-size:12px;cursor:pointer}
+.chip.on{background:var(--gold);color:var(--bg);border-color:var(--gold)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:900px;margin:0 auto}
+@media(min-width:700px){.grid{grid-template-columns:repeat(4,1fr)}}
+.card{background:var(--bg2);border:.5px solid rgba(201,169,97,.3);border-radius:8px;overflow:hidden;display:flex;flex-direction:column}
+.card img{width:100%;height:120px;object-fit:cover;background:#1a2a20}
+.cb{padding:10px;display:flex;flex-direction:column;gap:8px;flex:1}
+.cb h3{font-size:13.5px;font-weight:500;line-height:1.3}
+.sz{display:flex;gap:5px;flex-wrap:wrap}
+.sz span{border:.5px solid rgba(201,169,97,.4);color:var(--mute);font-size:11px;padding:4px 7px;border-radius:4px;cursor:pointer}
+.sz span.on{border:1px solid var(--gold);color:var(--gold);background:rgba(201,169,97,.1)}
+.pr s{color:var(--red);font-size:12px;margin-right:5px;text-decoration-thickness:1.5px}
+.pr b{color:var(--gold);font-size:17px;font-weight:500}
+.pr em{display:inline-block;background:var(--red);color:#fff;font-style:normal;font-size:10px;padding:2px 5px;border-radius:3px;margin-left:5px}
+.nm{background:rgba(245,240,230,.06);border:.5px solid rgba(201,169,97,.3);border-radius:4px;padding:7px;color:var(--ivory);font:inherit;font-size:12px;width:100%}
+.add{margin-top:auto;text-align:center;background:var(--gold);color:var(--bg);font-size:11.5px;font-weight:500;letter-spacing:.5px;padding:9px;border-radius:4px;cursor:pointer}
+.box{max-width:420px;margin:0 auto;padding:18px;background:var(--bg2);border:.5px solid rgba(201,169,97,.3);border-radius:8px}
+.box p{color:var(--mute);font-size:12.5px;line-height:1.6;text-align:center;margin-bottom:12px}
+.tg{display:flex;gap:8px;margin-bottom:10px}
+.tg div{flex:1;text-align:center;padding:9px;border:.5px solid rgba(201,169,97,.3);border-radius:5px;font-size:12px;color:var(--mute);cursor:pointer}
+.tg div.on{border:1px solid var(--gold);color:var(--gold)}
+.box .nm{margin-bottom:10px;padding:10px}
+.why{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:10px 16px 26px;text-align:center;max-width:500px;margin:0 auto}
+.why b{display:block;color:var(--gold);font-weight:500;margin-bottom:3px}
+.why span{color:var(--mute);font-size:11.5px}
+.foot{text-align:center;padding:28px 16px 90px;border-top:.5px solid rgba(201,169,97,.2);color:var(--mute);font-size:12px}
+.foot .serif{color:var(--gold);font-size:22px}
+.wa{position:fixed;right:14px;bottom:18px;width:54px;height:54px;border-radius:50%;background:#25d366;z-index:90;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.5)}
+.wa svg{width:30px;height:30px;fill:#fff}
+.ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:100}
+.ov.on{display:flex}
+.drawer{margin-left:auto;width:88%;max-width:360px;height:100%;background:var(--bg2);padding:18px;overflow-y:auto}
+.drawer h4,.modal h4{color:var(--gold);font-weight:500;font-size:16px;margin-bottom:12px;text-align:center}
+.ci{display:flex;gap:8px;align-items:center;padding:9px 0;border-top:.5px solid rgba(201,169,97,.2);font-size:12px}
+.ci span:first-child{flex:1}
+.q{display:flex;align-items:center;gap:7px}
+.q i{font-style:normal;border:.5px solid var(--gold);color:var(--gold);width:22px;height:22px;text-align:center;line-height:20px;border-radius:4px;cursor:pointer}
+.row{display:flex;justify-content:space-between;padding:6px 0;font-size:13px}
+.row.t{font-size:16px;color:var(--gold);border-top:.5px solid rgba(201,169,97,.3);margin-top:6px;padding-top:10px}
+.cp{display:flex;gap:6px;margin:12px 0}
+.cp .nm{flex:1}
+.cp .add{margin:0;padding:8px 12px}
+.modal{margin:auto;width:90%;max-width:340px;background:var(--bg2);border:1px solid rgba(201,169,97,.3);border-radius:10px;padding:20px;max-height:92vh;overflow-y:auto}
+.modal .nm{margin-bottom:9px;padding:10px}
+.modal .two{display:flex;gap:8px}
+.cancel{text-align:center;color:var(--mute);font-size:11px;margin-top:12px;cursor:pointer}
+.gal{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;height:150px;background:#1a2a20}
+.gal img{flex:none;width:100%;height:150px;object-fit:cover;scroll-snap-align:center;cursor:zoom-in;transition:transform .3s}
+.gal img:active{transform:scale(1.04)}
+.gw{position:relative}.cnt{position:absolute;right:6px;bottom:6px;background:rgba(0,0,0,.6);color:#fff;font-size:10px;padding:2px 7px;border-radius:10px}
+.col{display:grid;grid-template-columns:1fr 1fr;height:150px;overflow:hidden}.col img{width:100%;height:75px;object-fit:cover}
+.dt{color:var(--gold);font-size:11px;cursor:pointer;text-decoration:underline}
+.zov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:200;align-items:center;justify-content:center;overflow:auto}
+.zov.on{display:flex}.zov img{max-width:100%;max-height:100%;transition:transform .3s;cursor:zoom-in}.zov img.z{transform:scale(2);cursor:zoom-out}
+.zx{position:fixed;top:14px;right:18px;color:#fff;font-size:28px;z-index:210;cursor:pointer}
+.sh{margin-top:auto;width:100%;max-width:520px;background:var(--bg2);border-radius:14px 14px 0 0;padding:20px;max-height:86vh;overflow-y:auto;border-top:1px solid var(--gold)}
+.sh h4{color:var(--gold);font-size:18px;font-weight:500;margin-bottom:8px}.sh p{color:var(--mute);line-height:1.6;font-size:13px;margin-bottom:10px}
+.sh li{margin:0 0 6px 18px;font-size:13px;line-height:1.5}
+.story{margin:22px 14px;padding:26px 18px;text-align:center;border:.5px solid rgba(201,169,97,.4);border-radius:6px}
+.story p{color:var(--mute);line-height:1.7;font-size:13px;max-width:460px;margin:0 auto 10px}
+.story .pts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.pts div{font-size:11.5px;color:var(--ivory);border:.5px solid rgba(201,169,97,.3);padding:9px;border-radius:5px}
+.choc{margin:22px 14px;padding:30px 18px;text-align:center;border-radius:6px;border:1px solid #6b4a2f;background:linear-gradient(160deg,#2a1810,#120a06)}
+.choc small{color:var(--gold);letter-spacing:4px;font-size:10px}.choc h2{font-size:26px;color:#e7cfa3;margin:8px 0}.choc p{color:#b9a58a;font-size:13px;margin-bottom:14px}
+.vs{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 14px 14px;scrollbar-width:none}
+.rv{flex:none;width:78%;max-width:300px;scroll-snap-align:start;background:var(--bg2);border:.5px solid rgba(201,169,97,.35);border-radius:8px;padding:14px;font-size:13px;line-height:1.6}
+.rv .stars{color:var(--gold);letter-spacing:2px;margin-bottom:6px}.rv small{color:var(--mute);display:block;margin-top:8px}
+.stp{display:flex;gap:6px;justify-content:center;margin-bottom:10px;font-size:26px;color:#555}.stp span{cursor:pointer}.stp .on{color:var(--gold)}
+.chp{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}.chp span{border:.5px solid rgba(201,169,97,.4);color:var(--mute);font-size:11px;padding:5px 10px;border-radius:14px;cursor:pointer}.chp .on{background:var(--gold);color:var(--bg)}
 </style>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
 <body>
 
-<div class="navbar">
-  <div style="width:24px"></div>
-  <div class="nav-brand">
-    <img src="https://i.ibb.co/sdmk4Q9y/IMG-2951.png" class="nav-logo" />
-    <span>Riwaaz-e-Kashmir</span>
-  </div>
-  <i class="cart-icon" onclick="toggleCart()">Cart (<span id="cart-count">0</span>)</i>
+<div class="strip"><div>FREE DELIVERY ACROSS INDIA &nbsp;•&nbsp; DIRECT FROM KASHMIR &nbsp;•&nbsp; HAND-PICKED QUALITY &nbsp;•&nbsp; DIWALI OFFER: CODE DIWALI10 FOR 10% OFF &nbsp;•&nbsp; WELCOME10 FOR YOUR FIRST ORDER &nbsp;•&nbsp; FREE DELIVERY ACROSS INDIA &nbsp;•&nbsp; DIRECT FROM KASHMIR</div></div>
+
+<div class="nav">
+  <div style="width:50px"></div>
+  <div><img src="https://i.ibb.co/sdmk4Q9y/IMG-2951.png" alt=""><b>Riwaaz-e-Kashmir</b></div>
+  <div class="cartbtn" onclick="toggleCart()">Cart (<span id="cc">0</span>)</div>
 </div>
 
-<div class="hero">
-  <div class="slide active" style="background-image: url('https://i.ibb.co/GfcY1V29/88819-D3-C-8029-4-BA6-A3-EA-499-FA6-B11423.jpg')"></div>
-  <div class="slide" style="background-image: url('https://i.ibb.co/N24qvQW5/25264fea-96c9-468e-b0a3-7194233a9d02.jpg')"></div>
-  <div class="slide" style="background-image: url('https://i.ibb.co/jk4mjxqD/651c20ae-a145-496a-8ff4-9147103954b5.jpg')"></div>
-  <div class="slide" style="background-image: url('https://i.ibb.co/Ngw2Ss5R/40e2ac42-82e6-48f7-9c0b-8e144d98481c.jpg')"></div>
-  <div class="badge">
-    <img src="https://i.ibb.co/sdmk4Q9y/IMG-2951.png" class="logo-img" />
-    <p class="tagline">Hand Picked Snow<br>White Kernels</p>
-  </div>
-</div>
-
-<div class="section">
-  <p class="section-title">Shop by category</p>
-  <div class="category-grid">
-    <div class="cat-card" onclick="scrollToSection('walnuts-product')">
-      <img src="https://i.ibb.co/GfcY1V29/88819-D3-C-8029-4-BA6-A3-EA-499-FA6-B11423.jpg" class="cat-img" />
-      <p>Kagzi Akhrot</p>
-    </div>
-    <div class="cat-card" onclick="scrollToSection('mamra-product')">
-      <img src="https://i.ibb.co/jPR4BkdZ/IMG-3507.jpg" class="cat-img" />
-      <p>Mamra Badam</p>
-    </div>
-    <div class="cat-card" onclick="scrollToSection('almonds-product')">
-      <img src="https://i.ibb.co/JL3z6s1/IMG-2961.jpg" class="cat-img" />
-      <p>Kashmiri Badam</p>
-    </div>
-    <div class="cat-card" onclick="scrollToSection('pistachio-product')">
-      <img src="https://i.ibb.co/xt4cB8Kt/IMG-2965.jpg" class="cat-img" />
-      <p>Shahi Pista</p>
-    </div>
-    <div class="cat-card" onclick="scrollToSection('cashew-product')">
-      <img src="https://i.ibb.co/bR6G5JyJ/IMG-3508.jpg" class="cat-img" />
-      <p>Shahi Kaju</p>
-    </div>
-    <div class="cat-card" onclick="scrollToSection('saffron-product')">
-      <img src="https://i.ibb.co/Xkr3qswZ/c0f09f1b-1df8-47d2-9f6c-f97532093f51.jpg" class="cat-img" />
-      <p>Zafran-e-Kashmir</p>
-    </div>
-    <div class="cat-card" onclick="scrollToSection('honey-product')">
-      <img src="https://i.ibb.co/2zjwKG0/IMG-2962.jpg" class="cat-img" />
-      <p>Honey</p>
-    </div>
-    <div class="cat-card" onclick="scrollToSection('kahwa-product')">
-      <img src="https://i.ibb.co/svWPfdk1/dced5bba-b909-4496-84af-a54f74fbbd74.jpg" class="cat-img" />
-      <p>Kashmiri Shahi Kahwa</p>
-    </div>
-    <div class="cat-card" onclick="scrollToSection('noonchai-product')">
-      <img src="https://i.ibb.co/sdcj4wBk/f6afbaed-3c67-41f9-8215-a64b91a4f205.jpg" class="cat-img" />
-      <p>Kashmiri Noon Chai</p>
-    </div>
-    <div class="cat-card" onclick="scrollToSection('shilajit-product')">
-      <img src="https://i.ibb.co/0p7BWNHN/06af5392-dd8c-484e-83b5-e2b45acf5333.jpg" class="cat-img" />
-      <p>Shilajit</p>
-    </div>
-    <div class="cat-card featured" onclick="scrollToSection('combo-offer')">
-      <div class="cat-placeholder featured-placeholder"></div>
-      <p>Combo Offers</p>
-    </div>
-    <div class="cat-card featured" onclick="scrollToSection('wedding-gift')">
-      <div class="cat-placeholder featured-placeholder"></div>
-      <p>Wedding Gifts</p>
-    </div>
+<div class="hero" id="hero">
+  <div class="slide on" style="background-image:url('images/hero-shawl.webp')"></div>
+  <div class="slide" style="background-image:url('images/walnut-1.webp')"></div>
+  <div class="hero-t">
+    <h1 class="serif">Woven &amp; grown in Kashmir</h1>
+    <p>HAND-PICKED &nbsp;•&nbsp; PURE &nbsp;•&nbsp; AUTHENTIC</p>
+    <a class="btn" onclick="go('shop')">SHOP NOW</a><a class="btn o" onclick="go('shawls')">SHAWLS</a>
   </div>
 </div>
 
-<div class="pricing-section" id="walnuts-product">
-  <p class="section-title">Kashmiri Premium Kagzi Akhrot</p>
-  <div class="product-box">
-    <img src="https://i.ibb.co/GfcY1V29/88819-D3-C-8029-4-BA6-A3-EA-499-FA6-B11423.jpg" class="product-hero-img" />
-    <div class="product-description">
-      <p class="desc-text">Grown in the pristine valleys of Kashmir, the genuine thin-shelled Kagzi variety. Naturally sun-dried, hand-cracked, no bleaching, no shortcuts.</p>
-      <div class="benefits-list">
-        <p>Rich in Omega-3 for heart and brain health</p>
-        <p>Rare paper-shell Kagzi grade, easy to crack</p>
-        <p>100% natural, no preservatives or bleaching</p>
-      </div>
-    </div>
-    <div class="type-toggle">
-      <div class="type-btn active" id="btn-pouch" onclick="selectType('pouch')">Pouch</div>
-      <div class="type-btn" id="btn-box" onclick="selectType('box')">Gift Box</div>
-    </div>
-    <div id="pouch-options">
-      <div class="size-row">
-        <div class="size-btn active" onclick="selectSize(this,'250g',499)">250g<br>Rs 499</div>
-        <div class="size-btn" onclick="selectSize(this,'500g',990)">500g<br>Rs 990</div>
-        <div class="size-btn" onclick="selectSize(this,'1kg',1950)">1kg<br>Rs 1950</div>
-      </div>
-    </div>
-    <div id="box-options" style="display:none">
-      <div class="size-row">
-        <div class="size-btn active" onclick="selectBoxType(this,'Simple',1200)">Simple<br>Rs 1200</div>
-        <div class="size-btn" onclick="selectBoxType(this,'Customized',1499)">Customized<br>Rs 1499</div>
-      </div>
-      <div id="name-input-wrap" style="display:none">
-        <input type="text" id="customize-name" placeholder="Name to print on box" class="name-input" />
-      </div>
-    </div>
-    <div class="qty-row">
-      <div class="qty-btn" onclick="changeQty(-1)">-</div>
-      <span id="qty-display">1</span>
-      <div class="qty-btn" onclick="changeQty(1)">+</div>
-    </div>
-    <div class="add-cart-btn" onclick="addWalnutToCart()">Add to cart - Rs <span id="live-price">499</span></div>
+<div class="trust">
+  <div><b>Free delivery</b>All India</div><div><b>100% pure</b>No additives</div><div><b>Hand picked</b>Every kernel</div><div><b>From Kashmir</b>Direct to you</div>
+</div>
+
+<div class="shawl" id="shawls">
+  <small>THE SHAWL ATELIER</small>
+  <h2 class="serif">Kashmiri Shawls</h2>
+  <p>Heritage fabrics and traditional designs from the valley, made to be worn and treasured.</p>
+  <div class="imgs"><img src="images/shawl-1.webp" alt="Kashmiri shawl" onclick="zoom(this.src)"><img src="images/shawl-2.webp" alt="Shawl detail" onclick="zoom(this.src)"><img src="images/shawl-3.webp" alt="Shawl border" onclick="zoom(this.src)"><img src="images/hero-shawl.webp" alt="Shawl" onclick="zoom(this.src)"></div>
+  <div class="tags"><span>Pashmina</span><span>Embroidered</span><span>Traditional</span><span>Gift ready</span></div>
+  <a class="btn" href="https://wa.me/919149480384?text=Hi%2C%20I%27d%20like%20to%20see%20your%20shawl%20collection" target="_blank">VIEW SHAWLS ON WHATSAPP</a>
+</div>
+
+<div class="sec" id="shop">
+  <p class="st serif">Our Collection</p>
+  <div class="chips" id="chips"></div>
+  <div class="grid" id="grid"></div>
+</div>
+
+<div class="choc">
+  <small>COMING SOON</small>
+  <h2 class="serif">Riwaaz-e-Kashmir Chocolates</h2>
+  <p>Our own chocolates, made with Kashmiri essence and saffron. Be the first to know when they arrive.</p>
+  <a class="btn" href="https://wa.me/919149480384?text=Hi%2C%20please%20notify%20me%20when%20Riwaaz-e-Kashmir%20chocolates%20launch" target="_blank">NOTIFY ME</a>
+</div>
+
+<div class="sec" id="reviews">
+  <p class="st serif">Voices from the Valley</p>
+  <div class="vs" id="vs"></div>
+  <div style="text-align:center"><a class="btn o" style="margin:0" onclick="openReview('')">WRITE A REVIEW</a></div>
+</div>
+
+<div class="story">
+  <small style="color:var(--gold);letter-spacing:4px;font-size:10px">OUR STORY</small>
+  <h2 class="serif" style="font-size:28px;margin:8px 0 12px">An emerging brand, straight from Kashmir</h2>
+  <p>Riwaaz-e-Kashmir is a young brand built on one idea: genuine Kashmiri products at fair prices. We source directly, with no third person and no middle commission, so you pay wholesale-rate prices for genuine quality.</p>
+  <p>Every product is hand-picked and checked. No third grade, only pure, authentic quality, packed with care and delivered free across India.</p>
+  <div class="pts"><div>No middlemen</div><div>Wholesale-rate prices</div><div>Genuine, authentic quality</div><div>No third grade</div></div>
+</div>
+
+<div class="why" style="margin-top:20px">
+  <div><b>100% Authentic</b><span>Sourced directly from Kashmir</span></div>
+  <div><b>Hand Picked</b><span>Every kernel checked by hand</span></div>
+  <div><b>No Additives</b><span>Pure and natural</span></div>
+  <div><b>Free Delivery</b><span>Across India</span></div>
+</div>
+
+<div class="foot">
+  <div class="serif">Riwaaz-e-Kashmir</div>
+  <p style="margin:4px 0 14px">Tradition in every bite &nbsp;•&nbsp; Srinagar, Kashmir</p>
+  <a class="btn o" style="margin:0" href="https://www.instagram.com/riwaazekashmir" target="_blank">INSTAGRAM</a><p style="margin-top:14px">Bulk &amp; wholesale orders: <a href="https://wa.me/919149480384?text=Hi%2C%20I%20want%20to%20enquire%20about%20bulk%20orders" target="_blank" style="color:var(--gold)">WhatsApp us</a></p>
+</div>
+
+<a class="wa" href="https://wa.me/919149480384" target="_blank" aria-label="WhatsApp">
+  <svg viewBox="0 0 32 32"><path d="M16 3C8.8 3 3 8.8 3 16c0 2.3.6 4.5 1.7 6.4L3 29l6.8-1.8A13 13 0 0 0 16 29c7.2 0 13-5.8 13-13S23.2 3 16 3zm0 23.7c-2 0-3.9-.6-5.6-1.6l-.4-.2-4 1 1.1-3.9-.3-.4A10.7 10.7 0 1 1 16 26.7zm5.9-8c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7 0a8.7 8.7 0 0 1-4.3-3.8c-.3-.6.3-.5.9-1.7.1-.2 0-.4 0-.5l-1-2.3c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4s-1 1-1 2.5 1.1 2.9 1.2 3.1c.2.2 2.1 3.3 5.2 4.6 1.9.8 2.7.9 3.6.8.6-.1 1.9-.8 2.2-1.5s.3-1.4.2-1.5-.3-.2-.6-.4z"/></svg>
+</a>
+
+<div class="zov" id="zov"><span class="zx" onclick="hide('zov')">&#10005;</span><img id="zimg" onclick="this.classList.toggle('z')"></div>
+<div class="ov" id="shov" onclick="if(event.target===this)hide('shov')"><div class="sh" id="shc"></div></div>
+<div class="ov" id="rvov"><div class="modal">
+  <h4>Share your experience</h4>
+  <select id="rp" class="nm"></select>
+  <div class="stp" id="stp"><span onclick="setStar(1)">&#9733;</span><span onclick="setStar(2)">&#9733;</span><span onclick="setStar(3)">&#9733;</span><span onclick="setStar(4)">&#9733;</span><span onclick="setStar(5)">&#9733;</span></div>
+  <div class="chp" id="chp"><span onclick="this.classList.toggle('on')">Taste</span><span onclick="this.classList.toggle('on')">Freshness</span><span onclick="this.classList.toggle('on')">Packing</span><span onclick="this.classList.toggle('on')">Delivery</span><span onclick="this.classList.toggle('on')">Value for money</span></div>
+  <textarea id="rt" class="nm" style="height:70px" placeholder="Why do you love it?"></textarea>
+  <input id="rn" class="nm" placeholder="Your name">
+  <div class="add" style="padding:12px" onclick="sendReview()">SEND REVIEW</div>
+  <div class="cancel" onclick="hide('rvov')">Cancel</div>
+</div></div>
+
+<div class="ov" id="cartov" onclick="if(event.target===this)toggleCart()">
+  <div class="drawer">
+    <h4>Your cart</h4>
+    <div id="ci"></div>
+    <div class="cp"><input id="coupon" class="nm" placeholder="Coupon code"><div class="add" onclick="applyCoupon()">APPLY</div></div>
+    <div class="row"><span>Subtotal</span><span id="sub">Rs 0</span></div>
+    <div class="row" id="discrow" style="display:none;color:#6fcf97"><span>Coupon discount</span><span id="disc"></span></div>
+    <div class="row"><span>Delivery</span><span style="color:#6fcf97">FREE</span></div>
+    <div class="row t"><span>Total</span><span id="tot">Rs 0</span></div>
+    <div class="add" style="margin-top:14px;padding:12px" onclick="showCheckout()">PROCEED TO CHECKOUT</div>
+    <div class="cancel" onclick="toggleCart()">Continue shopping</div>
   </div>
 </div>
 
-<div class="pricing-section" id="mamra-product">
-  <p class="section-title">Mamra Kashmiri Badam</p>
-  <div class="product-description">
-    <p class="desc-text">The rarest, richest almond variety, nearly double the oil content of regular almonds. Royal-grade, naturally grown.</p>
-  </div>
-  <div class="price-grid">
-    <div class="price-card">
-      <img src="https://i.ibb.co/jPR4BkdZ/IMG-3507.jpg" class="product-img" />
-      <p class="size-label">250g</p>
-      <p class="final-price">Rs 499</p>
-      <div class="buy-btn" onclick="quickAdd('Mamra Badam 250g', 499)">Add to cart</div>
-    </div>
-    <div class="price-card">
-      <img src="https://i.ibb.co/jPR4BkdZ/IMG-3507.jpg" class="product-img" />
-      <p class="size-label">500g</p>
-      <p class="final-price">Rs 990</p>
-      <div class="buy-btn" onclick="quickAdd('Mamra Badam 500g', 990)">Add to cart</div>
-    </div>
-    <div class="price-card featured">
-      <img src="https://i.ibb.co/jPR4BkdZ/IMG-3507.jpg" class="product-img" />
-      <p class="size-label">1kg</p>
-      <p class="final-price">Rs 1950</p>
-      <div class="buy-btn featured-btn" onclick="quickAdd('Mamra Badam 1kg', 1950)">Add to cart</div>
-    </div>
+<div class="ov" id="chkov">
+  <div class="modal">
+    <h4>Delivery details</h4>
+    <input id="cn" class="nm" placeholder="Full name">
+    <input id="cp" class="nm" type="tel" placeholder="Mobile number (WhatsApp)">
+    <input id="pin" class="nm" inputmode="numeric" maxlength="6" placeholder="Pincode" oninput="pinLookup()">
+    <div class="two"><input id="city" class="nm" placeholder="City"><input id="state" class="nm" placeholder="State"></div>
+    <input id="addr" class="nm" placeholder="House no., street, area">
+    <input id="lm" class="nm" placeholder="Landmark (optional)">
+    <div class="add" style="padding:12px" onclick="placeOrder()">PAY &amp; PLACE ORDER</div>
+    <div class="cancel" onclick="hide('chkov')">Cancel</div>
   </div>
 </div>
 
-<div class="pricing-section" id="almonds-product">
-  <p class="section-title">Kashmiri Badam</p>
-  <div class="price-grid">
-    <div class="price-card">
-      <img src="https://i.ibb.co/JL3z6s1/IMG-2961.jpg" class="product-img" />
-      <p class="size-label">250g</p>
-      <p class="final-price">Rs 349</p>
-      <div class="buy-btn" onclick="quickAdd('Kashmiri Badam 250g', 349)">Add to cart</div>
-    </div>
-    <div class="price-card">
-      <img src="https://i.ibb.co/JL3z6s1/IMG-2961.jpg" class="product-img" />
-      <p class="size-label">500g</p>
-      <p class="final-price">Rs 649</p>
-      <div class="buy-btn" onclick="quickAdd('Kashmiri Badam 500g', 649)">Add to cart</div>
-    </div>
-    <div class="price-card featured">
-      <img src="https://i.ibb.co/JL3z6s1/IMG-2961.jpg" class="product-img" />
-      <p class="size-label">1kg</p>
-      <p class="final-price">Rs 1199</p>
-      <div class="buy-btn featured-btn" onclick="quickAdd('Kashmiri Badam 1kg', 1199)">Add to cart</div>
-    </div>
-  </div>
-</div>
-
-<div class="pricing-section" id="pistachio-product">
-  <p class="section-title">Shahi Pista</p>
-  <div class="price-grid">
-    <div class="price-card">
-      <img src="https://i.ibb.co/xt4cB8Kt/IMG-2965.jpg" class="product-img" />
-      <p class="size-label">250g</p>
-      <p class="final-price">Rs 499</p>
-      <div class="buy-btn" onclick="quickAdd('Shahi Pista 250g', 499)">Add to cart</div>
-    </div>
-    <div class="price-card">
-      <img src="https://i.ibb.co/xt4cB8Kt/IMG-2965.jpg" class="product-img" />
-      <p class="size-label">500g</p>
-      <p class="final-price">Rs 949</p>
-      <div class="buy-btn" onclick="quickAdd('Shahi Pista 500g', 949)">Add to cart</div>
-    </div>
-    <div class="price-card featured">
-      <img src="https://i.ibb.co/xt4cB8Kt/IMG-2965.jpg" class="product-img" />
-      <p class="size-label">1kg</p>
-      <p class="final-price">Rs 1799</p>
-      <div class="buy-btn featured-btn" onclick="quickAdd('Shahi Pista 1kg', 1799)">Add to cart</div>
-    </div>
-  </div>
-</div>
-
-<div class="pricing-section" id="cashew-product">
-  <p class="section-title">Shahi Kaju</p>
-  <div class="price-grid">
-    <div class="price-card">
-      <img src="https://i.ibb.co/bR6G5JyJ/IMG-3508.jpg" class="product-img" />
-      <p class="size-label">250g</p>
-      <p class="final-price">Rs 299</p>
-      <div class="buy-btn" onclick="quickAdd('Shahi Kaju 250g', 299)">Add to cart</div>
-    </div>
-    <div class="price-card">
-      <img src="https://i.ibb.co/bR6G5JyJ/IMG-3508.jpg" class="product-img" />
-      <p class="size-label">500g</p>
-      <p class="final-price">Rs 599</p>
-      <div class="buy-btn" onclick="quickAdd('Shahi Kaju 500g', 599)">Add to cart</div>
-    </div>
-    <div class="price-card featured">
-      <img src="https://i.ibb.co/bR6G5JyJ/IMG-3508.jpg" class="product-img" />
-      <p class="size-label">1kg</p>
-      <p class="final-price">Rs 1150</p>
-      <div class="buy-btn featured-btn" onclick="quickAdd('Shahi Kaju 1kg', 1150)">Add to cart</div>
-    </div>
-  </div>
-</div>
-
-<div class="pricing-section" id="saffron-product">
-  <p class="section-title">Zafran-e-Kashmir</p>
-  <div class="product-description">
-    <p class="desc-text">Hand-harvested from the Pampore fields of Kashmir. Pure Mongra grade, no dyes, no fillers.</p>
-  </div>
-  <div class="price-grid">
-    <div class="price-card">
-      <img src="https://i.ibb.co/Xkr3qswZ/c0f09f1b-1df8-47d2-9f6c-f97532093f51.jpg" class="product-img" />
-      <p class="size-label">1g</p>
-      <p class="final-price">Rs 499</p>
-      <div class="buy-btn" onclick="quickAdd('Zafran-e-Kashmir 1g', 499)">Add to cart</div>
-    </div>
-    <div class="price-card featured">
-      <img src="https://i.ibb.co/Xkr3qswZ/c0f09f1b-1df8-47d2-9f6c-f97532093f51.jpg" class="product-img" />
-      <p class="size-label">2g</p>
-      <p class="final-price">Rs 998</p>
-      <div class="buy-btn featured-btn" onclick="quickAdd('Zafran-e-Kashmir 2g', 998)">Add to cart</div>
-    </div>
-  </div>
-</div>
-
-<div class="pricing-section" id="honey-product">
-  <p class="section-title">Raw Kashmiri Honey</p>
-  <div class="price-grid">
-    <div class="price-card">
-      <img src="https://i.ibb.co/2zjwKG0/IMG-2962.jpg" class="product-img" />
-      <p class="size-label">250ml</p>
-      <p class="final-price">Rs 299</p>
-      <div class="buy-btn" onclick="quickAdd('Honey 250ml', 299)">Add to cart</div>
-    </div>
-    <div class="price-card">
-      <img src="https://i.ibb.co/2zjwKG0/IMG-2962.jpg" class="product-img" />
-      <p class="size-label">500ml</p>
-      <p class="final-price">Rs 549</p>
-      <div class="buy-btn" onclick="quickAdd('Honey 500ml', 549)">Add to cart</div>
-    </div>
-    <div class="price-card featured">
-      <img src="https://i.ibb.co/2zjwKG0/IMG-2962.jpg" class="product-img" />
-      <p class="size-label">1kg jar</p>
-      <p class="final-price">Rs 999</p>
-      <div class="buy-btn featured-btn" onclick="quickAdd('Honey 1kg jar', 999)">Add to cart</div>
-    </div>
-  </div>
-</div>
-
-<div class="pricing-section" id="kahwa-product">
-  <p class="section-title">Kashmiri Shahi Kahwa</p>
-  <div class="product-box">
-    <img src="https://i.ibb.co/svWPfdk1/dced5bba-b909-4496-84af-a54f74fbbd74.jpg" class="product-hero-img" />
-    <p class="final-price" style="text-align:center;font-size:20px">Rs 499 <span style="font-size:11px;color:#a8a89c">/ 250g</span></p>
-    <div class="add-cart-btn" onclick="quickAdd('Kashmiri Shahi Kahwa 250g', 499)">Add to cart</div>
-  </div>
-</div>
-
-<div class="pricing-section" id="noonchai-product">
-  <p class="section-title">Kashmiri Noon Chai</p>
-  <div class="product-box">
-    <img src="https://i.ibb.co/sdcj4wBk/f6afbaed-3c67-41f9-8215-a64b91a4f205.jpg" class="product-hero-img" />
-    <p class="final-price" style="text-align:center;font-size:20px">Rs 499</p>
-    <div class="add-cart-btn" onclick="quickAdd('Kashmiri Noon Chai', 499)">Add to cart</div>
-  </div>
-</div>
-
-<div class="pricing-section" id="shilajit-product">
-  <p class="section-title">Himalayan Shilajit</p>
-  <div class="product-box">
-    <img src="https://i.ibb.co/0p7BWNHN/06af5392-dd8c-484e-83b5-e2b45acf5333.jpg" class="product-hero-img" />
-    <p class="final-price" style="text-align:center;font-size:20px">Rs 999 <span style="font-size:11px;color:#a8a89c">/ 20g</span></p>
-    <div class="add-cart-btn" onclick="quickAdd('Himalayan Shilajit 20g', 999)">Add to cart</div>
-  </div>
-</div>
-
-<div class="pricing-section" id="combo-offer">
-  <p class="section-title">Kashmir Treasure Combo</p>
-  <div class="product-box">
-    <img src="https://i.ibb.co/N24qvQW5/25264fea-96c9-468e-b0a3-7194233a9d02.jpg" class="product-hero-img" />
-    <p class="desc-text" style="text-align:center">Kagzi Akhrot 250g, Kashmiri Badam 250g, Shahi Pista 250g, Zafran-e-Kashmir 1g, Honey 250ml</p>
-    <p class="original-price" style="text-align:center">Rs 1945</p>
-    <p class="final-price" style="text-align:center;font-size:20px">Rs 1599</p>
-    <div class="add-cart-btn" onclick="quickAdd('Kashmir Treasure Combo', 1599)">Add to cart</div>
-  </div>
-</div>
-
-<div class="pricing-section" id="wedding-gift">
-  <p class="section-title">Riwaaz Wedding Collection</p>
-  <div class="product-box">
-    <img src="https://i.ibb.co/jk4mjxqD/651c20ae-a145-496a-8ff4-9147103954b5.jpg" class="product-hero-img" />
-    <div class="type-toggle">
-      <div class="type-btn active" id="wbtn-simple" onclick="selectWeddingType('Simple',2999)">Simple<br>Rs 2999</div>
-      <div class="type-btn" id="wbtn-custom" onclick="selectWeddingType('Customized',3299)">Customized<br>Rs 3299</div>
-    </div>
-    <div id="wedding-name-wrap" style="display:none">
-      <input type="text" id="wedding-name" placeholder="Names to print on box" class="name-input" />
-    </div>
-    <div class="qty-row">
-      <div class="qty-btn" onclick="changeWeddingQty(-1)">-</div>
-      <span id="wqty-display">1</span>
-      <div class="qty-btn" onclick="changeWeddingQty(1)">+</div>
-    </div>
-    <div class="add-cart-btn" onclick="addWeddingToCart()">Add to cart - Rs <span id="wlive-price">2999</span></div>
-  </div>
-</div>
-
-<div class="pricing-section" id="wholesale">
-  <p class="section-title">Wholesale and Bulk Orders</p>
-  <div class="product-description">
-    <p class="desc-text">Supplying retailers, mandis, and food businesses across India in bulk quantities. Submit your requirement below and our team will contact you with a custom quote.</p>
-  </div>
-  <div class="category-grid">
-    <div class="cat-card">
-      <div class="cat-placeholder"></div>
-      <p>Raw Moongfali (Maharashtra)</p>
-    </div>
-    <div class="cat-card">
-      <div class="cat-placeholder"></div>
-      <p>Kashmiri Apples</p>
-    </div>
-  </div>
-  <div class="product-box" style="margin-top:20px">
-    <p class="desc-text" style="text-align:center;margin-bottom:14px;font-size:12px;color:#c9a961">Select product</p>
-    <div class="type-toggle">
-      <div class="type-btn active" id="wp-apple" onclick="selectWholesaleProduct('apple')">Apples</div>
-      <div class="type-btn" id="wp-moongfali" onclick="selectWholesaleProduct('moongfali')">Moongfali</div>
-    </div>
-
-    <p class="desc-text" style="text-align:center;margin:14px 0 8px;font-size:11px">Quantity</p>
-    <select id="w-quantity" class="name-input">
-      <option value="2 boxes (32kg)">2 boxes (approx 32kg)</option>
-      <option value="5 boxes (80kg)">5 boxes (approx 80kg)</option>
-      <option value="10 boxes (160kg)">10 boxes (approx 160kg)</option>
-      <option value="25 boxes (400kg)">25 boxes (approx 400kg)</option>
-      <option value="50 boxes (800kg)">50 boxes (approx 800kg)</option>
-      <option value="100 boxes (1.6 ton)">100 boxes (approx 1.6 ton)</option>
-      <option value="250 boxes (4 ton)">250 boxes (approx 4 ton)</option>
-      <option value="500 boxes (8 ton)">500 boxes (approx 8 ton)</option>
-      <option value="1000+ boxes (16+ ton)">1000+ boxes (16+ ton)</option>
-    </select>
-
-    <input type="text" id="w-name" placeholder="Your name / business name" class="name-input" />
-    <input type="tel" id="w-phone" placeholder="Phone number" class="name-input" />
-    <input type="text" id="w-city" placeholder="City / State" class="name-input" />
-    <textarea id="w-notes" placeholder="Additional notes (optional)" class="name-input" style="height:60px"></textarea>
-
-    <div class="add-cart-btn" onclick="submitWholesale()">Submit request</div>
-  </div>
-</div>
-
-<iframe name="hidden-form-frame" style="display:none"></iframe>
-
-<div class="section">
-  <p class="section-title">Why choose us</p>
-  <div class="why-grid">
-    <div class="why-item"><p class="why-title">100% Authentic</p><p class="why-text">Sourced directly from Kashmir valleys</p></div>
-    <div class="why-item"><p class="why-title">Hand Picked</p><p class="why-text">Every kernel checked by hand</p></div>
-    <div class="why-item"><p class="why-title">No Additives</p><p class="why-text">Pure and natural, nothing else</p></div>
-    <div class="why-item"><p class="why-title">Fast Delivery</p><p class="why-text">Fresh to your doorstep</p></div>
-  </div>
-</div>
-
-<div class="footer">
-  <p>Riwaaz-e-Kashmir</p>
-  <p class="footer-sub">Tradition in every bite</p>
-  <p class="footer-sub"><a href="/about.html" style="color:#c9a961;text-decoration:none">Our Story</a> &middot; Srinagar, Kashmir</p>
-  <div class="social-row">
-    <a href="https://wa.me/919149480384" target="_blank" class="social-btn">WhatsApp Us</a>
-    <a href="https://www.instagram.com/riwaazekashmir" target="_blank" class="social-btn">Instagram</a>
-  </div>
-</div>
-
-<div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
-<div class="cart-drawer" id="cart-drawer">
-  <div class="cart-header"><p>Your cart</p><i onclick="toggleCart()">&#10005;</i></div>
-  <div id="cart-items"></div>
-  <div class="cart-total-row"><p>Total</p><p id="cart-total">Rs 0</p></div>
-  <div class="checkout-btn" onclick="showCheckout()">Proceed to checkout</div>
-</div>
-
-<div class="checkout-overlay" id="checkout-overlay">
-  <div class="checkout-form">
-    <p class="checkout-title">Delivery details</p>
-    <input type="text" id="cust-name" placeholder="Full name" />
-    <input type="tel" id="cust-phone" placeholder="Phone number" />
-    <textarea id="cust-address" placeholder="Full delivery address"></textarea>
-    <div class="place-order-btn" onclick="placeOrder()">Place order</div>
-    <p class="checkout-close" onclick="closeCheckout()">Cancel</p>
-  </div>
-</div>
-
-<div class="confirmation-overlay" id="confirmation-overlay">
-  <div class="confirmation-box">
-    <p class="confirm-title">Order placed</p>
-    <p class="confirm-text">Thank you for your order. We will contact you shortly to confirm delivery.</p>
-    <div class="confirm-close-btn" onclick="closeConfirmation()">Continue shopping</div>
+<div class="ov" id="doneov">
+  <div class="modal">
+    <h4>Order placed</h4>
+    <p style="color:var(--mute);font-size:12.5px;text-align:center;line-height:1.6;margin-bottom:14px">Thank you for your order. We will contact you shortly on WhatsApp to confirm delivery.</p>
+    <div class="add" onclick="hide('doneov')">CONTINUE SHOPPING</div>
   </div>
 </div>
 
 <script>
-let slides = document.querySelectorAll('.slide');
-let current = 0;
-
-setInterval(() => {
-  slides[current].classList.remove('active');
-  current = (current + 1) % slides.length;
-  slides[current].classList.add('active');
-}, 4000);
-
-let cart = [];
-let currentType = 'pouch';
-let currentLabel = '250g';
-let currentPrice = 499;
-let currentQty = 1;
-let wCurrentLabel = 'Simple';
-let wCurrentPrice = 2999;
-let wCurrentQty = 1;
-let wholesaleProduct = 'Apples';
-
-function mergeAddToCart(name, price, qty) {
-  let existing = cart.find(i => i.name === name);
-  if (existing) { existing.qty += qty; } else { cart.push({ name: name, price: price, qty: qty }); }
-  updateCartDisplay();
+const IB='https://i.ibb.co/',L='images/';
+const A=n=>L+n+'.webp';
+// s = sizes [label, price, market price (optional), needs name (optional)]
+const P=[
+{id:'walnut',c:'Walnuts',n:'Kashmiri Kernels (Walnuts)',i:[A('walnut-1'),A('walnut-2'),A('walnut-3')],s:[['100g',249,350],['250g',499,875],['500g',990,1750],['1kg',1999,3500]],d:'Hand-picked, snow-white walnut kernels from the valleys of Kashmir. Fresh, crunchy and naturally mild.',b:['Plant-based source of Omega-3 (ALA)','Good source of protein and fibre','Perfect for snacking, desserts and breakfast']},
+{id:'giftbox',c:'Combos & Gifts',n:'Walnut Kernels Gift Box',i:[A('walnut-1')],s:[['Simple',1200],['Custom Box',1499,0,1]],d:'Our premium Riwaaz-e-Kashmir gift box filled with hand-picked kernels. The Custom Box carries your own name or message.',b:['Why this price: rigid premium box and gift packing','Custom Box: your name or message printed on the box','Extra protective packing for safe delivery']},
+{id:'mamra',c:'Almonds',n:'Mamra Kashmiri Badam',i:[IB+'jPR4BkdZ/IMG-3507.jpg'],s:[['250g',499],['500g',990],['1kg',1950]],d:'Rich, oil-dense almonds with a deep, sweet taste.',b:['Source of vitamin E and healthy fats','Great in milk, sweets and kahwa','Naturally grown, no additives']},
+{id:'badam',c:'Almonds',n:'Kashmiri Badam',i:[IB+'JL3z6s1/IMG-2961.jpg'],s:[['250g',349],['500g',649],['1kg',1199]],d:'Crunchy everyday Kashmiri almonds, sorted by hand.',b:['Source of vitamin E and fibre','Everyday healthy snack','Soak overnight for best taste']},
+{id:'pista',c:'Pistachio & Cashew',n:'Shahi Pista',i:[IB+'xt4cB8Kt/IMG-2965.jpg'],s:[['250g',499],['500g',949],['1kg',1799]],d:'Premium pistachios with a rich, buttery flavour.',b:['Source of protein and fibre','Great for sweets, kheer and gifting','Packed fresh']},
+{id:'kaju',c:'Pistachio & Cashew',n:'Shahi Kaju',i:[IB+'bR6G5JyJ/IMG-3508.jpg'],s:[['250g',299],['500g',599],['1kg',1150]],d:'Creamy, whole cashews with a naturally sweet taste.',b:['Source of protein and minerals','Great for curries and sweets','Packed fresh']},
+{id:'saffron',c:'Saffron',n:'Kashmiri Saffron (Kesar / Zafran)',i:[A('saffron-1'),A('saffron-2'),A('saffron-3'),A('saffron-4'),A('saffron-5')],s:[['1g',499],['2g',998]],d:'Deep-red Kashmiri saffron threads with rich colour and aroma. A few strands go a long way.',b:['Soak a few threads in warm milk or water for colour and aroma','Used in kahwa, biryani, kheer and milk','Water test: real saffron releases colour slowly']},
+{id:'honey',c:'Honey & Tea',n:'Pure Raw Kashmiri Honey',i:[A('honey-1')],s:[['250ml',299],['500ml',549],['1kg jar',999]],d:'Raw, unprocessed honey from Kashmir, with a naturally thick texture.',b:['Natural sweetener for tea, milk and breakfast','Raw and unprocessed','Crystallising over time is natural']},
+{id:'kahwa',c:'Honey & Tea',n:'Kashmiri Kahwa (Ready to Make)',i:[A('kahwa-1')],s:[['150g',299],['250g',499]],d:'Traditional Kashmiri kahwa mix, ready to brew. Just add hot water for a warming cup.',b:['Warming spiced green tea blend','Ready to make in minutes','Best with a spoon of honey or a few almonds']},
+{id:'noon',c:'Honey & Tea',n:'Kashmiri Noon Chai',i:[A('noon-1')],s:[['Pack',499]],d:'The classic pink salt tea of Kashmir, ready to prepare the traditional way.',b:['Authentic Kashmiri pink tea','Enjoy with milk and bread','Pair with a Kashmiri breakfast']},
+{id:'shila',c:'Wellness',n:'Himalayan Shilajit',i:[IB+'0p7BWNHN/06af5392-dd8c-484e-83b5-e2b45acf5333.jpg'],s:[['20g',999]],d:'Himalayan shilajit resin in a 20g jar.',b:['Traditionally used as a daily supplement','Follow the usage directions on the pack','Consult a doctor if you have a health condition']},
+{id:'combo',c:'Combos & Gifts',n:'Kashmir Treasure Combo (Walnut Kernels, Badam, Pista 250g, Saffron 1g, Honey 250ml)',i:[A('saffron-1'),A('walnut-1'),A('honey-1'),A('kahwa-1')],col:1,s:[['Combo',1599,2145]],d:'Five of our best sellers in one combo, ready to gift.',b:['Combo price is lower than buying each separately','Great for gifting','Free delivery']},
+{id:'winter',c:'Combos & Gifts',n:'Winter Kahwa Set (Kahwa 150g, Saffron 1g, Honey 250ml)',i:[A('kahwa-1'),A('saffron-1'),A('honey-1'),A('noon-1')],col:1,s:[['Set',999,1097]],d:'Everything for a perfect cup of Kashmiri kahwa.',b:['Kahwa, saffron and honey together','Lower than buying each separately','Free delivery']},
+{id:'wed',c:'Combos & Gifts',n:'Riwaaz Wedding Collection',i:[IB+'jk4mjxqD/651c20ae-a145-496a-8ff4-9147103954b5.jpg'],s:[['Simple',2999],['Customized',3299,0,1]],d:'A premium dry fruit collection for weddings and celebrations.',b:['Customized option with your names','Premium gifting packaging','Free delivery']}
+];
+const sel={};let cat='All',cart=[],coupon=null;
+const $=id=>document.getElementById(id);
+const off=(p,m)=>m>p?Math.round((m-p)/m*100):0;
+function renderChips(){
+  const cs=['All',...new Set(P.map(p=>p.c))];
+  $('chips').innerHTML=cs.map(c=>`<div class="chip ${c===cat?'on':''}" onclick="setCat('${c}')">${c}</div>`).join('');
 }
-
-function quickAdd(name, price) { mergeAddToCart(name, price, 1); toggleCart(); }
-
-function selectType(type) {
-  currentType = type;
-  document.getElementById('btn-pouch').classList.toggle('active', type === 'pouch');
-  document.getElementById('btn-box').classList.toggle('active', type === 'box');
-  document.getElementById('pouch-options').style.display = type === 'pouch' ? 'block' : 'none';
-  document.getElementById('box-options').style.display = type === 'box' ? 'block' : 'none';
-  if (type === 'pouch') { currentLabel = '250g'; currentPrice = 499; }
-  else { currentLabel = 'Simple Box'; currentPrice = 1200; document.getElementById('name-input-wrap').style.display = 'none'; }
-  updatePriceDisplay();
+function setCat(c){cat=c;renderChips();renderGrid()}
+function media(p){
+  if(p.col)return `<div class="gw"><div class="col">${p.i.map(x=>`<img src="${x}" alt="" loading="lazy" onclick="zoom(this.src)">`).join('')}</div></div>`;
+  return `<div class="gw"><div class="gal" onscroll="gs(this)">${p.i.map(x=>`<img src="${x}" alt="${p.n}" loading="lazy" onclick="zoom(this.src)">`).join('')}</div>${p.i.length>1?`<span class="cnt">1/${p.i.length}</span>`:''}</div>`;
 }
-
-function selectSize(el, label, price) {
-  document.querySelectorAll('#pouch-options .size-btn').forEach(b => b.classList.remove('active'));
-  el.classList.add('active');
-  currentLabel = label; currentPrice = price;
-  updatePriceDisplay();
+function gs(e){const n=e.children.length,k=Math.round(e.scrollLeft/e.clientWidth);e.parentNode.querySelector('.cnt').textContent=(k+1)+'/'+n}
+function zoom(u){$('zimg').src=u;$('zimg').classList.remove('z');$('zov').classList.add('on')}
+function renderGrid(){
+  $('grid').innerHTML=P.filter(p=>cat==='All'||p.c===cat).map(p=>{
+    const k=sel[p.id]||0,s=p.s[k];
+    return `<div class="card">${media(p)}
+    <div class="cb"><h3>${p.n}</h3>
+    <div class="sz">${p.s.map((x,j)=>`<span class="${j===k?'on':''}" onclick="pick('${p.id}',${j})">${x[0]}</span>`).join('')}</div>
+    <div class="pr">${s[2]?`<s>Rs ${s[2]}</s>`:''}<b>Rs ${s[1]}</b>${s[2]?`<em>${off(s[1],s[2])}% OFF</em>`:''}</div>
+    ${s[3]?`<input class="nm" id="nm-${p.id}" placeholder="Name(s) to print on box">`:''}
+    <span class="dt" onclick="details('${p.id}')">Details, benefits &amp; reviews</span>
+    <div class="add" onclick="addP('${p.id}')">ADD TO CART</div></div></div>`}).join('');
 }
-
-function selectBoxType(el, label, price) {
-  document.querySelectorAll('#box-options .size-btn').forEach(b => b.classList.remove('active'));
-  el.classList.add('active');
-  currentLabel = label + ' Box'; currentPrice = price;
-  document.getElementById('name-input-wrap').style.display = label === 'Customized' ? 'block' : 'none';
-  updatePriceDisplay();
+function pick(id,j){sel[id]=j;renderGrid()}
+function details(id){
+  const p=P.find(x=>x.id===id),rs=(typeof REVIEWS!=='undefined'?REVIEWS:[]).filter(r=>r.p===id);
+  $('shc').innerHTML=`<h4 class="serif" style="font-size:22px">${p.n}</h4><p>${p.d}</p><ul>${p.b.map(b=>`<li>${b}</li>`).join('')}</ul>
+  <p style="margin-top:10px"><b style="color:var(--gold)">Why buy from us:</b> direct from Kashmir, no middlemen, genuine quality, free delivery across India.</p>
+  ${rs.length?rs.map(r=>`<div class="rv" style="width:auto;margin-bottom:8px"><div class="stars">${'&#9733;'.repeat(r.r)}</div>${r.t}<small>${r.n}</small></div>`).join(''):'<p>No reviews yet. Be the first to share your experience.</p>'}
+  <div class="add" style="padding:11px" onclick="openReview('${id}')">WRITE A REVIEW</div>
+  <div class="cancel" onclick="hide('shov')">Close</div>`;
+  $('shov').classList.add('on');
 }
-
-function changeQty(delta) {
-  currentQty = Math.max(1, currentQty + delta);
-  document.getElementById('qty-display').innerText = currentQty;
-  updatePriceDisplay();
+function addP(id){
+  const p=P.find(x=>x.id===id),s=p.s[sel[id]||0];let n=p.n+' - '+s[0];
+  if(s[3]){const v=($('nm-'+id).value||'').trim();if(!v){alert('Please enter the name(s) to print on the box');return}n+=' ('+v+')'}
+  const e=cart.find(i=>i.n===n);e?e.q++:cart.push({n,p:s[1],q:1});upd();toggleCart();
 }
-
-function updatePriceDisplay() { document.getElementById('live-price').innerText = currentPrice * currentQty; }
-
-function addWalnutToCart() {
-  let name = 'Kagzi Akhrot ' + currentLabel;
-  if (currentType === 'box' && currentLabel === 'Customized Box') {
-    let customName = document.getElementById('customize-name').value.trim();
-    if (!customName) { alert('Please enter a name to print on the box'); return; }
-    name += ' (' + customName + ')';
-  }
-  mergeAddToCart(name, currentPrice, currentQty);
-  toggleCart();
+function sub(){return cart.reduce((a,i)=>a+i.p*i.q,0)}
+function disc(){return coupon?Math.round(sub()*coupon.pct/100):0}
+function upd(){
+  $('cc').innerText=cart.reduce((a,i)=>a+i.q,0);
+  $('ci').innerHTML=cart.length?cart.map((i,x)=>`<div class="ci"><span>${i.n}</span><span class="q"><i onclick="qty(${x},-1)">-</i>${i.q}<i onclick="qty(${x},1)">+</i></span><span>Rs ${i.p*i.q}</span></div>`).join(''):'<p style="color:var(--mute);font-size:12px;padding:10px 0">Your cart is empty</p>';
+  $('sub').innerText='Rs '+sub();
+  $('discrow').style.display=coupon?'flex':'none';
+  $('disc').innerText='- Rs '+disc();
+  $('tot').innerText='Rs '+(sub()-disc());
 }
-
-function selectWeddingType(label, price) {
-  wCurrentLabel = label; wCurrentPrice = price;
-  document.getElementById('wbtn-simple').classList.toggle('active', label === 'Simple');
-  document.getElementById('wbtn-custom').classList.toggle('active', label === 'Customized');
-  document.getElementById('wedding-name-wrap').style.display = label === 'Customized' ? 'block' : 'none';
-  document.getElementById('wlive-price').innerText = wCurrentPrice * wCurrentQty;
+function qty(x,d){cart[x].q+=d;if(cart[x].q<1)cart.splice(x,1);upd()}
+function applyCoupon(){
+  const c=$('coupon').value.trim().toUpperCase(),live=new Date()<new Date('2026-11-09');
+  if(c==='WELCOME10'||(c==='DIWALI10'&&live)){coupon={code:c,pct:10};upd()}else{coupon=null;upd();alert(c==='DIWALI10'?'This Diwali offer has ended':'Invalid coupon code')}
 }
-
-function changeWeddingQty(delta) {
-  wCurrentQty = Math.max(1, wCurrentQty + delta);
-  document.getElementById('wqty-display').innerText = wCurrentQty;
-  document.getElementById('wlive-price').innerText = wCurrentPrice * wCurrentQty;
+function toggleCart(){$('cartov').classList.toggle('on')}
+function hide(id){$(id).classList.remove('on')}
+function go(id){$(id).scrollIntoView({behavior:'smooth'})}
+function showCheckout(){if(!cart.length){alert('Your cart is empty');return}hide('cartov');$('chkov').classList.add('on')}
+function pinLookup(){
+  const v=$('pin').value.trim();if(v.length!==6)return;
+  fetch('https://api.postalpincode.in/pincode/'+v).then(r=>r.json()).then(d=>{
+    const o=d&&d[0]&&d[0].PostOffice&&d[0].PostOffice[0];if(o){$('city').value=o.District;$('state').value=o.State}
+  }).catch(()=>{});
 }
-
-function addWeddingToCart() {
-  let name = 'Wedding Collection ' + wCurrentLabel;
-  if (wCurrentLabel === 'Customized') {
-    let customName = document.getElementById('wedding-name').value.trim();
-    if (!customName) { alert('Please enter names to print on the box'); return; }
-    name += ' (' + customName + ')';
-  }
-  mergeAddToCart(name, wCurrentPrice, wCurrentQty);
-  toggleCart();
+function placeOrder(){
+  const name=$('cn').value.trim(),phone=$('cp').value.trim(),pin=$('pin').value.trim(),city=$('city').value.trim(),state=$('state').value.trim(),a=$('addr').value.trim(),lm=$('lm').value.trim();
+  if(!name||!phone||pin.length!==6||!city||!state||!a){alert('Please fill name, mobile, pincode, city, state and address');return}
+  const address=a+(lm?', Landmark: '+lm:'')+', '+city+', '+state+' - '+pin;
+  const total=sub()-disc();
+  const items=cart.map(i=>i.n+' x'+i.q).join(', ')+(coupon?' | Coupon '+coupon.code:'');
+  fetch('/api/create-order',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({amount:total,name,phone,address,items})})
+  .then(r=>r.json().then(b=>({ok:r.ok,b})))
+  .then(({ok,b})=>{
+    if(!ok||!b||!b.id||!b.amount){alert('Could not start payment. Please try again or contact us on WhatsApp.');return}
+    new Razorpay({key:'rzp_live_TjTHI6nlesU7e1',amount:b.amount,currency:'INR',name:'Riwaaz-e-Kashmir',description:'Order Payment',order_id:b.id,
+      handler:function(){hide('chkov');$('doneov').classList.add('on');cart=[];coupon=null;upd();['cn','cp','pin','city','state','addr','lm'].forEach(i=>$(i).value='')},
+      prefill:{name:name,contact:phone},theme:{color:'#c9a961'}}).open();
+  }).catch(()=>alert('Something went wrong creating the order. Please try again.'));
 }
-
-function updateCartDisplay() {
-  let totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
-  document.getElementById('cart-count').innerText = totalItems;
-  let itemsHTML = '';
-  let total = 0;
-  cart.forEach(function(item) {
-    let lineTotal = item.price * item.qty;
-    itemsHTML += '<div class="cart-item-row"><span class="cart-item-name">' + item.name + ' x' + item.qty + '</span><span class="cart-item-price">Rs ' + lineTotal + '</span></div>';
-    total += lineTotal;
-  });
-  document.getElementById('cart-items').innerHTML = itemsHTML || '<p style="color:#7a7a70;font-size:11px;padding:10px 0">Your cart is empty</p>';
-  document.getElementById('cart-total').innerText = 'Rs ' + total;
+setInterval(()=>{const s=document.querySelectorAll('.slide');if(s.length<2)return;let c=[...s].findIndex(x=>x.classList.contains('on'));s[c].classList.remove('on');s[(c+1)%s.length].classList.add('on')},4500);
+// Add approved reviews here: {p:'saffron',r:5,t:'Review text',n:'Name, City'}
+const REVIEWS=[];let star=5;
+function renderReviews(){
+  $('vs').innerHTML=REVIEWS.length?REVIEWS.map(r=>`<div class="rv"><div class="stars">${'&#9733;'.repeat(r.r)}</div>${r.t}<small>${r.n}</small></div>`).join(''):'<div class="rv"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>Tried our saffron, kahwa or walnuts? Share why you love it and your words will appear here.<small>Riwaaz-e-Kashmir</small></div>';
 }
-
-function toggleCart() {
-  document.getElementById('cart-overlay').classList.toggle('active');
-  document.getElementById('cart-drawer').classList.toggle('active');
+function setStar(n){star=n;[...$('stp').children].forEach((s,i)=>s.classList.toggle('on',i<n))}
+function openReview(id){
+  hide('shov');$('rp').innerHTML=P.map(p=>`<option value="${p.id}" ${p.id===id?'selected':''}>${p.n.split(' (')[0]}</option>`).join('');
+  setStar(5);[...$('chp').children].forEach(c=>c.classList.remove('on'));$('rvov').classList.add('on');
 }
-
-function scrollToSection(id) { document.getElementById(id).scrollIntoView({ behavior: 'smooth' }); }
-
-function showCheckout() {
-  if (cart.length === 0) { alert('Your cart is empty'); return; }
-  toggleCart();
-  document.getElementById('checkout-overlay').classList.add('active');
+function sendReview(){
+  const t=$('rt').value.trim(),n=$('rn').value.trim();if(!t||!n){alert('Please add your review and name');return}
+  const tags=[...$('chp').children].filter(c=>c.classList.contains('on')).map(c=>c.innerText).join(', ');
+  const msg='Review for '+$('rp').selectedOptions[0].text+'\nRating: '+star+'/5'+(tags?'\nLoved: '+tags:'')+'\n'+t+'\n- '+n;
+  window.open('https://wa.me/919149480384?text='+encodeURIComponent(msg),'_blank');hide('rvov');$('rt').value='';
 }
-
-function closeCheckout() { document.getElementById('checkout-overlay').classList.remove('active'); }
-
-function placeOrder() {
-  let name = document.getElementById('cust-name').value.trim();
-  let phone = document.getElementById('cust-phone').value.trim();
-  let address = document.getElementById('cust-address').value.trim();
-  if (!name || !phone || !address) { alert('Please fill in all fields'); return; }
-
-  let total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-
-  let items = cart.map(i => i.name + ' x' + i.qty).join(', ');
-  fetch('/api/create-order', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ amount: total, name: name, phone: phone, address: address, items: items })
-  })
-  .then(res => res.json().then(body => ({ ok: res.ok, body: body })))
-  .then(result => {
-    let order = result.body;
-    if (!result.ok || !order || !order.id || !order.amount) {
-      alert('Could not start payment. Please try again or contact us on WhatsApp.');
-      return;
-    }
-    let options = {
-      key: 'rzp_live_TjTHI6nlesU7e1',
-      amount: order.amount,
-      currency: 'INR',
-      name: 'Riwaaz-e-Kashmir',
-      description: 'Order Payment',
-      order_id: order.id,
-      handler: function(response) {
-        closeCheckout();
-        document.getElementById('confirmation-overlay').classList.add('active');
-        cart = [];
-        updateCartDisplay();
-        document.getElementById('cust-name').value = '';
-        document.getElementById('cust-phone').value = '';
-        document.getElementById('cust-address').value = '';
-      },
-      prefill: { name: name, contact: phone },
-      theme: { color: '#c9a961' }
-    };
-    let rzp = new Razorpay(options);
-    rzp.open();
-  })
-  .catch(function(err) {
-    alert('Something went wrong creating the order. Please try again.');
-  });
-}
-
-function closeConfirmation() { document.getElementById('confirmation-overlay').classList.remove('active'); }
-
-function selectWholesaleProduct(type) {
-  wholesaleProduct = type === 'apple' ? 'Apples' : 'Moongfali (Raw Peanuts)';
-  document.getElementById('wp-apple').classList.toggle('active', type === 'apple');
-  document.getElementById('wp-moongfali').classList.toggle('active', type === 'moongfali');
-}
-
-function submitWholesale() {
-  let name = document.getElementById('w-name').value.trim();
-  let phone = document.getElementById('w-phone').value.trim();
-  let city = document.getElementById('w-city').value.trim();
-  let qty = document.getElementById('w-quantity').value;
-  let notes = document.getElementById('w-notes').value.trim();
-
-  if (!name || !phone || !city) {
-    alert('Please fill in name, phone, and city');
-    return;
-  }
-
-  let form = document.createElement('form');
-  form.action = 'https://docs.google.com/forms/d/e/1FAIpQLSedlSWTqN8DJ3x5KMYGOc7GuB7YWJo2oxNtwfdGks71Gl2hdA/formResponse';
-  form.method = 'POST';
-  form.target = 'hidden-form-frame';
-
-  let fields = {
-    'entry.646557812': name,
-    'entry.1144244118': phone,
-    'entry.983832438': city,
-    'entry.1870484597': wholesaleProduct,
-    'entry.1054271298': qty,
-    'entry.1472547360': notes
-  };
-
-  for (let key in fields) {
-    let input = document.createElement('input');
-    input.type = 'hidden';
-    input.name = key;
-    input.value = fields[key];
-    form.appendChild(input);
-  }
-
-  document.body.appendChild(form);
-  form.submit();
-  document.body.removeChild(form);
-
-  alert('Thank you, ' + name + '. Your bulk request for ' + wholesaleProduct + ' (' + qty + ') has been received. Our team will contact you shortly.');
-
-  document.getElementById('w-name').value = '';
-  document.getElementById('w-phone').value = '';
-  document.getElementById('w-city').value = '';
-  document.getElementById('w-notes').value = '';
-}
+renderReviews();
+renderChips();renderGrid();upd();
 </script>
-
 </body>
 </html>
