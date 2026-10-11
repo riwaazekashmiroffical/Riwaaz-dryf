@@ -142,6 +142,16 @@ body{font-family:'Jost',sans-serif;background:var(--bg);color:var(--ivory);font-
 .cf{position:fixed;top:-30px;font-size:22px;z-index:300;pointer-events:none;animation:fall 2.8s linear forwards}@keyframes fall{to{transform:translateY(110vh) rotate(360deg)}}
 .cartbtn{white-space:nowrap}.brand{font-size:15px!important}.nsq{flex:0 1 30%!important;min-width:70px!important}.nav{padding:10px 12px!important}
 html{scroll-padding-top:112px}@media(max-width:699px){.sg .card:last-child:nth-child(odd){grid-column:1/-1}}
+.zx2{width:42px;height:42px;border-radius:50%;border:1.5px solid var(--gold);color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:18px;flex:none;cursor:pointer}
+.sr{display:flex;align-items:center;gap:10px;padding:8px 4px;border-bottom:.5px solid rgba(201,169,97,.2);cursor:pointer;font-size:14px}.sr img{width:44px;height:44px;border-radius:6px;object-fit:cover;background:#1a2a20}.sr span{flex:1}.sr b{color:var(--gold);font-weight:500}
+.sch{display:flex;flex-wrap:wrap;gap:8px}.sch span{border:.5px solid rgba(201,169,97,.5);color:var(--gold);padding:8px 14px;border-radius:20px;font-size:13px;cursor:pointer}
+.zp,.zn{width:46px;height:46px;border-radius:50%!important;border:1.5px solid var(--gold);background:rgba(10,18,13,.55);font-size:30px!important;padding:0!important;align-items:center;justify-content:center;margin-top:-23px!important;line-height:1;display:flex;padding-bottom:4px!important}.zp{left:10px!important}.zn{right:10px!important}
+.zx{width:42px;height:42px;border:1.5px solid var(--gold);border-radius:50%;background:rgba(10,18,13,.55);display:flex;align-items:center;justify-content:center;font-size:18px!important;top:14px!important;right:14px!important}
+#zt{position:fixed;bottom:46px;left:0;right:0;display:flex;gap:8px;justify-content:center;z-index:210;padding:0 10px;overflow-x:auto}#zt img{width:46px;height:46px;object-fit:cover;border-radius:6px;opacity:.5;border:1.5px solid transparent;cursor:pointer;flex:none;max-width:none;max-height:none;transition:none}#zt img.on{opacity:1;border-color:var(--gold)}
+.cbb{display:flex;gap:14px}.cbb b{cursor:pointer;font-weight:600}.cbb .co{background:var(--bg);color:var(--gold);padding:6px 14px;border-radius:5px}
+.cbar{cursor:default!important}
+.hd{display:inline-block;background:var(--red);color:#fff;font-size:10px;font-weight:600;letter-spacing:.5px;padding:2px 6px;border-radius:3px;margin-right:4px}
+.col img:last-child:nth-child(odd){grid-column:1/-1;height:75px}
 </style>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
@@ -150,9 +160,8 @@ html{scroll-padding-top:112px}@media(max-width:699px){.sg .card:last-child:nth-c
 <div class="strip"><div>100% AUTHENTIC &nbsp;|&nbsp; DIRECT FROM KASHMIR &nbsp;|&nbsp; FAST DELIVERY ACROSS INDIA &nbsp;•&nbsp; CODE WELCOME: FREE SHIPPING &nbsp;•&nbsp; CODE DIWALI: FREE GIFT ON ORDERS ABOVE ₹1,499 &nbsp;•&nbsp; 100% AUTHENTIC &nbsp;|&nbsp; DIRECT FROM KASHMIR</div></div>
 
 <div class="navw"><div class="nav">
-  <input id="hq" class="nsq" type="search" placeholder="Search" aria-label="Search products" oninput="doSearch(this.value)">
   <b class="brand serif" onclick="window.scrollTo(0,0)">Riwaaz-e-Kashmir</b>
-  <div class="nr"><span class="ib" onclick="openTrack()" aria-label="My orders and tracking"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4.5 4.5-6.5 8-6.5s7 2 8 6.5"/></svg></span><span class="cartbtn" onclick="toggleCart()">Cart (<span id="cc">0</span>)</span></div>
+  <div class="nr"><span class="ib" onclick="openSearch()" aria-label="Search"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></span><span class="ib" onclick="openTrack()" aria-label="My orders and tracking"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4.5 4.5-6.5 8-6.5s7 2 8 6.5"/></svg></span><span class="cartbtn" onclick="toggleCart()">Cart (<span id="cc">0</span>)</span></div>
 </div><div class="cats"><a onclick="navCat('dry')">Dry Fruits &amp; Spices</a><a onclick="navCat('shawl')">Kashmiri Shawls</a><a onclick="navCat('gift')">Gift Boxes</a></div></div>
 
 <div class="hero" id="hero">
@@ -174,17 +183,37 @@ html{scroll-padding-top:112px}@media(max-width:699px){.sg .card:last-child:nth-c
   <small>THE SHAWL ATELIER</small>
   <h2 class="serif">Kashmiri Shawls</h2>
   <p>Heritage fabrics and traditional designs from the valley, made to be worn and treasured.</p>
-  <div class="sg" id="shawlgrid"><div class="card"><div class="gw"><div class="gal" onscroll="gs(this)"><img src="images/t-hero-shawl.webp" data-f="images/hero-shawl.webp" alt="Midnight Floral Paisley" width="600" height="450" loading="lazy" decoding="async" onclick="zl(this)"><img src="images/t-shawl-1.webp" data-f="images/shawl-1.webp" alt="Midnight Floral Paisley" width="600" height="450" loading="lazy" decoding="async" onclick="zl(this)"><img src="images/t-shawl-2.webp" data-f="images/shawl-2.webp" alt="Midnight Floral Paisley" width="600" height="450" loading="lazy" decoding="async" onclick="zl(this)"><img src="images/t-shawl-3.webp" data-f="images/shawl-3.webp" alt="Midnight Floral Paisley" width="600" height="450" loading="lazy" decoding="async" onclick="zl(this)"></div><span class="cnt">1/4</span></div>
-    <div class="cb" style="text-align:left"><h3>Midnight Floral Paisley</h3><p style="color:var(--mute);font-size:12px;line-height:1.5">Dark base with multicolour floral paisley and a rich woven border.</p><div class="pr"><b style="font-size:13px">Price on request</b></div>
-    <a class="add" href="https://wa.me/919149480384?text=Hi%2C%20I%20am%20interested%20in%20the%20Midnight%20Floral%20Paisley%20shawl.%20Please%20share%20the%20price." target="_blank" style="text-decoration:none">ENQUIRE ON WHATSAPP</a></div></div><div class="card"><div class="gw"><div class="gal" onscroll="gs(this)"><img src="images/t-blk-1.webp" data-f="images/blk-1.webp" alt="Black Copper &amp; Silver Embroidery" width="600" height="450" loading="lazy" decoding="async" onclick="zl(this)"><img src="images/t-blk-2.webp" data-f="images/blk-2.webp" alt="Black Copper &amp; Silver Embroidery" width="600" height="450" loading="lazy" decoding="async" onclick="zl(this)"><img src="images/t-blk-3.webp" data-f="images/blk-3.webp" alt="Black Copper &amp; Silver Embroidery" width="600" height="450" loading="lazy" decoding="async" onclick="zl(this)"><img src="images/t-blk-4.webp" data-f="images/blk-4.webp" alt="Black Copper &amp; Silver Embroidery" width="600" height="450" loading="lazy" decoding="async" onclick="zl(this)"></div><span class="cnt">1/4</span></div>
-    <div class="cb" style="text-align:left"><h3>Black Copper &amp; Silver Embroidery</h3><p style="color:var(--mute);font-size:12px;line-height:1.5">Black shawl with intricate copper and silver embroidered medallions.</p><div class="pr"><b style="font-size:13px">Price on request</b></div>
-    <a class="add" href="https://wa.me/919149480384?text=Hi%2C%20I%20am%20interested%20in%20the%20Black%20Copper%20%26%20Silver%20Embroidery%20shawl.%20Please%20share%20the%20price." target="_blank" style="text-decoration:none">ENQUIRE ON WHATSAPP</a></div></div><div class="card"><div class="gw"><div class="gal" onscroll="gs(this)"><img src="images/t-navy-1.webp" data-f="images/navy-1.webp" alt="Navy Paisley" width="600" height="450" loading="lazy" decoding="async" onclick="zl(this)"><img src="images/t-navy-2.webp" data-f="images/navy-2.webp" alt="Navy Paisley" width="600" height="450" loading="lazy" decoding="async" onclick="zl(this)"></div><span class="cnt">1/2</span></div>
-    <div class="cb" style="text-align:left"><h3>Navy Paisley</h3><p style="color:var(--mute);font-size:12px;line-height:1.5">Deep navy with colourful paisley and a patterned border.</p><div class="pr"><b style="font-size:13px">Price on request</b></div>
-    <a class="add" href="https://wa.me/919149480384?text=Hi%2C%20I%20am%20interested%20in%20the%20Navy%20Paisley%20shawl.%20Please%20share%20the%20price." target="_blank" style="text-decoration:none">ENQUIRE ON WHATSAPP</a></div></div><div class="card"><div class="gw"><div class="gal" onscroll="gs(this)"><img src="images/t-ivf-1.webp" data-f="images/ivf-1.webp" alt="Ivory Floral Embroidery" width="600" height="450" loading="lazy" decoding="async" onclick="zl(this)"></div></div>
-    <div class="cb" style="text-align:left"><h3>Ivory Floral Embroidery</h3><p style="color:var(--mute);font-size:12px;line-height:1.5">Soft ivory shawl with delicate multicolour floral embroidery.</p><div class="pr"><b style="font-size:13px">Price on request</b></div>
-    <a class="add" href="https://wa.me/919149480384?text=Hi%2C%20I%20am%20interested%20in%20the%20Ivory%20Floral%20Embroidery%20shawl.%20Please%20share%20the%20price." target="_blank" style="text-decoration:none">ENQUIRE ON WHATSAPP</a></div></div><div class="card"><div class="gw"><div class="gal" onscroll="gs(this)"><img src="images/t-ivg-1.webp" data-f="images/ivg-1.webp" alt="Ivory &amp; Gold Paisley" width="600" height="450" loading="lazy" decoding="async" onclick="zl(this)"></div></div>
-    <div class="cb" style="text-align:left"><h3>Ivory &amp; Gold Paisley</h3><p style="color:var(--mute);font-size:12px;line-height:1.5">Ivory shawl with golden paisley border work.</p><div class="pr"><b style="font-size:13px">Price on request</b></div>
-    <a class="add" href="https://wa.me/919149480384?text=Hi%2C%20I%20am%20interested%20in%20the%20Ivory%20%26%20Gold%20Paisley%20shawl.%20Please%20share%20the%20price." target="_blank" style="text-decoration:none">ENQUIRE ON WHATSAPP</a></div></div></div>
+  <div class="sg" id="shawlgrid"><div class="card" onclick="cardClick(event,'sh1')"><div class="gw"><div class="gal" onscroll="gs(this)"><img src="images/t-black-1.webp" data-f="images/black-1.webp" alt="Shahi Kashmiri Paisley Shawl" width="600" height="450" loading="lazy" decoding="async"><img src="images/t-black-2.webp" data-f="images/black-2.webp" alt="Shahi Kashmiri Paisley Shawl" width="600" height="450" loading="lazy" decoding="async"></div><span class="cnt">1/2</span></div>
+    <div class="cb"><h3>Shahi Kashmiri Paisley Shawl</h3>
+    
+    <div class="pr"><s>₹3,500</s><b>₹1,399</b><span class="hd">HEAVY DISCOUNT</span><em>60% OFF</em><span class="sb">Save ₹2,101</span></div>
+    
+    <div class="act"><div class="qt"><i onclick="qd('sh1',-1)">−</i><input value="1" inputmode="numeric" onchange="qset('sh1',this.value)"><i onclick="qd('sh1',1)">+</i></div><div class="add" onclick="addP('sh1')">ADD TO CART</div></div></div></div><div class="card" onclick="cardClick(event,'sh2')"><div class="gw"><div class="gal" onscroll="gs(this)"><img src="images/t-hero-shawl.webp" data-f="images/hero-shawl.webp" alt="Midnight Floral Paisley" width="600" height="450" loading="lazy" decoding="async"><img src="images/t-shawl-1.webp" data-f="images/shawl-1.webp" alt="Midnight Floral Paisley" width="600" height="450" loading="lazy" decoding="async"><img src="images/t-shawl-2.webp" data-f="images/shawl-2.webp" alt="Midnight Floral Paisley" width="600" height="450" loading="lazy" decoding="async"><img src="images/t-shawl-3.webp" data-f="images/shawl-3.webp" alt="Midnight Floral Paisley" width="600" height="450" loading="lazy" decoding="async"></div><span class="cnt">1/4</span></div>
+    <div class="cb"><h3>Midnight Floral Paisley</h3>
+    
+    <div class="pr"><b>₹499</b></div>
+    
+    <div class="act"><div class="qt"><i onclick="qd('sh2',-1)">−</i><input value="1" inputmode="numeric" onchange="qset('sh2',this.value)"><i onclick="qd('sh2',1)">+</i></div><div class="add" onclick="addP('sh2')">ADD TO CART</div></div></div></div><div class="card" onclick="cardClick(event,'sh3')"><div class="gw"><div class="gal" onscroll="gs(this)"><img src="images/t-blk-1.webp" data-f="images/blk-1.webp" alt="Black Copper &amp; Silver Embroidery" width="600" height="450" loading="lazy" decoding="async"><img src="images/t-blk-2.webp" data-f="images/blk-2.webp" alt="Black Copper &amp; Silver Embroidery" width="600" height="450" loading="lazy" decoding="async"><img src="images/t-blk-3.webp" data-f="images/blk-3.webp" alt="Black Copper &amp; Silver Embroidery" width="600" height="450" loading="lazy" decoding="async"><img src="images/t-blk-4.webp" data-f="images/blk-4.webp" alt="Black Copper &amp; Silver Embroidery" width="600" height="450" loading="lazy" decoding="async"></div><span class="cnt">1/4</span></div>
+    <div class="cb"><h3>Black Copper &amp; Silver Embroidery</h3>
+    
+    <div class="pr"><b>₹699</b></div>
+    
+    <div class="act"><div class="qt"><i onclick="qd('sh3',-1)">−</i><input value="1" inputmode="numeric" onchange="qset('sh3',this.value)"><i onclick="qd('sh3',1)">+</i></div><div class="add" onclick="addP('sh3')">ADD TO CART</div></div></div></div><div class="card" onclick="cardClick(event,'sh4')"><div class="gw"><div class="gal" onscroll="gs(this)"><img src="images/t-navy-1.webp" data-f="images/navy-1.webp" alt="Navy Paisley" width="600" height="450" loading="lazy" decoding="async"><img src="images/t-navy-2.webp" data-f="images/navy-2.webp" alt="Navy Paisley" width="600" height="450" loading="lazy" decoding="async"></div><span class="cnt">1/2</span></div>
+    <div class="cb"><h3>Navy Paisley</h3>
+    
+    <div class="pr"><b>₹499</b></div>
+    
+    <div class="act"><div class="qt"><i onclick="qd('sh4',-1)">−</i><input value="1" inputmode="numeric" onchange="qset('sh4',this.value)"><i onclick="qd('sh4',1)">+</i></div><div class="add" onclick="addP('sh4')">ADD TO CART</div></div></div></div><div class="card" onclick="cardClick(event,'sh5')"><div class="gw"><div class="gal" onscroll="gs(this)"><img src="images/t-ivf-1.webp" data-f="images/ivf-1.webp" alt="Ivory Floral Embroidery" width="600" height="450" loading="lazy" decoding="async"></div></div>
+    <div class="cb"><h3>Ivory Floral Embroidery</h3>
+    
+    <div class="pr"><b>₹1,299</b></div>
+    
+    <div class="act"><div class="qt"><i onclick="qd('sh5',-1)">−</i><input value="1" inputmode="numeric" onchange="qset('sh5',this.value)"><i onclick="qd('sh5',1)">+</i></div><div class="add" onclick="addP('sh5')">ADD TO CART</div></div></div></div><div class="card" onclick="cardClick(event,'sh6')"><div class="gw"><div class="gal" onscroll="gs(this)"><img src="images/t-ivg-1.webp" data-f="images/ivg-1.webp" alt="Ivory &amp; Gold Paisley" width="600" height="450" loading="lazy" decoding="async"></div></div>
+    <div class="cb"><h3>Ivory &amp; Gold Paisley</h3>
+    
+    <div class="pr"><b>₹1,699</b></div>
+    
+    <div class="act"><div class="qt"><i onclick="qd('sh6',-1)">−</i><input value="1" inputmode="numeric" onchange="qset('sh6',this.value)"><i onclick="qd('sh6',1)">+</i></div><div class="add" onclick="addP('sh6')">ADD TO CART</div></div></div></div></div>
   <div class="tags"><span>Embroidered</span><span>Paisley</span><span>Traditional</span><span>Gift ready</span></div>
   <a class="btn" href="https://wa.me/919149480384?text=Hi%2C%20I%27d%20like%20to%20see%20your%20shawl%20collection" target="_blank">ASK ABOUT ANY SHAWL ON WHATSAPP</a>
 </div>
@@ -194,8 +223,8 @@ html{scroll-padding-top:112px}@media(max-width:699px){.sg .card:last-child:nth-c
   <div class="chips" id="chips"><div class="chip on" onclick="setCat('All')">All</div><div class="chip " onclick="setCat('Walnuts')">Walnuts</div><div class="chip " onclick="setCat('Combos &amp; Gifts')">Combos &amp; Gifts</div><div class="chip " onclick="setCat('Almonds')">Almonds</div><div class="chip " onclick="setCat('Pistachio &amp; Cashew')">Pistachio &amp; Cashew</div><div class="chip " onclick="setCat('Saffron')">Saffron</div><div class="chip " onclick="setCat('Honey &amp; Tea')">Honey &amp; Tea</div><div class="chip " onclick="setCat('Wellness')">Wellness</div></div>
   <div class="grid" id="grid"><div class="card" onclick="cardClick(event,'walnut')"><div class="gw"><div class="gal" onscroll="gs(this)"><img src="images/t-walnut-1.webp" data-f="images/walnut-1.webp" alt="Kashmiri Kernels (Walnuts)" width="600" height="450" loading="lazy" decoding="async"><img src="images/t-walnut-2.webp" data-f="images/walnut-2.webp" alt="Kashmiri Kernels (Walnuts)" width="600" height="450" loading="lazy" decoding="async"><img src="images/t-walnut-3.webp" data-f="images/walnut-3.webp" alt="Kashmiri Kernels (Walnuts)" width="600" height="450" loading="lazy" decoding="async"></div><span class="cnt">1/3</span></div>
     <div class="cb"><h3>Kashmiri Kernels (Walnuts)</h3>
-    <div class="sz"><span class="" onclick="pick('walnut',0)">100g</span><span class="" onclick="pick('walnut',1)">250g</span><span class="" onclick="pick('walnut',2)">500g</span><span class="on" onclick="pick('walnut',3)">1kg</span></div>
-    <div class="pr"><s>₹3,499</s><b>₹1,999</b><em>43% OFF</em><span class="sb">Save ₹1,500</span></div>
+    <div class="sz"><span class="on" onclick="pick('walnut',0)">100g</span><span class="" onclick="pick('walnut',1)">250g</span><span class="" onclick="pick('walnut',2)">500g</span><span class="" onclick="pick('walnut',3)">1kg</span></div>
+    <div class="pr"><s>₹350</s><b>₹249</b><em>29% OFF</em><span class="sb">Save ₹101</span></div>
     
     <div class="act"><div class="qt"><i onclick="qd('walnut',-1)">−</i><input value="1" inputmode="numeric" onchange="qset('walnut',this.value)"><i onclick="qd('walnut',1)">+</i></div><div class="add" onclick="addP('walnut')">ADD TO CART</div></div></div></div><div class="card" onclick="cardClick(event,'giftbox')"><div class="gw"><div class="gal" onscroll="gs(this)"><img src="images/t-walnut-1.webp" data-f="images/walnut-1.webp" alt="Walnut Kernels Gift Box" width="600" height="450" loading="lazy" decoding="async"></div></div>
     <div class="cb"><h3>Walnut Kernels Gift Box</h3>
@@ -239,30 +268,25 @@ html{scroll-padding-top:112px}@media(max-width:699px){.sg .card:last-child:nth-c
     
     <div class="act"><div class="qt"><i onclick="qd('kahwa',-1)">−</i><input value="1" inputmode="numeric" onchange="qset('kahwa',this.value)"><i onclick="qd('kahwa',1)">+</i></div><div class="add" onclick="addP('kahwa')">ADD TO CART</div></div></div></div><div class="card" onclick="cardClick(event,'noon')"><div class="gw"><div class="gal" onscroll="gs(this)"><img src="images/t-noon-1.webp" data-f="images/noon-1.webp" alt="Kashmiri Noon Chai" width="600" height="450" loading="lazy" decoding="async"></div></div>
     <div class="cb"><h3>Kashmiri Noon Chai</h3>
-    <div class="sz"><span class="on" onclick="pick('noon',0)">Pack</span></div>
+    
     <div class="pr"><b>₹499</b></div>
     
     <div class="act"><div class="qt"><i onclick="qd('noon',-1)">−</i><input value="1" inputmode="numeric" onchange="qset('noon',this.value)"><i onclick="qd('noon',1)">+</i></div><div class="add" onclick="addP('noon')">ADD TO CART</div></div></div></div><div class="card" onclick="cardClick(event,'shila')"><div class="gw"><div class="gal" onscroll="gs(this)"><img src="images/t-shilajit-1.webp" data-f="images/shilajit-1.webp" alt="Himalayan Shilajit" width="600" height="450" loading="lazy" decoding="async"></div></div>
     <div class="cb"><h3>Himalayan Shilajit</h3>
-    <div class="sz"><span class="on" onclick="pick('shila',0)">20g</span></div>
+    
     <div class="pr"><b>₹999</b></div>
     
     <div class="act"><div class="qt"><i onclick="qd('shila',-1)">−</i><input value="1" inputmode="numeric" onchange="qset('shila',this.value)"><i onclick="qd('shila',1)">+</i></div><div class="add" onclick="addP('shila')">ADD TO CART</div></div></div></div><div class="card" onclick="cardClick(event,'combo')"><div class="gw"><div class="col"><img src="images/t-saffron-1.webp" data-f="images/saffron-1.webp" alt="Kashmir Treasure Combo (Walnut Kernels, Badam, Pista 250g, Saffron 1g, Honey 250ml)" width="600" height="450" loading="lazy" decoding="async"><img src="images/t-walnut-1.webp" data-f="images/walnut-1.webp" alt="Kashmir Treasure Combo (Walnut Kernels, Badam, Pista 250g, Saffron 1g, Honey 250ml)" width="600" height="450" loading="lazy" decoding="async"><img src="images/t-honey-1.webp" data-f="images/honey-1.webp" alt="Kashmir Treasure Combo (Walnut Kernels, Badam, Pista 250g, Saffron 1g, Honey 250ml)" width="600" height="450" loading="lazy" decoding="async"><img src="images/t-kahwa-1.webp" data-f="images/kahwa-1.webp" alt="Kashmir Treasure Combo (Walnut Kernels, Badam, Pista 250g, Saffron 1g, Honey 250ml)" width="600" height="450" loading="lazy" decoding="async"></div></div>
     <div class="cb"><h3>Kashmir Treasure Combo (Walnut Kernels, Badam, Pista 250g, Saffron 1g, Honey 250ml)</h3>
-    <div class="sz"><span class="on" onclick="pick('combo',0)">Combo</span></div>
-    <div class="pr"><s>₹2,145</s><b>₹1,599</b><em>25% OFF</em><span class="sb">Save ₹546</span></div>
     
-    <div class="act"><div class="qt"><i onclick="qd('combo',-1)">−</i><input value="1" inputmode="numeric" onchange="qset('combo',this.value)"><i onclick="qd('combo',1)">+</i></div><div class="add" onclick="addP('combo')">ADD TO CART</div></div></div></div><div class="card" onclick="cardClick(event,'winter')"><div class="gw"><div class="col"><img src="images/t-kahwa-1.webp" data-f="images/kahwa-1.webp" alt="Winter Kahwa Set (Kahwa 150g, Saffron 1g, Honey 250ml)" width="600" height="450" loading="lazy" decoding="async"><img src="images/t-saffron-1.webp" data-f="images/saffron-1.webp" alt="Winter Kahwa Set (Kahwa 150g, Saffron 1g, Honey 250ml)" width="600" height="450" loading="lazy" decoding="async"><img src="images/t-honey-1.webp" data-f="images/honey-1.webp" alt="Winter Kahwa Set (Kahwa 150g, Saffron 1g, Honey 250ml)" width="600" height="450" loading="lazy" decoding="async"><img src="images/t-noon-1.webp" data-f="images/noon-1.webp" alt="Winter Kahwa Set (Kahwa 150g, Saffron 1g, Honey 250ml)" width="600" height="450" loading="lazy" decoding="async"></div></div>
-    <div class="cb"><h3>Winter Kahwa Set (Kahwa 150g, Saffron 1g, Honey 250ml)</h3>
-    <div class="sz"><span class="on" onclick="pick('winter',0)">Set</span></div>
-    <div class="pr"><s>₹1,097</s><b>₹999</b><em>9% OFF</em><span class="sb">Save ₹98</span></div>
+    <div class="pr"><s>₹2,145</s><b>₹1,799</b><em>16% OFF</em><span class="sb">Save ₹346</span></div>
     
-    <div class="act"><div class="qt"><i onclick="qd('winter',-1)">−</i><input value="1" inputmode="numeric" onchange="qset('winter',this.value)"><i onclick="qd('winter',1)">+</i></div><div class="add" onclick="addP('winter')">ADD TO CART</div></div></div></div><div class="card" onclick="cardClick(event,'wed')"><div class="gw"><div class="gal" onscroll="gs(this)"><img src="images/t-wedding-1.webp" data-f="images/wedding-1.webp" alt="Riwaaz Wedding Collection" width="600" height="450" loading="lazy" decoding="async"></div></div>
-    <div class="cb"><h3>Riwaaz Wedding Collection</h3>
-    <div class="sz"><span class="on" onclick="pick('wed',0)">Simple</span><span class="" onclick="pick('wed',1)">Customized</span></div>
-    <div class="pr"><b>₹2,999</b></div>
+    <div class="act"><div class="qt"><i onclick="qd('combo',-1)">−</i><input value="1" inputmode="numeric" onchange="qset('combo',this.value)"><i onclick="qd('combo',1)">+</i></div><div class="add" onclick="addP('combo')">ADD TO CART</div></div></div></div><div class="card" onclick="cardClick(event,'winter')"><div class="gw"><div class="col"><img src="images/t-kahwa-1.webp" data-f="images/kahwa-1.webp" alt="Winter Kahwa Set (Kahwa 250g, Saffron 1g, Honey 500ml)" width="600" height="450" loading="lazy" decoding="async"><img src="images/t-saffron-1.webp" data-f="images/saffron-1.webp" alt="Winter Kahwa Set (Kahwa 250g, Saffron 1g, Honey 500ml)" width="600" height="450" loading="lazy" decoding="async"><img src="images/t-honey-1.webp" data-f="images/honey-1.webp" alt="Winter Kahwa Set (Kahwa 250g, Saffron 1g, Honey 500ml)" width="600" height="450" loading="lazy" decoding="async"></div></div>
+    <div class="cb"><h3>Winter Kahwa Set (Kahwa 250g, Saffron 1g, Honey 500ml)</h3>
     
-    <div class="act"><div class="qt"><i onclick="qd('wed',-1)">−</i><input value="1" inputmode="numeric" onchange="qset('wed',this.value)"><i onclick="qd('wed',1)">+</i></div><div class="add" onclick="addP('wed')">ADD TO CART</div></div></div></div></div>
+    <div class="pr"><s>₹1,647</s><b>₹1,199</b><em>27% OFF</em><span class="sb">Save ₹448</span></div>
+    
+    <div class="act"><div class="qt"><i onclick="qd('winter',-1)">−</i><input value="1" inputmode="numeric" onchange="qset('winter',this.value)"><i onclick="qd('winter',1)">+</i></div><div class="add" onclick="addP('winter')">ADD TO CART</div></div></div></div></div>
 </div>
 
 <div class="choc">
@@ -282,6 +306,7 @@ html{scroll-padding-top:112px}@media(max-width:699px){.sg .card:last-child:nth-c
   <small style="color:var(--gold);letter-spacing:4px;font-size:10px">OUR STORY</small>
   <h2 class="serif" style="font-size:28px;margin:8px 0 12px">An emerging brand, straight from Kashmir</h2>
   <p>Riwaaz-e-Kashmir is a young brand built on one idea: genuine Kashmiri products at fair prices. We source directly, with no third person and no middle commission, so you pay wholesale-rate prices for genuine quality.</p>
+  <p>We buy directly from the manufacturers and producers in Kashmir. With no third person and no middle commission, you get prices far below typical retail for the same genuine quality.</p>
   <p>Every product is hand-picked and checked. No third grade, only pure, authentic quality, packed with care and delivered free across India.</p>
   <div class="pts"><div>No middlemen</div><div>Wholesale-rate prices</div><div>Genuine, authentic quality</div><div>No third grade</div></div>
 </div>
@@ -315,7 +340,8 @@ html{scroll-padding-top:112px}@media(max-width:699px){.sg .card:last-child:nth-c
 
 <a class="ig" href="https://www.instagram.com/riwaazekashmir" target="_blank" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1" fill="#fff" stroke="none"/></svg></a>
 <div id="toast"></div>
-<div class="zov" id="zov"><span class="zx" onclick="hide('zov')">&#10005;</span><span class="zp" onclick="zn(-1)">&#8249;</span><img id="zimg" onclick="this.classList.toggle('z')"><span class="zn" onclick="zn(1)">&#8250;</span><div id="zc"></div></div>
+<div class="ov" id="sov" style="align-items:flex-start;background:rgba(8,14,10,.96);z-index:170"><div style="width:100%;max-width:560px;margin:0 auto;padding:16px"><div style="display:flex;gap:10px;align-items:center"><input id="hq" class="nm" style="margin:0;border-radius:24px;padding:12px 16px" placeholder="Search saffron, walnuts, kahwa, shawls..." oninput="renderSres(this.value)" onkeydown="if(event.key==='Enter')searchGo()"><span class="zx2" onclick="hide('sov')">&#10005;</span></div><div id="sres" style="margin-top:14px"></div><div class="add" style="margin-top:12px;padding:11px" onclick="searchGo()">SEE ALL RESULTS</div></div></div>
+<div class="zov" id="zov"><span class="zx" onclick="hide('zov')">&#10005;</span><span class="zp" onclick="zn(-1)">&#8249;</span><img id="zimg" onclick="this.classList.toggle('z')"><span class="zn" onclick="zn(1)">&#8250;</span><div id="zc"></div><div id="zt"></div></div>
 <div class="pg" id="pp"><div class="pgi" id="ppc"></div></div>
 <div class="ov" id="rvov" style="z-index:150"><div class="modal">
   <h4>Share your experience</h4>
@@ -328,7 +354,7 @@ html{scroll-padding-top:112px}@media(max-width:699px){.sg .card:last-child:nth-c
   <div class="cancel" onclick="hide('rvov')">Cancel</div>
 </div></div>
 
-<div class="cbar" id="cbar" onclick="toggleCart()"><span id="cbn"></span><b>View cart</b></div>
+<div class="cbar" id="cbar"><span id="cbn" onclick="toggleCart()"></span><div class="cbb"><b onclick="toggleCart()">View cart</b><b class="co" onclick="showCheckout()">Checkout &rarr;</b></div></div>
 <div class="ov" id="pol" style="z-index:160" onclick="if(event.target===this)hide('pol')"><div class="modal" style="max-width:420px"><h4 id="pt"></h4><div id="pb" style="font-size:13px;line-height:1.7;color:var(--mute)"></div><div class="cancel" onclick="hide('pol')">Close</div></div></div>
 <div class="ov" id="cartov" onclick="if(event.target===this)toggleCart()">
   <div class="drawer">
@@ -385,10 +411,16 @@ const P=[
 {id:'kahwa',c:'Honey & Tea',n:'Kashmiri Kahwa (Ready to Make)',i:['kahwa-1'],s:[['150g',299],['250g',599,780]],d:'Traditional Kashmiri kahwa mix, ready to brew. Just add hot water for a warming cup.'},
 {id:'noon',c:'Honey & Tea',n:'Kashmiri Noon Chai',i:['noon-1'],s:[['Pack',499]],d:'The classic pink salt tea of Kashmir, ready to prepare the traditional way.'},
 {id:'shila',c:'Wellness',n:'Himalayan Shilajit',i:['shilajit-1'],s:[['20g',999]],d:'Himalayan shilajit resin in a 20g jar.'},
-{id:'combo',c:'Combos & Gifts',n:'Kashmir Treasure Combo (Walnut Kernels, Badam, Pista 250g, Saffron 1g, Honey 250ml)',i:['saffron-1','walnut-1','honey-1','kahwa-1'],col:1,s:[['Combo',1599,2145]],d:'Five of our best sellers in one combo, ready to gift.'},
-{id:'winter',c:'Combos & Gifts',n:'Winter Kahwa Set (Kahwa 150g, Saffron 1g, Honey 250ml)',i:['kahwa-1','saffron-1','honey-1','noon-1'],col:1,s:[['Set',999,1097]],d:'Everything for a perfect cup of Kashmiri kahwa.'},
-{id:'wed',c:'Combos & Gifts',n:'Riwaaz Wedding Collection',i:['wedding-1'],s:[['Simple',2999],['Customized',3299,0,1]],d:'A premium dry fruit collection for weddings and celebrations.'}
+{id:'combo',c:'Combos & Gifts',n:'Kashmir Treasure Combo (Walnut Kernels, Badam, Pista 250g, Saffron 1g, Honey 250ml)',i:['saffron-1','walnut-1','honey-1','kahwa-1'],col:1,s:[['Combo',1799,2145]],d:'Five of our best sellers in one combo, ready to gift.'},
+{id:'winter',c:'Combos & Gifts',n:'Winter Kahwa Set (Kahwa 250g, Saffron 1g, Honey 500ml)',i:['kahwa-1','saffron-1','honey-1'],col:1,s:[['Set',1199,1647]],d:'Everything for a perfect cup of Kashmiri kahwa: kahwa, saffron and honey together.'},
+{id:'sh1',c:'Kashmiri Shawls',hd:1,n:'Shahi Kashmiri Paisley Shawl',i:['black-1','black-2'],s:[['1 shawl',1399,3500]],d:'Rich black shawl with detailed multicolour paisley work and a striped woven border.'},
+{id:'sh2',c:'Kashmiri Shawls',n:'Midnight Floral Paisley',i:['hero-shawl','shawl-1','shawl-2','shawl-3'],s:[['1 shawl',499]],d:'Dark base with multicolour floral paisley and a rich woven border.'},
+{id:'sh3',c:'Kashmiri Shawls',n:'Black Copper & Silver Embroidery',i:['blk-1','blk-2','blk-3','blk-4'],s:[['1 shawl',699]],d:'Black shawl with intricate copper and silver embroidered medallions.'},
+{id:'sh4',c:'Kashmiri Shawls',n:'Navy Paisley',i:['navy-1','navy-2'],s:[['1 shawl',499]],d:'Deep navy with colourful paisley and a patterned border.'},
+{id:'sh5',c:'Kashmiri Shawls',n:'Ivory Floral Embroidery',i:['ivf-1'],s:[['1 shawl',1299]],d:'Soft ivory shawl with delicate multicolour floral embroidery.'},
+{id:'sh6',c:'Kashmiri Shawls',n:'Ivory & Gold Paisley',i:['ivg-1'],s:[['1 shawl',1699]],d:'Ivory shawl with golden paisley border work.'}
 ];
+const SHAWL='Kashmiri Shawls';
 const sel={},qty={};let cat='All',group=null,q='',cart=[],coupon=null;
 const $=id=>document.getElementById(id);
 const off=(p,m)=>m>p?Math.round((m-p)/m*100):0;
@@ -406,7 +438,15 @@ noon:{w:'The classic pink salt tea of Kashmir.',g:['A traditional Kashmiri drink
 shila:{w:'Himalayan shilajit resin in a 20g jar.',g:['Traditionally taken as a daily supplement','Use only as directed on the pack','Consult a doctor if you have a health condition'],u:'Follow the usage directions on the pack.'},
 combo:{w:'Five of our best sellers in one gift-ready combo.',g:['Priced lower than buying each separately','Great variety in one box','Ideal for gifting'],u:'Gift it, or enjoy a bit of everything yourself.'},
 winter:{w:'Everything for a perfect cup of Kashmiri kahwa.',g:['Kahwa, saffron and honey together','Priced lower than buying separately','Warm and comforting'],u:'Brew kahwa, add 2 saffron threads and a spoon of honey.'},
-wed:{w:'A premium dry fruit collection for weddings and celebrations.',g:['Customised option with your names','Premium gifting packaging','Free delivery across India'],u:'Order early for big events. For bulk needs, message us on WhatsApp.'}};
+
+};
+const BEN2={
+sh1:{w:'A bold black shawl with detailed multicolour paisley and a striped woven border.',g:['Soft drape for shoulders, stoles and wraps','Detailed design with a finished border','Great for gifting'],u:'Fabric, size and care details: ask us on WhatsApp. Store folded in a dry place.'},
+sh2:{w:'Rich colours and detailed floral paisley with a woven border.',g:['Soft drape for shoulders, stoles and wraps','Detailed design with a finished border','Great for gifting'],u:'Fabric, size and care details: ask us on WhatsApp. Store folded in a dry place.'},
+sh3:{w:'Black shawl with copper and silver embroidered medallions.',g:['Soft drape for shoulders, stoles and wraps','Detailed design with a finished border','Great for gifting'],u:'Fabric, size and care details: ask us on WhatsApp. Store folded in a dry place.'},
+sh4:{w:'Deep navy with colourful paisley and a patterned border.',g:['Soft drape for shoulders, stoles and wraps','Detailed design with a finished border','Great for gifting'],u:'Fabric, size and care details: ask us on WhatsApp. Store folded in a dry place.'},
+sh5:{w:'Soft ivory with delicate multicolour floral embroidery.',g:['Soft drape for shoulders, stoles and wraps','Detailed design with a finished border','Great for gifting'],u:'Fabric, size and care details: ask us on WhatsApp. Store folded in a dry place.'},
+sh6:{w:'Ivory with golden paisley border work.',g:['Soft drape for shoulders, stoles and wraps','Detailed design with a finished border','Great for gifting'],u:'Fabric, size and care details: ask us on WhatsApp. Store folded in a dry place.'}};Object.assign(BEN,BEN2);
 const POL={ship:['Shipping','Free delivery across India. Orders are packed within 1-2 working days and usually arrive in 5-8 working days. You get a tracking link once shipped. Track anytime with "Track order".'],
 ret:['Returns & refunds','Because these are food products, we cannot take back opened packs. If an item arrives damaged or wrong, message us on WhatsApp within 48 hours with a photo or video and we will replace it or refund you. Refunds go back to the original payment method in 5-7 working days.'],
 priv:['Privacy','We collect your name, phone, address and (optionally) email only to deliver your order and support you. Payments are handled by Razorpay, and we never see or store your card details. We do not sell your data.'],
@@ -415,13 +455,15 @@ contact:['Contact us','Riwaaz-e-Kashmir, Srinagar, Kashmir. WhatsApp and phone: 
 
 const live=()=>new Date()<new Date('2026-11-09');
 function cpn(){return coupon==='WELCOME'?'WELCOME':(coupon==='DIWALI'&&live()?'DIWALI':null)}
+const COMBO_EX=['combo','winter','sample'];
+function comboInfo(){const el=cart.filter(i=>!COMBO_EX.includes(i.id)),ids=new Set(el.map(i=>i.id)),esub=el.reduce((a,i)=>a+i.p*i.q,0);return {n:ids.size,off:ids.size>=3?Math.round(esub*0.05):0}}
 function calc(){
-  const sub=cart.reduce((a,i)=>a+i.p*i.q,0),c=cpn(),ship=(!sub||sub>=FREE_SHIP||c==='WELCOME')?0:DELIVERY,gift=c==='DIWALI'&&sub>=GIFT_MIN;
-  let save=0;cart.forEach(i=>{if(i.m)save+=(i.m-i.p)*i.q});if(sub&&!ship)save+=DELIVERY;
-  return {sub,ship,gift,save,total:sub+ship,c}
+  const sub=cart.reduce((a,i)=>a+i.p*i.q,0),c=cpn(),ci=comboInfo(),ship=(!sub||sub>=FREE_SHIP||c==='WELCOME')?0:DELIVERY,gift=c==='DIWALI'&&sub>=GIFT_MIN;
+  let save=ci.off;cart.forEach(i=>{if(i.m)save+=(i.m-i.p)*i.q});if(sub&&!ship)save+=DELIVERY;
+  return {sub,ship,gift,save,disc:ci.off,total:sub-ci.off+ship,c,cn:ci.n}
 }
 function renderChips(){
-  const cs=['All',...new Set(P.map(p=>p.c))];
+  const cs=['All',...new Set(P.filter(p=>p.c!==SHAWL).map(p=>p.c))];
   $('chips').innerHTML=cs.map(c=>`<div class="chip ${c===cat&&!group?'on':''}" onclick="setCat('${c}')">${c}</div>`).join('');
 }
 function setCat(c){cat=c;group=null;renderChips();renderGrid()}
@@ -432,27 +474,33 @@ function media(p){
   return `<div class="gw"><div class="gal" onscroll="gs(this)">${im.join('')}</div>${p.i.length>1?`<span class="cnt">1/${p.i.length}</span>`:''}</div>`;
 }
 function gs(e){const n=e.children.length,k=Math.round(e.scrollLeft/e.clientWidth);e.parentNode.querySelector('.cnt').textContent=(k+1)+'/'+n}
-function badge(s){return s[2]&&s[2]>s[1]?`<em>${off(s[1],s[2])}% OFF</em><span class="sb">Save ${F(s[2]-s[1])}</span>`:''}
+function badge(s,p){return s[2]&&s[2]>s[1]?`${p&&p.hd?'<span class="hd">HEAVY DISCOUNT</span>':''}<em>${off(s[1],s[2])}% OFF</em><span class="sb">Save ${F(s[2]-s[1])}</span>`:''}
+function cardHtml(p){
+  const k=sel[p.id]||0,s=p.s[k],n=qty[p.id]||1;
+  return `<div class="card" onclick="cardClick(event,'${p.id}')">${media(p)}
+    <div class="cb">${p.tag?`<span class="bdg">${p.tag}</span>`:''}<h3>${p.n}</h3>
+    ${p.s.length>1?`<div class="sz">${p.s.map((x,j)=>`<span class="${j===k?'on':''}${OOS.includes(p.id+'|'+x[0])?' oos':''}" onclick="pick('${p.id}',${j})">${x[0]}</span>`).join('')}</div>`:''}
+    <div class="pr">${s[2]?`<s>${F(s[2])}</s>`:''}<b>${F(s[1])}</b>${badge(s,p)}</div>
+    ${s[3]?`<input class="nm" id="nm-${p.id}" placeholder="Name(s) to print on box">`:''}
+    <div class="act"><div class="qt"><i onclick="qd('${p.id}',-1)">&minus;</i><input value="${n}" inputmode="numeric" onchange="qset('${p.id}',this.value)"><i onclick="qd('${p.id}',1)">+</i></div><div class="add" onclick="addP('${p.id}')">ADD TO CART</div></div></div></div>`;
+}
 function renderGrid(){
   const ql=q.trim().toLowerCase();
-  $('grid').innerHTML=P.filter(p=>(group==='dry'?DRY.includes(p.c):(cat==='All'||p.c===cat))&&p.n.toLowerCase().includes(ql)).map(p=>{
-    const k=sel[p.id]||0,s=p.s[k],n=qty[p.id]||1;
-    return `<div class="card" onclick="cardClick(event,'${p.id}')">${media(p)}
-    <div class="cb">${p.tag?`<span class="bdg">${p.tag}</span>`:''}<h3>${p.n}</h3>
-    <div class="sz">${p.s.map((x,j)=>`<span class="${j===k?'on':''}${OOS.includes(p.id+'|'+x[0])?' oos':''}" onclick="pick('${p.id}',${j})">${x[0]}</span>`).join('')}</div>
-    <div class="pr">${s[2]?`<s>${F(s[2])}</s>`:''}<b>${F(s[1])}</b>${badge(s)}</div>
-    ${s[3]?`<input class="nm" id="nm-${p.id}" placeholder="Name(s) to print on box">`:''}
-    <div class="act"><div class="qt"><i onclick="qd('${p.id}',-1)">&minus;</i><input value="${n}" inputmode="numeric" onchange="qset('${p.id}',this.value)"><i onclick="qd('${p.id}',1)">+</i></div><div class="add" onclick="addP('${p.id}')">ADD TO CART</div></div></div></div>`}).join('')||'<p style="grid-column:1/-1;text-align:center;color:var(--mute);padding:20px">No products found.</p>';
+  $('grid').innerHTML=P.filter(p=>(p.c!==SHAWL||ql)&&(group==='dry'?DRY.includes(p.c):(cat==='All'||p.c===cat))&&p.n.toLowerCase().includes(ql)).map(cardHtml).join('')||'<p style="grid-column:1/-1;text-align:center;color:var(--mute);padding:20px">No products found. Try saffron, walnut, kahwa or shawl.</p>';
+  $('shawlgrid').innerHTML=P.filter(p=>p.c===SHAWL).map(cardHtml).join('');
 }
 function cardClick(e,id){if(e.target.closest('.sz,.act,.nm'))return;details(id)}
 function pick(id,j){sel[id]=j;renderGrid();if($('pp').classList.contains('on'))ppRender()}
 function qd(id,d){qty[id]=Math.min(20,Math.max(1,(qty[id]||1)+d));renderGrid();if($('pp').classList.contains('on'))ppRender()}
 function qset(id,v){qty[id]=Math.min(20,Math.max(1,parseInt(v)||1));renderGrid();if($('pp').classList.contains('on'))ppRender()}
-function doSearch(v){q=v;hide('pp');renderGrid();if(v.trim()){const r=$('shop').getBoundingClientRect();if(r.top>350||r.bottom<0)go('shop')}}
-function navCat(k){hide('pp');if(k==='shawl'){go('shawls');return}if(k==='dry'){cat='All';group='dry'}else{cat='Combos & Gifts';group=null}q='';$('hq').value='';renderChips();renderGrid();go('shop')}
+function openSearch(){$('sov').classList.add('on');$('hq').value='';renderSres('');setTimeout(()=>$('hq').focus(),50)}
+function renderSres(v){const ql=v.trim().toLowerCase();
+  $('sres').innerHTML=ql?(P.filter(p=>p.n.toLowerCase().includes(ql)||p.c.toLowerCase().includes(ql)).slice(0,8).map(p=>`<div class="sr" onclick="hide('sov');details('${p.id}')"><img src="${p.i.length?TH(p.i[0]):''}" alt=""><span>${p.n.split(' (')[0]}</span><b>${F(p.s[0][1])}</b></div>`).join('')||'<p style="color:var(--mute);padding:10px">No products found. Try saffron, walnut, kahwa or shawl.</p>'):'<div class="sch">'+['Saffron','Walnuts','Kahwa','Honey','Almonds','Shawl'].map(x=>`<span onclick="$('hq').value='${x}';renderSres('${x}')">${x}</span>`).join('')+'</div>'}
+function searchGo(){q=$('hq').value;hide('sov');hide('pp');renderGrid();go('shop')}
+function navCat(k){hide('pp');q='';if(k==='shawl'){go('shawls');return}if(k==='dry'){cat='All';group='dry'}else{cat='Combos & Gifts';group=null}q='';$('hq').value='';renderChips();renderGrid();go('shop')}
 let zL=[],zI=0,tx=0;
 function zoomList(l,i){zL=l;zI=i;zShow();$('zov').classList.add('on')}
-function zShow(){$('zimg').src=zL[zI];$('zimg').classList.remove('z');$('zc').textContent=zL.length>1?(zI+1)+' / '+zL.length:'';document.querySelectorAll('.zp,.zn').forEach(e=>e.style.display=zL.length>1?'block':'none')}
+function zShow(){$('zimg').src=zL[zI];$('zimg').classList.remove('z');$('zc').textContent=zL.length>1?(zI+1)+' / '+zL.length:'';document.querySelectorAll('.zp,.zn').forEach(e=>e.style.display=zL.length>1?'flex':'none');$('zt').innerHTML=zL.length>1?zL.map((u,i)=>`<img src="${u}" class="${i===zI?'on':''}" onclick="zI=${i};zShow()">`).join(''):''}
 function zn(d){zI=(zI+d+zL.length)%zL.length;zShow()}
 function zl(el){const a=[...el.parentNode.querySelectorAll('img')];zoomList(a.map(i=>i.dataset.f||i.src),a.indexOf(el))}
 $('zov').addEventListener('touchstart',e=>{tx=e.changedTouches[0].clientX},{passive:true});
@@ -466,10 +514,10 @@ function ppRender(){
   ${p.i.length?`<div class="pgg">${p.i.map((x,i)=>`<img src="${A(x)}" alt="${p.n}" ${i?'loading="lazy"':''} onclick="zl(this)">`).join('')}</div>`:'<div class="ph" style="height:240px">RK<small>Photo coming soon</small></div>'}
   <div class="pgb"><h2 class="serif" style="font-size:26px">${p.n}</h2><p style="color:var(--mute);margin:8px 0;line-height:1.6">${p.d}</p>
   <div class="sz" style="margin:12px 0">${p.s.map((x,j)=>`<span class="${j===k?'on':''}${OOS.includes(p.id+'|'+x[0])?' oos':''}" onclick="ppPick(${j})">${x[0]}</span>`).join('')}</div>
-  <div class="pr" style="margin-bottom:12px">${s[2]?`<s>${F(s[2])}</s>`:''}<b style="font-size:24px">${F(s[1])}</b>${badge(s)}</div>
+  <div class="pr" style="margin-bottom:12px">${s[2]?`<s>${F(s[2])}</s>`:''}<b style="font-size:24px">${F(s[1])}</b>${badge(s,p)}</div>
   ${s[3]?`<input class="nm" id="pn-${p.id}" placeholder="Name(s) to print on box" style="margin-bottom:10px">`:''}
   <div class="act" style="height:46px"><div class="qt"><i onclick="qd('${p.id}',-1)">&minus;</i><input value="${n}" inputmode="numeric" onchange="qset('${p.id}',this.value)"><i onclick="qd('${p.id}',1)">+</i></div><div class="add" onclick="addP('${p.id}')">ADD TO CART</div></div>
-  <p style="color:var(--mute);font-size:12px;margin-top:8px">Free delivery above ${F(FREE_SHIP)}. Arrives in 5-8 working days. Secure payment by Razorpay.</p>
+  ${p.c===SHAWL?'<p style="color:var(--mute);font-size:12px;margin-top:8px">Fabric, size and care: <a style="color:var(--gold)" target="_blank" href="https://wa.me/919149480384?text='+encodeURIComponent('Hi, please share fabric, size and care details for the '+p.n)+'">ask us on WhatsApp</a></p>':''}<p style="color:var(--mute);font-size:12px;margin-top:8px">Free delivery above ${F(FREE_SHIP)}. Arrives in 5-8 working days. Secure payment by Razorpay.</p>
   <h4>Why you'll love it</h4><p style="color:var(--mute);line-height:1.6">${B.w}</p>
   <h4>Good for you</h4><ul>${B.g.map(b=>`<li>${b}</li>`).join('')}</ul>
   ${B.u?`<h4>How to use</h4><p style="color:var(--mute);line-height:1.6">${B.u}</p>`:''}
@@ -501,7 +549,8 @@ function upd(){
   if(cart.length){
     if(c.sub<FREE_SHIP&&c.c!=='WELCOME')b+=`<div style="font-size:12px;color:var(--mute)">Add ${F(FREE_SHIP-c.sub)} more for FREE delivery</div><div class="pgs"><div style="width:${Math.min(100,c.sub/FREE_SHIP*100)}%"></div></div>`;
     if(c.c==='DIWALI'&&!c.gift)b+=`<div style="font-size:12px;color:var(--gold);margin-bottom:6px">Add ${F(GIFT_MIN-c.sub)} more to unlock your free Diwali gift</div>`;
-    b+=`<div class="row"><span>Item subtotal</span><span>${F(c.sub)}</span></div>
+    if(c.cn>0&&c.cn<3)b+=`<div style="font-size:12px;color:var(--gold);margin-bottom:6px">Make your own combo: add ${3-c.cn} more different product${3-c.cn>1?'s':''} for 5% off</div>`;
+    b+=`<div class="row"><span>Item subtotal</span><span>${F(c.sub)}</span></div>${c.disc?`<div class="row"><span>Your combo discount (5%)</span><b>-${F(c.disc)}</b></div>`:''}
     <div class="row"><span>Delivery fee</span><span>${c.ship?F(c.ship):`<s>${F(DELIVERY)}</s><b>FREE</b>`}</span></div>
     <div class="row"><span>Packaging &amp; quality check</span><b>FREE</b></div><div class="row"><span>Platform fee</span><b>FREE</b></div>
     ${c.gift?'<div class="row"><span>\uD83C\uDF81 Free Diwali gift (kahwa sachet)</span><b>FREE</b></div>':''}
@@ -580,12 +629,7 @@ const SHAWLS=[
 {n:'Ivory Floral Embroidery',i:['ivf-1'],d:'Soft ivory shawl with delicate multicolour floral embroidery.'},
 {n:'Ivory & Gold Paisley',i:['ivg-1'],d:'Ivory shawl with golden paisley border work.'}];
 
-function renderShawls(){
-  $('shawlgrid').innerHTML=SHAWLS.map(s=>`<div class="card"><div class="gw"><div class="gal" onscroll="gs(this)">${s.i.map(n=>`<img src="${TH(n)}" data-f="${A(n)}" alt="${s.n}" width="600" height="450" loading="lazy" decoding="async" onclick="zl(this)">`).join('')}</div>${s.i.length>1?`<span class="cnt">1/${s.i.length}</span>`:''}</div>
-    <div class="cb" style="text-align:left"><h3>${s.n}</h3><p style="color:var(--mute);font-size:12px;line-height:1.5">${s.d}</p><div class="pr"><b style="font-size:13px">Price on request</b></div>
-    <a class="add" href="https://wa.me/919149480384?text=${encodeURIComponent('Hi, I am interested in the '+s.n+' shawl. Please share the price.')}" target="_blank" style="text-decoration:none">ENQUIRE ON WHATSAPP</a></div></div>`).join('');
-}
-renderShawls();
+function renderShawls(){}
 try{const s=JSON.parse(localStorage.getItem('rk_cart')||'{}');if(s.cart&&s.cart.length&&s.cart.every(i=>i.id&&i.sz!==undefined)){cart=s.cart;coupon=s.c==='WELCOME'||s.c==='DIWALI'?s.c:null}}catch(e){}
 renderChips();renderGrid();upd();
 </script>
