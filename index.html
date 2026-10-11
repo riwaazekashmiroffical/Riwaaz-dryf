@@ -166,9 +166,7 @@ html{scroll-padding-top:112px}@media(max-width:699px){.sg .card:last-child:nth-c
 </style>
 <script src="https://checkout.razorpay.com/v1/checkout.js" defer></script>
 <script>
-document.addEventListener('error',function(e){var t=e.target;if(!t||t.tagName!=='IMG'||!t.closest)return;var g=t.closest('.gal,.col,.pgg');if(!g)return;
-if(t.dataset.f&&!t.dataset.tried&&t.getAttribute('src')!==t.dataset.f){t.dataset.tried=1;t.src=t.dataset.f;return}
-var w=g.parentNode;t.remove();var c=w&&w.querySelector('.cnt');if(c){var n=g.children.length;if(n<2)c.remove();else c.textContent='1/'+n}},true);
+document.addEventListener('error',function(e){var t=e.target;if(t&&t.tagName==='IMG'&&t.dataset&&t.dataset.f&&!t.dataset.tried&&t.getAttribute('src')!==t.dataset.f){t.dataset.tried=1;t.src=t.dataset.f}},true);
 </script>
 </head>
 <body>
