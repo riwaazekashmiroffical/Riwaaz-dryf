@@ -4,8 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Pure Kashmiri saffron, walnut kernels, almonds, honey, kahwa and shawls. Direct from Kashmir with free delivery across India."><meta property="og:title" content="Riwaaz-e-Kashmir | Kashmiri Saffron, Shawls & Dry Fruits"><meta property="og:description" content="Genuine Kashmiri products direct from Kashmir. Free delivery across India."><link rel="preload" as="image" href="images/hero-shawl.webp"><title>Riwaaz-e-Kashmir | Kashmiri Saffron, Shawls & Dry Fruits</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Jost:wght@300;400;500&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Jost:wght@300;400;500&display=swap"></noscript>
+<link rel="preload" as="image" href="images/hero-shawl.webp" fetchpriority="high">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Jost:wght@300;400;500&display=swap');
 :root{--bg:#0f1a13;--bg2:#14201a;--gold:#c9a961;--ivory:#f0ece2;--mute:#a8a89c;--red:#e5484d}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Jost',sans-serif;background:var(--bg);color:var(--ivory);font-size:14px}
@@ -152,12 +156,24 @@ html{scroll-padding-top:112px}@media(max-width:699px){.sg .card:last-child:nth-c
 .cbar{cursor:default!important}
 .hd{display:inline-block;background:var(--red);color:#fff;font-size:10px;font-weight:600;letter-spacing:.5px;padding:2px 6px;border-radius:3px;margin-right:4px}
 .col img:last-child:nth-child(odd){grid-column:1/-1;height:75px}
+.col.c2 img{height:150px}.col.c2 img:last-child:nth-child(odd){grid-column:auto;height:150px}
+.rib{position:absolute;left:8px;top:8px;z-index:2;background:var(--gold);color:var(--bg);font-size:10px;font-weight:600;letter-spacing:.8px;padding:3px 8px;border-radius:3px;pointer-events:none}
+.bd{font-size:11px;color:var(--mute);line-height:1.7;margin:4px 0 2px}.bd b{color:var(--ivory);font-weight:500}.bd span{white-space:nowrap;display:inline-block}.bd span+span:before{content:"+ ";color:var(--gold)}.bd .eq{color:var(--gold);margin-top:2px}.bd .eq s{color:var(--red)}
+.soon{margin:22px 0}.soon .choc{margin:0 14px 14px}
+.choc.cl{border-color:#6a3550;background:linear-gradient(160deg,#2b1220,#12070d)}.choc.cl h2{color:#ecc9d6}.choc.cl p{color:#c4a3b1}
+@media(min-width:760px){.soon{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:22px 14px}.soon .choc{margin:0}}
+.wa{width:50px;height:50px}.wa svg{width:27px;height:27px}.ig{width:42px;height:42px}.hasbar .wa{bottom:78px}.hasbar .ig{bottom:134px}
 </style>
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script src="https://checkout.razorpay.com/v1/checkout.js" defer></script>
+<script>
+document.addEventListener('error',function(e){var t=e.target;if(!t||t.tagName!=='IMG'||!t.closest)return;var g=t.closest('.gal,.col,.pgg');if(!g)return;
+if(t.dataset.f&&!t.dataset.tried&&t.getAttribute('src')!==t.dataset.f){t.dataset.tried=1;t.src=t.dataset.f;return}
+var w=g.parentNode;t.remove();var c=w&&w.querySelector('.cnt');if(c){var n=g.children.length;if(n<2)c.remove();else c.textContent='1/'+n}},true);
+</script>
 </head>
 <body>
 
-<div class="strip"><div>100% AUTHENTIC &nbsp;|&nbsp; DIRECT FROM KASHMIR &nbsp;|&nbsp; FAST DELIVERY ACROSS INDIA &nbsp;•&nbsp; CODE WELCOME: FREE SHIPPING &nbsp;•&nbsp; CODE DIWALI: FREE GIFT ON ORDERS ABOVE ₹1,499 &nbsp;•&nbsp; 100% AUTHENTIC &nbsp;|&nbsp; DIRECT FROM KASHMIR</div></div>
+<div class="strip"><div>100% AUTHENTIC &nbsp;|&nbsp; DIRECT FROM KASHMIR &nbsp;|&nbsp; FAST DELIVERY ACROSS INDIA &nbsp;•&nbsp; FREE DELIVERY ON HONEY &nbsp;•&nbsp; CODE WELCOME: FREE SHIPPING &nbsp;•&nbsp; CODE DIWALI: FREE GIFT ON ORDERS ABOVE ₹1,499 &nbsp;•&nbsp; 100% AUTHENTIC &nbsp;|&nbsp; DIRECT FROM KASHMIR</div></div>
 
 <div class="navw"><div class="nav">
   <b class="brand serif" onclick="window.scrollTo(0,0)">Riwaaz-e-Kashmir</b>
@@ -183,7 +199,7 @@ html{scroll-padding-top:112px}@media(max-width:699px){.sg .card:last-child:nth-c
   <small>THE SHAWL ATELIER</small>
   <h2 class="serif">Kashmiri Shawls</h2>
   <p>Heritage fabrics and traditional designs from the valley, made to be worn and treasured.</p>
-  <div class="sg" id="shawlgrid"><div class="card" onclick="cardClick(event,'sh1')"><div class="gw"><div class="gal" onscroll="gs(this)"><img src="images/t-black-1.webp" data-f="images/black-1.webp" alt="Shahi Kashmiri Paisley Shawl" width="600" height="450" loading="lazy" decoding="async"><img src="images/t-black-2.webp" data-f="images/black-2.webp" alt="Shahi Kashmiri Paisley Shawl" width="600" height="450" loading="lazy" decoding="async"></div><span class="cnt">1/2</span></div>
+  <div class="sg" id="shawlgrid"><div class="card" onclick="cardClick(event,'sh1')"><div class="gw"><div class="gal" onscroll="gs(this)"><img src="images/t-shahi-1.webp" data-f="images/shahi-1.webp" alt="Shahi Kashmiri Paisley Shawl" width="600" height="450" decoding="async"><img src="images/t-black-1.webp" data-f="images/black-1.webp" alt="Shahi Kashmiri Paisley Shawl" width="600" height="450" loading="lazy" decoding="async"><img src="images/t-black-2.webp" data-f="images/black-2.webp" alt="Shahi Kashmiri Paisley Shawl" width="600" height="450" loading="lazy" decoding="async"></div><span class="cnt">1/3</span></div>
     <div class="cb"><h3>Shahi Kashmiri Paisley Shawl</h3>
     
     <div class="pr"><s>₹3,500</s><b>₹1,399</b><span class="hd">HEAVY DISCOUNT</span><em>60% OFF</em><span class="sb">Save ₹2,101</span></div>
@@ -259,7 +275,7 @@ html{scroll-padding-top:112px}@media(max-width:699px){.sg .card:last-child:nth-c
     <div class="act"><div class="qt"><i onclick="qd('saffron',-1)">−</i><input value="1" inputmode="numeric" onchange="qset('saffron',this.value)"><i onclick="qd('saffron',1)">+</i></div><div class="add" onclick="addP('saffron')">ADD TO CART</div></div></div></div><div class="card" onclick="cardClick(event,'honey')"><div class="gw"><div class="gal" onscroll="gs(this)"><img src="images/t-honey-1.webp" data-f="images/honey-1.webp" alt="Pure Raw Kashmiri Honey" width="600" height="450" loading="lazy" decoding="async"></div></div>
     <div class="cb"><h3>Pure Raw Kashmiri Honey</h3>
     <div class="sz"><span class="on" onclick="pick('honey',0)">250ml</span><span class="" onclick="pick('honey',1)">500ml</span><span class="" onclick="pick('honey',2)">1kg jar</span></div>
-    <div class="pr"><b>₹299</b></div>
+    <div class="pr"><b>₹399</b></div>
     
     <div class="act"><div class="qt"><i onclick="qd('honey',-1)">−</i><input value="1" inputmode="numeric" onchange="qset('honey',this.value)"><i onclick="qd('honey',1)">+</i></div><div class="add" onclick="addP('honey')">ADD TO CART</div></div></div></div><div class="card" onclick="cardClick(event,'kahwa')"><div class="gw"><div class="gal" onscroll="gs(this)"><img src="images/t-kahwa-1.webp" data-f="images/kahwa-1.webp" alt="Kashmiri Kahwa (Ready to Make)" width="600" height="450" loading="lazy" decoding="async"></div></div>
     <div class="cb"><h3>Kashmiri Kahwa (Ready to Make)</h3>
@@ -276,24 +292,32 @@ html{scroll-padding-top:112px}@media(max-width:699px){.sg .card:last-child:nth-c
     
     <div class="pr"><b>₹999</b></div>
     
-    <div class="act"><div class="qt"><i onclick="qd('shila',-1)">−</i><input value="1" inputmode="numeric" onchange="qset('shila',this.value)"><i onclick="qd('shila',1)">+</i></div><div class="add" onclick="addP('shila')">ADD TO CART</div></div></div></div><div class="card" onclick="cardClick(event,'combo')"><div class="gw"><div class="col"><img src="images/t-saffron-1.webp" data-f="images/saffron-1.webp" alt="Kashmir Treasure Combo (Walnut Kernels, Badam, Pista 250g, Saffron 1g, Honey 250ml)" width="600" height="450" loading="lazy" decoding="async"><img src="images/t-walnut-1.webp" data-f="images/walnut-1.webp" alt="Kashmir Treasure Combo (Walnut Kernels, Badam, Pista 250g, Saffron 1g, Honey 250ml)" width="600" height="450" loading="lazy" decoding="async"><img src="images/t-honey-1.webp" data-f="images/honey-1.webp" alt="Kashmir Treasure Combo (Walnut Kernels, Badam, Pista 250g, Saffron 1g, Honey 250ml)" width="600" height="450" loading="lazy" decoding="async"><img src="images/t-kahwa-1.webp" data-f="images/kahwa-1.webp" alt="Kashmir Treasure Combo (Walnut Kernels, Badam, Pista 250g, Saffron 1g, Honey 250ml)" width="600" height="450" loading="lazy" decoding="async"></div></div>
-    <div class="cb"><h3>Kashmir Treasure Combo (Walnut Kernels, Badam, Pista 250g, Saffron 1g, Honey 250ml)</h3>
+    <div class="act"><div class="qt"><i onclick="qd('shila',-1)">−</i><input value="1" inputmode="numeric" onchange="qset('shila',this.value)"><i onclick="qd('shila',1)">+</i></div><div class="add" onclick="addP('shila')">ADD TO CART</div></div></div></div><div class="card" onclick="cardClick(event,'combo')"><div class="gw"><span class="rib">COMBO OFFER</span><div class="col c4"><img src="images/t-saffron-1.webp" data-f="images/saffron-1.webp" alt="Kashmir Treasure Combo (Walnut Kernels, Badam, Pista 250g, Saffron 1g, Honey 250ml)" width="600" height="450" loading="lazy" decoding="async"><img src="images/t-walnut-1.webp" data-f="images/walnut-1.webp" alt="Kashmir Treasure Combo (Walnut Kernels, Badam, Pista 250g, Saffron 1g, Honey 250ml)" width="600" height="450" loading="lazy" decoding="async"><img src="images/t-almond-1.webp" data-f="images/almond-1.webp" alt="Kashmir Treasure Combo (Walnut Kernels, Badam, Pista 250g, Saffron 1g, Honey 250ml)" width="600" height="450" loading="lazy" decoding="async"><img src="images/t-kahwa-1.webp" data-f="images/kahwa-1.webp" alt="Kashmir Treasure Combo (Walnut Kernels, Badam, Pista 250g, Saffron 1g, Honey 250ml)" width="600" height="450" loading="lazy" decoding="async"></div></div>
+    <div class="cb"><h3>Kashmir Treasure Combo (Walnut Kernels, Badam, Pista 250g, Saffron 1g, Honey 250ml)</h3><div class="bd"><span>Walnuts 250g <b>₹499</b></span><span>Badam 250g <b>₹349</b></span><span>Pista 250g <b>₹499</b></span><span>Saffron 1g <b>₹499</b></span><span>Honey 250ml <b>₹399</b></span><div class="eq">Bought separately <s>₹2,245</s></div></div>
     
-    <div class="pr"><s>₹2,145</s><b>₹1,799</b><em>16% OFF</em><span class="sb">Save ₹346</span></div>
+    <div class="pr"><s>₹2,245</s><b>₹1,799</b><em>20% OFF</em><span class="sb">Save ₹446</span></div>
     
-    <div class="act"><div class="qt"><i onclick="qd('combo',-1)">−</i><input value="1" inputmode="numeric" onchange="qset('combo',this.value)"><i onclick="qd('combo',1)">+</i></div><div class="add" onclick="addP('combo')">ADD TO CART</div></div></div></div><div class="card" onclick="cardClick(event,'winter')"><div class="gw"><div class="col"><img src="images/t-kahwa-1.webp" data-f="images/kahwa-1.webp" alt="Winter Kahwa Set (Kahwa 250g, Saffron 1g, Honey 500ml)" width="600" height="450" loading="lazy" decoding="async"><img src="images/t-saffron-1.webp" data-f="images/saffron-1.webp" alt="Winter Kahwa Set (Kahwa 250g, Saffron 1g, Honey 500ml)" width="600" height="450" loading="lazy" decoding="async"><img src="images/t-honey-1.webp" data-f="images/honey-1.webp" alt="Winter Kahwa Set (Kahwa 250g, Saffron 1g, Honey 500ml)" width="600" height="450" loading="lazy" decoding="async"></div></div>
-    <div class="cb"><h3>Winter Kahwa Set (Kahwa 250g, Saffron 1g, Honey 500ml)</h3>
+    <div class="act"><div class="qt"><i onclick="qd('combo',-1)">−</i><input value="1" inputmode="numeric" onchange="qset('combo',this.value)"><i onclick="qd('combo',1)">+</i></div><div class="add" onclick="addP('combo')">ADD TO CART</div></div></div></div><div class="card" onclick="cardClick(event,'winter')"><div class="gw"><span class="rib">COMBO OFFER</span><div class="col c2"><img src="images/t-kahwa-1.webp" data-f="images/kahwa-1.webp" alt="Winter Kahwa Set (Kahwa 250g, Saffron 1g, Honey 500ml)" width="600" height="450" loading="lazy" decoding="async"><img src="images/t-saffron-1.webp" data-f="images/saffron-1.webp" alt="Winter Kahwa Set (Kahwa 250g, Saffron 1g, Honey 500ml)" width="600" height="450" loading="lazy" decoding="async"></div></div>
+    <div class="cb"><h3>Winter Kahwa Set (Kahwa 250g, Saffron 1g, Honey 500ml)</h3><div class="bd"><span>Kahwa 250g <b>₹599</b></span><span>Saffron 1g <b>₹499</b></span><span>Honey 500ml <b>₹799</b></span><div class="eq">Bought separately <s>₹1,897</s></div></div>
     
-    <div class="pr"><s>₹1,647</s><b>₹1,199</b><em>27% OFF</em><span class="sb">Save ₹448</span></div>
+    <div class="pr"><s>₹1,897</s><b>₹1,699</b><em>10% OFF</em><span class="sb">Save ₹198</span></div>
     
     <div class="act"><div class="qt"><i onclick="qd('winter',-1)">−</i><input value="1" inputmode="numeric" onchange="qset('winter',this.value)"><i onclick="qd('winter',1)">+</i></div><div class="add" onclick="addP('winter')">ADD TO CART</div></div></div></div></div>
 </div>
 
+<div class="soon">
 <div class="choc">
   <small>COMING SOON</small>
   <h2 class="serif">Riwaaz-e-Kashmir Chocolates</h2>
   <p>Our own chocolates, made with Kashmiri essence and saffron. Be the first to know when they arrive.</p>
   <a class="btn" href="https://wa.me/919149480384?text=Hi%2C%20please%20notify%20me%20when%20Riwaaz-e-Kashmir%20chocolates%20launch" target="_blank">NOTIFY ME</a>
+</div>
+<div class="choc cl">
+  <small>COMING SOON</small>
+  <h2 class="serif">Riwaaz-e-Kashmir Clothes</h2>
+  <p>Ladies' suits and fabric, including Pakistani-style designs, with a Kashmiri touch. Be the first to know when they arrive.</p>
+  <a class="btn" href="https://wa.me/919149480384?text=Hi%2C%20please%20notify%20me%20when%20Riwaaz-e-Kashmir%20clothes%20launch" target="_blank" rel="noopener">NOTIFY ME</a>
+</div>
 </div>
 
 <div class="sec" id="reviews">
@@ -305,10 +329,9 @@ html{scroll-padding-top:112px}@media(max-width:699px){.sg .card:last-child:nth-c
 <div class="story">
   <small style="color:var(--gold);letter-spacing:4px;font-size:10px">OUR STORY</small>
   <h2 class="serif" style="font-size:28px;margin:8px 0 12px">An emerging brand, straight from Kashmir</h2>
-  <p>Riwaaz-e-Kashmir is a young brand built on one idea: genuine Kashmiri products at fair prices. We source directly, with no third person and no middle commission, so you pay wholesale-rate prices for genuine quality.</p>
-  <p>We buy directly from the manufacturers and producers in Kashmir. With no third person and no middle commission, you get prices far below typical retail for the same genuine quality.</p>
-  <p>Every product is hand-picked and checked. No third grade, only pure, authentic quality, packed with care and delivered free across India.</p>
-  <div class="pts"><div>No middlemen</div><div>Wholesale-rate prices</div><div>Genuine, authentic quality</div><div>No third grade</div></div>
+  <p>Riwaaz-e-Kashmir is a young brand built on one idea: genuine Kashmiri products at fair prices. We buy directly from the manufacturers and producers in Kashmir, with no third person and no middle commission, so you get wholesale-rate prices for the same genuine quality.</p>
+  <p>Every product is hand-picked and quality-checked before dispatch. Only pure, premium and authentic quality, packed with care and delivered across India, free above ₹999.</p>
+  <div class="pts"><div>No middlemen</div><div>Wholesale-rate prices</div><div>Genuine, authentic quality</div><div>Hand-picked premium grade</div></div>
 </div>
 
 <div class="why" style="margin-top:20px">
@@ -407,19 +430,20 @@ const P=[
 {id:'pista',c:'Pistachio & Cashew',n:'Shahi Pista',i:[],s:[['250g',499],['500g',949],['1kg',1799]],d:'Premium pistachios with a rich, buttery flavour.'},
 {id:'kaju',c:'Pistachio & Cashew',n:'Shahi Kaju',i:['cashew-1'],s:[['250g',299],['500g',599],['1kg',1150]],d:'Creamy, whole cashews with a naturally sweet taste.'},
 {id:'saffron',c:'Saffron',tag:'Most loved',n:'Kashmiri Saffron (Kesar / Zafran)',i:['saffron-1','saffron-2','saffron-3','saffron-4','saffron-5'],s:[['1g',499],['2g',998]],d:'Deep-red Kashmiri saffron threads with rich colour and aroma. A few strands go a long way.'},
-{id:'honey',c:'Honey & Tea',n:'Pure Raw Kashmiri Honey',i:['honey-1'],s:[['250ml',299],['500ml',549],['1kg jar',999]],d:'Raw, unprocessed honey from Kashmir, with a naturally thick texture.'},
+{id:'honey',c:'Honey & Tea',n:'Pure Raw Kashmiri Honey',i:['honey-1'],s:[['250ml',399],['500ml',799],['1kg jar',1600]],d:'Raw, unprocessed honey from Kashmir, with a naturally thick texture.'},
 {id:'kahwa',c:'Honey & Tea',n:'Kashmiri Kahwa (Ready to Make)',i:['kahwa-1'],s:[['150g',299],['250g',599,780]],d:'Traditional Kashmiri kahwa mix, ready to brew. Just add hot water for a warming cup.'},
 {id:'noon',c:'Honey & Tea',n:'Kashmiri Noon Chai',i:['noon-1'],s:[['Pack',499]],d:'The classic pink salt tea of Kashmir, ready to prepare the traditional way.'},
 {id:'shila',c:'Wellness',n:'Himalayan Shilajit',i:['shilajit-1'],s:[['20g',999]],d:'Himalayan shilajit resin in a 20g jar.'},
-{id:'combo',c:'Combos & Gifts',n:'Kashmir Treasure Combo (Walnut Kernels, Badam, Pista 250g, Saffron 1g, Honey 250ml)',i:['saffron-1','walnut-1','honey-1','kahwa-1'],col:1,s:[['Combo',1799,2145]],d:'Five of our best sellers in one combo, ready to gift.'},
-{id:'winter',c:'Combos & Gifts',n:'Winter Kahwa Set (Kahwa 250g, Saffron 1g, Honey 500ml)',i:['kahwa-1','saffron-1','honey-1'],col:1,s:[['Set',1199,1647]],d:'Everything for a perfect cup of Kashmiri kahwa: kahwa, saffron and honey together.'},
-{id:'sh1',c:'Kashmiri Shawls',hd:1,n:'Shahi Kashmiri Paisley Shawl',i:['black-1','black-2'],s:[['1 shawl',1399,3500]],d:'Rich black shawl with detailed multicolour paisley work and a striped woven border.'},
+{id:'combo',c:'Combos & Gifts',n:'Kashmir Treasure Combo (Walnut Kernels, Badam, Pista 250g, Saffron 1g, Honey 250ml)',i:['saffron-1','walnut-1','almond-1','kahwa-1'],col:1,bd:[['walnut',1,'Walnuts 250g'],['badam',0,'Badam 250g'],['pista',0,'Pista 250g'],['saffron',0,'Saffron 1g'],['honey',0,'Honey 250ml']],s:[['Combo',1799,2245]],d:'Five of our best sellers in one combo, ready to gift.'},
+{id:'winter',c:'Combos & Gifts',n:'Winter Kahwa Set (Kahwa 250g, Saffron 1g, Honey 500ml)',i:['kahwa-1','saffron-1'],col:1,bd:[['kahwa',1,'Kahwa 250g'],['saffron',0,'Saffron 1g'],['honey',1,'Honey 500ml']],s:[['Set',1699,1897]],d:'Everything for a perfect cup of Kashmiri kahwa: kahwa, saffron and honey together.'},
+{id:'sh1',c:'Kashmiri Shawls',hd:1,n:'Shahi Kashmiri Paisley Shawl',i:['shahi-1','black-1','black-2'],s:[['1 shawl',1399,3500]],d:'Rich black shawl with detailed multicolour paisley work and a striped woven border.'},
 {id:'sh2',c:'Kashmiri Shawls',n:'Midnight Floral Paisley',i:['hero-shawl','shawl-1','shawl-2','shawl-3'],s:[['1 shawl',499]],d:'Dark base with multicolour floral paisley and a rich woven border.'},
 {id:'sh3',c:'Kashmiri Shawls',n:'Black Copper & Silver Embroidery',i:['blk-1','blk-2','blk-3','blk-4'],s:[['1 shawl',699]],d:'Black shawl with intricate copper and silver embroidered medallions.'},
 {id:'sh4',c:'Kashmiri Shawls',n:'Navy Paisley',i:['navy-1','navy-2'],s:[['1 shawl',499]],d:'Deep navy with colourful paisley and a patterned border.'},
 {id:'sh5',c:'Kashmiri Shawls',n:'Ivory Floral Embroidery',i:['ivf-1'],s:[['1 shawl',1299]],d:'Soft ivory shawl with delicate multicolour floral embroidery.'},
 {id:'sh6',c:'Kashmiri Shawls',n:'Ivory & Gold Paisley',i:['ivg-1'],s:[['1 shawl',1699]],d:'Ivory shawl with golden paisley border work.'}
 ];
+P.forEach(p=>{if(p.bd)p.s[0][2]=p.bd.reduce((a,b)=>a+P.find(x=>x.id===b[0]).s[b[1]][1],0)});
 const SHAWL='Kashmiri Shawls';
 const sel={},qty={};let cat='All',group=null,q='',cart=[],coupon=null;
 const $=id=>document.getElementById(id);
@@ -458,9 +482,9 @@ function cpn(){return coupon==='WELCOME'?'WELCOME':(coupon==='DIWALI'&&live()?'D
 const COMBO_EX=['combo','winter','sample'];
 function comboInfo(){const el=cart.filter(i=>!COMBO_EX.includes(i.id)),ids=new Set(el.map(i=>i.id)),esub=el.reduce((a,i)=>a+i.p*i.q,0);return {n:ids.size,off:ids.size>=3?Math.round(esub*0.05):0}}
 function calc(){
-  const sub=cart.reduce((a,i)=>a+i.p*i.q,0),c=cpn(),ci=comboInfo(),ship=(!sub||sub>=FREE_SHIP||c==='WELCOME')?0:DELIVERY,gift=c==='DIWALI'&&sub>=GIFT_MIN;
+  const sub=cart.reduce((a,i)=>a+i.p*i.q,0),c=cpn(),ci=comboInfo(),hh=cart.some(i=>i.id==='honey'),ship=(!sub||sub>=FREE_SHIP||c==='WELCOME'||hh)?0:DELIVERY,gift=c==='DIWALI'&&sub>=GIFT_MIN;
   let save=ci.off;cart.forEach(i=>{if(i.m)save+=(i.m-i.p)*i.q});if(sub&&!ship)save+=DELIVERY;
-  return {sub,ship,gift,save,disc:ci.off,total:sub-ci.off+ship,c,cn:ci.n}
+  return {sub,ship,gift,save,disc:ci.off,total:sub-ci.off+ship,c,cn:ci.n,hh}
 }
 function renderChips(){
   const cs=['All',...new Set(P.filter(p=>p.c!==SHAWL).map(p=>p.c))];
@@ -470,15 +494,16 @@ function setCat(c){cat=c;group=null;renderChips();renderGrid()}
 function media(p){
   const im=p.i.map(n=>`<img src="${TH(n)}" data-f="${A(n)}" alt="${p.n}" width="600" height="450" loading="lazy" decoding="async">`);
   if(!p.i.length)return '<div class="gw"><div class="ph">RK<small>Photo coming soon</small></div></div>';
-  if(p.col)return `<div class="gw"><div class="col">${im.join('')}</div></div>`;
+  if(p.col)return `<div class="gw"><span class="rib">COMBO OFFER</span><div class="col c${p.i.length}">${im.join('')}</div></div>`;
   return `<div class="gw"><div class="gal" onscroll="gs(this)">${im.join('')}</div>${p.i.length>1?`<span class="cnt">1/${p.i.length}</span>`:''}</div>`;
 }
 function gs(e){const n=e.children.length,k=Math.round(e.scrollLeft/e.clientWidth);e.parentNode.querySelector('.cnt').textContent=(k+1)+'/'+n}
 function badge(s,p){return s[2]&&s[2]>s[1]?`${p&&p.hd?'<span class="hd">HEAVY DISCOUNT</span>':''}<em>${off(s[1],s[2])}% OFF</em><span class="sb">Save ${F(s[2]-s[1])}</span>`:''}
+function bdHtml(p){if(!p.bd)return '';const s=p.s[0];return `<div class="bd">${p.bd.map(b=>`<span>${b[2]} <b>${F(P.find(x=>x.id===b[0]).s[b[1]][1])}</b></span>`).join('')}<div class="eq">Bought separately <s>${F(s[2])}</s></div></div>`}
 function cardHtml(p){
   const k=sel[p.id]||0,s=p.s[k],n=qty[p.id]||1;
   return `<div class="card" onclick="cardClick(event,'${p.id}')">${media(p)}
-    <div class="cb">${p.tag?`<span class="bdg">${p.tag}</span>`:''}<h3>${p.n}</h3>
+    <div class="cb">${p.tag?`<span class="bdg">${p.tag}</span>`:''}<h3>${p.n}</h3>${bdHtml(p)}
     ${p.s.length>1?`<div class="sz">${p.s.map((x,j)=>`<span class="${j===k?'on':''}${OOS.includes(p.id+'|'+x[0])?' oos':''}" onclick="pick('${p.id}',${j})">${x[0]}</span>`).join('')}</div>`:''}
     <div class="pr">${s[2]?`<s>${F(s[2])}</s>`:''}<b>${F(s[1])}</b>${badge(s,p)}</div>
     ${s[3]?`<input class="nm" id="nm-${p.id}" placeholder="Name(s) to print on box">`:''}
@@ -514,14 +539,14 @@ function ppRender(){
   ${p.i.length?`<div class="pgg">${p.i.map((x,i)=>`<img src="${A(x)}" alt="${p.n}" ${i?'loading="lazy"':''} onclick="zl(this)">`).join('')}</div>`:'<div class="ph" style="height:240px">RK<small>Photo coming soon</small></div>'}
   <div class="pgb"><h2 class="serif" style="font-size:26px">${p.n}</h2><p style="color:var(--mute);margin:8px 0;line-height:1.6">${p.d}</p>
   <div class="sz" style="margin:12px 0">${p.s.map((x,j)=>`<span class="${j===k?'on':''}${OOS.includes(p.id+'|'+x[0])?' oos':''}" onclick="ppPick(${j})">${x[0]}</span>`).join('')}</div>
-  <div class="pr" style="margin-bottom:12px">${s[2]?`<s>${F(s[2])}</s>`:''}<b style="font-size:24px">${F(s[1])}</b>${badge(s,p)}</div>
+  <div class="pr" style="margin-bottom:12px">${s[2]?`<s>${F(s[2])}</s>`:''}<b style="font-size:24px">${F(s[1])}</b>${badge(s,p)}</div>${bdHtml(p)}
   ${s[3]?`<input class="nm" id="pn-${p.id}" placeholder="Name(s) to print on box" style="margin-bottom:10px">`:''}
   <div class="act" style="height:46px"><div class="qt"><i onclick="qd('${p.id}',-1)">&minus;</i><input value="${n}" inputmode="numeric" onchange="qset('${p.id}',this.value)"><i onclick="qd('${p.id}',1)">+</i></div><div class="add" onclick="addP('${p.id}')">ADD TO CART</div></div>
-  ${p.c===SHAWL?'<p style="color:var(--mute);font-size:12px;margin-top:8px">Fabric, size and care: <a style="color:var(--gold)" target="_blank" href="https://wa.me/919149480384?text='+encodeURIComponent('Hi, please share fabric, size and care details for the '+p.n)+'">ask us on WhatsApp</a></p>':''}<p style="color:var(--mute);font-size:12px;margin-top:8px">Free delivery above ${F(FREE_SHIP)}. Arrives in 5-8 working days. Secure payment by Razorpay.</p>
+  ${p.c===SHAWL?'<p style="color:var(--mute);font-size:12px;margin-top:8px">Fabric, size and care: <a style="color:var(--gold)" target="_blank" href="https://wa.me/919149480384?text='+encodeURIComponent('Hi, please share fabric, size and care details for the '+p.n)+'">ask us on WhatsApp</a></p>':''}<p style="color:var(--mute);font-size:12px;margin-top:8px">${p.id==='honey'?'Free delivery on all honey orders.':'Free delivery above '+F(FREE_SHIP)+'.'} Arrives in 5-8 working days. Secure payment by Razorpay.</p>
   <h4>Why you'll love it</h4><p style="color:var(--mute);line-height:1.6">${B.w}</p>
   <h4>Good for you</h4><ul>${B.g.map(b=>`<li>${b}</li>`).join('')}</ul>
   ${B.u?`<h4>How to use</h4><p style="color:var(--mute);line-height:1.6">${B.u}</p>`:''}
-  <h4>Why order from us</h4><p style="color:var(--mute);line-height:1.6">Direct from Kashmir, no middlemen, genuine quality, no third grade.</p>
+  <h4>Why order from us</h4><p style="color:var(--mute);line-height:1.6">Direct from Kashmir, no middlemen, genuine quality, hand-picked premium grade.</p>
   <h4>You may also like</h4><div style="display:flex;gap:8px;flex-wrap:wrap">${rel.map(x=>`<span class="chip" onclick="details('${x.id}')">${x.n.split(' (')[0]}</span>`).join('')}</div>
   <h4>Customer reviews</h4>${rs.length?rs.map(r=>`<div class="rv" style="width:auto;margin-bottom:8px"><div class="stars">${'&#9733;'.repeat(r.r)}</div>${r.t}<small>${r.n}</small></div>`).join(''):'<p style="color:var(--mute)">No reviews yet. Be the first to share your experience.</p>'}
   <div class="add" style="margin-top:10px;padding:12px" onclick="openReview('${p.id}')">WRITE A REVIEW</div></div>`;
@@ -547,7 +572,7 @@ function upd(){
   $('smpw').innerHTML=cart.length?`<label class="smp"><input type="checkbox" ${has?'checked':''} onchange="toggleSample(this.checked)"><span>Add 0.5g Pure Kashmiri Saffron Sample Jar for just <b>+${F(SAMPLE)}</b> (retail value <s style="color:var(--red)">${F(SAMPLE_WORTH)}</s>)</span></label>`:'';
   let b='';
   if(cart.length){
-    if(c.sub<FREE_SHIP&&c.c!=='WELCOME')b+=`<div style="font-size:12px;color:var(--mute)">Add ${F(FREE_SHIP-c.sub)} more for FREE delivery</div><div class="pgs"><div style="width:${Math.min(100,c.sub/FREE_SHIP*100)}%"></div></div>`;
+    if(c.sub<FREE_SHIP&&c.c!=='WELCOME'&&!c.hh)b+=`<div style="font-size:12px;color:var(--mute)">Add ${F(FREE_SHIP-c.sub)} more for FREE delivery</div><div class="pgs"><div style="width:${Math.min(100,c.sub/FREE_SHIP*100)}%"></div></div>`;
     if(c.c==='DIWALI'&&!c.gift)b+=`<div style="font-size:12px;color:var(--gold);margin-bottom:6px">Add ${F(GIFT_MIN-c.sub)} more to unlock your free Diwali gift</div>`;
     if(c.cn>0&&c.cn<3)b+=`<div style="font-size:12px;color:var(--gold);margin-bottom:6px">Make your own combo: add ${3-c.cn} more different product${3-c.cn>1?'s':''} for 5% off</div>`;
     b+=`<div class="row"><span>Item subtotal</span><span>${F(c.sub)}</span></div>${c.disc?`<div class="row"><span>Your combo discount (5%)</span><b>-${F(c.disc)}</b></div>`:''}
@@ -630,7 +655,7 @@ const SHAWLS=[
 {n:'Ivory & Gold Paisley',i:['ivg-1'],d:'Ivory shawl with golden paisley border work.'}];
 
 function renderShawls(){}
-try{const s=JSON.parse(localStorage.getItem('rk_cart')||'{}');if(s.cart&&s.cart.length&&s.cart.every(i=>i.id&&i.sz!==undefined)){cart=s.cart;coupon=s.c==='WELCOME'||s.c==='DIWALI'?s.c:null}}catch(e){}
+try{const s=JSON.parse(localStorage.getItem('rk_cart')||'{}');if(s.cart&&s.cart.length&&s.cart.every(i=>i.id&&i.sz!==undefined)){cart=s.cart.filter(i=>i.id==='sample'||(P.find(x=>x.id===i.id)&&P.find(x=>x.id===i.id).s[i.sz])).map(i=>{if(i.id==='sample')return i;const t=P.find(x=>x.id===i.id).s[i.sz];i.p=t[1];i.m=t[2]||0;return i});coupon=s.c==='WELCOME'||s.c==='DIWALI'?s.c:null}}catch(e){}
 renderChips();renderGrid();upd();
 </script>
 </body>
