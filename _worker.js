@@ -10,7 +10,7 @@ const normNo = s => { s = String(s || '').toUpperCase().replace(/\s+/g, ''); con
 async function byReceipt(env, no) { const d = await (await rz(env, '/orders?receipt=' + encodeURIComponent(no))).json(); return d && d.items && d.items[0]; }
 
 // ---- Prices (keep in sync with the website) ----
-const CATALOG = {"walnut": [["100g", 249], ["250g", 499], ["500g", 990], ["1kg", 1999]], "giftbox": [["Simple", 1200], ["Custom Box", 1499]], "mamra": [["250g", 499], ["500g", 990], ["1kg", 1950]], "badam": [["250g", 349], ["500g", 649], ["1kg", 1199]], "pista": [["250g", 499], ["500g", 949], ["1kg", 1799]], "kaju": [["250g", 299], ["500g", 599], ["1kg", 1150]], "saffron": [["1g", 499], ["2g", 998]], "honey": [["250ml", 399], ["500ml", 799], ["1kg jar", 1600]], "kahwa": [["150g", 299], ["250g", 599]], "noon": [["Pack", 499]], "shila": [["20g", 999]], "combo": [["Combo", 1799]], "winter": [["Set", 1699]], "sh1": [["1 shawl", 1399]], "sh2": [["1 shawl", 499]], "sh3": [["1 shawl", 699]], "sh4": [["1 shawl", 499]], "sh5": [["1 shawl", 1299]], "sh6": [["1 shawl", 1699]], "sample": [["0.5g", 149]]};
+const CATALOG = {"walnut": [["100g", 249], ["250g", 499], ["500g", 990], ["1kg", 1999]], "giftbox": [["Simple", 1200], ["Custom Box", 1499]], "mamra": [["250g", 499], ["500g", 990], ["1kg", 1950]], "badam": [["250g", 349], ["500g", 649], ["1kg", 1199]], "pista": [["250g", 499], ["500g", 949], ["1kg", 1799]], "kaju": [["250g", 299], ["500g", 599], ["1kg", 1150]], "saffron": [["1g", 499], ["2g", 998]], "honey": [["250ml", 299], ["500ml", 549], ["1kg jar", 999]], "kahwa": [["150g", 299], ["250g", 599]], "noon": [["Pack", 499]], "shila": [["20g", 999]], "combo": [["Combo", 1799]], "winter": [["Set", 1199]], "sh1": [["1 shawl", 1499]], "sh2": [["1 shawl", 499]], "sh3": [["1 shawl", 699]], "sh4": [["1 shawl", 499]], "sh5": [["1 shawl", 1299]], "sh6": [["1 shawl", 1699]], "sample": [["0.5g", 149]]};
 const FREE_SHIP = 999, DELIVERY = 70, GIFT_MIN = 1499, DIWALI_END = Date.parse('2026-11-09T00:00:00+05:30');
 function priceOrder(lines, coupon) {
   if (!Array.isArray(lines) || !lines.length || lines.length > 30) return null;
@@ -23,7 +23,7 @@ function priceOrder(lines, coupon) {
   }
   const combo = ids.size >= 3 ? Math.round(esub * 0.05) : 0; // make-your-own combo: 5% off with 3+ different products
   const c = String(coupon || '').toUpperCase(), welcome = c === 'WELCOME', diwali = c === 'DIWALI' && Date.now() < DIWALI_END;
-  const delivery = (sub >= FREE_SHIP || welcome || lines.some(l => l.id === 'honey')) ? 0 : DELIVERY; // free delivery on any cart with honey
+  const delivery = (sub >= FREE_SHIP || welcome) ? 0 : DELIVERY;
   return { total: sub - combo + delivery, gift: diwali && sub >= GIFT_MIN };
 }
 
