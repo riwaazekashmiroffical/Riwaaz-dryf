@@ -200,7 +200,7 @@ document.addEventListener('error',function(e){var t=e.target;if(t&&t.tagName==='
   <div class="sg" id="shawlgrid"><div class="card" onclick="cardClick(event,'sh1')"><div class="gw"><div class="gal" onscroll="gs(this)"><img src="images/t-shahi-1.webp" data-f="images/shahi-1.webp" alt="Shahi Kashmiri Paisley Shawl" width="600" height="450" decoding="async"></div></div>
     <div class="cb"><h3>Shahi Kashmiri Paisley Shawl</h3>
     
-    <div class="pr"><s>₹3,500</s><b>₹1,399</b><span class="hd">HEAVY DISCOUNT</span><em>60% OFF</em><span class="sb">Save ₹2,101</span></div>
+    <div class="pr"><s>₹3,500</s><b>₹1,499</b><span class="hd">HEAVY DISCOUNT</span><em>57% OFF</em><span class="sb">Save ₹2,001</span></div>
     
     <div class="act"><div class="qt"><i onclick="qd('sh1',-1)">−</i><input value="1" inputmode="numeric" onchange="qset('sh1',this.value)"><i onclick="qd('sh1',1)">+</i></div><div class="add" onclick="addP('sh1')">ADD TO CART</div></div></div></div><div class="card" onclick="cardClick(event,'sh2')"><div class="gw"><div class="gal" onscroll="gs(this)"><img src="images/t-hero-shawl.webp" data-f="images/hero-shawl.webp" alt="Midnight Floral Paisley" width="600" height="450" loading="lazy" decoding="async"><img src="images/t-shawl-1.webp" data-f="images/shawl-1.webp" alt="Midnight Floral Paisley" width="600" height="450" loading="lazy" decoding="async"><img src="images/t-shawl-2.webp" data-f="images/shawl-2.webp" alt="Midnight Floral Paisley" width="600" height="450" loading="lazy" decoding="async"><img src="images/t-shawl-3.webp" data-f="images/shawl-3.webp" alt="Midnight Floral Paisley" width="600" height="450" loading="lazy" decoding="async"></div><span class="cnt">1/4</span></div>
     <div class="cb"><h3>Midnight Floral Paisley</h3>
@@ -404,10 +404,13 @@ document.addEventListener('error',function(e){var t=e.target;if(t&&t.tagName==='
   </div>
 </div>
 
-<div class="ov" id="okov"><div class="modal"><h4>Order placed. Thank you!</h4>
+<div class="ov" id="okov"><div class="modal"><h4>Tohi chhu shukran! (Thank you!) 🙏😊</h4>
+<p style="text-align:center;color:var(--ivory);font-size:13.5px;line-height:1.6;margin-bottom:10px">From our Kashmir valley to your home, dispatching soon 💛</p>
+<p style="text-align:center;color:var(--gold);font-size:13px;font-weight:500;margin-bottom:10px">Your order is confirmed ✅</p>
 <p style="text-align:center;color:var(--mute);font-size:12.5px">Your order number</p>
 <p id="okno" style="text-align:center;font-size:26px;color:var(--gold);letter-spacing:2px;margin:6px 0 12px"></p>
 <p style="text-align:center;color:var(--mute);font-size:12.5px;line-height:1.6;margin-bottom:14px">Please save this number. You can track your order on this website anytime with your order number and phone number. We will also contact you on WhatsApp.</p>
+<p style="text-align:center;color:var(--mute);font-size:12.5px;line-height:1.6;margin-bottom:14px">When your parcel arrives, share a photo and tag us <b style="color:var(--gold)">@riwaazekashmir</b> on Instagram 📸</p>
 <a class="add" id="okwa" target="_blank" style="display:block;text-decoration:none;margin-bottom:8px">SEND ORDER NUMBER ON WHATSAPP</a><div class="add" style="padding:12px" onclick="openTrack()">TRACK MY ORDER</div><div class="cancel" onclick="hide('okov')">Close</div></div></div>
 <div class="ov" id="trov"><div class="modal"><h4>Track your order</h4>
 <input id="tn" class="nm" placeholder="Order number (like RK1A2B3C)"><input id="tp" class="nm" type="tel" placeholder="Phone number used for the order">
@@ -434,7 +437,7 @@ const P=[
 {id:'shila',c:'Wellness',n:'Himalayan Shilajit',i:['shilajit-1'],s:[['20g',999]],d:'Himalayan shilajit resin in a 20g jar.'},
 {id:'combo',c:'Combos & Gifts',n:'Kashmir Treasure Combo (Walnut Kernels, Badam, Pista 250g, Saffron 1g, Honey 250ml)',i:['saffron-1','walnut-1','almond-1','kahwa-1'],col:1,bd:[['walnut',1,'Walnuts 250g'],['badam',0,'Badam 250g'],['pista',0,'Pista 250g'],['saffron',0,'Saffron 1g'],['honey',0,'Honey 250ml']],s:[['Combo',1799,2245]],d:'Five of our best sellers in one combo, ready to gift.'},
 {id:'winter',c:'Combos & Gifts',n:'Winter Kahwa Set (Kahwa 250g, Saffron 1g, Honey 500ml)',i:['kahwa-1','saffron-1'],col:1,bd:[['kahwa',1,'Kahwa 250g'],['saffron',0,'Saffron 1g'],['honey',1,'Honey 500ml']],s:[['Set',1699,1897]],d:'Everything for a perfect cup of Kashmiri kahwa: kahwa, saffron and honey together.'},
-{id:'sh1',c:'Kashmiri Shawls',hd:1,n:'Shahi Kashmiri Paisley Shawl',i:['shahi-1'],s:[['1 shawl',1399,3500]],d:'Rich black shawl with detailed multicolour paisley work and a striped woven border.'},
+{id:'sh1',c:'Kashmiri Shawls',hd:1,n:'Shahi Kashmiri Paisley Shawl',i:['shahi-1'],s:[['1 shawl',1499,3500]],d:'Rich black shawl with detailed multicolour paisley work and a striped woven border.'},
 {id:'sh2',c:'Kashmiri Shawls',n:'Midnight Floral Paisley',i:['hero-shawl','shawl-1','shawl-2','shawl-3'],s:[['1 shawl',499]],d:'Dark base with multicolour floral paisley and a rich woven border.'},
 {id:'sh3',c:'Kashmiri Shawls',n:'Black Copper & Silver Embroidery',i:['blk-1','blk-2','blk-3','blk-4'],s:[['1 shawl',699]],d:'Black shawl with intricate copper and silver embroidered medallions.'},
 {id:'sh4',c:'Kashmiri Shawls',n:'Navy Paisley',i:['navy-1','navy-2'],s:[['1 shawl',499]],d:'Deep navy with colourful paisley and a patterned border.'},
