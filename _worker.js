@@ -1,9 +1,9 @@
 // Riwaaz-e-Kashmir backend: one file for Cloudflare Pages ("advanced mode").
-// Routes: /api/create-order, /api/track, /api/admin, /api/webhook, /admin. Everything else is served from the site files.
+// Routes: /api/create-order, /api/track, /api/review, /api/reviews, /api/admin, /api/webhook, /admin. Everything else is served from the site files.
 const KID = e => e.RAZORPAY_KEY_ID || e.RZP_KEY_ID || 'rzp_live_TjTHI6nlesU7e1';
 const SEC = e => e.RAZORPAY_KEY_SECRET || e.RAZORPAY_SECRET || e.RZP_KEY_SECRET || e.KEY_SECRET;
 const rz = (env, path, opt = {}) => fetch('https://api.razorpay.com/v1' + path, { ...opt, headers: { Authorization: 'Basic ' + btoa(KID(env) + ':' + SEC(env)), 'Content-Type': 'application/json' } });
-const json = (o, s = 200) => new Response(JSON.stringify(o), { status: s, headers: { 'Content-Type': 'application/json' } });
+const json = (o, s = 200, h = {}) => new Response(JSON.stringify(o), { status: s, headers: { 'Content-Type': 'application/json', ...h } });
 const last10 = s => String(s || '').replace(/\D/g, '').slice(-10);
 const esc = s => String(s || '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const normNo = s => { s = String(s || '').toUpperCase().replace(/\s+/g, ''); const m = s.match(/^REK-?(\d{4})$/); return m ? 'REK-' + m[1] : s; };
@@ -11,20 +11,33 @@ async function byReceipt(env, no) { const d = await (await rz(env, '/orders?rece
 
 // ---- Prices (keep in sync with the website) ----
 const CATALOG = {"walnut": [["100g", 249], ["250g", 499], ["500g", 990], ["1kg", 1999]], "giftbox": [["Simple", 1200], ["Custom Box", 1499]], "mamra": [["250g", 499], ["500g", 990], ["1kg", 1950]], "badam": [["250g", 349], ["500g", 649], ["1kg", 1199]], "pista": [["250g", 499], ["500g", 949], ["1kg", 1799]], "kaju": [["250g", 299], ["500g", 599], ["1kg", 1150]], "saffron": [["1g", 499], ["2g", 998]], "honey": [["250ml", 299], ["500ml", 549], ["1kg jar", 999]], "kahwa": [["150g", 299], ["250g", 599]], "noon": [["Pack", 499]], "shila": [["20g", 999]], "combo": [["Combo", 1799]], "winter": [["Set", 1199]], "sh1": [["1 shawl", 1499]], "sh2": [["1 shawl", 499]], "sh3": [["1 shawl", 699]], "sh4": [["1 shawl", 499]], "sh5": [["1 shawl", 1299]], "sh6": [["1 shawl", 1699]], "sample": [["0.5g", 149]]};
-const FREE_SHIP = 999, DELIVERY = 70, GIFT_MIN = 1499, DIWALI_END = Date.parse('2026-11-09T00:00:00+05:30');
+const NAMES = {"walnut": "Kashmiri Kernels", "giftbox": "Walnut Kernels Gift Box", "mamra": "Mamra Kashmiri Badam", "badam": "Kashmiri Badam", "pista": "Shahi Pista", "kaju": "Shahi Kaju", "saffron": "Kashmiri Saffron", "honey": "Pure Raw Kashmiri Honey", "kahwa": "Kashmiri Kahwa", "noon": "Kashmiri Noon Chai", "shila": "Himalayan Shilajit", "combo": "Kashmir Treasure Combo", "winter": "Winter Kahwa Set", "sh1": "Shahi Kashmiri Paisley Shawl", "sh2": "Midnight Floral Paisley", "sh3": "Black Copper & Silver Embroidery", "sh4": "Navy Paisley", "sh5": "Ivory Floral Embroidery", "sh6": "Ivory & Gold Paisley"};
+const FREE_ABOVE = 499, DELIVERY = 70, GIFT_MIN = 1499, DIWALI_END = Date.parse('2026-11-09T00:00:00+05:30');
 function priceOrder(lines, coupon) {
   if (!Array.isArray(lines) || !lines.length || lines.length > 30) return null;
-  let sub = 0, esub = 0; const ids = new Set();
+  let sub = 0, esub = 0, saffron = false; const ids = new Set();
   for (const l of lines) {
     const s = CATALOG[l.id] && CATALOG[l.id][l.sz], q = Math.floor(Number(l.q));
     if (!s || !(q >= 1 && q <= 20)) return null;
     sub += s[1] * q;
+    if (l.id === 'saffron') saffron = true;
     if (!['combo', 'winter', 'sample'].includes(l.id)) { ids.add(l.id); esub += s[1] * q; }
   }
   const combo = ids.size >= 3 ? Math.round(esub * 0.05) : 0; // make-your-own combo: 5% off with 3+ different products
-  const c = String(coupon || '').toUpperCase(), welcome = c === 'WELCOME', diwali = c === 'DIWALI' && Date.now() < DIWALI_END;
-  const delivery = (sub >= FREE_SHIP || welcome) ? 0 : DELIVERY;
+  const c = String(coupon || '').toUpperCase(), welcome = c === 'WELCOME' && !saffron, diwali = c === 'DIWALI' && Date.now() < DIWALI_END;
+  const delivery = (sub > FREE_ABOVE || welcome) ? 0 : DELIVERY; // free above 499; WELCOME gives free shipping except with saffron
   return { total: sub - combo + delivery, gift: diwali && sub >= GIFT_MIN };
+}
+
+// ---- Telegram (one or more chat ids, comma separated) ----
+async function tg(env, text) {
+  if (!env.TELEGRAM_BOT_TOKEN || !env.TELEGRAM_CHAT_ID) return [{ ok: false, description: 'Telegram secrets not set' }];
+  const out = [];
+  for (const id of String(env.TELEGRAM_CHAT_ID).split(',').map(s => s.trim()).filter(Boolean)) {
+    try { const r = await fetch('https://api.telegram.org/bot' + env.TELEGRAM_BOT_TOKEN + '/sendMessage', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ chat_id: id, text }) }); const d = await r.json(); out.push({ chat: id, ok: d.ok, description: d.description || '' }); }
+    catch (e) { out.push({ chat: id, ok: false, description: 'network error' }); }
+  }
+  return out;
 }
 
 async function createOrder({ request, env }) {
@@ -51,9 +64,48 @@ async function trackOrder({ request, env }) {
   const n = o.notes || {};
   return json({ no, paid: o.status === 'paid', status: n.st || 'Order placed', items: (n.i1 || '') + (n.i2 || ''), total: o.amount / 100, trk: n.trk || '' });
 }
+
+// ---- Reviews (stored in the KV namespace bound as REVIEWS; new reviews wait for approval) ----
+async function allReviews(env) {
+  const l = await env.REVIEWS.list({ prefix: 'r:', limit: 500 }), out = [];
+  for (const k of l.keys) { const v = await env.REVIEWS.get(k.name); if (v) { try { out.push(JSON.parse(v)); } catch (e) {} } }
+  return out.sort((a, b) => b.ts - a.ts);
+}
+async function reviewSubmit({ request, env }) {
+  if (!env.REVIEWS) return json({ error: 'Reviews are not set up yet', fallback: true }, 503);
+  let b; try { b = await request.json(); } catch (e) { return json({ error: 'Bad request' }, 400); }
+  if (b.hp) return json({ ok: true }); // spam trap
+  const p = String(b.p || ''), r = Math.floor(Number(b.r)), t = String(b.t || '').trim().slice(0, 600), n = String(b.n || '').trim().slice(0, 40), c = String(b.c || '').trim().slice(0, 40);
+  if (!CATALOG[p] || !(r >= 1 && r <= 5) || t.length < 5 || !n) return json({ error: 'Please fill in your name and review' }, 400);
+  const ip = request.headers.get('CF-Connecting-IP') || 'x', rk = 'rl:' + ip, cnt = parseInt((await env.REVIEWS.get(rk)) || '0');
+  if (cnt >= 3) return json({ error: 'Too many reviews from this device. Please try again later.' }, 429);
+  await env.REVIEWS.put(rk, String(cnt + 1), { expirationTtl: 3600 });
+  let v = false;
+  if (b.no && b.ph && SEC(env)) { try { const o = await byReceipt(env, normNo(b.no)); v = !!(o && o.status === 'paid' && last10(o.notes && o.notes.p) === last10(b.ph)); } catch (e) {} }
+  const ts = Date.now(), id = ts + '-' + Math.random().toString(36).slice(2, 6);
+  await env.REVIEWS.put('r:' + id, JSON.stringify({ id, p, r, t, n, c, v, st: 'pending', ts }));
+  await tg(env, 'New review waiting for approval\n' + (NAMES[p] || p) + ' - ' + r + '/5\n' + t + '\n- ' + n + (c ? ', ' + c : '') + (v ? ' (verified buyer)' : '') + '\nApprove it at riwaazekashmir.com/admin');
+  return json({ ok: true });
+}
+async function reviewsPublic({ env }) {
+  if (!env.REVIEWS) return json([], 200, { 'Cache-Control': 'public, max-age=60' });
+  const a = (await allReviews(env)).filter(x => x.st === 'approved').map(x => ({ p: x.p, r: x.r, t: x.t, n: x.n, c: x.c, v: x.v }));
+  return json(a, 200, { 'Cache-Control': 'public, max-age=60' });
+}
+
 async function adminApi({ request, env }) {
   const b = await request.json();
   if (!env.ADMIN_KEY || b.key !== env.ADMIN_KEY) return json({ error: 'Wrong key' }, 401);
+  if (b.action === 'testalert') return json({ results: await tg(env, 'Test alert from your Riwaaz-e-Kashmir website. Telegram is working!') });
+  if (b.action === 'rlist' || b.action === 'rset' || b.action === 'rdel') {
+    if (!env.REVIEWS) return json({ error: 'Review storage (KV) is not connected yet' }, 503);
+    if (b.action === 'rlist') return json({ reviews: (await allReviews(env)).map(x => ({ ...x, pn: NAMES[x.p] })) });
+    const key = 'r:' + String(b.id || ''), raw = await env.REVIEWS.get(key);
+    if (!raw) return json({ error: 'Review not found' }, 404);
+    if (b.action === 'rdel') { await env.REVIEWS.delete(key); return json({ ok: true }); }
+    const x = JSON.parse(raw); if (!['approved', 'rejected', 'pending'].includes(b.status)) return json({ error: 'Bad status' }, 400);
+    x.st = b.status; await env.REVIEWS.put(key, JSON.stringify(x)); return json({ ok: true });
+  }
   if (b.action === 'list') {
     const d = await (await rz(env, '/orders?count=50')).json();
     return json({ orders: (d.items || []).filter(o => /^(RK|REK)/.test(o.receipt || '')).map(o => ({ no: o.receipt, paid: o.status === 'paid', total: o.amount / 100, name: o.notes.n, phone: o.notes.p, address: (o.notes.a1 || '') + (o.notes.a2 || ''), items: (o.notes.i1 || '') + (o.notes.i2 || ''), st: o.notes.st || 'Order placed', trk: o.notes.trk || '' })) });
@@ -82,19 +134,21 @@ async function webhook({ request, env }) {
     const oid = ev.payload.payment.entity.order_id;
     const o = await (await rz(env, '/orders/' + oid)).json(), n = o.notes || {}, items = (n.i1 || '') + (n.i2 || ''), addr = (n.a1 || '') + (n.a2 || '');
     const text = 'New paid order ' + o.receipt + '\nTotal: Rs ' + o.amount / 100 + '\n' + n.n + ' ' + n.p + '\n' + addr + '\n' + items;
-    if (env.TELEGRAM_BOT_TOKEN && env.TELEGRAM_CHAT_ID) await fetch('https://api.telegram.org/bot' + env.TELEGRAM_BOT_TOKEN + '/sendMessage', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ chat_id: env.TELEGRAM_CHAT_ID, text }) });
+    await tg(env, text);
     await mail(env, env.OWNER_EMAIL || 'riwaazekashmiroffical@gmail.com', 'New paid order ' + o.receipt, '<pre>' + esc(text) + '</pre>');
     if (n.e) await mail(env, n.e, 'Your Riwaaz-e-Kashmir order ' + o.receipt + ' is confirmed',
       '<div style="font-family:Arial,sans-serif;max-width:480px;margin:auto;border:1px solid #c9a961;padding:20px"><h2 style="color:#8a6d2b">Thank you, ' + esc(n.n) + '!</h2><p>Your order <b>' + esc(o.receipt) + '</b> is confirmed.</p><p>' + esc(items) + '</p><p>Total paid: <b>Rs ' + o.amount / 100 + '</b></p><p>Track your order any time on riwaazekashmir.com with your order number and phone number.</p><p>Questions? WhatsApp +91 91494 80384 (8 AM to 12 midnight) or riwaazekashmiroffical@gmail.com</p><p>With love from Kashmir,<br>Riwaaz-e-Kashmir</p></div>');
   }
   return json({ ok: true });
 }
-const ADMIN_PAGE = 'PCFET0NUWVBFIGh0bWw+PGh0bWw+PGhlYWQ+PG1ldGEgY2hhcnNldD0idXRmLTgiPjxtZXRhIG5hbWU9InZpZXdwb3J0IiBjb250ZW50PSJ3aWR0aD1kZXZpY2Utd2lkdGgsaW5pdGlhbC1zY2FsZT0xIj48bWV0YSBuYW1lPSJyb2JvdHMiIGNvbnRlbnQ9Im5vaW5kZXgiPjx0aXRsZT5PcmRlcnM8L3RpdGxlPgo8c3R5bGU+Ym9keXtmb250LWZhbWlseTpzYW5zLXNlcmlmO2JhY2tncm91bmQ6IzBmMWExMztjb2xvcjojZjBlY2UyO3BhZGRpbmc6MTRweH1pbnB1dCxzZWxlY3QsYnV0dG9ue2ZvbnQ6aW5oZXJpdDtwYWRkaW5nOjlweDttYXJnaW46M3B4IDA7d2lkdGg6MTAwJTtib3gtc2l6aW5nOmJvcmRlci1ib3g7Ym9yZGVyLXJhZGl1czo1cHg7Ym9yZGVyOjFweCBzb2xpZCAjNDQ0O2JhY2tncm91bmQ6IzE0MjAxYTtjb2xvcjojZjBlY2UyfWJ1dHRvbntiYWNrZ3JvdW5kOiNjOWE5NjE7Y29sb3I6IzBmMWExMztib3JkZXI6MH0ub3tib3JkZXI6MXB4IHNvbGlkICNjOWE5NjE2Njtib3JkZXItcmFkaXVzOjhweDtwYWRkaW5nOjEwcHg7bWFyZ2luOjEwcHggMDtmb250LXNpemU6MTNweH08L3N0eWxlPjwvaGVhZD48Ym9keT4KPGgzPlJpd2Fhei1lLUthc2htaXIgb3JkZXJzPC9oMz48aW5wdXQgaWQ9ImsiIHR5cGU9InBhc3N3b3JkIiBwbGFjZWhvbGRlcj0iQWRtaW4ga2V5Ij48YnV0dG9uIG9uY2xpY2s9ImxvYWQoKSI+TG9hZCBvcmRlcnM8L2J1dHRvbj48ZGl2IGlkPSJsIj48L2Rpdj4KPHNjcmlwdD4KY29uc3QgSj0oYik9PmZldGNoKCcvYXBpL2FkbWluJyx7bWV0aG9kOidQT1NUJyxib2R5OkpTT04uc3RyaW5naWZ5KHtrZXk6ZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ2snKS52YWx1ZSwuLi5ifSl9KS50aGVuKHI9PnIuanNvbigpKTsKY29uc3QgZT1zPT5TdHJpbmcoc3x8JycpLnJlcGxhY2UoL1smPD4iXS9nLGM9Pih7JyYnOicmYW1wOycsJzwnOicmbHQ7JywnPic6JyZndDsnLCciJzonJnF1b3Q7J31bY10pKTsKZnVuY3Rpb24gbG9hZCgpe0ooe2FjdGlvbjonbGlzdCd9KS50aGVuKGQ9PntpZihkLmVycm9yKXthbGVydChkLmVycm9yKTtyZXR1cm59CmRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdsJykuaW5uZXJIVE1MPWQub3JkZXJzLm1hcChvPT5gPGRpdiBjbGFzcz0ibyI+PGI+JHtlKG8ubm8pfTwvYj4gJHtvLnBhaWQ/J1BBSUQnOic8c3BhbiBzdHlsZT0iY29sb3I6I2U1NDg0ZCI+Tk9UIFBBSUQ8L3NwYW4+J30gLSBScyAke28udG90YWx9PGJyPiR7ZShvLm5hbWUpfSAke2Uoby5waG9uZSl9PGJyPiR7ZShvLmFkZHJlc3MpfTxicj4ke2Uoby5pdGVtcyl9CjxzZWxlY3QgaWQ9InMtJHtvLm5vfSI+JHtbJ09yZGVyIHBsYWNlZCcsJ0NvbmZpcm1lZCcsJ1BhY2tlZCcsJ1NoaXBwZWQnLCdEZWxpdmVyZWQnXS5tYXAocz0+YDxvcHRpb24gJHtzPT09by5zdD8nc2VsZWN0ZWQnOicnfT4ke3N9PC9vcHRpb24+YCkuam9pbignJyl9PC9zZWxlY3Q+CjxpbnB1dCBpZD0idC0ke28ubm99IiBwbGFjZWhvbGRlcj0iVHJhY2tpbmcgbGluayAob3B0aW9uYWwpIiB2YWx1ZT0iJHtlKG8udHJrKX0iPjxidXR0b24gb25jbGljaz0ic2F2ZSgnJHtvLm5vfScpIj5TYXZlIHN0YXR1czwvYnV0dG9uPjwvZGl2PmApLmpvaW4oJycpfSl9CmZ1bmN0aW9uIHNhdmUobm8pe0ooe25vLHN0YXR1czpkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgncy0nK25vKS52YWx1ZSx0cms6ZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ3QtJytubykudmFsdWV9KS50aGVuKGQ9PmFsZXJ0KGQub2s/J1NhdmVkJzooZC5lcnJvcnx8J0ZhaWxlZCcpKSl9Cjwvc2NyaXB0PjwvYm9keT48L2h0bWw+Cg==';
+const ADMIN_PAGE = 'PCFET0NUWVBFIGh0bWw+PGh0bWw+PGhlYWQ+PG1ldGEgY2hhcnNldD0idXRmLTgiPjxtZXRhIG5hbWU9InZpZXdwb3J0IiBjb250ZW50PSJ3aWR0aD1kZXZpY2Utd2lkdGgsaW5pdGlhbC1zY2FsZT0xIj48bWV0YSBuYW1lPSJyb2JvdHMiIGNvbnRlbnQ9Im5vaW5kZXgiPjx0aXRsZT5BZG1pbjwvdGl0bGU+CjxzdHlsZT5ib2R5e2ZvbnQtZmFtaWx5OnNhbnMtc2VyaWY7YmFja2dyb3VuZDojMGYxYTEzO2NvbG9yOiNmMGVjZTI7cGFkZGluZzoxNHB4O21heC13aWR0aDo2NDBweDttYXJnaW46YXV0b31pbnB1dCxzZWxlY3QsYnV0dG9ue2ZvbnQ6aW5oZXJpdDtwYWRkaW5nOjEwcHg7bWFyZ2luOjNweCAwO3dpZHRoOjEwMCU7Ym94LXNpemluZzpib3JkZXItYm94O2JvcmRlci1yYWRpdXM6NXB4O2JvcmRlcjoxcHggc29saWQgIzQ0NDtiYWNrZ3JvdW5kOiMxNDIwMWE7Y29sb3I6I2YwZWNlMn1idXR0b257YmFja2dyb3VuZDojYzlhOTYxO2NvbG9yOiMwZjFhMTM7Ym9yZGVyOjB9Lmd7ZGlzcGxheTpncmlkO2dyaWQtdGVtcGxhdGUtY29sdW1uczoxZnIgMWZyIDFmcjtnYXA6NnB4fS5ve2JvcmRlcjoxcHggc29saWQgI2M5YTk2MTY2O2JvcmRlci1yYWRpdXM6OHB4O3BhZGRpbmc6MTBweDttYXJnaW46MTBweCAwO2ZvbnQtc2l6ZToxM3B4O2xpbmUtaGVpZ2h0OjEuNX0uYjJ7ZGlzcGxheTpncmlkO2dyaWQtdGVtcGxhdGUtY29sdW1uczoxZnIgMWZyIDFmcjtnYXA6NnB4fS5ye2JhY2tncm91bmQ6IzdhMmEyYTtjb2xvcjojZmZmfS5ze2NvbG9yOiNjOWE5NjF9PC9zdHlsZT48L2hlYWQ+PGJvZHk+CjxoMz5SaXdhYXotZS1LYXNobWlyIGFkbWluPC9oMz48aW5wdXQgaWQ9ImsiIHR5cGU9InBhc3N3b3JkIiBwbGFjZWhvbGRlcj0iQWRtaW4ga2V5Ij4KPGRpdiBjbGFzcz0iZyI+PGJ1dHRvbiBvbmNsaWNrPSJvcmRlcnMoKSI+T3JkZXJzPC9idXR0b24+PGJ1dHRvbiBvbmNsaWNrPSJyZXZzKCkiPlJldmlld3M8L2J1dHRvbj48YnV0dG9uIG9uY2xpY2s9InRlc3QoKSI+VGVzdCBhbGVydDwvYnV0dG9uPjwvZGl2PjxkaXYgaWQ9ImwiPjwvZGl2Pgo8c2NyaXB0Pgpjb25zdCBKPWI9PmZldGNoKCcvYXBpL2FkbWluJyx7bWV0aG9kOidQT1NUJyxib2R5OkpTT04uc3RyaW5naWZ5KHtrZXk6ZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ2snKS52YWx1ZSwuLi5ifSl9KS50aGVuKHI9PnIuanNvbigpKTsKY29uc3QgZT1zPT5TdHJpbmcocz09bnVsbD8nJzpzKS5yZXBsYWNlKC9bJjw+Il0vZyxjPT4oeycmJzonJmFtcDsnLCc8JzonJmx0OycsJz4nOicmZ3Q7JywnIic6JyZxdW90Oyd9W2NdKSk7Y29uc3QgTD1kb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnbCcpOwpmdW5jdGlvbiBvcmRlcnMoKXtKKHthY3Rpb246J2xpc3QnfSkudGhlbihkPT57aWYoZC5lcnJvcil7YWxlcnQoZC5lcnJvcik7cmV0dXJufQpMLmlubmVySFRNTD1kLm9yZGVycy5tYXAobz0+YDxkaXYgY2xhc3M9Im8iPjxiPiR7ZShvLm5vKX08L2I+ICR7by5wYWlkPydQQUlEJzonPHNwYW4gc3R5bGU9ImNvbG9yOiNlNTQ4NGQiPk5PVCBQQUlEPC9zcGFuPid9IC0gUnMgJHtvLnRvdGFsfTxicj4ke2Uoby5uYW1lKX0gJHtlKG8ucGhvbmUpfTxicj4ke2Uoby5hZGRyZXNzKX08YnI+JHtlKG8uaXRlbXMpfQo8c2VsZWN0IGlkPSJzLSR7by5ub30iPiR7WydPcmRlciBwbGFjZWQnLCdDb25maXJtZWQnLCdQYWNrZWQnLCdTaGlwcGVkJywnRGVsaXZlcmVkJ10ubWFwKHM9PmA8b3B0aW9uICR7cz09PW8uc3Q/J3NlbGVjdGVkJzonJ30+JHtzfTwvb3B0aW9uPmApLmpvaW4oJycpfTwvc2VsZWN0Pgo8aW5wdXQgaWQ9InQtJHtvLm5vfSIgcGxhY2Vob2xkZXI9IlRyYWNraW5nIGxpbmsgKG9wdGlvbmFsKSIgdmFsdWU9IiR7ZShvLnRyayl9Ij48YnV0dG9uIG9uY2xpY2s9InNhdmUoJyR7by5ub30nKSI+U2F2ZSBzdGF0dXM8L2J1dHRvbj48L2Rpdj5gKS5qb2luKCcnKXx8J05vIG9yZGVycyB5ZXQnfSl9CmZ1bmN0aW9uIHNhdmUobm8pe0ooe25vLHN0YXR1czpkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgncy0nK25vKS52YWx1ZSx0cms6ZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ3QtJytubykudmFsdWV9KS50aGVuKGQ9PmFsZXJ0KGQub2s/J1NhdmVkJzooZC5lcnJvcnx8J0ZhaWxlZCcpKSl9CmZ1bmN0aW9uIHJldnMoKXtKKHthY3Rpb246J3JsaXN0J30pLnRoZW4oZD0+e2lmKGQuZXJyb3Ipe2FsZXJ0KGQuZXJyb3IpO3JldHVybn0KTC5pbm5lckhUTUw9ZC5yZXZpZXdzLm1hcChyPT5gPGRpdiBjbGFzcz0ibyI+PHNwYW4gY2xhc3M9InMiPiR7JyYjOTczMzsnLnJlcGVhdChyLnIpfTwvc3Bhbj4gPGI+JHtlKHIucG58fHIucCl9PC9iPiA8aT4ke2Uoci5zdCl9PC9pPiR7ci52PycgKHZlcmlmaWVkIGJ1eWVyKSc6Jyd9PGJyPiR7ZShyLnQpfTxicj4tICR7ZShyLm4pfSR7ci5jPycsICcrZShyLmMpOicnfQo8ZGl2IGNsYXNzPSJiMiI+PGJ1dHRvbiBvbmNsaWNrPSJycygnJHtyLmlkfScsJ2FwcHJvdmVkJykiPkFwcHJvdmU8L2J1dHRvbj48YnV0dG9uIGNsYXNzPSJyIiBvbmNsaWNrPSJycygnJHtyLmlkfScsJ3JlamVjdGVkJykiPlJlamVjdDwvYnV0dG9uPjxidXR0b24gY2xhc3M9InIiIG9uY2xpY2s9InJkKCcke3IuaWR9JykiPkRlbGV0ZTwvYnV0dG9uPjwvZGl2PjwvZGl2PmApLmpvaW4oJycpfHwnTm8gcmV2aWV3cyB5ZXQnfSl9CmZ1bmN0aW9uIHJzKGlkLHN0YXR1cyl7Sih7YWN0aW9uOidyc2V0JyxpZCxzdGF0dXN9KS50aGVuKGQ9PnthbGVydChkLm9rPydEb25lJzooZC5lcnJvcnx8J0ZhaWxlZCcpKTtyZXZzKCl9KX0KZnVuY3Rpb24gcmQoaWQpe2lmKGNvbmZpcm0oJ0RlbGV0ZSB0aGlzIHJldmlldz8nKSlKKHthY3Rpb246J3JkZWwnLGlkfSkudGhlbihkPT57YWxlcnQoZC5vaz8nRGVsZXRlZCc6KGQuZXJyb3J8fCdGYWlsZWQnKSk7cmV2cygpfSl9CmZ1bmN0aW9uIHRlc3QoKXtKKHthY3Rpb246J3Rlc3RhbGVydCd9KS50aGVuKGQ9PnthbGVydChkLmVycm9yP2QuZXJyb3I6KCdUZWxlZ3JhbSByZXBsaWVkOiAnK0pTT04uc3RyaW5naWZ5KGQucmVzdWx0cykpKX0pfQo8L3NjcmlwdD48L2JvZHk+PC9odG1sPgo=';
 export default {
   async fetch(request, env) {
     const { pathname } = new URL(request.url), m = request.method;
     if (pathname === '/api/create-order' && m === 'POST') return createOrder({ request, env });
     if (pathname === '/api/track' && m === 'GET') return trackOrder({ request, env });
+    if (pathname === '/api/review' && m === 'POST') return reviewSubmit({ request, env });
+    if (pathname === '/api/reviews' && m === 'GET') return reviewsPublic({ env });
     if (pathname === '/api/admin' && m === 'POST') return adminApi({ request, env });
     if (pathname === '/api/webhook' && m === 'POST') return webhook({ request, env });
     if (pathname === '/admin' || pathname === '/admin.html') return new Response(atob(ADMIN_PAGE), { headers: { 'Content-Type': 'text/html; charset=utf-8', 'X-Robots-Tag': 'noindex' } });
