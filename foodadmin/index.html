@@ -1,1 +1,186 @@
-x
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Food Admin | Riwaaz-e-Kashmir</title>
+<meta name="robots" content="noindex, nofollow"><meta name="color-scheme" content="dark"><meta name="theme-color" content="#0f1a13">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Jost:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0f1a13;--bg2:#14201a;--bg3:#1b2a21;--gold:#c9a961;--ivory:#f3ead7;--mute:#a9b4a8;--line:#2b3f33;--ok:#6fbf8a;--bad:#d9785f;--warn:#e0a63c;color-scheme:dark}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{font:400 16px/1.5 Jost,system-ui,sans-serif;background:var(--bg);color:var(--ivory);min-height:100vh;padding:env(safe-area-inset-top) 0 calc(24px + env(safe-area-inset-bottom));touch-action:manipulation}
+button,input{font:inherit;color:inherit}
+.w{max-width:760px;margin:0 auto;padding:0 14px}
+h1,h2,h3{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;line-height:1.1}
+.kb{height:14px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='14'%3E%3Cg fill='none' stroke='%23c9a961' stroke-width='1' opacity='.75'%3E%3Cpath d='M0 7L8 0L16 7L8 14Z'/%3E%3Cpath d='M16 7L24 0L32 7L24 14Z'/%3E%3Cpath d='M8 7L12 3L16 7L12 11Z'/%3E%3Cpath d='M24 7L28 3L32 7L28 11Z'/%3E%3C/g%3E%3C/svg%3E") repeat-x center;border-bottom:1px solid var(--line)}
+header{position:sticky;top:0;z-index:20;background:var(--bg2);border-bottom:1px solid var(--gold)}
+.hr{display:flex;align-items:center;gap:10px;padding:10px 0}
+.hr .t{flex:1;min-width:0}.hr small{display:block;font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:var(--gold)}
+.hr h1{font-size:22px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;padding:10px 16px;border-radius:12px;border:1px solid var(--gold);background:var(--gold);color:#14110a;font-weight:500;cursor:pointer}
+.btn.o{background:transparent;color:var(--gold)}.btn.g{border-color:var(--ok);background:var(--ok);color:#0b1a10}.btn.r{background:transparent;border-color:var(--bad);color:var(--bad)}
+.btn:disabled{opacity:.5}.btn.sm{min-height:40px;padding:8px 12px;font-size:14px}
+.sw{display:flex;align-items:center;gap:8px;min-height:44px;padding:6px 12px;border-radius:22px;border:1px solid var(--line);background:var(--bg3);cursor:pointer;font-size:14px}
+.sw i{width:10px;height:10px;border-radius:50%;background:var(--bad)}.sw.on i{background:var(--ok)}
+.tabs{display:flex;gap:8px;padding:10px 0}.tabs button{flex:1;min-height:44px;border-radius:12px;border:1px solid var(--line);background:transparent;color:var(--mute);cursor:pointer}
+.tabs button.on{border-color:var(--gold);color:var(--gold);background:var(--bg3)}
+.tabs b{display:inline-block;min-width:20px;padding:0 6px;margin-left:6px;border-radius:10px;background:var(--bad);color:#fff;font-size:12px;line-height:20px}
+.bn{margin:10px 0;padding:10px 14px;border-radius:12px;border:1px solid var(--warn);background:#2a2412;color:var(--warn);font-size:14px}
+.bn button{margin-left:8px}
+.sec{margin:18px 0 8px;font-size:12px;letter-spacing:1.4px;text-transform:uppercase;color:var(--gold)}
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:10px}
+.card.new{border-color:var(--gold);box-shadow:0 0 0 2px rgba(201,169,97,.25);animation:bl 1.4s ease-in-out infinite}
+@keyframes bl{50%{box-shadow:0 0 0 5px rgba(201,169,97,.1)}}
+.oh{display:flex;justify-content:space-between;align-items:baseline;gap:8px}.oh b{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold)}
+.ag{font-size:13px;color:var(--mute)}.ag.late{color:var(--bad);font-weight:500}
+.li{margin:8px 0;list-style:none}.li li{display:flex;gap:10px;padding:3px 0;font-size:17px}.li li b{min-width:30px;color:var(--gold);font-weight:500}
+.nt{font-size:14px;color:var(--warn);margin:4px 0}
+.bt{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}.bt.one{grid-template-columns:1fr}.bt.two{grid-template-columns:1fr 1fr}
+.tm{font-size:13px;color:var(--mute);margin-top:10px}
+.pr{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.dish{display:grid;grid-template-columns:1fr auto;gap:8px 10px;align-items:center}
+.dish h3{font-size:19px}.dish small{color:var(--mute)}.dish.off h3{color:var(--mute);text-decoration:line-through}
+.pe{display:flex;gap:6px;align-items:center;grid-column:1/-1}
+input[type=text],input[type=password],input[type=number]{width:100%;min-height:46px;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg3);color:var(--ivory);font-size:16px}
+.pe input{width:100px}
+label{display:block;font-size:12px;letter-spacing:.5px;color:var(--mute);margin:12px 0 4px}
+.err{color:var(--bad);font-size:14px;margin-top:10px;min-height:20px}
+.empty{padding:26px 10px;text-align:center;color:var(--mute)}
+.login{max-width:420px;margin:30px auto}.login h2{font-size:30px;margin:14px 0 4px}
+.sk{height:96px;border-radius:14px;background:linear-gradient(90deg,var(--bg2),var(--bg3),var(--bg2));background-size:200% 100%;animation:sh 1.2s linear infinite;margin-bottom:10px}
+@keyframes sh{to{background-position:-200% 0}}
+.hide{display:none!important}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--gold);color:#14110a;padding:10px 18px;border-radius:22px;font-size:14px;z-index:50;max-width:90vw}
+.nav{display:flex;gap:8px;overflow-x:auto;padding:10px 0;scrollbar-width:none}.nav::-webkit-scrollbar{display:none}.nav button{flex:none;min-height:42px;padding:8px 14px;border-radius:21px;border:1px solid var(--line);background:transparent;color:var(--mute);cursor:pointer;white-space:nowrap}.nav button.on{border-color:var(--gold);color:var(--gold);background:var(--bg3)}.nav b{margin-left:6px;padding:0 6px;border-radius:10px;background:var(--bad);color:#fff;font-size:12px}
+.kp{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.kp div{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:12px}.kp small{display:block;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--mute)}.kp b{font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--gold);font-weight:600}
+.al{border:1px solid var(--bad);background:#2a1712;border-radius:12px;padding:10px 12px;margin-bottom:8px;font-size:14px}.al b{color:var(--bad)}
+.pause{width:100%;margin:10px 0}
+select,textarea{width:100%;min-height:46px;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg3);color:var(--ivory);font-size:16px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:8px}
+.tb{width:100%;border-collapse:collapse;font-size:14px}.tb td,.tb th{padding:8px 4px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}.tb th{font-size:11px;color:var(--gold);letter-spacing:1px;text-transform:uppercase;font-weight:500}.tb .n{text-align:right;white-space:nowrap}
+.tg{display:inline-block;font-size:11px;padding:2px 8px;border-radius:10px;border:1px solid var(--line);color:var(--mute);margin-right:4px}.tg.ok{color:var(--ok);border-color:var(--ok)}.tg.bad{color:var(--bad);border-color:var(--bad)}.tg.wn{color:var(--warn);border-color:var(--warn)}
+.sub{font-size:13px;color:var(--mute);margin-top:4px}.card h3{font-size:20px}.big{width:100%}
+details.card summary{cursor:pointer;min-height:36px;display:flex;align-items:center;color:var(--gold)}
+</style></head><body>
+<div id="lg" class="hide"><div class="kb"></div><div class="w login">
+<p style="font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:var(--gold)">Riwaaz-e-Kashmir</p><h2>Food admin</h2>
+<p style="color:var(--mute)">Owner and team only.</p>
+<form id="lf"><label for="lk">Admin key</label><input id="lk" type="password" autocomplete="current-password" required>
+<p class="err" id="le" role="alert"></p><button class="btn big" id="lb" type="submit">Open</button></form></div></div>
+<div id="ap" class="hide">
+<header><div class="kb"></div><div class="w"><div class="hr"><div class="t"><small>Riwaaz-e-Kashmir</small><h1>Food admin</h1></div>
+<button class="sw" id="so" aria-label="Sound alert"><i></i><span>Sound</span></button><button class="btn o sm" id="lo">Log out</button></div>
+<div class="nav" id="nv"></div></div></header>
+<div class="w"><div class="bn hide" id="off">No internet connection. We keep trying.</div><div class="bn hide" id="snd">Tap once to enable alert sound. <button class="btn sm" id="sb">Enable</button></div>
+<div id="vw" style="padding-top:8px"></div></div></div>
+<div class="toast hide" id="ts" role="status"></div>
+<script>
+const $=i=>document.getElementById(i);
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let KEY='',SOUND=true,view='live',busy=false,ac=null,poll=0,alerted='',DB={rs:[],cfg:null,accts:[],promos:[],sum:null,orders:[],dishes:[],setl:[],rid:'',ph:[],glog:[]};
+try{KEY=sessionStorage.getItem('fk')||'';SOUND=localStorage.getItem('fs')!=='0'}catch(e){}
+const toast=m=>{const t=$('ts');t.textContent=m;t.classList.remove('hide');clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.add('hide'),2800)};
+async function api(b){let r;try{r=await fetch('/api/food/admin',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:KEY,...b})})}catch(e){$('off').classList.remove('hide');throw new Error('net')}
+ $('off').classList.add('hide');let d={};try{d=await r.json()}catch(e){}
+ if(r.status===401){out();throw new Error('auth')}if(!r.ok)throw new Error(d.error||'Something went wrong.');return d}
+const yy=d=>d.replace(/-/g,'').slice(2),iso=ts=>new Date(ts+19800000).toISOString().slice(0,10),T=()=>iso(Date.now());
+function monday(){const d=new Date(Date.now()+19800000),k=(d.getUTCDay()+6)%7;return iso(Date.now()-k*86400000)}
+const fm=n=>'Rs '+Math.round(n).toLocaleString('en-IN');
+const tm=ts=>new Date(ts).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+function ctx(){try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();if(ac.state!=='running')ac.resume();return ac}catch(e){return null}}
+function chime(){if(!SOUND)return;const c=ctx();if(!c||c.state!=='running'){$('snd').classList.remove('hide');return}$('snd').classList.add('hide');[[523,0],[392,.25]].forEach(([f,t])=>{const o=c.createOscillator(),g=c.createGain();o.type='sine';o.frequency.value=f;g.gain.setValueAtTime(0,c.currentTime+t);g.gain.linearRampToValueAtTime(.35,c.currentTime+t+.03);g.gain.exponentialRampToValueAtTime(.001,c.currentTime+t+.35);o.connect(g);g.connect(c.destination);o.start(c.currentTime+t);o.stop(c.currentTime+t+.4)})}
+function show(a){$('lg').classList.toggle('hide',a);$('ap').classList.toggle('hide',!a)}
+function out(){clearInterval(poll);KEY='';try{sessionStorage.removeItem('fk')}catch(e){}show(false)}
+const TABS=[['live','Live'],['orders','Orders'],['rest','Restaurants'],['money','Money'],['promo','Promos'],['set','Settings']];
+function nav(){$('nv').innerHTML=TABS.map(([k,l])=>`<button class="${view===k?'on':''}" data-v="${k}">${l}${k==='live'&&DB.sum&&DB.sum.late.length+DB.sum.rejected.length?'<b>'+(DB.sum.late.length+DB.sum.rejected.length)+'</b>':''}</button>`).join('')}
+async function go(v){view=v;nav();$('vw').innerHTML='<div class="sk"></div><div class="sk"></div>';try{await LOAD[v]()}catch(e){if(e.message!=='auth'&&e.message!=='net')$('vw').innerHTML=`<div class="empty">${esc(e.message)}<br><br><button class="btn" data-v="${v}">Try again</button></div>`}nav()}
+const LOAD={
+ async live(){const[s,c]=await Promise.all([api({action:'summary'}),api({action:'cfg'})]);DB.sum=s;DB.cfg=c.cfg;R.live();const sig=s.late.map(x=>x.id+x.why).join()+s.rejected.map(x=>x.id).join();if(sig&&sig!==alerted)chime();alerted=sig},
+ async orders(){const f=DB.of||T(),t=DB.ot||T();const d=await api({action:'olist',from:yy(f),to:yy(t)});DB.orders=d.orders;DB.of=f;DB.ot=t;R.orders()},
+ async rest(){const[a,b]=await Promise.all([api({action:'rlist'}),api({action:'alist'})]);DB.rs=a.restaurants;DB.accts=b.accounts;if(!DB.rid&&DB.rs[0])DB.rid=DB.rs[0].id;DB.dishes=DB.rid?(await api({action:'dlist',rid:DB.rid})).dishes:[];R.rest()},
+ async money(){const f=DB.mf||monday(),t=DB.mt||T();const[s,l]=await Promise.all([api({action:'summary',from:yy(f),to:yy(t)}),api({action:'slist'})]);DB.sum2=s;DB.setl=l.settlements;DB.mf=f;DB.mt=t;R.money()},
+ async promo(){DB.promos=(await api({action:'plist'})).promos;DB.rs=(await api({action:'rlist'})).restaurants;R.promo()},
+ async set(){const[c,a,b,g]=await Promise.all([api({action:'cfg'}),api({action:'alist'}),api({action:'blist'}),api({action:'glog'})]);DB.cfg=c.cfg;DB.accts=a.accounts;DB.ph=b.phones;DB.glog=g.log;R.set()}};
+const inp=(id,l,v,t,ex)=>`<label for="${id}">${l}</label><input id="${id}" type="${t||'text'}" value="${esc(v==null?'':v)}" ${ex||''}>`;
+const val=id=>($(id)||{}).value||'';
+const R={
+ live(){const s=DB.sum,t=s.totals,c=DB.cfg;
+  $('vw').innerHTML=`<button class="btn pause ${c.paused?'g':'r'}" data-a="pause">${c.paused?'Ordering is PAUSED. Tap to resume':'Pause all orders (emergency)'}</button>
+  <div class="kp"><div><small>Orders today</small><b>${Object.values(s.status).reduce((a,b)=>a+b,0)}</b></div><div><small>Delivered</small><b>${s.status.delivered||0}</b></div><div><small>Sales (menu)</small><b>${fm(t.sales)}</b></div><div><small>Your earning</small><b>${fm(t.platformProfit)}</b></div></div>
+  <p class="sub">Earning = commission + delivery fee - promos you fund - rider cost per delivery (set in Settings). Updates every 10 seconds.</p>
+  <p class="sec">Needs your attention</p>${s.late.length||s.rejected.length?s.late.map(x=>`<div class="al"><b>${esc(x.why)}</b> - ${esc(x.id.slice(-9))} at ${esc(x.rn)}</div>`).join('')+s.rejected.map(x=>`<div class="al"><b>Rejected (${esc((x.reason||'').replace(/_/g,' '))})</b> - ${esc(x.id.slice(-9))} at ${esc(x.rn)}. <a style="color:var(--gold)" href="tel:${esc(x.phone)}">Call customer ${esc(x.phone)}</a></div>`).join(''):'<div class="empty">Nothing late or rejected.</div>'}
+  <p class="sec">Order status today</p><div class="card">${Object.keys(s.status).length?Object.entries(s.status).map(([k,v])=>`<span class="tg">${k} ${v}</span>`).join(''):'No orders yet today.'}</div>
+  <p class="sec">Cash with riders (cash orders delivered today)</p><div class="card"><b style="font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--gold)">${fm(t.codCashWithRiders)}</b></div>`},
+ orders(){const o=DB.orders;$('vw').innerHTML=`<div class="g2">${inp('of','From',DB.of,'date')}${inp('ot','To',DB.ot,'date')}</div><div class="row"><button class="btn sm" data-a="olist">Show</button><button class="btn o sm" data-a="csv">Download CSV</button><span class="sub">${o.length} orders</span></div>
+  ${o.length?o.map(x=>`<details class="card"><summary><b style="color:var(--gold)">${esc(x.id.slice(-9))}</b>&nbsp;${esc(x.rn)}&nbsp;<span class="tg ${x.st==='delivered'?'ok':['rejected','cancelled'].includes(x.st)?'bad':'wn'}">${x.st}</span>&nbsp;${fm(x.total)}</summary>
+   <p class="sub">${new Date(x.ts+0).toLocaleString()} - ${x.pay.toUpperCase()} ${x.paid?'(paid)':'(not paid yet)'}</p><p style="margin-top:6px"><b>${esc(x.name)}</b>, ${esc(x.zone)}<br>${esc(x.addr)}<br><a style="color:var(--gold)" href="tel:${esc(x.phone)}">${esc(x.phone)}</a></p>
+   <p style="margin-top:6px">${x.lines.map(l=>l.q+'x '+esc(l.n)+' ('+fm(l.p)+')').join('<br>')}</p><p class="sub">Items ${fm(x.sub)} - discount ${fm(x.disc)} - delivery ${fm(x.fee)} = <b>${fm(x.total)}</b></p>
+   ${x.reason?`<p class="sub">Reason: ${esc(x.reason)}</p>`:''}<p class="sub">${x.trail.map(t=>t.s+' '+tm(t.t)).join(' &rarr; ')}</p>
+   ${['delivered','rejected','cancelled'].includes(x.st)?'':`<div class="row"><input id="rd-${x.id}" placeholder="Rider name" value="${esc(x.rider||'')}" style="flex:1;min-width:140px" maxlength="40"><button class="btn o sm" data-a="oassign" data-o="${x.id}">Assign</button><button class="btn r sm" data-a="ocancel" data-o="${x.id}">Cancel order</button></div>`}
+   ${x.pay==='upi'&&!x.paid?`<div class="row"><button class="btn g sm" data-a="opaid" data-o="${x.id}">Mark UPI payment received</button></div>`:''}</details>`).join(''):'<div class="empty">No orders in this range.</div>'}`},
+ rest(){const r=DB.rs.find(x=>x.id===DB.rid),ac=DB.accts;
+  $('vw').innerHTML=`<details class="card" ${DB.rs.length?'':'open'}><summary>+ Add a restaurant</summary>${frm('n')}<button class="btn big" style="margin-top:12px" data-a="radd">Save restaurant</button></details>
+  ${DB.rs.length?`<label for="rsel">Restaurant</label><select id="rsel">${DB.rs.map(x=>`<option value="${x.id}" ${x.id===DB.rid?'selected':''}>${esc(x.name)}</option>`).join('')}</select>`:'<div class="empty">No restaurants yet. Add the first one above.</div>'}
+  ${r?`<div class="card" style="margin-top:12px"><h3>${esc(r.name)}</h3><p class="sub">${esc(r.zone||'')} - commission ${r.commission}% - ${r.open?'<span class="tg ok">open</span>':'<span class="tg">closed</span>'}${r.suspended?'<span class="tg bad">suspended</span>':''}</p>
+   <div class="row"><button class="btn o sm" data-a="ropen">${r.open?'Close it':'Open it'}</button><button class="btn r sm" data-a="rsusp">${r.suspended?'Un-suspend':'Suspend'}</button><button class="btn r sm" data-a="rdel">Delete restaurant</button></div>
+   <details style="margin-top:10px"><summary style="color:var(--gold);cursor:pointer;min-height:36px;display:flex;align-items:center">Edit details</summary>${frm('e',r)}<button class="btn big" style="margin-top:12px" data-a="rsave">Save changes</button></details></div>
+  <div class="card"><h3>Logins</h3>${ac.filter(a=>a.rid===r.id).map(a=>`<p class="sub"><b>${esc(a.id)}</b> ${a.off?'<span class="tg bad">disabled</span>':'<span class="tg ok">active</span>'} <button class="btn o sm" data-a="aoff" data-l="${esc(a.id)}" data-off="${a.off?0:1}">${a.off?'Enable':'Disable'}</button></p>`).join('')||'<p class="sub">No login yet.</p>'}
+   <div class="g2">${inp('lid','Login ID (new or reset)','')}${inp('lpw','Password (6+ characters)','','text')}</div><button class="btn big" style="margin-top:10px" data-a="acct">Create / reset login</button><p class="sub">Give the ID and password to the owner. Resetting replaces the old password.</p></div>
+  <p class="sec">Menu</p>${DB.dishes.length?DB.dishes.map(d=>`<div class="card"><div class="oh"><h3>${esc(d.name)}</h3><span>${fm(d.price)}${d.was?` <s class="sub">${fm(d.was)}</s>`:''}</span></div><p class="sub">${esc(d.cat)} ${d.veg?'- veg':''} - ${d.stock?'<span class="tg ok">in stock</span>':'<span class="tg bad">out of stock</span>'}</p><div class="row"><button class="btn o sm" data-a="dstock" data-d="${esc(d.id)}">${d.stock?'Mark out of stock':'Mark in stock'}</button><button class="btn o sm" data-a="dedit" data-d="${esc(d.id)}">Edit</button><button class="btn r sm" data-a="ddel" data-d="${esc(d.id)}">Delete</button></div></div>`).join(''):'<div class="empty">No dishes yet.</div>'}
+  <details class="card" id="dform"><summary>+ Add or edit a dish</summary><div class="g2">${inp('dn','Dish name','')}${inp('dc','Category (e.g. Wazwan)','')}${inp('dp','Price (Rs)','','number','inputmode="numeric"')}${inp('dw','Old price (only if real)','','number','inputmode="numeric"')}</div>${inp('dd','Short description (optional)','')}<div class="row"><label style="margin:0"><input type="checkbox" id="dv" style="width:auto;min-height:0"> Pure veg</label></div><button class="btn big" style="margin-top:10px" data-a="dsave">Save dish</button></details>`:''}`},
+ money(){const s=DB.sum2,t=s.totals;$('vw').innerHTML=`<div class="g2">${inp('mf','From',DB.mf,'date')}${inp('mt','To',DB.mt,'date')}</div><button class="btn sm" style="margin-top:10px" data-a="mshow">Show</button>
+  <div class="kp" style="margin-top:12px"><div><small>Delivered orders</small><b>${t.orders}</b></div><div><small>Sales (menu price)</small><b>${fm(t.sales)}</b></div><div><small>Your commission</small><b>${fm(t.commission)}</b></div><div><small>You owe restaurants</small><b>${fm(t.payable)}</b></div></div>
+  <p class="sub">Your earning after delivery fee, promos and rider cost: <b>${fm(t.platformProfit)}</b>. Cash with riders: <b>${fm(t.codCashWithRiders)}</b>.</p>
+  <p class="sec">Pay each restaurant</p>${s.restaurants.length?s.restaurants.map(r=>{const done=DB.setl.find(x=>x.rid===r.rid&&x.from===yy(DB.mf)&&x.to===yy(DB.mt));return `<div class="card"><div class="oh"><h3>${esc(r.name)}</h3><b style="color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:24px">${fm(r.payable)}</b></div><p class="sub">${r.orders} orders - sales ${fm(r.sales)} - commission ${fm(r.commission)}${r.restFunded?' - promos they funded '+fm(r.restFunded):''}</p>${done?`<p class="sub"><span class="tg ok">Paid</span> ref ${esc(done.ref||'-')}</p>`:`<div class="row"><input id="rf-${r.rid}" placeholder="UPI / bank reference" style="flex:1;min-width:150px" maxlength="60"><button class="btn g sm" data-a="spaid" data-r="${r.rid}" data-amt="${r.payable}">Mark paid</button></div>`}</div>`}).join(''):'<div class="empty">No delivered orders in this range.</div>'}
+  <p class="sec">Payments you recorded</p>${DB.setl.length?`<div class="card"><table class="tb"><tr><th>Restaurant</th><th>Period</th><th class="n">Amount</th></tr>${DB.setl.slice(0,30).map(x=>`<tr><td>${esc(x.rid)}</td><td>${esc(x.from)}-${esc(x.to)}</td><td class="n">${fm(x.amount)}</td></tr>`).join('')}</table></div>`:'<div class="empty">None yet.</div>'}`},
+ promo(){$('vw').innerHTML=`<details class="card" open><summary>+ New promo code</summary><div class="g2">${inp('pc','Code (e.g. MEHFIL100)','')}${inp('pt','Offer title customers see','','text','placeholder="Free delivery over Rs 299"')}${inp('pf','Flat discount Rs','','number','inputmode="numeric"')}${inp('pp','OR percent %','','number','inputmode="numeric"')}${inp('pm','Minimum order Rs','','number','inputmode="numeric"')}${inp('px','Maximum discount Rs','','number','inputmode="numeric"')}${inp('pl','Total uses allowed (0 = no limit)','0','number','inputmode="numeric"')}</div>
+  <div class="g2"><div><label for="pu">Valid until</label><input id="pu" type="date"></div><div><label for="pr">Only for</label><select id="pr"><option value="">All restaurants</option>${DB.rs.map(r=>`<option value="${r.id}">${esc(r.name)}</option>`).join('')}</select></div></div>
+  <label for="pg">Who pays for the discount</label><select id="pg"><option value="platform">We pay (platform)</option><option value="restaurant">The restaurant pays</option></select>
+  <div class="row"><label style="margin:0"><input type="checkbox" id="pd" style="width:auto;min-height:0"> Free delivery with this code</label></div><div class="row"><label style="margin:0"><input type="checkbox" id="pb" style="width:auto;min-height:0"> Show as an offer card on the customer page</label></div><button class="btn big" style="margin-top:10px" data-a="padd">Save promo</button><p class="sub">Each phone number can use a code once.</p></details>
+  <p class="sec">Your promo codes</p>${DB.promos.length?DB.promos.map(p=>`<div class="card"><div class="oh"><h3>${esc(p.code)}</h3><span>${p.flat?fm(p.flat)+' off':p.pct+'% off'}${p.freeDel?' + free delivery':''}</span></div><p class="sub">Min ${fm(p.min||0)}${p.max?', max '+fm(p.max):''} - paid by ${p.fund==='restaurant'?'restaurant':'us'} - used ${p.used||0}${p.limit?' of '+p.limit:''}${p.until?' - until '+iso(p.until):''}${p.rid?' - only '+esc(p.rid):''} - ${p.active?'<span class="tg ok">active</span>':'<span class="tg bad">off</span>'}${p.pub?' <span class="tg">public card</span>':''}</p><div class="row"><button class="btn o sm" data-a="ptog" data-c="${esc(p.code)}">${p.active?'Turn off':'Turn on'}</button><button class="btn r sm" data-a="pdel" data-c="${esc(p.code)}">Delete</button></div></div>`).join(''):'<div class="empty">No promo codes yet.</div>'}`},
+ set(){const c=DB.cfg;$('vw').innerHTML=`<div class="card"><h3>Delivery and rules</h3><div class="g2">${inp('cf','Flat delivery fee Rs',c.fee,'number','inputmode="numeric"')}${inp('ca','Free delivery above Rs',c.freeAbove,'number','inputmode="numeric"')}</div>${inp('cr','What the delivery partner charges you per delivery Rs',c.riderCost,'number','inputmode="numeric"')}<p class="sub">Used only for your earning numbers. Customers never see it.</p>${inp('cl','Areas we deliver to (separate with commas)',c.localities.join(', '))}<button class="btn big" style="margin-top:12px" data-a="csave">Save settings</button></div>
+  <div class="card"><h3>Delivery coordinator login</h3>${DB.accts.filter(a=>a.role==='dispatch').map(a=>`<p class="sub"><b>${esc(a.id)}</b> ${a.off?'<span class="tg bad">disabled</span>':'<span class="tg ok">active</span>'} <button class="btn o sm" data-a="aoff" data-l="${esc(a.id)}" data-off="${a.off?0:1}">${a.off?'Enable':'Disable'}</button></p>`).join('')||'<p class="sub">No login yet.</p>'}<div class="g2">${inp('di','Login ID','')}${inp('dpw','Password (6+ characters)','','text')}</div><button class="btn big" style="margin-top:10px" data-a="dacct">Create / reset login</button></div>
+  <div class="card"><h3>Blocked phone numbers</h3>${DB.ph.map(p=>`<p class="sub">${esc(p)} <button class="btn o sm" data-a="unblock" data-p="${esc(p)}">Unblock</button></p>`).join('')||'<p class="sub">None.</p>'}<div class="row"><input id="bp" inputmode="numeric" placeholder="10-digit phone" maxlength="14" style="flex:1"><button class="btn r sm" data-a="block">Block</button></div><p class="sub">Use for fake or abusive orders.</p></div>
+  <div class="card"><h3>Recent price changes by restaurants</h3>${DB.glog.length?`<table class="tb"><tr><th>When</th><th>Dish</th><th class="n">Change</th></tr>${DB.glog.slice(0,25).map(g=>`<tr><td>${new Date(g.ts).toLocaleDateString()}</td><td>${esc(g.n)}<br><span class="sub">${esc(g.rid)}</span></td><td class="n">${fm(g.from)} &rarr; ${fm(g.to)}</td></tr>`).join('')}</table>`:'<p class="sub">No changes yet.</p>'}</div>`}};
+function frm(p,r){r=r||{};return `<div class="g2">${inp(p+'n','Name',r.name)}${inp(p+'z','Area',r.zone)}</div>${inp(p+'b','Banner photo link (optional)',r.banner)}<div class="g2">${inp(p+'h','Opening hours',r.hours,'text','placeholder="11 am - 10 pm"')}${inp(p+'c','Our commission %',r.commission==null?10:r.commission,'number','inputmode="decimal"')}${inp(p+'f','FSSAI number',r.fssai)}${inp(p+'x','FSSAI valid until',r.fssaiExp,'date')}</div>${inp(p+'p','Payout UPI / bank details',r.payout)}<div class="g2">${inp(p+'t','Short tags (shown on card)',r.tags,'text','placeholder="Wazwan - Kashmiri"')}${inp(p+'e','Delivery time',r.eta,'text','placeholder="35-40 min"')}${inp(p+'w','Price for two Rs',r.forTwo,'number','inputmode="numeric"')}</div><label>Cuisine (for the filter chips)</label><div class="row">${CUI.map(([k,l])=>`<label style="margin:0;display:flex;gap:6px;align-items:center"><input type="checkbox" data-cu="${p}" value="${k}" style="width:auto;min-height:0" ${(r.cuisines||[]).includes(k)?'checked':''}> ${l}</label>`).join('')}</div>`}
+const CUI=[['wazwan','Wazwan'],['bakery','Kandur Bakery'],['fast','Fast Food'],['veg','Pure Veg'],['street','Street Food'],['sweets','Sweets and Kahwa']];
+const rbody=p=>({name:val(p+'n'),zone:val(p+'z'),banner:val(p+'b'),hours:val(p+'h'),commission:val(p+'c'),fssai:val(p+'f'),fssaiExp:val(p+'x'),payout:val(p+'p'),tags:val(p+'t'),eta:val(p+'e'),forTwo:val(p+'w'),cuisines:[...document.querySelectorAll('[data-cu="'+p+'"]:checked')].map(x=>x.value)});
+async function act(a,t){const d=t.dataset,reload=()=>go(view);
+ if(a==='pause'){await api({action:'cfg',set:{paused:!DB.cfg.paused}});toast(DB.cfg.paused?'Ordering resumed':'Ordering paused');return reload()}
+ if(a==='olist'){DB.of=val('of');DB.ot=val('ot');return reload()}
+ if(a==='csv'){const q=s=>'"'+String(s==null?'':s).replace(/"/g,'""')+'"',h=['Order','Restaurant','Status','Customer','Phone','Area','Items','Subtotal','Discount','Delivery','Total','Payment','Paid','Rider'];
+  const rows=DB.orders.map(x=>[x.id,x.rn,x.st,x.name,x.phone,x.zone,x.lines.map(l=>l.q+'x '+l.n).join('; '),x.sub,x.disc,x.fee,x.total,x.pay,x.paid?'yes':'no',x.rider||''].map(q).join(','));
+  const b=new Blob([h.join(',')+'\n'+rows.join('\n')],{type:'text/csv'}),u=URL.createObjectURL(b),l=document.createElement('a');l.href=u;l.download='orders-'+DB.of+'.csv';l.click();return}
+ if(a==='oassign'){const n=val('rd-'+d.o).trim();if(n.length<2)return toast('Type the rider name.');await api({action:'oassign',oid:d.o,rider:n});toast('Rider assigned');return reload()}
+ if(a==='ocancel'){if(!confirm('Cancel this order?'))return;await api({action:'ocancel',oid:d.o,reason:prompt('Reason for cancelling?')||'cancelled by admin'});toast('Order cancelled');return reload()}
+ if(a==='opaid'){await api({action:'opaid',oid:d.o});toast('Marked paid');return reload()}
+ if(a==='radd'){const b=rbody('n');if(b.name.trim().length<2)return toast('Enter the restaurant name.');const r=await api({action:'rset',...b});DB.rid=r.restaurant.id;toast('Restaurant saved. Now create its login below.');return reload()}
+ if(a==='rsave'){await api({action:'rset',id:DB.rid,...rbody('e')});toast('Saved');return reload()}
+ if(a==='ropen'){const r=DB.rs.find(x=>x.id===DB.rid);await api({action:'rset',id:r.id,name:r.name,open:!r.open});return reload()}
+ if(a==='rsusp'){const r=DB.rs.find(x=>x.id===DB.rid);if(!r.suspended&&!confirm('Suspend this restaurant? It disappears from the customer page.'))return;await api({action:'rset',id:r.id,name:r.name,suspended:!r.suspended});return reload()}
+ if(a==='rdel'){const r=DB.rs.find(x=>x.id===DB.rid);if(!confirm('Delete '+r.name+' for good? Its menu and logins are removed. Past orders and payments stay in your records. To hide it for a while, use Suspend instead.'))return;await api({action:'rdel',id:DB.rid});DB.rid='';toast('Restaurant deleted');return reload()}
+ if(a==='acct'){await api({action:'acct',role:'rest',rid:DB.rid,loginId:val('lid'),password:val('lpw')});toast('Login saved. Share the ID and password.');return reload()}
+ if(a==='dacct'){await api({action:'acct',role:'dispatch',loginId:val('di'),password:val('dpw')});toast('Login saved.');return reload()}
+ if(a==='aoff'){await api({action:'aset',loginId:d.l,off:d.off==='1'});return reload()}
+ if(a==='dsave'){const dp=val('dp');if(val('dn').trim().length<2||!dp)return toast('Dish name and price needed.');const old=DB.dishes.find(x=>x.id===(DB.editId||''));await api({action:'dset',rid:DB.rid,id:old?old.id:undefined,name:val('dn'),cat:val('dc')||'Menu',price:dp,was:val('dw'),desc:val('dd'),veg:$('dv').checked,stock:old?old.stock:true});DB.editId='';toast('Dish saved');return reload()}
+ if(a==='dedit'){const x=DB.dishes.find(y=>y.id===d.d);DB.editId=x.id;const f=$('dform');f.open=true;$('dn').value=x.name;$('dc').value=x.cat;$('dp').value=x.price;$('dw').value=x.was||'';$('dd').value=x.desc||'';$('dv').checked=!!x.veg;f.scrollIntoView({behavior:'smooth'});return}
+ if(a==='dstock'){const x=DB.dishes.find(y=>y.id===d.d);await api({action:'dset',rid:DB.rid,id:x.id,name:x.name,cat:x.cat,price:x.price,was:x.was,desc:x.desc,veg:x.veg,stock:!x.stock});return reload()}
+ if(a==='ddel'){if(!confirm('Delete this dish?'))return;await api({action:'ddel',rid:DB.rid,id:d.d});return reload()}
+ if(a==='mshow'){DB.mf=val('mf');DB.mt=val('mt');return reload()}
+ if(a==='spaid'){if(!confirm('Record this payment as done?'))return;await api({action:'spaid',rid:d.r,from:yy(DB.mf),to:yy(DB.mt),ref:val('rf-'+d.r),amount:d.amt});toast('Payment recorded');return reload()}
+ if(a==='padd'){await api({action:'pset',code:val('pc'),flat:val('pf'),pct:val('pp'),min:val('pm'),max:val('px'),limit:val('pl'),until:val('pu'),rid:val('pr'),fund:val('pg'),freeDel:$('pd').checked,title:val('pt'),pub:$('pb').checked});toast('Promo saved');return reload()}
+ if(a==='ptog'){const p=DB.promos.find(x=>x.code===d.c);await api({action:'pset',code:p.code,flat:p.flat,pct:p.pct,min:p.min,max:p.max,limit:p.limit,until:p.until?iso(p.until):'',rid:p.rid||'',fund:p.fund,freeDel:p.freeDel,title:p.title||'',pub:!!p.pub,active:!p.active});return reload()}
+ if(a==='pdel'){if(!confirm('Delete this promo?'))return;await api({action:'pdel',code:d.c});return reload()}
+ if(a==='csave'){await api({action:'cfg',set:{fee:val('cf'),freeAbove:val('ca'),riderCost:val('cr'),localities:val('cl').split(',').map(s=>s.trim()).filter(Boolean)}});toast('Settings saved');return reload()}
+ if(a==='block'){if(val('bp').replace(/\D/g,'').length<10)return toast('Enter a 10-digit number.');await api({action:'block',phone:val('bp')});return reload()}
+ if(a==='unblock'){await api({action:'block',phone:d.p,on:false});return reload()}}
+document.addEventListener('click',async e=>{const t=e.target.closest('[data-a],[data-v]');if(!t)return;if(t.dataset.v){if(!busy)go(t.dataset.v);return}
+ if(busy)return;busy=true;t.disabled=true;try{await act(t.dataset.a,t)}catch(er){if(er.message==='net')toast('No internet. Try again.');else if(er.message!=='auth')toast(er.message)}busy=false;t.disabled=false});
+document.addEventListener('change',e=>{if(e.target.id==='rsel'){DB.rid=e.target.value;go('rest')}});
+$('lf').addEventListener('submit',async e=>{e.preventDefault();ctx();KEY=$('lk').value.trim();$('lb').disabled=true;$('le').textContent='';
+ try{await api({action:'cfg'});try{sessionStorage.setItem('fk',KEY)}catch(x){}$('lk').value='';start()}catch(er){$('le').textContent=er.message==='auth'?'Wrong key.':'Could not connect. Try again.'}$('lb').disabled=false});
+function setSound(){$('so').classList.toggle('on',SOUND);$('so').lastChild.textContent=SOUND?'Sound on':'Sound off'}
+$('so').onclick=()=>{SOUND=!SOUND;try{localStorage.setItem('fs',SOUND?'1':'0')}catch(e){}setSound();ctx()};$('sb').onclick=()=>{ctx();chime()};$('lo').onclick=out;
+function start(){show(true);setSound();go('live');clearInterval(poll);poll=setInterval(()=>{if(!document.hidden&&view==='live'&&!busy)LOAD.live().then(nav).catch(()=>{})},10000)}
+if(KEY)start();else show(false);
+</script></body></html>
