@@ -1,1 +1,146 @@
-x
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Kitchen Partner | Riwaaz-e-Kashmir</title>
+<meta name="robots" content="noindex, nofollow"><meta name="color-scheme" content="dark"><meta name="theme-color" content="#0f1a13">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Jost:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0f1a13;--bg2:#14201a;--bg3:#1b2a21;--gold:#c9a961;--ivory:#f3ead7;--mute:#a9b4a8;--line:#2b3f33;--ok:#6fbf8a;--bad:#d9785f;--warn:#e0a63c;color-scheme:dark}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{font:400 16px/1.5 Jost,system-ui,sans-serif;background:var(--bg);color:var(--ivory);min-height:100vh;padding:env(safe-area-inset-top) 0 calc(24px + env(safe-area-inset-bottom));touch-action:manipulation}
+button,input{font:inherit;color:inherit}
+.w{max-width:640px;margin:0 auto;padding:0 14px}
+h1,h2,h3{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;line-height:1.1}
+.kb{height:14px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='14'%3E%3Cg fill='none' stroke='%23c9a961' stroke-width='1' opacity='.75'%3E%3Cpath d='M0 7L8 0L16 7L8 14Z'/%3E%3Cpath d='M16 7L24 0L32 7L24 14Z'/%3E%3Cpath d='M8 7L12 3L16 7L12 11Z'/%3E%3Cpath d='M24 7L28 3L32 7L28 11Z'/%3E%3C/g%3E%3C/svg%3E") repeat-x center;border-bottom:1px solid var(--line)}
+header{position:sticky;top:0;z-index:20;background:var(--bg2);border-bottom:1px solid var(--gold)}
+.hr{display:flex;align-items:center;gap:10px;padding:10px 0}
+.hr .t{flex:1;min-width:0}.hr small{display:block;font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:var(--gold)}
+.hr h1{font-size:22px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;padding:10px 16px;border-radius:12px;border:1px solid var(--gold);background:var(--gold);color:#14110a;font-weight:500;cursor:pointer}
+.btn.o{background:transparent;color:var(--gold)}.btn.g{border-color:var(--ok);background:var(--ok);color:#0b1a10}.btn.r{background:transparent;border-color:var(--bad);color:var(--bad)}
+.btn:disabled{opacity:.5}.btn.sm{min-height:40px;padding:8px 12px;font-size:14px}
+.sw{display:flex;align-items:center;gap:8px;min-height:44px;padding:6px 12px;border-radius:22px;border:1px solid var(--line);background:var(--bg3);cursor:pointer;font-size:14px}
+.sw i{width:10px;height:10px;border-radius:50%;background:var(--bad)}.sw.on i{background:var(--ok)}
+.tabs{display:flex;gap:8px;padding:10px 0}.tabs button{flex:1;min-height:44px;border-radius:12px;border:1px solid var(--line);background:transparent;color:var(--mute);cursor:pointer}
+.tabs button.on{border-color:var(--gold);color:var(--gold);background:var(--bg3)}
+.tabs b{display:inline-block;min-width:20px;padding:0 6px;margin-left:6px;border-radius:10px;background:var(--bad);color:#fff;font-size:12px;line-height:20px}
+.bn{margin:10px 0;padding:10px 14px;border-radius:12px;border:1px solid var(--warn);background:#2a2412;color:var(--warn);font-size:14px}
+.bn button{margin-left:8px}
+.sec{margin:18px 0 8px;font-size:12px;letter-spacing:1.4px;text-transform:uppercase;color:var(--gold)}
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:10px}
+.card.new{border-color:var(--gold);box-shadow:0 0 0 2px rgba(201,169,97,.25);animation:bl 1.4s ease-in-out infinite}
+@keyframes bl{50%{box-shadow:0 0 0 5px rgba(201,169,97,.1)}}
+.oh{display:flex;justify-content:space-between;align-items:baseline;gap:8px}.oh b{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold)}
+.ag{font-size:13px;color:var(--mute)}.ag.late{color:var(--bad);font-weight:500}
+.li{margin:8px 0;list-style:none}.li li{display:flex;gap:10px;padding:3px 0;font-size:17px}.li li b{min-width:30px;color:var(--gold);font-weight:500}
+.nt{font-size:14px;color:var(--warn);margin:4px 0}
+.bt{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}.bt.one{grid-template-columns:1fr}.bt.two{grid-template-columns:1fr 1fr}
+.tm{font-size:13px;color:var(--mute);margin-top:10px}
+.pr{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.dish{display:grid;grid-template-columns:1fr auto;gap:8px 10px;align-items:center}
+.dish h3{font-size:19px}.dish small{color:var(--mute)}.dish.off h3{color:var(--mute);text-decoration:line-through}
+.pe{display:flex;gap:6px;align-items:center;grid-column:1/-1}
+input[type=text],input[type=password],input[type=number]{width:100%;min-height:46px;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg3);color:var(--ivory);font-size:16px}
+.pe input{width:100px}
+label{display:block;font-size:12px;letter-spacing:.5px;color:var(--mute);margin:12px 0 4px}
+.err{color:var(--bad);font-size:14px;margin-top:10px;min-height:20px}
+.empty{padding:26px 10px;text-align:center;color:var(--mute)}
+.login{max-width:420px;margin:30px auto}.login h2{font-size:30px;margin:14px 0 4px}
+.sk{height:96px;border-radius:14px;background:linear-gradient(90deg,var(--bg2),var(--bg3),var(--bg2));background-size:200% 100%;animation:sh 1.2s linear infinite;margin-bottom:10px}
+@keyframes sh{to{background-position:-200% 0}}
+.hide{display:none!important}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--gold);color:#14110a;padding:10px 18px;border-radius:22px;font-size:14px;z-index:50;max-width:90vw}
+</style></head><body>
+<div id="lg" class="hide"><div class="kb"></div><div class="w login">
+<p style="font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:var(--gold)">Riwaaz-e-Kashmir</p><h2>Kitchen partner login</h2>
+<p style="color:var(--mute)">Use the ID and password we gave you.</p>
+<form id="lf" autocomplete="on"><label for="li">Login ID</label><input id="li" type="text" autocomplete="username" autocapitalize="none" required>
+<label for="lp">Password</label><input id="lp" type="password" autocomplete="current-password" required>
+<p class="err" id="le" role="alert"></p><button class="btn" id="lb" style="width:100%" type="submit">Log in</button></form>
+<p style="margin-top:18px;color:var(--mute);font-size:14px">Forgot your password? Call us and we will reset it.</p></div></div>
+
+<div id="ap" class="hide">
+<header><div class="kb"></div><div class="w"><div class="hr"><div class="t"><small>Kitchen partner</small><h1 id="rn">Restaurant</h1></div>
+<button class="sw" id="so" aria-label="Sound alert on or off"><i></i><span>Sound</span></button>
+<button class="sw" id="op" aria-label="Open or closed"><i></i><span>Closed</span></button></div></div></header>
+<div class="w">
+<div class="bn hide" id="snd">Tap here once to turn on the new-order sound. <button class="btn sm" id="sb">Enable sound</button></div>
+<div class="bn hide" id="off">No internet connection. Showing the last orders. We keep trying.</div>
+<div class="tabs"><button id="t1" class="on" aria-label="Orders">Orders<b id="nb" class="hide">0</b></button><button id="t2" aria-label="Menu">Menu</button></div>
+<div id="ov"></div><div id="mv" class="hide"></div>
+<p class="ag" style="text-align:center;margin-top:20px" id="up"></p>
+<p style="text-align:center;margin-top:10px"><button class="btn o sm" id="lo">Log out</button></p>
+</div></div>
+<div class="toast hide" id="ts" role="status"></div>
+
+<script>
+const $=i=>document.getElementById(i);
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let RN='',TOK='',ORD=[],MENU=[],OPEN=false,SOUND=true,tab=1,poll=0,ring=0,ac=null,busy=false,rej=null,lastOk=0,wl=null;
+try{TOK=localStorage.getItem('kt')||'';RN=localStorage.getItem('kn')||'';SOUND=localStorage.getItem('ks')!=='0'}catch(e){}
+const save=(k,v)=>{try{v?localStorage.setItem(k,v):localStorage.removeItem(k)}catch(e){}};
+const toast=m=>{const t=$('ts');t.textContent=m;t.classList.remove('hide');clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.add('hide'),2600)};
+async function api(b){let r;try{r=await fetch('/api/food/rest',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({token:TOK,...b})})}catch(e){$('off').classList.remove('hide');throw new Error('net')}
+ $('off').classList.add('hide');let d={};try{d=await r.json()}catch(e){}
+ if(r.status===401&&d.login){out();throw new Error('auth')}
+ if(!r.ok)throw new Error(d.error||'Something went wrong. Please try again.');return d}
+/* ---- sound: a soft two-note chime made in the browser, no file needed ---- */
+function ctx(){try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();if(ac.state!=='running')ac.resume();return ac}catch(e){return null}}
+function chime(){if(!SOUND)return;const c=ctx();if(!c||c.state!=='running'){$('snd').classList.remove('hide');return}$('snd').classList.add('hide');
+ [[880,0],[1175,.28],[880,.6],[1175,.88]].forEach(([f,t])=>{const o=c.createOscillator(),g=c.createGain();o.type='sine';o.frequency.value=f;g.gain.setValueAtTime(0,c.currentTime+t);g.gain.linearRampToValueAtTime(.35,c.currentTime+t+.03);g.gain.exponentialRampToValueAtTime(.001,c.currentTime+t+.3);o.connect(g);g.connect(c.destination);o.start(c.currentTime+t);o.stop(c.currentTime+t+.32)});
+ try{navigator.vibrate&&navigator.vibrate([200,100,200])}catch(e){}}
+function ringCheck(){const n=ORD.filter(o=>o.st==='placed').length;clearInterval(ring);if(n&&SOUND){chime();ring=setInterval(chime,5000)}}
+/* ---- views ---- */
+function show(a){$('lg').classList.toggle('hide',a);$('ap').classList.toggle('hide',!a)}
+function out(){clearInterval(poll);clearInterval(ring);TOK='';save('kt','');show(false)}
+function ago(ts){const m=Math.floor((Date.now()-ts)/60000);return m<1?'just now':m+' min ago'}
+function setOpen(o){OPEN=o;$('op').classList.toggle('on',o);$('op').lastChild.textContent=o?'Open':'Closed'}
+function setSound(){$('so').classList.toggle('on',SOUND);$('so').lastChild.textContent=SOUND?'Sound on':'Sound off'}
+function card(o){const items='<ul class="li">'+o.lines.map(l=>`<li><b>${l.q}x</b><span>${esc(l.n)}</span></li>`).join('')+'</ul>',late=o.st==='placed'&&Date.now()-o.ts>180000;
+ let b='',x='';
+ if(o.st==='placed'){const r=rej===o.id;x=r?`<p class="tm">Why can you not make it?</p><div class="bt two"><button class="btn r" data-a="reject" data-o="${o.id}" data-r="out_of_stock">Out of stock</button><button class="btn r" data-a="reject" data-o="${o.id}" data-r="too_busy">Too busy</button><button class="btn r" data-a="reject" data-o="${o.id}" data-r="closed">Closed</button><button class="btn r" data-a="reject" data-o="${o.id}" data-r="other">Other</button></div><div class="bt one"><button class="btn o sm" data-a="back">Go back</button></div>`
+  :`<p class="tm">Accept and tell us how long it will take:</p><div class="bt"><button class="btn g" data-a="accept" data-o="${o.id}" data-p="15">15 min</button><button class="btn g" data-a="accept" data-o="${o.id}" data-p="20">20 min</button><button class="btn g" data-a="accept" data-o="${o.id}" data-p="30">30 min</button></div><div class="bt one"><button class="btn r sm" data-a="rejask" data-o="${o.id}">Reject</button></div>`}
+ else if(o.st==='accepted')x=`<p class="tm">Promised in ${o.prep} min</p><div class="bt one"><button class="btn" data-a="ready" data-o="${o.id}">Food is ready</button></div>`;
+ else if(o.st==='ready')x='<p class="tm">Waiting for the rider to pick up.</p>';
+ else if(o.st==='picked')x='<p class="tm">Picked up by the rider.</p>';
+ return `<div class="card ${o.st==='placed'?'new':''}"><div class="oh"><b>${esc(o.id.slice(-9))}</b><span class="ag ${late?'late':''}">${ago(o.ts)}${late?' - please answer':''}</span></div><p class="ag">For ${esc(o.name)}</p>${items}${o.note?`<p class="nt">Note: ${esc(o.note)}</p>`:''}<p class="ag">Order value Rs ${o.sub}</p>${x}</div>`}
+function renderO(){const g=s=>ORD.filter(o=>s.includes(o.st)),nw=g(['placed']),kt=g(['accepted']),rd=g(['ready','picked']),dn=g(['delivered','rejected','cancelled']);
+ const nb=$('nb');nb.textContent=nw.length;nb.classList.toggle('hide',!nw.length);
+ let h='';if(!ORD.length)h='<div class="empty">No orders yet. New orders will ring here.</div>';
+ else{h+=(nw.length?'<p class="sec">New orders</p>'+nw.map(card).join(''):'')+(kt.length?'<p class="sec">In the kitchen</p>'+kt.map(card).join(''):'')+(rd.length?'<p class="sec">Ready / on the way</p>'+rd.map(card).join(''):'');
+  if(!nw.length&&!kt.length&&!rd.length)h+='<div class="empty">No active orders. New orders will ring here.</div>';
+  if(dn.length)h+='<p class="sec">Finished (last 2 days)</p>'+dn.slice(0,10).map(o=>`<div class="card"><div class="oh"><b>${esc(o.id.slice(-9))}</b><span class="ag">${o.st==='delivered'?'Delivered':o.st==='rejected'?'Rejected':'Cancelled'}</span></div><p class="ag">${o.lines.map(l=>l.q+'x '+esc(l.n)).join(', ')} - Rs ${o.sub}</p></div>`).join('')}
+ $('ov').innerHTML=h}
+function renderM(){const cats={};MENU.forEach(d=>(cats[d.cat]=cats[d.cat]||[]).push(d));
+ $('mv').innerHTML=MENU.length?Object.keys(cats).map(c=>`<p class="sec">${esc(c)}</p>`+cats[c].map(d=>`<div class="card dish ${d.stock?'':'off'}"><div><h3>${esc(d.name)}</h3><small>Rs ${d.price}</small></div><button class="btn sm ${d.stock?'g':'r'}" data-a="stock" data-d="${esc(d.id)}" data-s="${d.stock?0:1}" aria-label="${esc(d.name)} stock">${d.stock?'In stock':'Out of stock'}</button><div class="pe"><input type="number" inputmode="numeric" min="1" max="5000" value="${d.price}" id="pi-${esc(d.id)}" aria-label="New price for ${esc(d.name)}"><button class="btn o sm" data-a="price" data-d="${esc(d.id)}">Save price</button></div></div>`).join('')).join(''):'<div class="empty">No dishes yet. We add your menu for you.</div>'}
+async function load(first){try{const d=await api({action:'orders'});ORD=d.orders;setOpen(d.open);renderO();ringCheck();lastOk=Date.now();$('up').textContent='Updated '+new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}catch(e){if(first&&e.message!=='net'&&e.message!=='auth')$('ov').innerHTML=`<div class="empty">${esc(e.message)}<br><br><button class="btn" data-a="retry">Try again</button></div>`}}
+async function loadM(){try{MENU=(await api({action:'menu'})).dishes;renderM()}catch(e){$('mv').innerHTML=`<div class="empty">${esc(e.message)}<br><br><button class="btn" data-a="retry">Try again</button></div>`}}
+async function start(){show(true);$('rn').textContent=RN||'Restaurant';$('ov').innerHTML='<div class="sk"></div><div class="sk"></div>';setSound();try{const d=await api({action:'menu'});MENU=d.dishes}catch(e){}
+ await load(true);clearInterval(poll);poll=setInterval(()=>{if(!document.hidden)load()},7000);try{if(navigator.wakeLock)wl=await navigator.wakeLock.request('screen')}catch(e){}}
+/* ---- actions (one tap at a time) ---- */
+document.addEventListener('click',async e=>{const t=e.target.closest('[data-a]');if(!t)return;const a=t.dataset.a;
+ if(a==='back'){rej=null;renderO();return}if(a==='rejask'){rej=t.dataset.o;renderO();return}if(a==='retry'){tab===1?load(true):loadM();return}
+ if(busy)return;busy=true;t.disabled=true;
+ try{
+  if(a==='accept'){await api({action:'accept',oid:t.dataset.o,prep:+t.dataset.p});toast('Accepted. Cook it for '+t.dataset.p+' min.')}
+  else if(a==='reject'){await api({action:'reject',oid:t.dataset.o,reason:t.dataset.r});rej=null;toast('Order rejected. We will inform the customer.')}
+  else if(a==='ready'){await api({action:'ready',oid:t.dataset.o});toast('Marked ready. Rider is informed.')}
+  else if(a==='stock'){const d=await api({action:'stock',did:t.dataset.d,stock:t.dataset.s==='1'});const i=MENU.findIndex(x=>x.id===d.dish.id);MENU[i]=d.dish;renderM();toast(d.dish.stock?'Back in stock':'Marked out of stock')}
+  else if(a==='price'){const v=$('pi-'+t.dataset.d).value;const d=await api({action:'price',did:t.dataset.d,price:+v});const i=MENU.findIndex(x=>x.id===d.dish.id);MENU[i]=d.dish;renderM();toast('Price saved: Rs '+d.dish.price)}
+  if(['accept','reject','ready'].includes(a))await load()}
+ catch(er){if(er.message==='net')toast('No internet. Try again.');else if(er.message!=='auth')toast(er.message)}
+ busy=false;t.disabled=false});
+$('lf').addEventListener('submit',async e=>{e.preventDefault();ctx();const b=$('lb');b.disabled=true;$('le').textContent='';
+ try{const r=await fetch('/api/food/rest',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'login',id:$('li').value.trim(),password:$('lp').value})}),d=await r.json();
+  if(!r.ok||!d.token)throw new Error(d.error||'Could not log in.');TOK=d.token;save('kt',TOK);RN=d.name;save('kn',RN);$('lp').value='';start()}
+ catch(er){$('le').textContent=er.message==='Failed to fetch'?'No internet. Please try again.':er.message}b.disabled=false});
+$('op').onclick=async()=>{if(busy)return;busy=true;try{const d=await api({action:'open',open:!OPEN});setOpen(d.open);toast(d.open?'You are open for orders':'You are closed. No new orders.')}catch(e){if(e.message!=='auth'&&e.message!=='net')toast(e.message)}busy=false};
+$('so').onclick=()=>{SOUND=!SOUND;save('ks',SOUND?'1':'0');setSound();ctx();ringCheck()};
+$('sb').onclick=()=>{ctx();chime();ringCheck()};
+$('t1').onclick=()=>{tab=1;$('t1').classList.add('on');$('t2').classList.remove('on');$('ov').classList.remove('hide');$('mv').classList.add('hide')};
+$('t2').onclick=()=>{tab=2;$('t2').classList.add('on');$('t1').classList.remove('on');$('mv').classList.remove('hide');$('ov').classList.add('hide');MENU.length?renderM():loadM()};
+$('lo').onclick=out;
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&TOK){load();try{if(navigator.wakeLock&&!wl)navigator.wakeLock.request('screen').then(x=>wl=x).catch(()=>{})}catch(e){}}});
+if(TOK){api({action:'menu'}).then(d=>{MENU=d.dishes;start()}).catch(e=>{if(e.message==='net'){start()}else show(false)})}else show(false);
+</script></body></html>
