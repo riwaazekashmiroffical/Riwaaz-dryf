@@ -1,1 +1,150 @@
-x
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Dispatch | Riwaaz-e-Kashmir</title>
+<meta name="robots" content="noindex, nofollow"><meta name="color-scheme" content="dark"><meta name="theme-color" content="#0f1a13">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Jost:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0f1a13;--bg2:#14201a;--bg3:#1b2a21;--gold:#c9a961;--ivory:#f3ead7;--mute:#a9b4a8;--line:#2b3f33;--ok:#6fbf8a;--bad:#d9785f;--warn:#e0a63c;color-scheme:dark}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{font:400 16px/1.5 Jost,system-ui,sans-serif;background:var(--bg);color:var(--ivory);min-height:100vh;padding:env(safe-area-inset-top) 0 calc(24px + env(safe-area-inset-bottom));touch-action:manipulation}
+button,input{font:inherit;color:inherit}
+.w{max-width:640px;margin:0 auto;padding:0 14px}
+h1,h2,h3{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;line-height:1.1}
+.kb{height:14px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='14'%3E%3Cg fill='none' stroke='%23c9a961' stroke-width='1' opacity='.75'%3E%3Cpath d='M0 7L8 0L16 7L8 14Z'/%3E%3Cpath d='M16 7L24 0L32 7L24 14Z'/%3E%3Cpath d='M8 7L12 3L16 7L12 11Z'/%3E%3Cpath d='M24 7L28 3L32 7L28 11Z'/%3E%3C/g%3E%3C/svg%3E") repeat-x center;border-bottom:1px solid var(--line)}
+header{position:sticky;top:0;z-index:20;background:var(--bg2);border-bottom:1px solid var(--gold)}
+.hr{display:flex;align-items:center;gap:10px;padding:10px 0}
+.hr .t{flex:1;min-width:0}.hr small{display:block;font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:var(--gold)}
+.hr h1{font-size:22px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;padding:10px 16px;border-radius:12px;border:1px solid var(--gold);background:var(--gold);color:#14110a;font-weight:500;cursor:pointer}
+.btn.o{background:transparent;color:var(--gold)}.btn.g{border-color:var(--ok);background:var(--ok);color:#0b1a10}.btn.r{background:transparent;border-color:var(--bad);color:var(--bad)}
+.btn:disabled{opacity:.5}.btn.sm{min-height:40px;padding:8px 12px;font-size:14px}
+.sw{display:flex;align-items:center;gap:8px;min-height:44px;padding:6px 12px;border-radius:22px;border:1px solid var(--line);background:var(--bg3);cursor:pointer;font-size:14px}
+.sw i{width:10px;height:10px;border-radius:50%;background:var(--bad)}.sw.on i{background:var(--ok)}
+.tabs{display:flex;gap:8px;padding:10px 0}.tabs button{flex:1;min-height:44px;border-radius:12px;border:1px solid var(--line);background:transparent;color:var(--mute);cursor:pointer}
+.tabs button.on{border-color:var(--gold);color:var(--gold);background:var(--bg3)}
+.tabs b{display:inline-block;min-width:20px;padding:0 6px;margin-left:6px;border-radius:10px;background:var(--bad);color:#fff;font-size:12px;line-height:20px}
+.bn{margin:10px 0;padding:10px 14px;border-radius:12px;border:1px solid var(--warn);background:#2a2412;color:var(--warn);font-size:14px}
+.bn button{margin-left:8px}
+.sec{margin:18px 0 8px;font-size:12px;letter-spacing:1.4px;text-transform:uppercase;color:var(--gold)}
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:10px}
+.card.new{border-color:var(--gold);box-shadow:0 0 0 2px rgba(201,169,97,.25);animation:bl 1.4s ease-in-out infinite}
+@keyframes bl{50%{box-shadow:0 0 0 5px rgba(201,169,97,.1)}}
+.oh{display:flex;justify-content:space-between;align-items:baseline;gap:8px}.oh b{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold)}
+.ag{font-size:13px;color:var(--mute)}.ag.late{color:var(--bad);font-weight:500}
+.li{margin:8px 0;list-style:none}.li li{display:flex;gap:10px;padding:3px 0;font-size:17px}.li li b{min-width:30px;color:var(--gold);font-weight:500}
+.nt{font-size:14px;color:var(--warn);margin:4px 0}
+.bt{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}.bt.one{grid-template-columns:1fr}.bt.two{grid-template-columns:1fr 1fr}
+.tm{font-size:13px;color:var(--mute);margin-top:10px}
+.pr{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.dish{display:grid;grid-template-columns:1fr auto;gap:8px 10px;align-items:center}
+.dish h3{font-size:19px}.dish small{color:var(--mute)}.dish.off h3{color:var(--mute);text-decoration:line-through}
+.pe{display:flex;gap:6px;align-items:center;grid-column:1/-1}
+input[type=text],input[type=password],input[type=number]{width:100%;min-height:46px;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg3);color:var(--ivory);font-size:16px}
+.pe input{width:100px}
+label{display:block;font-size:12px;letter-spacing:.5px;color:var(--mute);margin:12px 0 4px}
+.err{color:var(--bad);font-size:14px;margin-top:10px;min-height:20px}
+.empty{padding:26px 10px;text-align:center;color:var(--mute)}
+.login{max-width:420px;margin:30px auto}.login h2{font-size:30px;margin:14px 0 4px}
+.sk{height:96px;border-radius:14px;background:linear-gradient(90deg,var(--bg2),var(--bg3),var(--bg2));background-size:200% 100%;animation:sh 1.2s linear infinite;margin-bottom:10px}
+@keyframes sh{to{background-position:-200% 0}}
+.hide{display:none!important}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--gold);color:#14110a;padding:10px 18px;border-radius:22px;font-size:14px;z-index:50;max-width:90vw}
+.ph{display:inline-block;margin-top:6px;color:var(--gold);border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:15px}
+.ad{font-size:15px;margin:6px 0}.rd{display:flex;gap:8px;margin-top:10px}.rd input{flex:1}
+.st{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 2px}.st span{font-size:12px;padding:3px 9px;border:1px solid var(--line);border-radius:10px;color:var(--mute)}.st .cod{border-color:var(--warn);color:var(--warn)}
+.tb{width:100%;border-collapse:collapse;font-size:15px}.tb td,.tb th{padding:8px 4px;border-bottom:1px solid var(--line);text-align:left}.tb th{font-size:12px;color:var(--gold);letter-spacing:1px;text-transform:uppercase;font-weight:500}.tb td:last-child,.tb th:last-child{text-align:right}
+</style></head><body>
+<div id="lg" class="hide"><div class="kb"></div><div class="w login">
+<p style="font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:var(--gold)">Riwaaz-e-Kashmir</p><h2>Dispatch login</h2>
+<p style="color:var(--mute)">For the delivery coordinator.</p>
+<form id="lf"><label for="li">Login ID</label><input id="li" type="text" autocomplete="username" autocapitalize="none" required>
+<label for="lp">Password</label><input id="lp" type="password" autocomplete="current-password" required>
+<p class="err" id="le" role="alert"></p><button class="btn" id="lb" style="width:100%" type="submit">Log in</button></form></div></div>
+
+<div id="ap" class="hide">
+<header><div class="kb"></div><div class="w"><div class="hr"><div class="t"><small>Delivery desk</small><h1>Dispatch</h1></div>
+<button class="sw" id="so" aria-label="Sound alert on or off"><i></i><span>Sound</span></button></div></div></header>
+<div class="w">
+<div class="bn hide" id="snd">Tap once to turn on the alert sound. <button class="btn sm" id="sb">Enable sound</button></div>
+<div class="bn hide" id="off">No internet connection. Showing the last orders. We keep trying.</div>
+<div class="tabs"><button id="t1" class="on" aria-label="Orders">Orders<b id="nb" class="hide">0</b></button><button id="t2" aria-label="Riders today">Riders today</button></div>
+<div id="ov"></div><div id="mv" class="hide"></div>
+<p class="ag" style="text-align:center;margin-top:20px" id="up"></p>
+<p style="text-align:center;margin-top:10px"><button class="btn o sm" id="lo">Log out</button></p>
+</div></div>
+<div class="toast hide" id="ts" role="status"></div>
+<datalist id="rl"></datalist>
+<script>
+const $=i=>document.getElementById(i);
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let TOK='',ORD=[],SOUND=true,tab=1,poll=0,ring=0,ac=null,busy=false,cf=null,wl=null,seen={};
+try{TOK=localStorage.getItem('dt')||'';SOUND=localStorage.getItem('ds')!=='0'}catch(e){}
+const save=(k,v)=>{try{v?localStorage.setItem(k,v):localStorage.removeItem(k)}catch(e){}};
+const toast=m=>{const t=$('ts');t.textContent=m;t.classList.remove('hide');clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.add('hide'),2600)};
+async function api(b){let r;try{r=await fetch('/api/food/dispatch',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({token:TOK,...b})})}catch(e){$('off').classList.remove('hide');throw new Error('net')}
+ $('off').classList.add('hide');let d={};try{d=await r.json()}catch(e){}
+ if(r.status===401&&d.login){out();throw new Error('auth')}
+ if(!r.ok)throw new Error(d.error||'Something went wrong. Please try again.');return d}
+function ctx(){try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();if(ac.state!=='running')ac.resume();return ac}catch(e){return null}}
+function chime(){if(!SOUND)return;const c=ctx();if(!c||c.state!=='running'){$('snd').classList.remove('hide');return}$('snd').classList.add('hide');
+ [[660,0],[990,.25],[660,.55]].forEach(([f,t])=>{const o=c.createOscillator(),g=c.createGain();o.type='sine';o.frequency.value=f;g.gain.setValueAtTime(0,c.currentTime+t);g.gain.linearRampToValueAtTime(.35,c.currentTime+t+.03);g.gain.exponentialRampToValueAtTime(.001,c.currentTime+t+.3);o.connect(g);g.connect(c.destination);o.start(c.currentTime+t);o.stop(c.currentTime+t+.32)});
+ try{navigator.vibrate&&navigator.vibrate([200,100,200])}catch(e){}}
+/* ring while an order is READY and has no rider */
+function ringCheck(){const n=ORD.filter(o=>o.st==='ready'&&!o.rider).length;clearInterval(ring);if(n&&SOUND){chime();ring=setInterval(chime,6000)}}
+function show(a){$('lg').classList.toggle('hide',a);$('ap').classList.toggle('hide',!a)}
+function out(){clearInterval(poll);clearInterval(ring);TOK='';save('dt','');show(false)}
+const mins=ts=>Math.floor((Date.now()-ts)/60000),ago=ts=>{const m=mins(ts);return m<1?'just now':m+' min ago'};
+const tAt=(o,s)=>((o.trail.find(x=>x.s===s)||{}).t)||o.ts;
+const today=ts=>new Date(ts+19800000).toISOString().slice(0,10)===new Date(Date.now()+19800000).toISOString().slice(0,10);
+function riders(){try{return JSON.parse(localStorage.getItem('dr')||'[]')}catch(e){return[]}}
+function remember(n){try{const l=riders().filter(x=>x!==n);l.unshift(n);localStorage.setItem('dr',JSON.stringify(l.slice(0,40)))}catch(e){}}
+function dl(){$('rl').innerHTML=[...new Set([...riders(),...ORD.map(o=>o.rider).filter(Boolean)])].map(n=>`<option value="${esc(n)}">`).join('')}
+function setSound(){$('so').classList.toggle('on',SOUND);$('so').lastChild.textContent=SOUND?'Sound on':'Sound off'}
+const itemsTxt=o=>o.lines.map(l=>l.q+'x '+esc(l.n)).join(', ');
+function card(o){
+ const cod=o.pay==='cod',head=`<div class="oh"><b>${esc(o.id.slice(-9))}</b><span class="ag">${ago(o.ts)}</span></div><p style="font-size:18px;margin-top:2px">${esc(o.rn)}</p>`;
+ const cust=`<p class="ad"><b>${esc(o.name)}</b> - ${esc(o.zone)}<br>${esc(o.addr)}</p><a class="ph" href="tel:${esc(o.phone)}" aria-label="Call ${esc(o.name)}">Call ${esc(o.phone)}</a>`;
+ const pay=`<div class="st"><span class="${cod?'cod':''}">${cod?'Collect Rs '+o.total+' cash':(o.paid?'Paid online':'UPI: confirm payment')}</span><span>${itemsTxt(o)}</span></div>`;
+ let x='',cls='';
+ if(o.st==='placed')x='<p class="tm">Waiting for the kitchen to accept.</p>';
+ else if(o.st==='accepted'){const left=Math.max(0,(o.prep||0)-mins(tAt(o,'accepted')));x=`<p class="tm">Kitchen is cooking. About ${left} min left.</p>`+assign(o,false)}
+ else if(o.st==='ready'){const w=mins(tAt(o,'ready'));cls=!o.rider?'new':'';x=`<p class="tm ${w>=5&&!o.rider?'ag late':''}" ${w>=5&&!o.rider?'style="color:var(--bad)"':''}>Ready ${ago(tAt(o,'ready'))}${o.rider?'':' - assign a rider'}</p>`+assign(o,true)}
+ else if(o.st==='picked'){x=`<p class="tm">Rider <b>${esc(o.rider)}</b> picked up ${ago(tAt(o,'picked'))}</p>`+(cf===o.id?`<p class="tm" style="color:var(--warn)">${cod?'Did the rider collect Rs '+o.total+' cash?':'Confirm the order reached the customer.'}</p><div class="bt two"><button class="btn g" data-a="deliv" data-o="${o.id}">${cod?'Yes, cash collected':'Yes, delivered'}</button><button class="btn o" data-a="cfno">Not yet</button></div>`:`<div class="bt one"><button class="btn g" data-a="cfask" data-o="${o.id}">Delivered</button></div>`)}
+ return `<div class="card ${cls}">${head}${cust}${pay}${x}</div>`}
+function assign(o,ready){return `<div class="rd"><input type="text" list="rl" id="ri-${o.id}" value="${esc(o.rider||'')}" placeholder="Rider name" maxlength="40" aria-label="Rider name"><button class="btn o sm" data-a="assign" data-o="${o.id}">${o.rider?'Change':'Assign'}</button></div>`+(ready&&o.rider?`<div class="bt one"><button class="btn" data-a="picked" data-o="${o.id}">Picked up</button></div>`:'')}
+function renderO(){const g=s=>ORD.filter(o=>s.includes(o.st)),rd=g(['ready']),pk=g(['picked']),up=g(['accepted']),nw=g(['placed']),dn=g(['delivered']).filter(o=>today(tAt(o,'delivered')));
+ const nb=$('nb'),n=rd.filter(o=>!o.rider).length;nb.textContent=n;nb.classList.toggle('hide',!n);
+ let h='';const S=(t,l)=>l.length?`<p class="sec">${t} (${l.length})</p>`+l.map(card).join(''):'';
+ h=S('Ready, needs pickup',rd)+S('On the way',pk)+S('Being cooked',up)+S('Waiting for kitchen',nw);
+ if(!h)h='<div class="empty">No active orders right now.</div>';
+ if(dn.length)h+=`<p class="sec">Delivered today (${dn.length})</p>`+dn.slice(0,8).map(o=>`<div class="card"><div class="oh"><b>${esc(o.id.slice(-9))}</b><span class="ag">${esc(o.rider||'')} - Rs ${o.total}</span></div><p class="ag">${esc(o.rn)} to ${esc(o.zone)}</p></div>`).join('');
+ const a=document.activeElement,keep=a&&a.id&&a.tagName==='INPUT'?[a.id,a.value]:null;$('ov').innerHTML=h;dl();if(keep){const e=$(keep[0]);if(e){e.value=keep[1];e.focus()}}}
+function renderR(){const m={};ORD.filter(o=>o.st==='delivered'&&today(tAt(o,'delivered'))).forEach(o=>{const k=o.rider||'(no name)',r=m[k]=m[k]||{n:k,d:0,cash:0,all:0};r.d++;r.all+=o.total;if(o.pay==='cod')r.cash+=o.total});
+ const l=Object.values(m).sort((a,b)=>b.d-a.d),t=l.reduce((s,r)=>s+r.cash,0);
+ $('mv').innerHTML=l.length?`<div class="card"><table class="tb"><tr><th>Rider</th><th>Deliveries</th><th>Cash to hand over</th></tr>${l.map(r=>`<tr><td>${esc(r.n)}</td><td>${r.d}</td><td>Rs ${r.cash}</td></tr>`).join('')}<tr><td><b>Total</b></td><td><b>${l.reduce((s,r)=>s+r.d,0)}</b></td><td><b>Rs ${t}</b></td></tr></table></div><p class="ag" style="text-align:center">Cash orders delivered today. Count the cash with each rider at the end of the day.</p>`:'<div class="empty">No deliveries yet today.</div>'}
+async function load(first){try{const d=await api({action:'orders'});ORD=d.orders;renderO();if(tab===2)renderR();ringCheck();$('up').textContent='Updated '+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}catch(e){if(first&&e.message!=='net'&&e.message!=='auth')$('ov').innerHTML=`<div class="empty">${esc(e.message)}<br><br><button class="btn" data-a="retry">Try again</button></div>`}}
+async function start(){show(true);$('ov').innerHTML='<div class="sk"></div><div class="sk"></div>';setSound();await load(true);clearInterval(poll);poll=setInterval(()=>{if(!document.hidden)load()},7000);try{if(navigator.wakeLock)wl=await navigator.wakeLock.request('screen')}catch(e){}}
+document.addEventListener('click',async e=>{const t=e.target.closest('[data-a]');if(!t)return;const a=t.dataset.a;
+ if(a==='cfask'){cf=t.dataset.o;renderO();return}if(a==='cfno'){cf=null;renderO();return}if(a==='retry'){load(true);return}
+ if(busy)return;busy=true;t.disabled=true;
+ try{
+  if(a==='assign'){const n=($('ri-'+t.dataset.o).value||'').trim();if(n.length<2){toast('Type the rider name first.')}else{await api({action:'assign',oid:t.dataset.o,rider:n});remember(n);toast('Assigned to '+n)}}
+  else if(a==='picked'){await api({action:'picked',oid:t.dataset.o});toast('Marked picked up.')}
+  else if(a==='deliv'){await api({action:'delivered',oid:t.dataset.o});cf=null;toast('Delivered. Well done.')}
+  await load()}
+ catch(er){if(er.message==='net')toast('No internet. Try again.');else if(er.message!=='auth')toast(er.message)}
+ busy=false;t.disabled=false});
+$('lf').addEventListener('submit',async e=>{e.preventDefault();ctx();const b=$('lb');b.disabled=true;$('le').textContent='';
+ try{const r=await fetch('/api/food/dispatch',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'login',id:$('li').value.trim(),password:$('lp').value})}),d=await r.json();
+  if(!r.ok||!d.token)throw new Error(d.error||'Could not log in.');TOK=d.token;save('dt',TOK);$('lp').value='';start()}
+ catch(er){$('le').textContent=er.message==='Failed to fetch'?'No internet. Please try again.':er.message}b.disabled=false});
+$('so').onclick=()=>{SOUND=!SOUND;save('ds',SOUND?'1':'0');setSound();ctx();ringCheck()};
+$('sb').onclick=()=>{ctx();chime();ringCheck()};
+$('t1').onclick=()=>{tab=1;$('t1').classList.add('on');$('t2').classList.remove('on');$('ov').classList.remove('hide');$('mv').classList.add('hide')};
+$('t2').onclick=()=>{tab=2;$('t2').classList.add('on');$('t1').classList.remove('on');$('mv').classList.remove('hide');$('ov').classList.add('hide');renderR()};
+$('lo').onclick=out;
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&TOK){load();try{if(navigator.wakeLock&&!wl)navigator.wakeLock.request('screen').then(x=>wl=x).catch(()=>{})}catch(e){}}});
+if(TOK)start();else show(false);
+</script></body></html>
