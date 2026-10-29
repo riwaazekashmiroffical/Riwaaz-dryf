@@ -154,6 +154,7 @@ html{scroll-padding-top:112px}@media(max-width:699px){.sg .card:last-child:nth-c
 .hd{display:inline-block;background:var(--red);color:#fff;font-size:10px;font-weight:600;letter-spacing:.5px;padding:2px 6px;border-radius:3px;margin-right:4px}
 .col img:last-child:nth-child(odd){grid-column:1/-1;height:75px}
 .vb{color:#6fcf97;font-size:10.5px;margin-left:4px}
+.tiles{display:flex;justify-content:space-around;gap:6px;padding:18px 10px 6px}.tiles a{text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:7px;font-size:12px;letter-spacing:.3px;color:var(--ivory);cursor:pointer;min-width:64px}.tiles i{width:60px;height:60px;border-radius:50%;border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;background:var(--bg2)}.tiles svg{width:28px;height:28px;stroke:var(--gold);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
 </style>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
@@ -164,7 +165,16 @@ html{scroll-padding-top:112px}@media(max-width:699px){.sg .card:last-child:nth-c
 <div class="navw"><div class="nav">
   <b class="brand serif" onclick="window.scrollTo(0,0)">Riwaaz-e-Kashmir</b>
   <div class="nr"><span class="ib" onclick="openSearch()" aria-label="Search"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></span><span class="ib" onclick="openTrack()" aria-label="My orders and tracking"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4.5 4.5-6.5 8-6.5s7 2 8 6.5"/></svg></span><span class="cartbtn" onclick="toggleCart()">Cart (<span id="cc">0</span>)</span></div>
-</div><div class="stabs"><a class="on" href="/">Shop</a><a href="/travel/">Travel</a><a href="/mehfil/">&#127956;&#65039; Mehfil-e-Kashmir</a><a href="/lounge/">&#128395;&#65039; Mehfil-e-Adab</a></div><div class="cats"><a onclick="navCat('dry')">Dry Fruits &amp; Spices</a><a onclick="navCat('shawl')">Kashmiri Shawls</a><a onclick="navCat('gift')">Gift Boxes</a></div></div>
+</div><div class="stabs"><a class="on" href="/">Shop</a><a href="/travel/">Travel</a><a href="/mehfil/">&#127956;&#65039; Mehfil-e-Kashmir</a><a href="/lounge/">&#128395;&#65039; Mehfil-e-Adab</a></div><script>/* FOOD_LIVE: false = Food stays hidden everywhere. On launch day change false to true. */
+var FOOD_LIVE=false;
+/* Private preview: open riwaazekashmir.com/?food=1 to see the Food section before launch */
+if(location.search.indexOf("food=1")>-1)FOOD_LIVE=true;
+document.addEventListener("DOMContentLoaded",function(){if(!FOOD_LIVE)return;
+var s=document.querySelector(".stabs");if(s)s.querySelectorAll("a")[1].insertAdjacentHTML("afterend",'<a href="/food/">&#127858; Food</a>');
+var c=document.querySelector(".cats");if(c)c.insertAdjacentHTML("beforeend",'<a href="/food/">Food</a>');
+var h=document.querySelector(".hero-t");if(h)h.insertAdjacentHTML("beforeend",'<a class="btn o" href="/food/" style="margin-left:6px">FOOD</a>');
+var tf=document.getElementById("tfood");if(tf)tf.style.display="flex";var sh=document.getElementById("shawls");if(sh)sh.insertAdjacentHTML("beforebegin",'<div class="shawl" id="foodsec"><small>SRINAGAR KITCHENS</small><h2 class="serif">Kashmiri Food, Delivered</h2><p style="color:var(--mute);margin:8px 0 16px;font-size:14px">Wazwan, kandur bakery, kahwa and more from local kitchens. Menu price is the restaurant price, with one flat delivery fee.</p><a class="btn" href="/food/">ORDER FOOD</a></div>')});
+</script><div class="cats"><a onclick="navCat('dry')">Dry Fruits &amp; Spices</a><a onclick="navCat('shawl')">Kashmiri Shawls</a><a onclick="navCat('gift')">Gift Boxes</a></div></div>
 
 <div class="hero" id="hero">
   <div class="slide on" style="background-image:url('images/hero-shawl.webp')"></div>
@@ -179,6 +189,13 @@ html{scroll-padding-top:112px}@media(max-width:699px){.sg .card:last-child:nth-c
 
 <div class="trust">
   <div><b>Free delivery</b>Above ₹499</div><div><b>100% pure</b>No additives</div><div><b>Hand picked</b>Every kernel</div><div><b>From Kashmir</b>Direct to you</div>
+</div>
+
+<div class="tiles" id="tiles">
+<a onclick="go('shop')" aria-label="Dry fruits and spices"><i><svg viewBox="0 0 24 24"><path d="M12 2.5c4.6 3 6.4 8.4 3.2 13.6-1 1.6-2.2 2.4-3.2 2.4s-2.200-.8-3.200-2.400C5.600 10.900 7.400 5.500 12 2.500z"/><path d="M12 6.500v8"/><circle cx="18.500" cy="18.500" r="2.800"/></svg></i>Dry Fruits</a>
+<a onclick="go('shawls')" aria-label="Kashmiri shawls"><i><svg viewBox="0 0 24 24"><path d="M4 5h16v4c0 5.500-3 9.500-8 11.500C7 18.500 4 14.500 4 9z"/><path d="M12 8l2.500 3-2.500 3-2.500-3z"/><path d="M7 20.500v1.500M12 21v1.500M17 20.500v1.500"/></svg></i>Shawls</a>
+<a id="tfood" href="/food/" style="display:none" aria-label="Food from Srinagar kitchens"><i><svg viewBox="0 0 24 24"><path d="M3.500 12h17a8.500 8.500 0 0 1-17 0z"/><path d="M8.500 3.500c-1.400 2 1.400 3 0 5.500M13 3.500c-1.400 2 1.400 3 0 5.500M17 4.500c-1 1.500 1 2.200 0 4"/></svg></i>Food</a>
+<a href="/travel/" aria-label="Travel Kashmir"><i><svg viewBox="0 0 24 24"><path d="M2.500 19.500l6-10 4 6 3-4 6 8z"/><circle cx="17.500" cy="6" r="2.200"/></svg></i>Travel</a>
 </div>
 
 <div class="shawl" id="shawls">
