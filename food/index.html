@@ -1,1 +1,255 @@
-x
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Riwaaz-e-Kashmir Food | Srinagar</title>
+<meta name="robots" content="noindex, nofollow"><meta name="theme-color" content="#4A3525">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Jost:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#1E3A2B;--bg2:#183024;--paper:#FAF6F0;--paper2:#F1EADD;--ink:#3A2A1C;--mute:#7A6A58;--line:#D9CDB6;--wal:#4A3525;--gold:#D4AF37;--gd:#9A7B16;--ok:#2F6B47;--bad:#B5472F;--btn:#2F6B47;--btnt:#FAF6F0}
+html[data-t=dark]{--paper:#14271E;--paper2:#1B3126;--ink:#EFE6D2;--mute:#A9B4A8;--line:#2F4A3A;--gd:#D4AF37;--btn:#D4AF37;--btnt:#1b1408;--wal:#0F1D15}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font:400 16px/1.5 Jost,system-ui,sans-serif;color:var(--ink);background:var(--bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cg fill='none' stroke='%23D4AF37' stroke-width='1' opacity='.13'%3E%3Cpath d='M22 8c9 0 16 8 16 17 0 10-9 17-18 17-6 0-9-3-9-8 0-7 9-7 9-14 0-4-3-7-7-7 2-3 6-5 9-5z'/%3E%3Cpath d='M58 46c9 0 16 8 16 17 0 10-9 17-18 17-6 0-9-3-9-8 0-7 9-7 9-14 0-4-3-7-7-7 2-3 6-5 9-5z'/%3E%3C/g%3E%3C/svg%3E");min-height:100vh;padding-bottom:calc(84px + env(safe-area-inset-bottom));touch-action:manipulation}
+button,input,select,textarea{font:inherit;color:inherit}
+h1,h2,h3{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;line-height:1.1}
+.w{max-width:640px;margin:0 auto;padding:0 14px}
+.kb{height:14px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='14'%3E%3Cg fill='none' stroke='%23D4AF37' stroke-width='1' opacity='.85'%3E%3Cpath d='M0 7L8 0L16 7L8 14Z'/%3E%3Cpath d='M16 7L24 0L32 7L24 14Z'/%3E%3Cpath d='M8 7L12 3L16 7L12 11Z'/%3E%3Cpath d='M24 7L28 3L32 7L28 11Z'/%3E%3C/g%3E%3C/svg%3E") repeat-x center}
+header{position:sticky;top:0;z-index:30;background:var(--wal);color:#F3E7C7;padding-top:env(safe-area-inset-top);border-bottom:2px solid var(--gold)}
+.hr{display:flex;align-items:center;gap:10px;padding:8px 0}.hr .t{flex:1;min-width:0}
+.hr h1{font-size:25px;color:var(--gold)}.hr small{display:block;font-size:11px;letter-spacing:1.4px;text-transform:uppercase;opacity:.85}
+.ib{width:42px;height:42px;border-radius:50%;border:1px solid var(--gold);background:transparent;color:var(--gold);cursor:pointer;font-size:18px}
+.call{background:var(--gold);color:#2a1d0a;padding:6px 0;font-size:14px}.call .w{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.call a{display:inline-flex;align-items:center;min-height:36px;padding:4px 14px;border-radius:18px;background:var(--wal);color:#F3E7C7;font-weight:500;text-decoration:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:46px;padding:10px 18px;border-radius:12px;border:1.5px solid var(--btn);background:var(--btn);color:var(--btnt);font-weight:500;cursor:pointer;text-decoration:none}
+.btn.o{background:transparent;color:var(--gd);border-color:var(--gd)}.btn.sm{min-height:40px;padding:6px 14px;font-size:14px}.btn.big{width:100%}.btn:disabled{opacity:.55}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:12px;box-shadow:0 1px 0 rgba(0,0,0,.15)}
+.pd{padding:14px}
+.sec{margin:20px 0 8px;font:600 22px 'Cormorant Garamond',serif;color:#F3E7C7}
+.sec small{font:400 13px Jost;opacity:.8;margin-left:6px}
+.bar{display:flex;gap:10px;margin:12px 0}.bar select,.bar input{flex:1;min-width:0;min-height:46px;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:var(--paper);color:var(--ink)}
+.bar select{flex:0 0 46%}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:2px 0 6px;scrollbar-width:none}.chips::-webkit-scrollbar{display:none}
+.chips button{flex:none;min-height:40px;padding:6px 14px;border-radius:20px;border:1px solid var(--gold);background:transparent;color:#F3E7C7;cursor:pointer;white-space:nowrap}.chips button.on{background:var(--gold);color:#2a1d0a}
+.offs{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:4px;scrollbar-width:none}.offs::-webkit-scrollbar{display:none}
+.of{flex:0 0 78%;scroll-snap-align:start;border:1.5px dashed var(--gd);border-radius:14px;padding:12px 14px;background:var(--paper2);cursor:pointer}.of b{font:600 22px 'Cormorant Garamond',serif;color:var(--gd);display:block}.of span{font-size:13px;color:var(--mute)}
+.rc{cursor:pointer}.rc.cl{opacity:.72}
+.cv{position:relative;aspect-ratio:2/1;background:var(--wal)}.cv img,.cv svg{width:100%;height:100%;object-fit:cover;display:block}
+.sp{position:absolute;top:8px;left:8px;background:var(--gold);color:#2a1d0a;font-size:11px;letter-spacing:1px;font-weight:500;padding:2px 8px;border-radius:8px}
+.cl-b{position:absolute;inset:auto 0 0 0;background:rgba(42,29,10,.82);color:#F3E7C7;font-size:14px;padding:6px 12px}
+.rc h3{font-size:24px}.mt{display:flex;gap:6px 12px;flex-wrap:wrap;font-size:14px;color:var(--mute);margin-top:4px}
+.bd{display:inline-block;font-size:12px;font-weight:500;padding:2px 9px;border-radius:9px;background:var(--ok);color:#fff;margin-top:8px}
+.tg{display:inline-block;font-size:12px;padding:1px 8px;border-radius:9px;border:1px solid var(--line);color:var(--mute);margin:6px 4px 0 0}
+.tabs{position:sticky;top:var(--hh,100px);z-index:20;background:var(--wal);display:flex;gap:8px;overflow-x:auto;padding:8px 14px;scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}
+.tabs button{flex:none;min-height:38px;padding:4px 14px;border-radius:19px;border:1px solid var(--gold);background:transparent;color:#F3E7C7;cursor:pointer}.tabs button.on{background:var(--gold);color:#2a1d0a}
+.ds{display:grid;grid-template-columns:1fr auto;gap:4px 12px;padding:12px 14px;border-bottom:1px solid var(--line);scroll-margin-top:calc(var(--hh,100px) + 54px)}.ds:last-child{border:0}
+.ds h4{font:500 17px Jost}.ds p{font-size:13px;color:var(--mute)}.ds .pr{font-weight:500}.ds s{color:var(--mute);font-weight:400;margin-left:6px}
+.vg{display:inline-block;width:13px;height:13px;border:1.5px solid var(--ok);margin-right:6px;position:relative;vertical-align:-1px}.vg:after{content:"";position:absolute;inset:2px;border-radius:50%;background:var(--ok)}.nv{border-color:var(--bad)}.nv:after{background:var(--bad)}
+.ds.so{opacity:.6}.ds.so h4{text-decoration:line-through}
+.st{display:inline-flex;align-items:center;border:1.5px solid var(--btn);border-radius:10px;overflow:hidden}.st button{width:38px;min-height:38px;background:transparent;border:0;color:var(--gd);font-size:20px;cursor:pointer}.st b{min-width:26px;text-align:center;font-weight:500}
+.ad{border-color:var(--btn);color:var(--gd);background:transparent;min-width:82px;min-height:40px;border-radius:10px;border:1.5px solid var(--btn);font-weight:500;cursor:pointer}.ad:disabled{opacity:.5;border-color:var(--line)}
+.cb{position:fixed;left:0;right:0;bottom:0;z-index:40;padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:var(--wal);border-top:2px solid var(--gold)}.cb .btn{width:100%;justify-content:space-between;background:var(--gold);border-color:var(--gold);color:#2a1d0a}
+.cb.h{display:none}
+.row{display:flex;justify-content:space-between;gap:10px;padding:5px 0}.row.t{border-top:1px dashed var(--line);margin-top:6px;padding-top:10px;font-weight:500;font-size:18px}
+.pg{height:8px;border-radius:4px;background:var(--line);overflow:hidden;margin:8px 0 4px}.pg i{display:block;height:100%;background:var(--gold);transition:width .3s}
+.note{font-size:13px;color:var(--mute)}.ok{color:var(--ok)}
+label{display:block;font-size:12px;letter-spacing:.4px;color:var(--mute);margin:12px 0 4px}
+.f{width:100%;min-height:46px;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--paper2);color:var(--ink)}textarea.f{min-height:64px}
+.pay{display:flex;gap:8px}.pay label{flex:1;margin:0;display:flex;align-items:center;gap:8px;padding:12px;border:1.5px solid var(--line);border-radius:12px;cursor:pointer;color:var(--ink);font-size:15px;letter-spacing:0}.pay input{accent-color:var(--btn)}
+.pay label.on{border-color:var(--btn)}
+.hp{position:absolute;left:-9999px;opacity:0;height:0}
+.empty{text-align:center;padding:30px 10px;color:#F3E7C7}.empty .btn{margin-top:14px}
+.sk{height:210px;border-radius:14px;background:linear-gradient(90deg,var(--bg2),#24493a,var(--bg2));background-size:200% 100%;animation:sh 1.3s linear infinite;margin-bottom:12px}@keyframes sh{to{background-position:-200% 0}}
+.msg{border:1.5px solid var(--gold);background:var(--paper);border-radius:14px;padding:16px;text-align:center}.msg h3{font-size:26px;color:var(--gd)}
+.toast{position:fixed;left:50%;bottom:calc(92px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--gold);color:#2a1d0a;padding:10px 18px;border-radius:22px;font-size:14px;z-index:60;max-width:90vw;text-align:center}
+.hide{display:none!important}
+/* tracker (from kashmiri-tracker-v2, same design) */
+#v-track{--card:var(--paper);--tx:var(--ink);--mu:var(--mute);--gd:#9a7b16;--ln:var(--line)}html[data-t=dark] #v-track{--gd:#d4b062}
+#v-track .tg{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gd);margin:0 0 6px;border:0;padding:0;display:block}
+#v-track h1{font:600 30px/1.1 'Cormorant Garamond',Georgia,serif;margin:0;letter-spacing:.02em;color:#F3E7C7}
+#v-track .card{background:var(--card);border:1px solid var(--ln);border-radius:14px;overflow:hidden;margin-top:16px}
+#v-track .lat{height:8px;background:repeating-linear-gradient(45deg,var(--gd) 0 1px,transparent 1px 8px),repeating-linear-gradient(-45deg,var(--gd) 0 1px,transparent 1px 8px);opacity:.55}
+#v-track .ridge{display:block;width:100%;height:auto}
+#v-track .top{padding:16px 18px 6px;display:flex;justify-content:space-between;align-items:flex-end}
+#v-track .eta{text-align:right}#v-track .eta b{font:600 30px/1 'Cormorant Garamond',serif;color:var(--gd)}#v-track .eta span{display:block;font-size:12px;color:var(--mu)}
+#v-track .stt{font-size:15px;color:var(--mu);margin:2px 0 0}
+#v-track svg.map{display:block;width:100%;height:auto}
+#v-track .pulse{animation:pl 2s ease-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes pl{0%{transform:scale(.6);opacity:.7}100%{transform:scale(2.2);opacity:0}}
+#v-track .rd{display:flex;gap:12px;align-items:center;padding:14px 18px;border-top:1px solid var(--ln)}
+#v-track .av{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#2f6a4a,#14271e);border:1px solid var(--gd);display:flex;align-items:center;justify-content:center;font:600 18px 'Cormorant Garamond',serif;color:var(--gd)}
+#v-track .rd p{margin:0;font-size:15px}#v-track .rd small{color:var(--mu)}#v-track .rd a{margin-left:auto}
+#v-track .lst{list-style:none;margin:0;padding:8px 18px 16px;border-top:1px solid var(--ln)}
+#v-track .lst li{display:flex;gap:12px;align-items:center;padding:8px 0;color:var(--mu);font-size:15px;position:relative}
+#v-track .lst li i{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--ln);flex:none;display:flex;align-items:center;justify-content:center;font-style:normal;font-size:11px;color:#14110a;transition:.4s}
+#v-track .lst li.dn i{background:var(--gd);border-color:var(--gd)}#v-track .lst li.on{color:var(--tx);font-weight:500}#v-track .lst li.on i{border-color:var(--gd);box-shadow:0 0 0 4px rgba(212,176,98,.2)}
+</style></head><body>
+<header><div class="kb"></div><div class="w"><div class="hr"><button class="ib hide" id="bk" aria-label="Go back">&#8592;</button><div class="t"><h1 id="br">Riwaaz-e-Kashmir</h1><small>Food from Kashmiri kitchens, Srinagar</small></div><button class="ib" id="tk" aria-label="Track my order" title="Track order">&#9737;</button><button class="ib" id="th" aria-label="Switch light or dark">&#9680;</button></div></div></header>
+<div class="call"><div class="w"><span>Order on call, we take your order</span><a id="ca" href="#" aria-label="Call to order">Call</a></div></div>
+<main class="w" id="main"></main>
+<div class="cb h" id="cb"><button class="btn" id="cbb" aria-label="View cart"><span id="cbl"></span><span>View cart &#8594;</span></button></div>
+<div class="toast hide" id="ts" role="status"></div>
+<script>
+/* ===================== CONFIG: everything you may want to change ===================== */
+const CFG={
+ brand:'Riwaaz-e-Kashmir',
+ call:'+91 91494 80384', callHref:'tel:+919149480384',   /* put the real helpline number here */
+ wa:'919149480384',                                        /* WhatsApp number for the optional "send on WhatsApp" button */
+ fee:30, freeAbove:499,                                    /* used in demo mode; live mode uses admin Settings */
+ localities:['Lal Chowk','Rajbagh','Karan Nagar','Bemina','Hazratbal','Jawahar Nagar'],
+ cuisines:[['wazwan','Wazwan'],['bakery','Kandur Bakery'],['fast','Fast Food'],['veg','Pure Veg'],['street','Street Food'],['sweets','Sweets and Kahwa']],
+ /* DEMO data, shown only while no real restaurant exists in admin. All marked SAMPLE. */
+ offers:[{code:'SAMPLE100',title:'Rs 100 off over Rs 399',flat:100,min:399,max:100,fund:'restaurant'},{code:'SAMPLEFREE',title:'Free delivery over Rs 299',freeDel:true,min:299}],
+ restaurants:[
+ {id:'d1',name:'Sample Wazwan House',tags:'Wazwan, Kashmiri',cuisines:['wazwan'],rating:null,eta:'35-40 min',forTwo:700,open:true,offer:'SAMPLE100',dishes:[['Wazwan','Rogan Josh (half)',280,0,'Slow cooked in Kashmiri chilli and spices'],['Wazwan','Tabakh Maaz',320,0,'Fried lamb ribs, crisp and soft'],['Wazwan','Gushtaba',340,0,'Soft meatballs in yoghurt gravy'],['Rice & Bread','Steamed Rice',60,1,''],['Sweets & Kahwa','Kahwa',40,1,'Saffron, almond and cardamom tea',50],['Sweets & Kahwa','Phirni',90,1,'',0,1]]},
+ {id:'d2',name:'Sample Kandur Corner',tags:'Kandur bakery',cuisines:['bakery'],rating:null,eta:'25-30 min',forTwo:200,open:true,offer:'SAMPLEFREE',dishes:[['Breads','Girda',15,1,'Round soft bread'],['Breads','Lavasa',20,1,''],['Breads','Bakirkhani',40,1,'Flaky layered bread'],['Breads','Katlam',30,1,''],['Tea','Noon Chai',40,1,'Pink salted tea']]},
+ {id:'d3',name:'Sample Roll Point',tags:'Fast food, Rolls',cuisines:['fast'],rating:null,eta:'30 min',forTwo:350,open:true,dishes:[['Rolls','Chicken Roll',120,0,''],['Rolls','Paneer Roll',110,1,''],['Sides','Fries',80,1,''],['Burgers','Chicken Burger',140,0,'']]},
+ {id:'d4',name:'Sample Pure Veg Rasoi',tags:'Pure veg, Kashmiri',cuisines:['veg'],rating:null,eta:'35 min',forTwo:450,open:false,opens:'11 am',dishes:[['Mains','Dum Aloo',150,1,''],['Mains','Nadru Yakhni',180,1,'Lotus stem in yoghurt gravy'],['Mains','Haak',90,1,'Kashmiri greens'],['Rice','Rajma Chawal',130,1,'']]},
+ {id:'d5',name:'Sample Chowk Street Food',tags:'Street food, Kebabs',cuisines:['street'],rating:null,eta:'30 min',forTwo:300,open:true,dishes:[['Street','Tujj (kebab)',150,0,''],['Street','Nadir Monje',80,1,'Lotus stem fritters'],['Street','Chaat',60,1,'']]},
+ {id:'d6',name:'Sample Kahwa & Sweets',tags:'Kahwa, Sweets',cuisines:['sweets'],rating:null,eta:'20-25 min',forTwo:250,open:true,dishes:[['Drinks','Kahwa',40,1,''],['Drinks','Noon Chai',40,1,''],['Sweets','Phirni',90,1,''],['Sweets','Shufta',120,1,'Dry fruit dessert']]}]
+};
+/* ===================== helpers ===================== */
+const $=i=>document.getElementById(i),esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const Rs=n=>'Rs '+Math.round(n).toLocaleString('en-IN');
+let D={rs:[],promos:[],fee:CFG.fee,free:CFG.freeAbove,loc:CFG.localities,paused:false,demo:true},CART={rid:'',it:{}},V='home',VA='',LOC='',CH='',Q='',PROMO=null,PAY='cod',PREF='',busy=0,placing=0,lk=0,TR=null,trT=0,LAST=null;
+try{LOC=localStorage.getItem('fl')||''}catch(e){}
+const sv=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}},ld=k=>{try{return localStorage.getItem(k)||''}catch(e){return''}};
+const toast=m=>{const t=$('ts');t.textContent=m;t.classList.remove('hide');clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.add('hide'),2800)};
+const lock=()=>{const n=Date.now();if(n-lk<300)return true;lk=n;return false};
+const safeImg=u=>/^https:\/\/[^\s"'<>]+$/.test(u||'')||/^\/images\/[^\s"'<>]+$/.test(u||'');
+/* ===================== hand-drawn style placeholders ===================== */
+const AR={wazwan:'<ellipse cx="320" cy="190" rx="92" ry="52" fill="#B87333"/><ellipse cx="320" cy="150" rx="96" ry="22" fill="#D4944F"/><path d="M262 140q58-62 116 0" fill="#c98a45"/><circle cx="320" cy="96" r="8" fill="#D4AF37"/><path d="M290 70q-12-20 0-36M320 62q-12-24 0-44M350 70q-12-20 0-36" stroke="#F3E7C7" stroke-width="3" fill="none" opacity=".6"/>',
+bakery:'<circle cx="320" cy="150" r="82" fill="#C98B3F"/><circle cx="320" cy="150" r="64" fill="none" stroke="#8a5a1f" stroke-width="3"/><circle cx="320" cy="150" r="38" fill="none" stroke="#8a5a1f" stroke-width="3"/><g fill="#F3E7C7"><circle cx="290" cy="120" r="3"/><circle cx="350" cy="130" r="3"/><circle cx="300" cy="180" r="3"/><circle cx="345" cy="175" r="3"/><circle cx="320" cy="150" r="3"/><circle cx="270" cy="150" r="3"/><circle cx="370" cy="152" r="3"/></g>',
+fast:'<rect x="236" y="116" width="170" height="64" rx="32" transform="rotate(-14 320 148)" fill="#D8B26A"/><path d="M252 150q70 -22 140 -20" stroke="#8a5a1f" stroke-width="3" fill="none"/><path d="M262 132l30 30M300 126l30 30M340 122l30 30" stroke="#6b8f5a" stroke-width="5" opacity=".9"/>',
+veg:'<path d="M320 70l14 34 36-8-20 32 36 22-42 4 6 38-30-26-30 26 6-38-42-4 36-22-20-32 36 8z" fill="#C8862B"/><path d="M320 110v120" stroke="#6a4a22" stroke-width="5"/>',
+street:'<path d="M214 214L430 86" stroke="#6a4a22" stroke-width="5"/><g fill="#9b4a2a"><rect x="258" y="152" width="40" height="34" rx="6" transform="rotate(-30 278 169)"/><rect x="306" y="124" width="40" height="34" rx="6" transform="rotate(-30 326 141)"/><rect x="354" y="96" width="40" height="34" rx="6" transform="rotate(-30 374 113)"/></g><path d="M240 230q40 12 90 -4" stroke="#F3E7C7" stroke-width="3" fill="none" opacity=".5"/>',
+sweets:'<path d="M250 140h140l-14 70q-4 16 -20 16h-72q-16 0 -20-16z" fill="#F3E7C7"/><path d="M390 156q36 0 36 26t-40 26" stroke="#F3E7C7" stroke-width="9" fill="none"/><ellipse cx="320" cy="236" rx="96" ry="12" fill="#c9b48a"/><path d="M262 148h116" stroke="#D4AF37" stroke-width="6"/><g stroke="#d97a1e" stroke-width="3"><path d="M300 150l8 -10M318 150l2 -14M338 150l-6 -12"/></g>'};
+const art=c=>`<svg viewBox="0 0 640 320" width="640" height="320" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><pattern id="kp" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M0 20L20 0L40 20L20 40Z M10 20L20 10L30 20L20 30Z" fill="none" stroke="#D4AF37" stroke-width="1.2" opacity=".28"/></pattern></defs><rect width="640" height="320" fill="#4A3525"/><rect width="640" height="320" fill="url(#kp)"/>${AR[c]||AR.wazwan}</svg>`;
+const cover=(r,cls)=>safeImg(r.banner)?`<img src="${esc(r.banner)}" width="640" height="320" loading="lazy" alt="" onerror="this.outerHTML=window.__a('${esc((r.cuisines||[])[0]||'wazwan')}')">`:art((r.cuisines||[])[0]||'wazwan');
+window.__a=art;
+/* ===================== data ===================== */
+function demo(){D={rs:CFG.restaurants.map(r=>({id:r.id,name:r.name,tags:r.tags,cuisines:r.cuisines,rating:r.rating,eta:r.eta,forTwo:r.forTwo,open:r.open,opens:r.opens||'',sample:1,dishes:r.dishes.map((d,i)=>({id:r.id+'-'+i,cat:d[0],name:d[1],price:d[2],veg:!!d[3],desc:d[4]||'',was:d[5]||null,stock:!d[6]}))})),promos:CFG.offers.map(o=>({...o,rid:CFG.restaurants.find(r=>r.offer===o.code)?.id||null})),fee:CFG.fee,free:CFG.freeAbove,loc:CFG.localities,paused:false,demo:true}}
+async function loadData(){$('main').innerHTML='<div class="sk"></div><div class="sk"></div><div class="sk"></div>';
+ try{const u=new URLSearchParams(location.search);if(u.get('fail')==='1'&&!loadData.t){loadData.t=1;throw 0}
+  const r=await fetch('/api/food/menu',{cache:'no-store'});if(!r.ok)throw 0;const d=await r.json();
+  if(d.restaurants&&d.restaurants.length){D={rs:d.restaurants.map(x=>({...x,rating:null,sample:0})),promos:d.promos||[],fee:d.cfg.fee,free:d.cfg.freeAbove,loc:d.cfg.localities,paused:d.cfg.paused,demo:false}}
+  else demo();
+  if(!LOC||!D.loc.includes(LOC))LOC=D.loc[0];route()}
+ catch(e){if(new URLSearchParams(location.search).get('demo')==='1'){demo();LOC=LOC||D.loc[0];route();return}
+  $('main').innerHTML='<div class="empty"><h2 style="font-size:28px">We could not load the restaurants</h2><p style="margin-top:8px">Please check your internet and try again. You can also call us to order.</p><button class="btn" id="rt">Try again</button></div>';$('rt').onclick=loadData}}
+const R=id=>D.rs.find(r=>r.id===id),dish=(r,id)=>r.dishes.find(d=>d.id===id);
+/* ===================== cart maths ===================== */
+const items=()=>{const r=R(CART.rid);return r?Object.keys(CART.it).map(id=>({d:dish(r,id),q:CART.it[id]})).filter(x=>x.d):[]};
+const cnt=()=>items().reduce((s,x)=>s+x.q,0),sub=()=>items().reduce((s,x)=>s+x.d.price*x.q,0);
+function bill(){const s=sub(),disc=PROMO?Math.min(PROMO.disc,s):0,fee=(PROMO&&PROMO.freeDel)||s>=D.free?0:D.fee;return{s,disc,fee,tot:s-disc+fee}}
+function setQ(rid,id,q){if(CART.rid&&CART.rid!==rid&&cnt()){if(!confirm('Your cart has items from another restaurant. Start a new cart here?'))return false;CART={rid:'',it:{}};PROMO=null}
+ CART.rid=rid;if(q<=0)delete CART.it[id];else CART.it[id]=Math.min(q,20);if(!cnt()){CART={rid:'',it:{}};PROMO=null}return true}
+function cbar(){const n=cnt(),b=$('cb');b.classList.toggle('h',!n||!['home','rest'].includes(V));if(n)$('cbl').textContent=n+(n>1?' items':' item')+' | '+Rs(sub())}
+/* ===================== views ===================== */
+function go(v,a,push){V=v;VA=a||'';if(push!==false)history.pushState({v,a:VA},'');route()}
+window.addEventListener('popstate',e=>{const s=e.state||{v:'home'};V=s.v;VA=s.a||'';route()});
+function route(){clearInterval(trT);$('bk').classList.toggle('hide',V==='home');({home:home,rest:rest,cart:cartV,done:doneV,track:trackV})[V]();cbar();document.documentElement.style.setProperty('--hh',document.querySelector('header').offsetHeight+'px');window.scrollTo(0,0)}
+const offerOf=r=>D.promos.find(p=>p.rid===r.id)||D.promos.find(p=>!p.rid&&p.freeDel);
+function card(r){const o=offerOf(r),dl=(D.free?'Free delivery over '+Rs(D.free)+'. ':'')+'Delivery '+Rs(D.fee);
+ return `<article class="card rc ${r.open?'':'cl'}" tabindex="0" role="button" data-r="${esc(r.id)}" aria-label="Open ${esc(r.name)}"><div class="cv">${cover(r)}${r.sample?'<span class="sp">SAMPLE</span>':''}${r.open?'':`<div class="cl-b">Closed now${r.opens?', opens '+esc(r.opens):''}</div>`}</div><div class="pd"><h3>${esc(r.name)}</h3><div class="mt">${r.rating?'<span>&#9733; '+r.rating+'</span>':''}${r.eta?'<span>'+esc(r.eta)+'</span>':''}${r.forTwo?'<span>'+Rs(r.forTwo)+' for two</span>':''}<span>Delivery ${Rs(D.fee)}</span></div><div class="mt">${esc(r.tags||'')}</div>${o&&o.title?`<span class="bd">${esc(o.title)}</span>`:''}</div></article>`}
+function list(){const q=Q.trim().toLowerCase(),l=D.rs.filter(r=>(!CH||(r.cuisines||[]).includes(CH))&&(!q||(r.name+' '+(r.tags||'')+' '+r.dishes.map(d=>d.name).join(' ')).toLowerCase().includes(q)));
+ return l.length?l.map(card).join(''):'<div class="empty">No kitchen matches that. Try clearing the filter.</div>'}
+function home(){$('main').innerHTML=`${D.paused?'<div class="msg" style="margin-top:12px">Ordering is paused for a short while. Please call us to order.</div>':''}
+<div class="bar"><select id="lc" aria-label="Your area">${D.loc.map(l=>`<option ${l===LOC?'selected':''}>${esc(l)}</option>`).join('')}</select><input id="sq" type="search" placeholder="Search dishes or kitchens" value="${esc(Q)}" aria-label="Search"></div>
+<div class="chips" id="ch"><button class="${CH?'':'on'}" data-c="">All</button>${CFG.cuisines.map(([k,l])=>`<button class="${CH===k?'on':''}" data-c="${k}">${l}</button>`).join('')}</div>
+${D.promos.length?`<p class="sec">Offers</p><div class="offs">${D.promos.map(p=>`<div class="of" data-p="${esc(p.code)}" role="button" tabindex="0"><b>${esc(p.title||p.code)}</b><span>${p.min?'On orders above '+Rs(p.min)+'. ':''}Code ${esc(p.code)}</span></div>`).join('')}</div>`:''}
+<p class="sec">Kitchens near ${esc(LOC)}<small>${D.demo?'SAMPLE, ordering opens soon':''}</small></p><div id="rl">${list()}</div>
+<p class="note" style="color:#F3E7C7;text-align:center;margin:10px 0 0">Menu price = restaurant price. One flat delivery fee. No surge, no hidden charges.</p>`;
+ $('lc').onchange=e=>{LOC=e.target.value;sv('fl',LOC);home()};$('sq').oninput=e=>{Q=e.target.value;$('rl').innerHTML=list()}}
+function rest(){const r=R(VA);if(!r)return go('home');const cats=[...new Set(r.dishes.map(d=>d.cat))],o=offerOf(r);
+ $('main').innerHTML=`<div class="card" style="margin-top:12px"><div class="cv">${cover(r)}${r.sample?'<span class="sp">SAMPLE</span>':''}</div><div class="pd"><h3 style="font-size:28px">${esc(r.name)}</h3><div class="mt">${r.rating?'<span>&#9733; '+r.rating+'</span>':''}${r.eta?'<span>'+esc(r.eta)+'</span>':''}${r.forTwo?'<span>'+Rs(r.forTwo)+' for two</span>':''}</div><div class="mt">${esc(r.tags||'')}</div>${o?`<span class="bd">${esc(o.title||o.code)}${o.min?', minimum '+Rs(o.min):''}</span>`:''}${r.open?'':`<p class="note" style="margin-top:8px;color:var(--bad)">Closed now${r.opens?', opens '+esc(r.opens):''}. You can look at the menu.</p>`}</div></div>
+<div class="tabs" id="tb">${cats.map((c,i)=>`<button class="${i?'':'on'}" data-t="${i}">${esc(c)}</button>`).join('')}</div>
+${cats.map((c,i)=>`<div class="card" id="cat${i}"><div class="pd" style="padding-bottom:0"><h3 style="font-size:22px">${esc(c)}</h3></div>${r.dishes.filter(d=>d.cat===c).map(d=>dsh(r,d)).join('')}</div>`).join('')}`}
+function dsh(r,d){const q=CART.rid===r.id&&CART.it[d.id]||0,off=!r.open||!d.stock;
+ return `<div class="ds ${d.stock?'':'so'}"><div><h4><span class="vg ${d.veg?'':'nv'}" title="${d.veg?'Veg':'Non-veg'}"></span>${esc(d.name)}${r.sample?' <span class="tg">SAMPLE</span>':''}</h4>${d.desc?`<p>${esc(d.desc)}</p>`:''}<p class="pr" style="color:var(--ink)">${Rs(d.price)}${d.was&&d.was>d.price?`<s>${Rs(d.was)}</s>`:''}</p></div><div style="align-self:center">${!d.stock?'<span class="note">Sold out</span>':q?`<div class="st"><button data-m="${esc(d.id)}" aria-label="Remove one ${esc(d.name)}">&minus;</button><b>${q}</b><button data-p2="${esc(d.id)}" aria-label="Add one more ${esc(d.name)}">+</button></div>`:`<button class="ad" data-a="${esc(d.id)}" ${off?'disabled':''} aria-label="Add ${esc(d.name)}">Add</button>`}</div></div>`}
+function refresh(){if(V==='rest'){const y=scrollY;rest();scrollTo(0,y)}else if(V==='cart'){const y=scrollY;cartV();scrollTo(0,y)}cbar()}
+/* ----- cart view ----- */
+function addons(r){const inC=CART.it,l=r.dishes.filter(d=>d.stock&&!inC[d.id]).sort((a,b)=>(/drink|tea|sweet|bread|kahwa|rice|side/i.test(b.cat)-/drink|tea|sweet|bread|kahwa|rice|side/i.test(a.cat))||a.price-b.price);return l.slice(0,2)}
+function cartV(){const r=R(CART.rid);if(!r||!cnt()){$('main').innerHTML='<div class="empty"><h2 style="font-size:30px">Your cart is empty</h2><p style="margin-top:6px">Pick something delicious from a Kashmiri kitchen.</p><button class="btn" id="bh">Browse kitchens</button></div>';$('bh').onclick=()=>go('home');return}
+ const b=bill(),left=Math.max(0,D.free-b.s),ad=addons(r);
+ $('main').innerHTML=`<p class="sec">Your order from ${esc(r.name)}</p>
+<div class="card">${items().map(x=>`<div class="ds"><div><h4>${esc(x.d.name)}</h4><p>${Rs(x.d.price)} each</p></div><div style="align-self:center"><div class="st"><button data-m="${esc(x.d.id)}" aria-label="Remove one ${esc(x.d.name)}">&minus;</button><b>${x.q}</b><button data-p2="${esc(x.d.id)}" aria-label="Add one more ${esc(x.d.name)}">+</button></div></div></div>`).join('')}</div>
+<div class="card pd"><p class="note ${left?'':'ok'}">${left?'Add '+Rs(left)+' more for free delivery':'You get free delivery'}</p><div class="pg"><i style="width:${Math.min(100,b.s/D.free*100)}%"></i></div></div>
+${ad.length?`<p class="sec" style="font-size:19px">Goes well with</p><div class="card">${ad.map(d=>`<div class="ds"><div><h4>${esc(d.name)}</h4><p class="pr" style="color:var(--ink)">${Rs(d.price)}</p></div><div style="align-self:center"><button class="ad" data-a="${esc(d.id)}" aria-label="Add ${esc(d.name)}">Add</button></div></div>`).join('')}</div>`:''}
+<div class="card pd"><label style="margin-top:0" for="pc">Promo code</label><div class="bar" style="margin:0"><input id="pc" value="${esc(PROMO?PROMO.code:PREF)}" placeholder="Enter code" maxlength="20" aria-label="Promo code" style="text-transform:uppercase"><button class="btn sm" id="pa" style="flex:0 0 auto">${PROMO?'Remove':'Apply'}</button></div>${PROMO?`<p class="note ok" style="margin-top:6px">${esc(PROMO.code)} applied${PROMO.disc?': you save '+Rs(PROMO.disc):''}${PROMO.freeDel?', free delivery':''}</p>`:'<p class="note" style="margin-top:6px"></p>'}</div>
+<div class="card pd"><div class="row"><span>Items</span><span>${Rs(b.s)}</span></div>${b.disc?`<div class="row ok"><span>Offer</span><span>- ${Rs(b.disc)}</span></div>`:''}<div class="row"><span>Delivery (flat)</span><span>${b.fee?Rs(b.fee):'Free'}</span></div><div class="row t"><span>Total</span><span>${Rs(b.tot)}</span></div><p class="note" style="margin-top:8px">Menu price = restaurant price. One flat delivery fee.</p></div>
+<div class="card pd"><h3 style="font-size:22px">Delivery details</h3><label for="fn">Your name</label><input class="f" id="fn" maxlength="60" autocomplete="name" value="${esc(ld('fn'))}"><label for="fp">Phone number</label><input class="f" id="fp" type="tel" inputmode="tel" maxlength="14" autocomplete="tel" value="${esc(ld('fp'))}"><label for="fz">Area</label><select class="f" id="fz">${D.loc.map(l=>`<option ${l===(ld('fz')||LOC)?'selected':''}>${esc(l)}</option>`).join('')}</select><label for="fa">Full address</label><textarea class="f" id="fa" maxlength="200" placeholder="House number, lane, landmark" autocomplete="street-address">${esc(ld('fa'))}</textarea><label for="fo">Note for the kitchen (optional)</label><input class="f" id="fo" maxlength="150"><input class="hp" id="hp" tabindex="-1" autocomplete="off" aria-hidden="true"></div>
+<div class="card pd"><h3 style="font-size:22px">Payment</h3><div class="pay" style="margin-top:8px"><label class="${PAY==='cod'?'on':''}"><input type="radio" name="py" value="cod" ${PAY==='cod'?'checked':''}> Cash on delivery</label><label class="${PAY==='upi'?'on':''}"><input type="radio" name="py" value="upi" ${PAY==='upi'?'checked':''}> UPI to the rider</label></div></div>
+<div id="co"><button class="btn big" id="pl" style="margin:6px 0 4px">Place order, ${Rs(b.tot)}</button><p class="note" style="color:#F3E7C7;text-align:center">You pay when the food arrives. No advance.</p></div>`;
+ $('pa').onclick=async()=>{if(PROMO){PROMO=null;PREF='';return cartV()}const c=$('pc').value.trim().toUpperCase();if(!c)return;await applyPromo(c,true)};
+ document.querySelectorAll('[name=py]').forEach(x=>x.onchange=()=>{PAY=x.value;document.querySelectorAll('.pay label').forEach(l=>l.classList.toggle('on',l.firstElementChild.checked))});
+ $('pl').onclick=place}
+async function applyPromo(c,loud){const s=sub();
+ try{if(D.demo){const o=CFG.offers.find(x=>x.code===c);if(!o||s<(o.min||0))throw new Error(o?'Add items worth '+Rs(o.min)+' or more to use this code.':'This code is not valid.');PROMO={code:c,disc:o.flat?Math.min(o.flat,o.max||o.flat):0,freeDel:!!o.freeDel}}
+  else{const r=await fetch('/api/food/promo',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({code:c,sub:s,rid:CART.rid,phone:ld('fp')})}),d=await r.json();if(!r.ok)throw new Error(d.error||'This code is not valid.');PROMO={code:d.code,disc:d.disc,freeDel:d.freeDel}}
+  if(V==='cart')cartV();if(loud)toast('Code applied')}
+ catch(e){PROMO=null;if(V==='cart'){cartV();const n=document.querySelector('#pc');if(n){n.value=c;n.closest('.card').lastElementChild.textContent=e.message||'Could not check the code. Try again.';n.closest('.card').lastElementChild.style.color='var(--bad)'}}if(loud&&!V)toast(e.message)}}
+/* ----- place order ----- */
+async function place(){if(placing)return;const f=id=>$(id).value.trim(),name=f('fn'),ph=f('fp').replace(/\D/g,'').slice(-10),ad=f('fa');
+ const bad=!name||name.length<2?'Please enter your name.':ph.length!==10?'Please enter a 10-digit phone number.':ad.length<8?'Please enter your full address.':'';if(bad)return toast(bad);
+ if(D.demo){$('co').innerHTML='<div class="msg"><h3>Ordering opens soon</h3><p style="margin-top:6px">This is a preview with sample kitchens. Please call us to order for now.</p><a class="btn" style="margin-top:12px" href="'+CFG.callHref+'">'+esc(CFG.call)+'</a></div>';return}
+ if(!R(CART.rid).open)return toast('This kitchen is closed right now.');
+ placing=1;const b=$('pl');b.disabled=true;b.textContent='Placing your order...';
+ sv('fn',name);sv('fp',ph);sv('fa',ad);sv('fz',f('fz'));
+ try{const r=await fetch('/api/food/order',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,phone:ph,address:ad,zone:f('fz'),rid:CART.rid,items:Object.keys(CART.it).map(d=>({d,q:CART.it[d]})),pay:PAY,promo:PROMO?PROMO.code:'',note:f('fo'),hp:f('hp')})}),d=await r.json();
+  if(!r.ok||!d.ok)throw new Error(d.error||'We could not place your order. Please try again or call us.');
+  LAST={id:d.id,phone:ph,total:d.total,rn:R(CART.rid).name,name};sv('lo',JSON.stringify({id:d.id,phone:ph}));CART={rid:'',it:{}};PROMO=null;go('done')}
+ catch(e){toast(e.message==='Failed to fetch'?'No internet. Please try again.':e.message);b.disabled=false;b.textContent='Place order'}
+ placing=0}
+function doneV(){if(!LAST)return go('home');const wm='Hi, I placed an order on Riwaaz-e-Kashmir Food. Order '+LAST.id+' for Rs '+LAST.total+' from '+LAST.rn+'. Name: '+LAST.name;
+ $('main').innerHTML=`<div class="msg" style="margin-top:16px"><h3>Order placed</h3><p style="margin-top:6px">Your order number is</p><p style="font:600 30px 'Cormorant Garamond',serif;color:var(--gd)">${esc(LAST.id)}</p><p class="note" style="margin-top:6px">${esc(LAST.rn)} - ${Rs(LAST.total)}. Pay when the food arrives. Save this number to track your order.</p><div style="display:grid;gap:10px;margin-top:14px"><button class="btn" id="gt">Track my order</button><a class="btn o" target="_blank" rel="noopener" href="https://wa.me/${CFG.wa}?text=${encodeURIComponent(wm)}">Send order details on WhatsApp</a></div></div>`;
+ $('gt').onclick=()=>{TR=null;go('track',LAST.id)}}
+/* ----- tracker: design and code from kashmiri-tracker-v2 ----- */
+const ST=['Order placed','Preparing your food','Picked up by your rider','On the road','Delivered. Enjoy your meal'],F=[0,0,.12,.6,1];
+const TRH=`<div id="tre"></div><div id="trm" class="hide"><p class="tg">Your order</p><h1>On its way to you</h1>
+<div class="card"><div class="lat"></div>
+<svg class="ridge" viewBox="0 0 360 60" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="rg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d4b062" stop-opacity=".35"/><stop offset="1" stop-color="#10211a" stop-opacity="0"/></linearGradient></defs><path d="M0 60V38L28 22 48 34 84 8 112 30 140 16 176 40 214 12 250 34 290 6 326 28 360 16V60Z" fill="url(#rg)"/><path d="M0 44L36 30 70 42 110 24 150 44 196 26 240 46 284 22 330 42 360 32V60H0Z" fill="#10211a" opacity=".7"/></svg>
+<div class="top"><div><p class="tg" style="margin:0">Status</p><p class="stt" id="stt">Order placed</p></div><div class="eta"><b id="eta">35 min</b><span>estimated arrival</span></div></div>
+<svg class="map" viewBox="0 0 360 190" aria-label="Route from the restaurant to your home"><image id="bkd" href="/images/food/backdrop.webp" x="0" y="0" width="360" height="190" preserveAspectRatio="xMidYMid slice" opacity=".35" onerror="this.remove()"/>
+<g stroke="#2a4636" stroke-width="1" fill="none" opacity=".7"><path d="M0 40H360M0 100H360M0 160H360M60 0V190M150 0V190M240 0V190M320 0V190"/></g>
+<path d="M-10 128C60 100 120 150 190 126S320 100 370 120" stroke="#3a6a86" stroke-width="10" fill="none" opacity=".28"/>
+<path id="rt" d="M36 150C80 150 92 96 142 104S214 148 262 112S300 70 326 56" stroke="#2f4a3a" stroke-width="5" fill="none" stroke-linecap="round"/>
+<path id="pg2" d="M36 150C80 150 92 96 142 104S214 148 262 112S300 70 326 56" stroke="#d4b062" stroke-width="5" fill="none" stroke-linecap="round"/>
+<g transform="translate(36,150)"><circle r="15" fill="#10211a" stroke="#d4b062"/><text y="6" text-anchor="middle" font-size="16">🍲</text></g>
+<g transform="translate(326,56)"><circle r="15" fill="#10211a" stroke="#d4b062"/><text y="6" text-anchor="middle" font-size="16">🏠</text></g>
+<g id="mk"><circle class="pulse" r="14" fill="#d4b062"/><circle r="15" fill="#d4b062"/><text y="6" text-anchor="middle" font-size="17">🛵</text></g></svg>
+<div class="rd"><div class="av" id="rav">K</div><div><p id="rnm">Your kitchen</p><small id="rsm">Order <span id="roid"></span></small></div><a class="btn sm o" id="rcl" href="#">Call us</a></div>
+<ul class="lst" id="ls"></ul></div><p class="note" style="color:#F3E7C7;text-align:center;margin-top:14px">Arrival time is an estimate. Updates every few seconds.</p></div>`;
+let cur=0,f0=0,raf,L=0;
+function place2(f){const p=$('rt').getPointAtLength(L*f);$('mk').setAttribute('transform','translate('+p.x+','+p.y+')')}
+function mv(to){cancelAnimationFrame(raf);const a=f0,t0=performance.now(),pg=$('pg2');pg.style.strokeDashoffset=L*(1-to);(function s(t){let k=Math.min(1,(t-t0)/2200);k=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;f0=a+(to-a)*k;place2(f0);if(k<1)raf=requestAnimationFrame(s)})(t0)}
+function showT(eta){mv(F[cur]);$('stt').textContent=ST[cur];$('eta').textContent=eta;$('ls').innerHTML=ST.map((t,i)=>`<li class="${i<cur?'dn':i==cur?'on':''}"><i>${i<cur?'✓':''}</i>${t}</li>`).join('')}
+function trackV(){$('main').innerHTML=`<div id="v-track" style="margin-top:16px">${TRH}</div>`;const tf=()=>{const s=(VA||'')?{id:VA,phone:(LAST&&LAST.id===VA?LAST.phone:'')}:null;return s};
+ let o={};try{o=JSON.parse(ld('lo')||'{}')}catch(e){}const id=VA||o.id||'',ph=(LAST&&LAST.id===id?LAST.phone:'')||(o.id===id?o.phone:'');
+ if(!id||!ph){$('tre').innerHTML=`<div class="card pd"><h3 style="font-size:24px">Track your order</h3><label for="ti">Order number</label><input class="f" id="ti" placeholder="MK261029-A3F9" maxlength="16" style="text-transform:uppercase" value="${esc(id)}"><label for="tp">Phone number you ordered with</label><input class="f" id="tp" type="tel" inputmode="tel" maxlength="14"><button class="btn big" style="margin-top:14px" id="tg2">Track</button><p class="note" id="te" style="margin-top:8px;color:var(--bad)"></p></div>`;
+  $('tg2').onclick=()=>{const i=$('ti').value.trim().toUpperCase(),p=$('tp').value.replace(/\D/g,'').slice(-10);if(!i||p.length!==10){$('te').textContent='Enter your order number and 10-digit phone.';return}LAST={id:i,phone:p};sv('lo',JSON.stringify({id:i,phone:p}));VA=i;trackV()};return}
+ $('tre').innerHTML='';$('trm').classList.remove('hide');$('roid').textContent=id;$('rcl').href=CFG.callHref;
+ const rtp=$('rt');L=rtp.getTotalLength();$('pg2').style.strokeDasharray=L;$('pg2').style.transition='stroke-dashoffset 2.2s ease-in-out';cur=0;f0=0;$('pg2').style.strokeDashoffset=L;place2(0);
+ const poll=async()=>{try{const r=await fetch('/api/food/order?id='+encodeURIComponent(id)+'&phone='+ph,{cache:'no-store'}),d=await r.json();
+   if(!r.ok){clearInterval(trT);$('trm').classList.add('hide');$('tre').innerHTML='<div class="card pd"><p>'+esc(d.error||'Order not found.')+'</p><button class="btn big" style="margin-top:12px" id="bt">Try another order</button></div>';$('bt').onclick=()=>{sv('lo','');VA='';LAST=null;trackV()};return}
+   $('rnm').textContent=d.rn;$('rav').textContent=d.rider?d.rider[0].toUpperCase():(d.rn||'K')[0];$('rsm').innerHTML=d.rider?'Rider '+esc(d.rider):'Order <span>'+esc(id)+'</span>';
+   if(['rejected','cancelled'].includes(d.st)){clearInterval(trT);$('trm').classList.add('hide');$('tre').innerHTML='<div class="msg"><h3>We could not make this order</h3><p style="margin-top:6px">'+esc(d.rn)+' could not take this order'+(d.reason&&d.st==='rejected'?' ('+esc(d.reason.replace(/_/g,' '))+')':'')+'. Sorry about that. Nothing has been charged. Please call us and we will help you right away.</p><a class="btn" style="margin-top:12px" href="'+CFG.callHref+'">'+esc(CFG.call)+'</a></div>';return}
+   const tAt=s=>((d.trail.find(x=>x.s===s)||{}).t)||0,ix={placed:0,accepted:1,ready:1,picked:3,delivered:4}[d.st];let eta='40 min';
+   if(d.st==='accepted'){eta=Math.max(8,(d.prep||20)+15-Math.floor((Date.now()-tAt('accepted'))/60000))+' min'}else if(d.st==='ready')eta='15 min';else if(d.st==='picked')eta='8 min';else if(d.st==='delivered'){eta='Arrived';clearInterval(trT)}
+   cur=ix;showT(eta)}catch(e){}};
+ poll();trT=setInterval(poll,8000)}
+/* ===================== events ===================== */
+document.addEventListener('click',e=>{const t=e.target;let x;
+ if(x=t.closest('[data-r]')){go('rest',x.dataset.r);return}
+ if(x=t.closest('[data-c]')){CH=x.dataset.c;home();return}
+ if(x=t.closest('[data-t]')){document.querySelectorAll('#tb button').forEach(b=>b.classList.toggle('on',b===x));const c=$('cat'+x.dataset.t);if(c)c.scrollIntoView({behavior:'smooth'});return}
+ if(x=t.closest('[data-p]')){PREF=x.dataset.p;toast('Code '+PREF+' saved. Add items and apply it in your cart.');return}
+ if(x=t.closest('[data-a]')){if(lock())return;const r=R(V==='cart'?CART.rid:VA);if(!r||!r.open)return toast('This kitchen is closed right now.');const d=dish(r,x.dataset.a);if(!d||!d.stock)return toast('Sold out, sorry.');if(setQ(r.id,d.id,1)){if(PROMO)applyPromo(PROMO.code);refresh()}return}
+ if(x=t.closest('[data-p2]')){if(lock())return;const r=R(CART.rid);if(r&&setQ(r.id,x.dataset.p2,(CART.it[x.dataset.p2]||0)+1)){if(PROMO)applyPromo(PROMO.code);refresh()}return}
+ if(x=t.closest('[data-m]')){if(lock())return;const r=R(CART.rid);if(r){setQ(r.id,x.dataset.m,(CART.it[x.dataset.m]||0)-1);if(PROMO&&cnt())applyPromo(PROMO.code);refresh()}return}});
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.matches('[data-r],[data-p]'))e.target.click()});
+$('bk').onclick=()=>{history.length>1?history.back():go('home')};
+$('cbb').onclick=()=>go('cart');$('tk').onclick=()=>go('track',LAST?LAST.id:'');
+$('th').onclick=()=>{const d=document.documentElement;d.dataset.t=d.dataset.t==='dark'?'':'dark';sv('ft',d.dataset.t||'')};
+if(ld('ft')==='dark')document.documentElement.dataset.t='dark';
+$('ca').href=CFG.callHref;$('ca').textContent=CFG.call;$('br').textContent=CFG.brand;
+history.replaceState({v:'home'},'');loadData();
+</script></body></html>
