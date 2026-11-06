@@ -1,389 +1,709 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="robots" content="noindex, nofollow">
-<meta name="theme-color" content="#0b1611">
-<title>Riwaaz-e-Kashmir | Local food, honest prices</title>
-<link rel="preload" as="image" href="/images/food/hero-1.webp" fetchpriority="high">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Pure Kashmiri saffron, walnut kernels, almonds, honey, kahwa and shawls. Direct from Kashmir with free delivery across India."><meta property="og:title" content="Riwaaz-e-Kashmir | Kashmiri Saffron, Shawls & Dry Fruits"><meta property="og:description" content="Genuine Kashmiri products direct from Kashmir. Free delivery across India."><link rel="preload" as="image" href="images/hero-shawl.webp"><title>Riwaaz-e-Kashmir | Kashmiri Saffron, Shawls & Dry Fruits</title>
 <style>
-/* ── Tokens: Chinar night (dark, default) · Snow mist (light) ── */
-:root{--bg:#050d08;--card:#14281f;--card2:#0f2118;--tx:#f2ecda;--mu:#a3b3a6;--gd:#c9a45c;--ac:#c9a45c;--act:#17120a;--ln:rgba(201,164,92,.16);--ln2:rgba(201,164,92,.38);--ru:#c4503a;--ok:#74d49a;--er:#ee9a8a;--glow:rgba(201,164,92,.09);--sh:0 14px 34px rgba(0,0,0,.5);color-scheme:dark}
-@media(prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#eef2ea;--card:#fbfcf7;--card2:#e3ebde;--tx:#16261d;--mu:#55685b;--gd:#7a5810;--ac:#8f6212;--act:#fffdf5;--ln:rgba(122,88,16,.22);--ln2:rgba(122,88,16,.45);--ru:#a8402d;--ok:#1f7a45;--er:#b13a28;--glow:rgba(228,184,90,.3);--sh:0 10px 26px rgba(30,50,30,.14);color-scheme:light}}
-:root[data-theme="light"]{--bg:#eef2ea;--card:#fbfcf7;--card2:#e3ebde;--tx:#16261d;--mu:#55685b;--gd:#7a5810;--ac:#8f6212;--act:#fffdf5;--ln:rgba(122,88,16,.22);--ln2:rgba(122,88,16,.45);--ru:#a8402d;--ok:#1f7a45;--er:#b13a28;--glow:rgba(228,184,90,.3);--sh:0 10px 26px rgba(30,50,30,.14);color-scheme:light}
-*{box-sizing:border-box}html{-webkit-text-size-adjust:100%;scroll-padding-top:120px}
-body{margin:0;color:var(--tx);font:400 16px/1.5 Jost,system-ui,sans-serif;padding-bottom:104px;background:radial-gradient(800px 380px at 50% -140px,var(--glow),transparent 70%),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 56 56'%3E%3Cpath d='M14 14h28v28H14zM28 6l22 22-22 22L6 28z' fill='none' stroke='%23d4a640' stroke-opacity='.11'/%3E%3C/svg%3E"),var(--bg)}
-h1,h2,h3{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;margin:0}
-button{font-family:inherit}:focus-visible{outline:2px solid var(--gd);outline-offset:2px}
-.w{max-width:560px;margin:auto;padding:0 14px}
-.lat{height:6px;background:repeating-linear-gradient(45deg,var(--gd) 0 1px,transparent 1px 8px),repeating-linear-gradient(-45deg,var(--gd) 0 1px,transparent 1px 8px);opacity:.28}
-/* header */
-header{position:sticky;top:0;z-index:10;background:var(--bg);background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--ln);padding-bottom:10px}
-.hd{display:flex;align-items:center;gap:8px;padding-top:10px}
-.logo{display:flex;align-items:center;gap:8px;margin-right:auto;cursor:pointer}.logo b{white-space:nowrap;font:700 21px/1 'Cormorant Garamond',serif;color:var(--gd);letter-spacing:.01em}
-.ib{flex:none;min-width:38px;height:38px;border-radius:50%;border:1px solid var(--ln2);background:var(--card);color:var(--gd);font-size:16px;cursor:pointer;padding:0 8px}
-.sr{display:flex;gap:8px;margin-top:10px}
-input,select,textarea{background:var(--card);color:var(--tx);border:1px solid var(--ln2);border-radius:12px;padding:12px;font:16px Jost,sans-serif;width:100%}
-.sr input{flex:1;min-width:0}.gps{flex:none;width:46px;border-radius:12px;border:1px solid var(--ln2);background:var(--card);font-size:18px;cursor:pointer}
-/* tabs + strip */
-.tb{display:flex;gap:4px;margin:12px 0 0;padding:4px;border:1px solid var(--ln);border-radius:30px;background:var(--card)}
-.tb button{flex:1;border:0;background:none;color:var(--tx);border-radius:24px;min-height:42px;font:500 14px Jost,sans-serif;cursor:pointer}.tb button.on{background:var(--ac);color:var(--act)}
-.call{display:flex;justify-content:space-between;gap:8px;align-items:center;font-size:13.5px;color:var(--mu);margin:10px 2px 0}.call a{color:var(--gd);font-weight:600;text-decoration:none;white-space:nowrap}
-/* hero */
-.hero{position:relative;border:1px solid var(--ln);border-radius:18px;overflow:hidden;margin-top:12px;box-shadow:var(--sh);isolation:isolate;min-height:clamp(200px,40vw,340px);display:flex;align-items:flex-end;background:linear-gradient(160deg,#10281d,#050d08 75%)}
-.hm{position:absolute;inset:0;z-index:-3;overflow:hidden}.hm img,.hm video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.hm img.hi{opacity:0;animation:hf 21s linear infinite,hz 21s linear infinite}
-@keyframes hf{0%{opacity:0}6%{opacity:1}33%{opacity:1}40%{opacity:0}100%{opacity:0}}@keyframes hz{from{transform:scale(1)}to{transform:scale(1.1)}}
-.hov{position:absolute;inset:0;z-index:-2;background:radial-gradient(120% 90% at 50% 35%,transparent 30%,rgba(5,13,8,.8) 100%),linear-gradient(0deg,rgba(5,13,8,.94) 0%,rgba(5,13,8,.5) 50%,rgba(5,13,8,.2) 100%)}
-.fire{position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(60% 70% at 50% 108%,rgba(255,140,40,.3),transparent 70%),radial-gradient(40% 40% at 14% 0%,rgba(255,200,110,.15),transparent 70%);mix-blend-mode:screen;animation:fl 6s ease-in-out infinite alternate}@keyframes fl{from{opacity:.5}to{opacity:1}}
-@media(prefers-reduced-motion:reduce){.hm img.hi{animation:none}.hm img.hi:first-child{opacity:1}.fire{animation:none}}
-.hx{padding:16px 18px 18px;color:#fff;width:100%;text-align:center}.wm{font:600 13px 'Cormorant Garamond',serif;letter-spacing:.32em;color:var(--gd)}
-.hero h1{font-size:34px;line-height:1.04;margin:6px 0 6px;color:#fff;text-shadow:0 2px 16px rgba(0,0,0,.55)}.hero p{margin:0;color:#e6dfca;font-size:14px}
-@media(min-width:760px){.hero h1{font-size:46px}}
-.pp2{margin:12px 0 0;border:1px solid var(--ln);border-left:3px solid var(--gd);border-radius:12px;background:var(--card);padding:12px 14px}.pp2 b{display:block;font:600 22px/1.15 'Cormorant Garamond',serif}.pp2 span{display:block;color:var(--mu);font-size:13.5px;margin-top:2px}.pp2 em{display:block;font-style:normal;color:var(--gd);font-size:13.5px;font-weight:500;margin-top:8px;padding-top:8px;border-top:1px solid var(--ln)}
-.band{border:1px solid var(--ln);border-radius:18px;padding:18px;margin-top:12px;background:linear-gradient(135deg,var(--card),var(--card2));position:relative;overflow:hidden}.band h1{font-size:32px;line-height:1.05}.band p{color:var(--mu);margin:6px 0 0;font-size:14.5px}
-.tk{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:8px}@media(min-width:760px){.tk{grid-template-columns:repeat(3,1fr)}}
-.tkc{position:relative;border:1px solid var(--ln);padding:0;border-radius:14px;overflow:hidden;aspect-ratio:4/3;cursor:pointer;text-align:left;color:#fff;background:linear-gradient(135deg,var(--p1),var(--p2))}
-.tkc::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44' viewBox='0 0 56 56'%3E%3Cpath d='M14 14h28v28H14zM28 6l22 22-22 22L6 28z' fill='none' stroke='%23ffffff' stroke-opacity='.1'/%3E%3C/svg%3E")}
-.tkc img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.tkc::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(5,13,8,.88),rgba(5,13,8,.1) 62%)}
-.tkc span{position:absolute;left:12px;right:12px;bottom:10px;z-index:1;font:600 21px/1.1 'Cormorant Garamond',serif}.tkc small{display:block;font:400 12.5px Jost,sans-serif;color:#d9d2bd;margin-top:3px}
-/* one colour grade for every photo */
-.ph img,.cr .c img,.hm img,.hm video,.tkc img{filter:saturate(1.08) contrast(1.06) sepia(.1) brightness(.94)}
-.ph::after,.cr .c::after{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 30% 0%,rgba(255,190,90,.14),transparent 60%),linear-gradient(0deg,rgba(5,13,8,.4),transparent 60%)}
-/* headings & rows */
-.h2{display:flex;align-items:center;gap:10px;font:600 25px 'Cormorant Garamond',serif;margin:28px 0 6px}
-.h2::before{content:'';width:13px;height:13px;flex:none;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 1l3 8 8 3-8 3-3 8-3-8-8-3 8-3z' fill='%23d4a640'/%3E%3C/svg%3E") center/contain no-repeat}
-.h2::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--ln2),transparent)}
-.ro{display:flex;gap:12px;overflow-x:auto;padding:6px 2px 12px;scroll-snap-type:x proximity}.ro::-webkit-scrollbar{display:none}.ro>*{scroll-snap-align:start}
-.qc{gap:14px;padding:8px 2px 16px;scroll-snap-type:x proximity}
-.cr{flex:none;width:96px;text-align:center;border:0;background:none;color:var(--tx);font:500 13px/1.25 Jost,sans-serif;cursor:pointer;padding:0}
-.cr .c{display:flex;width:92px;height:92px;margin:0 auto 8px;border-radius:50%;align-items:center;justify-content:center;font-size:38px;position:relative;overflow:hidden;background:radial-gradient(circle,var(--card),var(--card2));box-shadow:0 0 0 2px var(--ln2),0 8px 18px rgba(0,0,0,.35);transition:box-shadow .25s}
-.cr .c img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.cr.sel{color:var(--gd)}.cr.sel .c{box-shadow:0 0 0 2px var(--gd),0 0 0 6px var(--ln2),0 8px 18px rgba(0,0,0,.35)}
-.col{flex:none;width:176px;padding:14px;border-radius:16px;border:1px solid var(--ln2);cursor:pointer;background:linear-gradient(135deg,var(--card2),var(--card));text-align:left;color:var(--tx);position:relative;overflow:hidden}
-.col span{font-size:30px;display:block}.col b{font:600 19px/1.15 'Cormorant Garamond',serif;display:block;margin-top:4px}.col small{color:var(--mu);font-size:12.5px}
-.pk{flex:none;width:172px;border:1px solid var(--ln);border-radius:16px;background:var(--card);padding:12px}.pk .e{font-size:34px}.pk b{display:block;font-weight:500;margin-top:4px;line-height:1.25}.pk small{color:var(--mu);display:block;font-size:12.5px}.pk div{display:flex;justify-content:space-between;align-items:center;margin-top:8px}.pk i{font-style:normal;color:var(--gd);font-weight:600}
-.chips{display:flex;gap:8px;overflow-x:auto;padding:8px 0}.chips::-webkit-scrollbar{display:none}
-.chip{flex:none;border:1px solid var(--ln2);background:none;color:var(--tx);padding:0 14px;min-height:38px;border-radius:20px;font:14px Jost,sans-serif;cursor:pointer}.chip.on{background:var(--ac);color:var(--act);border-color:var(--ac)}
-.bl{flex:none;align-self:center;color:var(--mu);font-size:13px;padding-right:2px}
-.ar2{display:flex;align-items:center;gap:8px;margin:10px 0 0;color:var(--mu);font-size:14px}.ar2 select{width:auto;padding:9px 10px;color:var(--gd);font-weight:500}
-/* cards */
-.gr{display:block}@media(min-width:760px){.w{max-width:1040px}.gr{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.gr .rc{margin:0}.hero h1{font-size:44px}}
-.rc{background:var(--card);border:1px solid var(--ln);border-radius:16px;overflow:hidden;margin-bottom:14px;cursor:pointer;transition:transform .2s,border-color .2s,box-shadow .2s}
-@media(hover:hover){.rc:hover{transform:translateY(-3px);border-color:var(--ln2);box-shadow:var(--sh)}}
-.rc.cl{opacity:.6}
-.ph{height:164px;display:flex;align-items:center;justify-content:center;font-size:50px;position:relative;overflow:hidden;background:linear-gradient(135deg,var(--p1,#1f4a37),var(--p2,#0d2a22))}
-.ph::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44' viewBox='0 0 56 56'%3E%3Cpath d='M14 14h28v28H14zM28 6l22 22-22 22L6 28z' fill='none' stroke='%23ffffff' stroke-opacity='.12'/%3E%3C/svg%3E")}
-.ph>span.em{position:relative;filter:drop-shadow(0 4px 8px rgba(0,0,0,.4))}.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.bd,.tgb,.rat,.smp{z-index:2;position:absolute;font:500 12px Jost,sans-serif;padding:3px 9px;border-radius:12px}
-.bd{left:10px;top:10px;background:var(--ac);color:var(--act)}.bd.fd{background:var(--ru);color:#fff}
-.tgb{right:10px;top:10px;background:rgba(0,0,0,.6);color:#f3cf7e}.rat{right:10px;bottom:10px;background:#2e8b57;color:#fff;border-radius:6px}
-.smp{left:10px;bottom:10px;border:1px dashed #f3cf7e;color:#f3cf7e;background:rgba(0,0,0,.45);font-size:11px;padding:1px 7px}
-.in{padding:12px 14px 14px;position:relative}.in h3{font-size:23px;padding-right:34px}.in p{margin:2px 0 0;color:var(--mu);font-size:13.5px}
-.hr{position:absolute;right:6px;top:8px;background:none;border:0;color:var(--gd);font-size:24px;cursor:pointer;min-width:40px;min-height:40px}
-.deal{color:var(--gd);font-size:13px;margin-top:3px}
-.dish{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--ln)}
-.dish .e{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--card2),var(--card));border:1px solid var(--ln);display:flex;align-items:center;justify-content:center;font-size:28px;flex:none}
-.dish .t{flex:1;min-width:0}.dish b{font-weight:500}.dish small{color:var(--mu);display:block}
-.btn{min-height:40px;border:1px solid var(--gd);background:none;color:var(--gd);padding:0 18px;border-radius:999px;font:500 14px Jost,sans-serif;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;text-decoration:none}
-.btn.a{background:var(--ac);color:var(--act);border-color:var(--ac)}.btn.w100{width:100%;min-height:50px;margin-top:10px;font-size:15px}
-.st{display:inline-flex;align-items:center;border:1px solid var(--gd);border-radius:999px;overflow:hidden}.st button{background:none;border:0;color:var(--gd);width:40px;height:38px;font-size:20px;cursor:pointer}.st span{min-width:24px;text-align:center;font-weight:500}
-.bar{position:fixed;left:50%;transform:translateX(-50%);width:calc(100% - 24px);max-width:536px;bottom:calc(12px + env(safe-area-inset-bottom,0px));background:var(--ac);color:var(--act);padding:14px 20px;border-radius:16px;display:flex;justify-content:space-between;align-items:center;font-weight:600;cursor:pointer;z-index:6;box-shadow:0 10px 30px rgba(0,0,0,.4);border:0;font-size:15px}
-.bill div{display:flex;justify-content:space-between;padding:5px 0;color:var(--mu)}.bill .tt{color:var(--tx);font-weight:600;border-top:1px solid var(--ln);margin-top:6px;padding-top:10px;font-size:19px}
-.pb{height:8px;background:var(--ln);border-radius:4px;overflow:hidden;margin:6px 0 4px}.pb i{display:block;height:100%;background:var(--gd);transition:width .4s}
-.bk{background:none;border:0;color:var(--gd);font:500 15px Jost,sans-serif;padding:12px 0;cursor:pointer;min-height:44px}
-.note{background:var(--card);border-left:3px solid var(--gd);border-radius:0 10px 10px 0;padding:10px 12px;font-size:14px;color:var(--mu);margin:12px 0}
-.pc{background:rgba(95,191,127,.12);border:1px solid var(--ok);color:var(--ok);border-radius:10px;padding:10px 12px;margin:12px 0;font-size:14px}.pc.nd{background:var(--card);border-color:var(--gd);color:var(--gd)}
-.toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%);background:var(--card);color:var(--tx);border:1px solid var(--gd);padding:10px 16px;border-radius:12px;z-index:60;font-size:14px;max-width:90%;text-align:center;box-shadow:var(--sh)}
-.fm{background:var(--card);border:1px solid var(--ln);border-radius:16px;padding:6px 14px 16px;margin:14px 0}
-.fl{display:block;font-size:13.5px;color:var(--mu);margin-top:10px}.fl input,.fl select{margin-top:6px}
-.er{color:var(--er);font-size:14px;min-height:20px;margin:8px 0 0}
-.ad{font-size:15px;line-height:1.9}.ad b{color:var(--gd);font-weight:500}
-.pg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.pg div{aspect-ratio:1;border-radius:12px;background:linear-gradient(135deg,var(--card2),var(--card));border:1px solid var(--ln);display:flex;align-items:center;justify-content:center;font-size:32px}
-.dt input{margin-top:8px}
-.addr{display:flex;gap:8px;overflow-x:auto;margin-top:8px}.addr .chip{max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-/* sheet + drawer */
-.dr{position:fixed;inset:0;background:rgba(0,0,0,.62);z-index:30;display:flex;align-items:flex-end;justify-content:center}
-.dr>div{background:var(--card);width:100%;max-width:560px;max-height:90vh;overflow:auto;border-radius:20px 20px 0 0;border-top:1px solid var(--gd);padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px));animation:up .25s}@keyframes up{from{transform:translateY(30px);opacity:0}to{transform:none;opacity:1}}
-.shh{display:flex;justify-content:space-between;align-items:center;gap:10px}.pp{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 14px}
-.msg{white-space:pre-wrap;font:14px/1.5 Jost,sans-serif;background:var(--bg);border:1px solid var(--ln);border-radius:12px;padding:12px;color:var(--tx);margin:12px 0 0;max-height:34vh;overflow:auto}
-.adw{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:40;opacity:0;transition:opacity .3s}.adw.on{opacity:1}
-.apn{position:absolute;top:0;right:0;bottom:0;width:min(400px,92vw);background:var(--card);border-left:1px solid var(--gd);padding:16px 16px calc(24px + env(safe-area-inset-bottom,0px));overflow:auto;transform:translateX(100%);transition:transform .3s}.adw.on .apn{transform:none}
-.arow{display:flex;justify-content:space-between;gap:8px;align-items:center;padding:9px 0;border-bottom:1px solid var(--ln);font-size:14px}
-/* tracker */
-.lst{list-style:none;margin:0;padding:6px 16px}.lst li{display:flex;gap:12px;align-items:center;padding:8px 0;color:var(--mu)}
-.lst li i{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--ln2);flex:none;display:flex;align-items:center;justify-content:center;font-style:normal;font-size:11px;color:var(--act)}
-.lst li.dn i{background:var(--gd);border-color:var(--gd)}.lst li.on{color:var(--tx)}.lst li.on i{border-color:var(--gd);box-shadow:0 0 0 4px var(--ln2)}
-.pulse{animation:pl 2s ease-out infinite;transform-box:fill-box;transform-origin:center}@keyframes pl{0%{transform:scale(.6);opacity:.7}100%{transform:scale(2.2);opacity:0}}
-.scn2{position:fixed;inset:0;background:#000;z-index:70;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;color:#fff}.scn2 video{width:92%;max-width:420px;border-radius:14px}
-footer{color:var(--mu);font-size:12.5px;text-align:center;padding:30px 0 10px}footer svg{display:block;margin:0 auto 8px}
-html[lang=ur] body{line-height:1.9}html[lang=ur] body,html[lang=ur] button,html[lang=ur] input,html[lang=ur] select,html[lang=ur] h1,html[lang=ur] h2,html[lang=ur] h3,html[lang=ur] .h2{font-family:'Noto Nastaliq Urdu',serif}
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Jost:wght@300;400;500&display=swap');
+:root{--bg:#0f1a13;--bg2:#14201a;--gold:#c9a961;--ivory:#f0ece2;--mute:#a8a89c;--red:#e5484d}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Jost',sans-serif;background:var(--bg);color:var(--ivory);font-size:14px}
+.serif{font-family:'Cormorant Garamond',Georgia,serif}
+.strip{background:var(--gold);color:var(--bg);overflow:hidden;white-space:nowrap;font-size:12px;letter-spacing:1px;padding:7px 0}
+.strip div{display:inline-block;padding-left:100%;animation:run 22s linear infinite}
+@keyframes run{to{transform:translateX(-100%)}}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:.5px solid rgba(201,169,97,.25);position:sticky;top:0;background:var(--bg);z-index:50}
+.nav b{font-family:'Cormorant Garamond',serif;color:var(--gold);font-size:19px;font-weight:600;letter-spacing:1px}
+.nav img{height:32px;margin-right:8px;vertical-align:middle}
+.cartbtn{color:var(--gold);font-size:13px;cursor:pointer}
+.hero{position:relative;height:62vh;min-height:360px;max-height:520px;overflow:hidden;background:#0a120d}
+.slide{position:absolute;inset:0;background-size:cover;background-position:center top;opacity:0;transition:opacity 1.6s}
+.slide.on{opacity:1}
+.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 30%,rgba(10,18,13,.95))}.slide:nth-child(1){background-position:center 74%}.slide:nth-child(2){background-position:center 30%}.slide:nth-child(3){background-position:center 45%}
+.hero-t{position:absolute;left:0;right:0;bottom:22px;z-index:2;text-align:center;padding:0 16px}
+.hero-t img{height:54px;margin-bottom:6px}
+.hero-t h1{font-size:26px;font-weight:600;color:var(--ivory);line-height:1.15}
+.hero-t p{color:var(--gold);font-size:12px;letter-spacing:2px;margin:6px 0 14px}
+.btn{display:inline-block;background:var(--gold);color:var(--bg);font-weight:500;font-size:12px;letter-spacing:1px;padding:11px 20px;border-radius:4px;cursor:pointer;text-decoration:none;border:0}
+.btn.o{background:transparent;border:1px solid var(--gold);color:var(--gold);margin-left:8px}
+.trust{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;padding:14px 8px;background:var(--bg2);text-align:center;font-size:10.5px;color:var(--mute)}
+.trust b{display:block;color:var(--gold);font-weight:500;font-size:11px;margin-bottom:2px}
+.shawl{margin:22px 14px;border:1px solid var(--gold);border-radius:6px;padding:26px 18px;text-align:center;background:radial-gradient(circle at 50% 0,#1d3326,#0b130e 70%);position:relative}
+.shawl:before{content:"";position:absolute;inset:6px;border:.5px solid rgba(201,169,97,.4);border-radius:3px;pointer-events:none}
+.shawl small{color:var(--gold);letter-spacing:4px;font-size:10px}
+.shawl h2{font-size:30px;font-weight:600;margin:8px 0 6px}
+.shawl p{color:var(--mute);font-size:13px;line-height:1.6;max-width:420px;margin:0 auto 14px}
+.imgs{display:flex;gap:8px;margin:12px 0;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}.imgs img{flex:none;width:44%;min-width:150px;height:200px;object-fit:cover;border-radius:4px;scroll-snap-align:start}
+.tags{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:16px}
+.tags span{border:.5px solid rgba(201,169,97,.5);color:var(--gold);font-size:11px;padding:5px 11px;border-radius:20px}
+.sec{padding:22px 12px 8px}
+.st{text-align:center;color:var(--gold);font-size:24px;font-weight:600;margin-bottom:12px}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:2px 4px 14px;scrollbar-width:none}
+.chip{flex:none;border:.5px solid rgba(201,169,97,.4);color:var(--mute);padding:7px 14px;border-radius:20px;font-size:12px;cursor:pointer}
+.chip.on{background:var(--gold);color:var(--bg);border-color:var(--gold)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:900px;margin:0 auto}
+@media(min-width:1000px){.grid{grid-template-columns:repeat(4,1fr)}}@media(max-width:999px){.grid .card:last-child:nth-child(odd){grid-column:1/-1}}
+.card{background:var(--bg2);border:.5px solid rgba(201,169,97,.3);border-radius:8px;overflow:hidden;display:flex;flex-direction:column}
+.card img{width:100%;height:120px;object-fit:cover;background:#1a2a20}
+.cb{padding:10px;display:flex;flex-direction:column;gap:8px;flex:1}
+.cb h3{font-size:13.5px;font-weight:500;line-height:1.3}
+.sz{display:flex;gap:5px;flex-wrap:wrap}
+.sz span{border:.5px solid rgba(201,169,97,.4);color:var(--mute);font-size:11px;padding:4px 7px;border-radius:4px;cursor:pointer}
+.sz span.on{border:1px solid var(--gold);color:var(--gold);background:rgba(201,169,97,.1)}
+.pr s{color:var(--red);font-size:12px;margin-right:5px;text-decoration-thickness:1.5px}
+.pr b{color:var(--gold);font-size:17px;font-weight:500}
+.pr em{display:inline-block;background:var(--red);color:#fff;font-style:normal;font-size:10px;padding:2px 5px;border-radius:3px;margin-left:5px}
+.nm{background:rgba(245,240,230,.06);border:.5px solid rgba(201,169,97,.3);border-radius:4px;padding:7px;color:var(--ivory);font:inherit;font-size:12px;width:100%}
+.add{margin-top:auto;text-align:center;background:var(--gold);color:var(--bg);font-size:11.5px;font-weight:500;letter-spacing:.5px;padding:9px;border-radius:4px;cursor:pointer}
+.box{max-width:420px;margin:0 auto;padding:18px;background:var(--bg2);border:.5px solid rgba(201,169,97,.3);border-radius:8px}
+.box p{color:var(--mute);font-size:12.5px;line-height:1.6;text-align:center;margin-bottom:12px}
+.tg{display:flex;gap:8px;margin-bottom:10px}
+.tg div{flex:1;text-align:center;padding:9px;border:.5px solid rgba(201,169,97,.3);border-radius:5px;font-size:12px;color:var(--mute);cursor:pointer}
+.tg div.on{border:1px solid var(--gold);color:var(--gold)}
+.box .nm{margin-bottom:10px;padding:10px}
+.why{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:10px 16px 26px;text-align:center;max-width:500px;margin:0 auto}
+.why b{display:block;color:var(--gold);font-weight:500;margin-bottom:3px}
+.why span{color:var(--mute);font-size:11.5px}
+.foot{text-align:center;padding:28px 16px 90px;border-top:.5px solid rgba(201,169,97,.2);color:var(--mute);font-size:12px}
+.foot .serif{color:var(--gold);font-size:22px}
+.wa{position:fixed;right:14px;bottom:18px;width:54px;height:54px;border-radius:50%;background:#25d366;z-index:90;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.5)}
+.wa svg{width:30px;height:30px;fill:#fff}
+.ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:100}
+.ov.on{display:flex}
+.drawer{margin-left:auto;width:88%;max-width:360px;height:100%;background:var(--bg2);padding:18px;overflow-y:auto}
+.drawer h4,.modal h4{color:var(--gold);font-weight:500;font-size:16px;margin-bottom:12px;text-align:center}
+.ci{display:flex;gap:8px;align-items:center;padding:9px 0;border-top:.5px solid rgba(201,169,97,.2);font-size:12px}
+.ci span:first-child{flex:1}
+.q{display:flex;align-items:center;gap:7px}
+.q i{font-style:normal;border:.5px solid var(--gold);color:var(--gold);width:22px;height:22px;text-align:center;line-height:20px;border-radius:4px;cursor:pointer}
+.row{display:flex;justify-content:space-between;padding:6px 0;font-size:13px}
+.row.t{font-size:16px;color:var(--gold);border-top:.5px solid rgba(201,169,97,.3);margin-top:6px;padding-top:10px}
+.cp{display:flex;gap:6px;margin:12px 0}
+.cp .nm{flex:1}
+.cp .add{margin:0;padding:8px 12px}
+.modal{margin:auto;width:90%;max-width:340px;background:var(--bg2);border:1px solid rgba(201,169,97,.3);border-radius:10px;padding:20px;max-height:92vh;overflow-y:auto}
+.modal .nm{margin-bottom:9px;padding:10px}
+.modal .two{display:flex;gap:8px}
+.cancel{text-align:center;color:var(--mute);font-size:11px;margin-top:12px;cursor:pointer}
+.gal{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;height:150px;background:#1a2a20}
+.gal img{flex:none;width:100%;height:150px;object-fit:cover;scroll-snap-align:center;cursor:zoom-in;transition:transform .3s}
+.gal img:active{transform:scale(1.04)}
+.gw{position:relative}.cnt{position:absolute;right:6px;bottom:6px;background:rgba(0,0,0,.6);color:#fff;font-size:10px;padding:2px 7px;border-radius:10px}
+.col{display:grid;grid-template-columns:1fr 1fr;height:150px;overflow:hidden}.col img{width:100%;height:75px;object-fit:cover}
+.dt{color:var(--gold);font-size:11px;cursor:pointer;text-decoration:underline}
+.zov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:200;align-items:center;justify-content:center;overflow:auto}
+.zov.on{display:flex}.zov img{max-width:100%;max-height:100%;transition:transform .3s;cursor:zoom-in}.zov img.z{transform:scale(2);cursor:zoom-out}
+.zx{position:fixed;top:14px;right:18px;color:#fff;font-size:28px;z-index:210;cursor:pointer}
+.sh{margin-top:auto;width:100%;max-width:520px;background:var(--bg2);border-radius:14px 14px 0 0;padding:20px;max-height:86vh;overflow-y:auto;border-top:1px solid var(--gold)}
+.sh h4{color:var(--gold);font-size:18px;font-weight:500;margin-bottom:8px}.sh p{color:var(--mute);line-height:1.6;font-size:13px;margin-bottom:10px}
+.sh li{margin:0 0 6px 18px;font-size:13px;line-height:1.5}
+.story{margin:22px 14px;padding:26px 18px;text-align:center;border:.5px solid rgba(201,169,97,.4);border-radius:6px}
+.story p{color:var(--mute);line-height:1.7;font-size:13px;max-width:460px;margin:0 auto 10px}
+.story .pts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.pts div{font-size:11.5px;color:var(--ivory);border:.5px solid rgba(201,169,97,.3);padding:9px;border-radius:5px}
+.choc{margin:22px 14px;padding:30px 18px;text-align:center;border-radius:6px;border:1px solid #6b4a2f;background:linear-gradient(160deg,#2a1810,#120a06)}
+.choc small{color:var(--gold);letter-spacing:4px;font-size:10px}.choc h2{font-size:26px;color:#e7cfa3;margin:8px 0}.choc p{color:#b9a58a;font-size:13px;margin-bottom:14px}
+.vs{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 14px 14px;scrollbar-width:none}
+.rv{flex:none;width:78%;max-width:300px;scroll-snap-align:start;background:var(--bg2);border:.5px solid rgba(201,169,97,.35);border-radius:8px;padding:14px;font-size:13px;line-height:1.6}
+.rv .stars{color:var(--gold);letter-spacing:2px;margin-bottom:6px}.rv small{color:var(--mute);display:block;margin-top:8px}
+.stp{display:flex;gap:6px;justify-content:center;margin-bottom:10px;font-size:26px;color:#555}.stp span{cursor:pointer}.stp .on{color:var(--gold)}
+.chp{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}.chp span{border:.5px solid rgba(201,169,97,.4);color:var(--mute);font-size:11px;padding:5px 10px;border-radius:14px;cursor:pointer}.chp .on{background:var(--gold);color:var(--bg)}
+.sg{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0;text-align:left}@media(min-width:700px){.sg{grid-template-columns:repeat(3,1fr)}}
+.sg .gal,.sg .gal img{height:230px}
+.ph{height:150px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(160deg,#173023,#0c1810);color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:42px;letter-spacing:3px}.ph small{font-family:'Jost',sans-serif;font-size:10px;letter-spacing:1px;color:var(--mute)}
+.ig{position:fixed;right:14px;bottom:84px;width:46px;height:46px;border-radius:50%;background:linear-gradient(45deg,#f9a53c,#e1306c,#833ab4);z-index:90;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.5)}.ig svg{width:24px;height:24px;fill:none;stroke:#fff;stroke-width:2}
+.phl{display:block;border:1px dashed var(--gold);color:var(--gold);padding:10px;border-radius:8px;text-align:center;font-size:13px;cursor:pointer}.rvp{display:flex;gap:6px;margin:8px 0 2px}.rvp img{width:72px;height:72px;object-fit:cover;border-radius:8px;cursor:pointer}.rvd{color:var(--mute);font-size:11px;margin-left:6px}.rpv i{position:relative}.stabs{display:flex;gap:2px;overflow-x:auto;padding:4px 10px 0;scrollbar-width:none}.stabs::-webkit-scrollbar{display:none}.stabs a{text-decoration:none;white-space:nowrap;font-size:12.5px;color:var(--mute);padding:7px 11px;border-bottom:2px solid transparent;letter-spacing:.3px}.stabs a.on{color:var(--gold);border-color:var(--gold)}.tvl{color:var(--gold);font-size:12px;letter-spacing:.5px;border:1px solid var(--gold);border-radius:14px;padding:4px 9px;margin-right:2px;white-space:nowrap}.ppbar{position:fixed;left:0;right:0;bottom:0;z-index:125;background:var(--bg);border-top:1px solid var(--gold);padding:10px 12px;display:none;gap:8px;max-width:560px;margin:0 auto}.pg.on .ppbar{display:flex}.ppbar b{flex:1;text-align:center;padding:12px 2px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--gold);color:var(--gold)}.ppbar b.a{background:var(--gold);color:var(--bg)}#pp .pgi{padding-bottom:84px}
+.pg{display:none;position:fixed;inset:0;background:var(--bg);z-index:120;overflow-y:auto}.pg.on{display:block}.pgi{max-width:560px;margin:0 auto;padding-bottom:30px}
+.pgh{position:sticky;top:0;background:var(--bg);padding:14px;border-bottom:.5px solid rgba(201,169,97,.25);color:var(--gold);cursor:pointer;z-index:2}
+.pgg{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}.pgg img{flex:none;width:100%;height:340px;object-fit:cover;scroll-snap-align:center;cursor:zoom-in}
+.pgb{padding:16px}.pgb h4{color:var(--gold);font-weight:500;margin:18px 0 8px}.pgb li{margin:0 0 6px 18px;line-height:1.5}
+.zp,.zn{position:fixed;top:50%;margin-top:-30px;font-size:46px;color:#fff;z-index:210;padding:8px 12px;cursor:pointer;opacity:.85}.zp{left:2px}.zn{right:2px}
+#zc{position:fixed;bottom:18px;left:0;right:0;text-align:center;color:#fff;font-size:12px;z-index:210}
+.tl{display:flex;flex-direction:column;gap:6px;margin:12px 0}.tl div{padding:9px 12px;border-left:3px solid #444;color:var(--mute);font-size:13px}.tl div.on{border-color:var(--gold);color:var(--gold)}
+.sz span{padding:7px 11px!important;font-size:12.5px!important}.chip{padding:9px 16px!important;font-size:13px!important}.add{padding:12px!important}.dt{font-size:12.5px!important}.sz span.oos{opacity:.35;text-decoration:line-through}
+.bdg{display:inline-block;background:var(--gold);color:var(--bg);font-size:10px;padding:2px 7px;border-radius:3px;margin-bottom:4px;width:fit-content}
+.cps{display:flex;flex-direction:column;gap:6px;margin:-4px 0 12px}.cps span{border:1px dashed var(--gold);color:var(--gold);font-size:11.5px;padding:8px 10px;border-radius:5px;cursor:pointer}
+.row s{color:var(--red);margin-right:6px}.row b{color:#6fcf97;font-weight:500}
+.cbar{display:none;position:fixed;left:0;right:0;bottom:0;background:var(--gold);color:var(--bg);padding:14px 18px;z-index:95;justify-content:space-between;font-size:14px;cursor:pointer}.hasbar .cbar{display:flex}.hasbar .wa{bottom:78px}.hasbar .ig{bottom:140px}.hasbar .foot{padding-bottom:110px}
+.faq{max-width:560px;margin:0 auto;padding:0 14px}.faq details{border-bottom:.5px solid rgba(201,169,97,.25);padding:12px 0}.faq summary{cursor:pointer;color:var(--ivory);font-size:14px}.faq p{color:var(--mute);font-size:13px;line-height:1.6;margin-top:8px}
+.help{text-align:center;padding:20px 14px}.help .btn{margin:4px;display:inline-flex;align-items:center;gap:6px}.help svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2}
+.pl{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin:10px 0;font-size:12px}.pl a{color:var(--gold);cursor:pointer;text-decoration:underline}
+.sk{width:100%;margin:0 4px 10px}
+.navw{position:sticky;top:0;background:var(--bg);z-index:50;border-bottom:.5px solid rgba(201,169,97,.25)}.nav{position:static!important;border:0!important;gap:8px}
+.nsq{flex:0 1 38%;min-width:90px;background:rgba(245,240,230,.07);border:.5px solid rgba(201,169,97,.35);border-radius:20px;padding:8px 12px;color:var(--ivory);font:inherit;font-size:13px}
+.brand{color:var(--gold);font-size:16px;font-weight:600;letter-spacing:.5px;cursor:pointer;white-space:nowrap}.nr{display:flex;align-items:center;gap:12px}.ib svg{width:22px;height:22px;fill:none;stroke:var(--gold);stroke-width:1.8;display:block}.ib{cursor:pointer}
+.cats{display:flex;gap:18px;justify-content:center;padding:0 10px 9px;font-size:12.5px;overflow-x:auto;white-space:nowrap}.cats a{color:var(--ivory);cursor:pointer;opacity:.85}
+.act{display:flex;gap:6px;align-items:stretch;margin-top:auto}.act .add{flex:1;margin:0!important;display:flex;align-items:center;justify-content:center;padding:8px 4px!important;font-size:11px!important}
+.qt{display:flex;align-items:center;border:.5px solid rgba(201,169,97,.5);border-radius:4px;overflow:hidden}.qt i{font-style:normal;width:26px;text-align:center;color:var(--gold);cursor:pointer;line-height:34px;font-size:16px}.qt input{width:28px;text-align:center;background:transparent;border:0;color:var(--ivory);font:inherit;font-size:13px;padding:0}
+.sv{background:linear-gradient(90deg,#123d27,#3b3a10);border:1px solid var(--gold);color:#f6e7b4;padding:10px;border-radius:8px;text-align:center;font-size:13px;margin:10px 0;line-height:1.5}
+.sb{display:inline-block;background:#14532d;color:#b9f6ca;font-size:10.5px;padding:2px 6px;border-radius:3px;margin-left:4px}
+.smp{display:flex;gap:8px;align-items:flex-start;border:1px dashed var(--gold);border-radius:6px;padding:9px;margin:10px 0;font-size:12px;line-height:1.5;color:var(--ivory)}.smp input{margin-top:3px}
+.pgs{height:5px;background:#2a3a30;border-radius:3px;margin:6px 0 10px;overflow:hidden}.pgs div{height:100%;background:var(--gold)}
+#toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--gold);color:var(--bg);padding:10px 18px;border-radius:20px;font-size:13px;z-index:300;display:none}
+.cf{position:fixed;top:-30px;font-size:22px;z-index:300;pointer-events:none;animation:fall 2.8s linear forwards}@keyframes fall{to{transform:translateY(110vh) rotate(360deg)}}
+.cartbtn{white-space:nowrap}.brand{font-size:15px!important}.nsq{flex:0 1 30%!important;min-width:70px!important}.nav{padding:10px 12px!important}
+html{scroll-padding-top:112px}@media(max-width:699px){.sg .card:last-child:nth-child(odd){grid-column:1/-1}}
+.zx2{width:42px;height:42px;border-radius:50%;border:1.5px solid var(--gold);color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:18px;flex:none;cursor:pointer}
+.sr{display:flex;align-items:center;gap:10px;padding:8px 4px;border-bottom:.5px solid rgba(201,169,97,.2);cursor:pointer;font-size:14px}.sr img{width:44px;height:44px;border-radius:6px;object-fit:cover;background:#1a2a20}.sr span{flex:1}.sr b{color:var(--gold);font-weight:500}
+.sch{display:flex;flex-wrap:wrap;gap:8px}.sch span{border:.5px solid rgba(201,169,97,.5);color:var(--gold);padding:8px 14px;border-radius:20px;font-size:13px;cursor:pointer}
+.zp,.zn{width:46px;height:46px;border-radius:50%!important;border:1.5px solid var(--gold);background:rgba(10,18,13,.55);font-size:30px!important;padding:0!important;align-items:center;justify-content:center;margin-top:-23px!important;line-height:1;display:flex;padding-bottom:4px!important}.zp{left:10px!important}.zn{right:10px!important}
+.zx{width:42px;height:42px;border:1.5px solid var(--gold);border-radius:50%;background:rgba(10,18,13,.55);display:flex;align-items:center;justify-content:center;font-size:18px!important;top:14px!important;right:14px!important}
+#zt{position:fixed;bottom:46px;left:0;right:0;display:flex;gap:8px;justify-content:center;z-index:210;padding:0 10px;overflow-x:auto}#zt img{width:46px;height:46px;object-fit:cover;border-radius:6px;opacity:.5;border:1.5px solid transparent;cursor:pointer;flex:none;max-width:none;max-height:none;transition:none}#zt img.on{opacity:1;border-color:var(--gold)}
+.cbb{display:flex;gap:14px}.cbb b{cursor:pointer;font-weight:600}.cbb .co{background:var(--bg);color:var(--gold);padding:6px 14px;border-radius:5px}
+.cbar{cursor:default!important}
+.hd{display:inline-block;background:var(--red);color:#fff;font-size:10px;font-weight:600;letter-spacing:.5px;padding:2px 6px;border-radius:3px;margin-right:4px}
+.col img:last-child:nth-child(odd){grid-column:1/-1;height:75px}
+.vb{color:#6fcf97;font-size:10.5px;margin-left:4px}
+.tiles{display:flex;justify-content:space-around;gap:6px;padding:18px 10px 6px}.tiles a{text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:7px;font-size:12px;letter-spacing:.3px;color:var(--ivory);cursor:pointer;min-width:64px}.tiles i{width:60px;height:60px;border-radius:50%;border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;background:var(--bg2)}.tiles svg{width:28px;height:28px;stroke:var(--gold);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+</style>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
 
-.lg,.lf{width:1em;height:1em;fill:none;stroke:var(--gd);stroke-width:1.1;stroke-linejoin:round;stroke-linecap:round;vertical-align:-.12em}.lg{width:30px;height:30px}
-.ic{width:20px;height:20px;fill:none;stroke:var(--gd);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
-.btn.a{background:linear-gradient(135deg,#dcc07e,#b8903f);color:#17120a;border-color:transparent}
-body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.05;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' fill='none' stroke='%23c9a45c'%3E%3Cpath d='M30 22l2.4 5 5.2-1.1-1.6 5.2 4.5 2.6-5 1.7.6 5.4L30 37.6l-6.1 3.7.6-5.4-5-1.7 4.5-2.6-1.6-5.2 5.2 1.1z'/%3E%3Cpath d='M100 92l2.4 5 5.2-1.1-1.6 5.2 4.5 2.6-5 1.7.6 5.4-6.1-3.7-6.1 3.7.6-5.4-5-1.7 4.5-2.6-1.6-5.2 5.2 1.1z'/%3E%3C/svg%3E")}
-.hero{min-height:clamp(320px,56vw,480px);align-items:center}.hm img.hp,.hm video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.hov{background:linear-gradient(90deg,rgba(5,13,8,.9),rgba(5,13,8,.5) 58%,rgba(5,13,8,.08))}
-.hero .hx{text-align:left;padding:22px 20px;max-width:560px}.hero .wm{display:flex;align-items:center;gap:8px}
-.hero h1{font:600 clamp(36px,9vw,64px)/1.02 'Cormorant Garamond',serif;color:#f5eedd;text-shadow:0 2px 18px rgba(0,0,0,.55);margin:8px 0}.hero p{color:#eadfc4;margin:0 0 16px}
-.cta{display:flex;gap:10px;flex-wrap:wrap}.cta .btn{padding:12px 20px;border-radius:30px;font-size:13px;letter-spacing:.06em;text-transform:uppercase}
-.e{width:54px;height:54px;flex:none;border-radius:12px;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;background:var(--card2);border:1px solid var(--ln)}.e img{width:100%;height:100%;object-fit:cover;display:block}.e .lf{width:22px;height:22px;opacity:.6}
-.pay2{display:flex;gap:10px;margin:10px 0}.pay2 label{flex:1;display:flex;gap:8px;align-items:center;padding:12px;border:1.5px solid var(--ln2);border-radius:12px;cursor:pointer;font-size:14.5px}.pay2 input{accent-color:var(--ac)}
-.hp{position:absolute;left:-9999px;opacity:0;height:0}.dt select{width:100%;margin-top:8px;padding:12px;border-radius:10px;border:1px solid var(--ln2);background:var(--card);color:var(--tx);font:inherit}
-</style></head><body data-tod="d">
-<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="lf" viewBox="0 0 24 24"><path d="M12 1.5l2.4 5 5.2-1.1-1.6 5.2 4.5 2.6-5 1.7.6 5.4L12 16.6 5.9 20.3l.6-5.4-5-1.7L6 10.6 4.4 5.4 9.6 6.5z"/><path d="M12 7v14"/></symbol></svg>
-<header><div class="lat"></div><div class="w">
- <div class="hd">
-  <div class="logo" onclick="go('home')" role="button" tabindex="0" aria-label="Riwaaz-e-Kashmir home" onkeydown="if(event.key=='Enter')go('home')"><svg class="lg" viewBox="0 0 24 24" aria-hidden="true"><use href="#lf"/></svg><b>Riwaaz-e-Kashmir</b></div>
-  <button class="ib" id="lg" onclick="setL()" aria-label="Language"></button>
-  <button class="ib" id="th" onclick="setT()" aria-label="Light or dark mode"></button>
-  <button class="ib" onclick="openA()" aria-label="My account"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-6 15-6 16 0"/></svg></button>
- </div>
- <div class="sr"><input id="q" placeholder="Search dishes or restaurants" aria-label="Search" oninput="onq()"></div>
-</div></header>
-<div class="w"><div class="tb" id="tb"></div><div id="app"></div>
-<footer><svg width="34" height="34" viewBox="0 0 64 64" fill="none" stroke="#c9a45c" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M32 6C17 6 8 18 8 33c0 14 11 25 24 25 11 0 18-8 18-17 0-8-6-13-12-13-6 0-9 4-9 8 0 4 3 6 6 6"/></svg><span id="ft">Sample restaurants, prices and ratings for preview. FSSAI and registration details will be shown once verified.</span><div style="margin-top:10px"><a id="tel" href="#" style="color:var(--gd);font-weight:600;text-decoration:none">Call us</a></div></footer></div>
-<button class="bar" id="bar" style="display:none" onclick="go('cart')"><span id="bc"></span><span>View cart ›</span></button>
+<div class="strip"><div>100% AUTHENTIC &nbsp;|&nbsp; DIRECT FROM KASHMIR &nbsp;|&nbsp; FAST DELIVERY ACROSS INDIA &nbsp;•&nbsp; CODE WELCOME: FREE SHIPPING &nbsp;•&nbsp; CODE DIWALI: FREE GIFT ON ORDERS ABOVE ₹1,499 &nbsp;•&nbsp; 100% AUTHENTIC &nbsp;|&nbsp; DIRECT FROM KASHMIR</div></div>
+
+<div class="navw"><div class="nav">
+  <b class="brand serif" onclick="window.scrollTo(0,0)">Riwaaz-e-Kashmir</b>
+  <div class="nr"><span class="ib" onclick="openSearch()" aria-label="Search"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></span><span class="ib" onclick="openTrack()" aria-label="My orders and tracking"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4.5 4.5-6.5 8-6.5s7 2 8 6.5"/></svg></span><span class="cartbtn" onclick="toggleCart()">Cart (<span id="cc">0</span>)</span></div>
+</div><div class="stabs"><a class="on" href="/">Shop</a><a href="/travel/">Travel</a><a href="/mehfil/">&#127956;&#65039; Mehfil-e-Kashmir</a><a href="/lounge/">&#128395;&#65039; Mehfil-e-Adab</a></div><script>/* FOOD_LIVE: false = Food stays hidden everywhere. On launch day change false to true. */
+var FOOD_LIVE=false;
+/* Private preview: open riwaazekashmir.com/?food=1 to see the Food section before launch */
+if(location.search.indexOf("food=1")>-1)FOOD_LIVE=true;
+document.addEventListener("DOMContentLoaded",function(){if(!FOOD_LIVE)return;
+var s=document.querySelector(".stabs");if(s)s.querySelectorAll("a")[1].insertAdjacentHTML("afterend",'<a href="/food/">&#127858; Food</a>');
+var c=document.querySelector(".cats");if(c)c.insertAdjacentHTML("beforeend",'<a href="/food/">Food</a>');
+var h=document.querySelector(".hero-t");if(h)h.insertAdjacentHTML("beforeend",'<a class="btn o" href="/food/" style="margin-left:6px">FOOD</a>');
+var tf=document.getElementById("tfood");if(tf)tf.style.display="flex";var sh=document.getElementById("shawls");if(sh)sh.insertAdjacentHTML("beforebegin",'<div class="shawl" id="foodsec"><small>SRINAGAR KITCHENS</small><h2 class="serif">Kashmiri Food, Delivered</h2><p style="color:var(--mute);margin:8px 0 16px;font-size:14px">Wazwan, kandur bakery, kahwa and more from local kitchens. Menu price is the restaurant price, with one flat delivery fee.</p><a class="btn" href="/food/">ORDER FOOD</a></div>')});
+</script><div class="cats"><a onclick="navCat('dry')">Dry Fruits &amp; Spices</a><a onclick="navCat('shawl')">Kashmiri Shawls</a><a onclick="navCat('gift')">Gift Boxes</a></div></div>
+
+<div class="hero" id="hero">
+  <div class="slide on" style="background-image:url('images/hero-shawl.webp')"></div>
+  <div class="slide" style="background-image:url('images/walnut-1.webp')"></div>
+  <div class="slide" style="background-image:url('images/saffron-2.webp')"></div>
+  <div class="hero-t">
+    <h1 class="serif">Woven &amp; grown in Kashmir</h1>
+    <p>HAND-PICKED &nbsp;•&nbsp; PURE &nbsp;•&nbsp; AUTHENTIC</p>
+    <a class="btn" onclick="go('shop')">SHOP NOW</a><a class="btn o" onclick="go('shawls')">SHAWLS</a>
+  </div>
+</div>
+
+<div class="trust">
+  <div><b>Free delivery</b>Above ₹499</div><div><b>100% pure</b>No additives</div><div><b>Hand picked</b>Every kernel</div><div><b>From Kashmir</b>Direct to you</div>
+</div>
+
+<div class="tiles" id="tiles">
+<a onclick="go('shop')" aria-label="Dry fruits and spices"><i><svg viewBox="0 0 24 24"><path d="M12 2.5c4.6 3 6.4 8.4 3.2 13.6-1 1.6-2.2 2.4-3.2 2.4s-2.200-.8-3.200-2.400C5.600 10.900 7.400 5.500 12 2.500z"/><path d="M12 6.500v8"/><circle cx="18.500" cy="18.500" r="2.800"/></svg></i>Dry Fruits</a>
+<a onclick="go('shawls')" aria-label="Kashmiri shawls"><i><svg viewBox="0 0 24 24"><path d="M4 5h16v4c0 5.500-3 9.500-8 11.500C7 18.500 4 14.500 4 9z"/><path d="M12 8l2.500 3-2.500 3-2.500-3z"/><path d="M7 20.500v1.500M12 21v1.500M17 20.500v1.500"/></svg></i>Shawls</a>
+<a id="tfood" href="/food/" style="display:none" aria-label="Food from Srinagar kitchens"><i><svg viewBox="0 0 24 24"><path d="M3.500 12h17a8.500 8.500 0 0 1-17 0z"/><path d="M8.500 3.500c-1.400 2 1.400 3 0 5.500M13 3.500c-1.400 2 1.400 3 0 5.500M17 4.500c-1 1.500 1 2.200 0 4"/></svg></i>Food</a>
+<a href="/travel/" aria-label="Travel Kashmir"><i><svg viewBox="0 0 24 24"><path d="M2.500 19.500l6-10 4 6 3-4 6 8z"/><circle cx="17.500" cy="6" r="2.200"/></svg></i>Travel</a>
+</div>
+
+<div class="shawl" id="shawls">
+  <small>THE SHAWL ATELIER</small>
+  <h2 class="serif">Kashmiri Shawls</h2>
+  <p>Heritage fabrics and traditional designs from the valley, made to be worn and treasured.</p>
+  <div class="sg" id="shawlgrid"><div class="card" onclick="cardClick(event,'sh1')"><div class="gw"><div class="gal" onscroll="gs(this)"><img src="images/t-black-1.webp" data-f="images/black-1.webp" alt="Shahi Kashmiri Paisley Shawl" width="600" height="450" loading="lazy" decoding="async"><img src="images/t-black-2.webp" data-f="images/black-2.webp" alt="Shahi Kashmiri Paisley Shawl" width="600" height="450" loading="lazy" decoding="async"></div><span class="cnt">1/2</span></div>
+    <div class="cb"><h3>Shahi Kashmiri Paisley Shawl</h3>
+    
+    <div class="pr"><s>₹3,500</s><b>₹1,499</b><span class="hd">HEAVY DISCOUNT</span><em>57% OFF</em><span class="sb">Save ₹2,001</span></div>
+    
+    <div class="act"><div class="qt"><i onclick="qd('sh1',-1)">−</i><input value="1" inputmode="numeric" onchange="qset('sh1',this.value)"><i onclick="qd('sh1',1)">+</i></div><div class="add" onclick="addP('sh1')">ADD TO CART</div></div></div></div><div class="card" onclick="cardClick(event,'sh2')"><div class="gw"><div class="gal" onscroll="gs(this)"><img src="images/t-hero-shawl.webp" data-f="images/hero-shawl.webp" alt="Midnight Floral Paisley" width="600" height="450" loading="lazy" decoding="async"><img src="images/t-shawl-1.webp" data-f="images/shawl-1.webp" alt="Midnight Floral Paisley" width="600" height="450" loading="lazy" decoding="async"><img src="images/t-shawl-2.webp" data-f="images/shawl-2.webp" alt="Midnight Floral Paisley" width="600" height="450" loading="lazy" decoding="async"><img src="images/t-shawl-3.webp" data-f="images/shawl-3.webp" alt="Midnight Floral Paisley" width="600" height="450" loading="lazy" decoding="async"></div><span class="cnt">1/4</span></div>
+    <div class="cb"><h3>Midnight Floral Paisley</h3>
+    
+    <div class="pr"><b>₹499</b></div>
+    
+    <div class="act"><div class="qt"><i onclick="qd('sh2',-1)">−</i><input value="1" inputmode="numeric" onchange="qset('sh2',this.value)"><i onclick="qd('sh2',1)">+</i></div><div class="add" onclick="addP('sh2')">ADD TO CART</div></div></div></div><div class="card" onclick="cardClick(event,'sh3')"><div class="gw"><div class="gal" onscroll="gs(this)"><img src="images/t-blk-1.webp" data-f="images/blk-1.webp" alt="Black Copper &amp; Silver Embroidery" width="600" height="450" loading="lazy" decoding="async"><img src="images/t-blk-2.webp" data-f="images/blk-2.webp" alt="Black Copper &amp; Silver Embroidery" width="600" height="450" loading="lazy" decoding="async"><img src="images/t-blk-3.webp" data-f="images/blk-3.webp" alt="Black Copper &amp; Silver Embroidery" width="600" height="450" loading="lazy" decoding="async"><img src="images/t-blk-4.webp" data-f="images/blk-4.webp" alt="Black Copper &amp; Silver Embroidery" width="600" height="450" loading="lazy" decoding="async"></div><span class="cnt">1/4</span></div>
+    <div class="cb"><h3>Black Copper &amp; Silver Embroidery</h3>
+    
+    <div class="pr"><b>₹699</b></div>
+    
+    <div class="act"><div class="qt"><i onclick="qd('sh3',-1)">−</i><input value="1" inputmode="numeric" onchange="qset('sh3',this.value)"><i onclick="qd('sh3',1)">+</i></div><div class="add" onclick="addP('sh3')">ADD TO CART</div></div></div></div><div class="card" onclick="cardClick(event,'sh4')"><div class="gw"><div class="gal" onscroll="gs(this)"><img src="images/t-navy-1.webp" data-f="images/navy-1.webp" alt="Navy Paisley" width="600" height="450" loading="lazy" decoding="async"><img src="images/t-navy-2.webp" data-f="images/navy-2.webp" alt="Navy Paisley" width="600" height="450" loading="lazy" decoding="async"></div><span class="cnt">1/2</span></div>
+    <div class="cb"><h3>Navy Paisley</h3>
+    
+    <div class="pr"><b>₹499</b></div>
+    
+    <div class="act"><div class="qt"><i onclick="qd('sh4',-1)">−</i><input value="1" inputmode="numeric" onchange="qset('sh4',this.value)"><i onclick="qd('sh4',1)">+</i></div><div class="add" onclick="addP('sh4')">ADD TO CART</div></div></div></div><div class="card" onclick="cardClick(event,'sh5')"><div class="gw"><div class="gal" onscroll="gs(this)"><img src="images/t-ivf-1.webp" data-f="images/ivf-1.webp" alt="Ivory Floral Embroidery" width="600" height="450" loading="lazy" decoding="async"></div></div>
+    <div class="cb"><h3>Ivory Floral Embroidery</h3>
+    
+    <div class="pr"><b>₹1,299</b></div>
+    
+    <div class="act"><div class="qt"><i onclick="qd('sh5',-1)">−</i><input value="1" inputmode="numeric" onchange="qset('sh5',this.value)"><i onclick="qd('sh5',1)">+</i></div><div class="add" onclick="addP('sh5')">ADD TO CART</div></div></div></div><div class="card" onclick="cardClick(event,'sh6')"><div class="gw"><div class="gal" onscroll="gs(this)"><img src="images/t-ivg-1.webp" data-f="images/ivg-1.webp" alt="Ivory &amp; Gold Paisley" width="600" height="450" loading="lazy" decoding="async"></div></div>
+    <div class="cb"><h3>Ivory &amp; Gold Paisley</h3>
+    
+    <div class="pr"><b>₹1,699</b></div>
+    
+    <div class="act"><div class="qt"><i onclick="qd('sh6',-1)">−</i><input value="1" inputmode="numeric" onchange="qset('sh6',this.value)"><i onclick="qd('sh6',1)">+</i></div><div class="add" onclick="addP('sh6')">ADD TO CART</div></div></div></div></div>
+  <div class="tags"><span>Embroidered</span><span>Paisley</span><span>Traditional</span><span>Gift ready</span></div>
+  <a class="btn" href="https://wa.me/919149480384?text=Hi%2C%20I%27d%20like%20to%20see%20your%20shawl%20collection" target="_blank">ASK ABOUT ANY SHAWL ON WHATSAPP</a>
+</div>
+
+<div class="sec" id="shop">
+  <p class="st serif">Our Collection</p>
+  <div class="chips" id="chips"><div class="chip on" onclick="setCat('All')">All</div><div class="chip " onclick="setCat('Walnuts')">Walnuts</div><div class="chip " onclick="setCat('Combos &amp; Gifts')">Combos &amp; Gifts</div><div class="chip " onclick="setCat('Almonds')">Almonds</div><div class="chip " onclick="setCat('Pistachio &amp; Cashew')">Pistachio &amp; Cashew</div><div class="chip " onclick="setCat('Saffron')">Saffron</div><div class="chip " onclick="setCat('Honey &amp; Tea')">Honey &amp; Tea</div><div class="chip " onclick="setCat('Wellness')">Wellness</div></div>
+  <div class="grid" id="grid"><div class="card" onclick="cardClick(event,'walnut')"><div class="gw"><div class="gal" onscroll="gs(this)"><img src="images/t-walnut-1.webp" data-f="images/walnut-1.webp" alt="Kashmiri Kernels (Walnuts)" width="600" height="450" loading="lazy" decoding="async"><img src="images/t-walnut-2.webp" data-f="images/walnut-2.webp" alt="Kashmiri Kernels (Walnuts)" width="600" height="450" loading="lazy" decoding="async"><img src="images/t-walnut-3.webp" data-f="images/walnut-3.webp" alt="Kashmiri Kernels (Walnuts)" width="600" height="450" loading="lazy" decoding="async"></div><span class="cnt">1/3</span></div>
+    <div class="cb"><h3>Kashmiri Kernels (Walnuts)</h3>
+    <div class="sz"><span class="on" onclick="pick('walnut',0)">100g</span><span class="" onclick="pick('walnut',1)">250g</span><span class="" onclick="pick('walnut',2)">500g</span><span class="" onclick="pick('walnut',3)">1kg</span></div>
+    <div class="pr"><s>₹350</s><b>₹249</b><em>29% OFF</em><span class="sb">Save ₹101</span></div>
+    
+    <div class="act"><div class="qt"><i onclick="qd('walnut',-1)">−</i><input value="1" inputmode="numeric" onchange="qset('walnut',this.value)"><i onclick="qd('walnut',1)">+</i></div><div class="add" onclick="addP('walnut')">ADD TO CART</div></div></div></div><div class="card" onclick="cardClick(event,'giftbox')"><div class="gw"><div class="gal" onscroll="gs(this)"><img src="images/t-walnut-1.webp" data-f="images/walnut-1.webp" alt="Walnut Kernels Gift Box" width="600" height="450" loading="lazy" decoding="async"></div></div>
+    <div class="cb"><h3>Walnut Kernels Gift Box</h3>
+    <div class="sz"><span class="on" onclick="pick('giftbox',0)">Simple</span><span class="" onclick="pick('giftbox',1)">Custom Box</span></div>
+    <div class="pr"><b>₹1,200</b></div>
+    
+    <div class="act"><div class="qt"><i onclick="qd('giftbox',-1)">−</i><input value="1" inputmode="numeric" onchange="qset('giftbox',this.value)"><i onclick="qd('giftbox',1)">+</i></div><div class="add" onclick="addP('giftbox')">ADD TO CART</div></div></div></div><div class="card" onclick="cardClick(event,'mamra')"><div class="gw"><div class="gal" onscroll="gs(this)"><img src="images/t-almond-1.webp" data-f="images/almond-1.webp" alt="Mamra Kashmiri Badam" width="600" height="450" loading="lazy" decoding="async"></div></div>
+    <div class="cb"><h3>Mamra Kashmiri Badam</h3>
+    <div class="sz"><span class="on" onclick="pick('mamra',0)">250g</span><span class="" onclick="pick('mamra',1)">500g</span><span class="" onclick="pick('mamra',2)">1kg</span></div>
+    <div class="pr"><b>₹499</b></div>
+    
+    <div class="act"><div class="qt"><i onclick="qd('mamra',-1)">−</i><input value="1" inputmode="numeric" onchange="qset('mamra',this.value)"><i onclick="qd('mamra',1)">+</i></div><div class="add" onclick="addP('mamra')">ADD TO CART</div></div></div></div><div class="card" onclick="cardClick(event,'badam')"><div class="gw"><div class="gal" onscroll="gs(this)"><img src="images/t-almond-1.webp" data-f="images/almond-1.webp" alt="Kashmiri Badam" width="600" height="450" loading="lazy" decoding="async"></div></div>
+    <div class="cb"><h3>Kashmiri Badam</h3>
+    <div class="sz"><span class="on" onclick="pick('badam',0)">250g</span><span class="" onclick="pick('badam',1)">500g</span><span class="" onclick="pick('badam',2)">1kg</span></div>
+    <div class="pr"><b>₹349</b></div>
+    
+    <div class="act"><div class="qt"><i onclick="qd('badam',-1)">−</i><input value="1" inputmode="numeric" onchange="qset('badam',this.value)"><i onclick="qd('badam',1)">+</i></div><div class="add" onclick="addP('badam')">ADD TO CART</div></div></div></div><div class="card" onclick="cardClick(event,'pista')"><div class="gw"><div class="ph">RK<small>Photo coming soon</small></div></div>
+    <div class="cb"><h3>Shahi Pista</h3>
+    <div class="sz"><span class="on" onclick="pick('pista',0)">250g</span><span class="" onclick="pick('pista',1)">500g</span><span class="" onclick="pick('pista',2)">1kg</span></div>
+    <div class="pr"><b>₹499</b></div>
+    
+    <div class="act"><div class="qt"><i onclick="qd('pista',-1)">−</i><input value="1" inputmode="numeric" onchange="qset('pista',this.value)"><i onclick="qd('pista',1)">+</i></div><div class="add" onclick="addP('pista')">ADD TO CART</div></div></div></div><div class="card" onclick="cardClick(event,'kaju')"><div class="gw"><div class="gal" onscroll="gs(this)"><img src="images/t-cashew-1.webp" data-f="images/cashew-1.webp" alt="Shahi Kaju" width="600" height="450" loading="lazy" decoding="async"></div></div>
+    <div class="cb"><h3>Shahi Kaju</h3>
+    <div class="sz"><span class="on" onclick="pick('kaju',0)">250g</span><span class="" onclick="pick('kaju',1)">500g</span><span class="" onclick="pick('kaju',2)">1kg</span></div>
+    <div class="pr"><b>₹299</b></div>
+    
+    <div class="act"><div class="qt"><i onclick="qd('kaju',-1)">−</i><input value="1" inputmode="numeric" onchange="qset('kaju',this.value)"><i onclick="qd('kaju',1)">+</i></div><div class="add" onclick="addP('kaju')">ADD TO CART</div></div></div></div><div class="card" onclick="cardClick(event,'saffron')"><div class="gw"><div class="gal" onscroll="gs(this)"><img src="images/t-saffron-2.webp" data-f="images/saffron-2.webp" alt="Kashmiri Saffron (Kesar / Zafran)" width="600" height="450" loading="lazy" decoding="async"><img src="images/t-saffron-2.webp" data-f="images/saffron-2.webp" alt="Kashmiri Saffron (Kesar / Zafran)" width="600" height="450" loading="lazy" decoding="async"><img src="images/t-saffron-3.webp" data-f="images/saffron-3.webp" alt="Kashmiri Saffron (Kesar / Zafran)" width="600" height="450" loading="lazy" decoding="async"><img src="images/t-saffron-4.webp" data-f="images/saffron-4.webp" alt="Kashmiri Saffron (Kesar / Zafran)" width="600" height="450" loading="lazy" decoding="async"><img src="images/t-saffron-5.webp" data-f="images/saffron-5.webp" alt="Kashmiri Saffron (Kesar / Zafran)" width="600" height="450" loading="lazy" decoding="async"></div><span class="cnt">1/5</span></div>
+    <div class="cb"><span class="bdg">Most loved</span><h3>Kashmiri Saffron (Kesar / Zafran)</h3>
+    <div class="sz"><span class="on" onclick="pick('saffron',0)">1g</span><span class="" onclick="pick('saffron',1)">2g</span></div>
+    <div class="pr"><b>₹499</b></div>
+    
+    <div class="act"><div class="qt"><i onclick="qd('saffron',-1)">−</i><input value="1" inputmode="numeric" onchange="qset('saffron',this.value)"><i onclick="qd('saffron',1)">+</i></div><div class="add" onclick="addP('saffron')">ADD TO CART</div></div></div></div><div class="card" onclick="cardClick(event,'honey')"><div class="gw"><div class="gal" onscroll="gs(this)"><img src="images/t-honey-1.webp" data-f="images/honey-1.webp" alt="Pure Raw Kashmiri Honey" width="600" height="450" loading="lazy" decoding="async"></div></div>
+    <div class="cb"><h3>Pure Raw Kashmiri Honey</h3>
+    <div class="sz"><span class="on" onclick="pick('honey',0)">250ml</span><span class="" onclick="pick('honey',1)">500ml</span><span class="" onclick="pick('honey',2)">1kg jar</span></div>
+    <div class="pr"><b>₹299</b></div>
+    
+    <div class="act"><div class="qt"><i onclick="qd('honey',-1)">−</i><input value="1" inputmode="numeric" onchange="qset('honey',this.value)"><i onclick="qd('honey',1)">+</i></div><div class="add" onclick="addP('honey')">ADD TO CART</div></div></div></div><div class="card" onclick="cardClick(event,'kahwa')"><div class="gw"><div class="gal" onscroll="gs(this)"><img src="images/t-kahwa-1.webp" data-f="images/kahwa-1.webp" alt="Kashmiri Kahwa (Ready to Make)" width="600" height="450" loading="lazy" decoding="async"></div></div>
+    <div class="cb"><h3>Kashmiri Kahwa (Ready to Make)</h3>
+    <div class="sz"><span class="on" onclick="pick('kahwa',0)">150g</span><span class="" onclick="pick('kahwa',1)">250g</span></div>
+    <div class="pr"><b>₹299</b></div>
+    
+    <div class="act"><div class="qt"><i onclick="qd('kahwa',-1)">−</i><input value="1" inputmode="numeric" onchange="qset('kahwa',this.value)"><i onclick="qd('kahwa',1)">+</i></div><div class="add" onclick="addP('kahwa')">ADD TO CART</div></div></div></div><div class="card" onclick="cardClick(event,'noon')"><div class="gw"><div class="gal" onscroll="gs(this)"><img src="images/t-noon-1.webp" data-f="images/noon-1.webp" alt="Kashmiri Noon Chai" width="600" height="450" loading="lazy" decoding="async"></div></div>
+    <div class="cb"><h3>Kashmiri Noon Chai</h3>
+    
+    <div class="pr"><b>₹499</b></div>
+    
+    <div class="act"><div class="qt"><i onclick="qd('noon',-1)">−</i><input value="1" inputmode="numeric" onchange="qset('noon',this.value)"><i onclick="qd('noon',1)">+</i></div><div class="add" onclick="addP('noon')">ADD TO CART</div></div></div></div><div class="card" onclick="cardClick(event,'shila')"><div class="gw"><div class="gal" onscroll="gs(this)"><img src="images/t-shilajit-1.webp" data-f="images/shilajit-1.webp" alt="Himalayan Shilajit" width="600" height="450" loading="lazy" decoding="async"></div></div>
+    <div class="cb"><h3>Himalayan Shilajit</h3>
+    
+    <div class="pr"><b>₹999</b></div>
+    
+    <div class="act"><div class="qt"><i onclick="qd('shila',-1)">−</i><input value="1" inputmode="numeric" onchange="qset('shila',this.value)"><i onclick="qd('shila',1)">+</i></div><div class="add" onclick="addP('shila')">ADD TO CART</div></div></div></div><div class="card" onclick="cardClick(event,'combo')"><div class="gw"><div class="col"><img src="images/t-saffron-2.webp" data-f="images/saffron-2.webp" alt="Kashmir Treasure Combo (Walnut Kernels, Badam, Pista 250g, Saffron 1g, Honey 250ml)" width="600" height="450" loading="lazy" decoding="async"><img src="images/t-walnut-1.webp" data-f="images/walnut-1.webp" alt="Kashmir Treasure Combo (Walnut Kernels, Badam, Pista 250g, Saffron 1g, Honey 250ml)" width="600" height="450" loading="lazy" decoding="async"><img src="images/t-honey-1.webp" data-f="images/honey-1.webp" alt="Kashmir Treasure Combo (Walnut Kernels, Badam, Pista 250g, Saffron 1g, Honey 250ml)" width="600" height="450" loading="lazy" decoding="async"><img src="images/t-kahwa-1.webp" data-f="images/kahwa-1.webp" alt="Kashmir Treasure Combo (Walnut Kernels, Badam, Pista 250g, Saffron 1g, Honey 250ml)" width="600" height="450" loading="lazy" decoding="async"></div></div>
+    <div class="cb"><h3>Kashmir Treasure Combo (Walnut Kernels, Badam, Pista 250g, Saffron 1g, Honey 250ml)</h3>
+    
+    <div class="pr"><s>₹2,145</s><b>₹1,799</b><em>16% OFF</em><span class="sb">Save ₹346</span></div>
+    
+    <div class="act"><div class="qt"><i onclick="qd('combo',-1)">−</i><input value="1" inputmode="numeric" onchange="qset('combo',this.value)"><i onclick="qd('combo',1)">+</i></div><div class="add" onclick="addP('combo')">ADD TO CART</div></div></div></div><div class="card" onclick="cardClick(event,'winter')"><div class="gw"><div class="col"><img src="images/t-kahwa-1.webp" data-f="images/kahwa-1.webp" alt="Winter Kahwa Set (Kahwa 250g, Saffron 1g, Honey 500ml)" width="600" height="450" loading="lazy" decoding="async"><img src="images/t-saffron-2.webp" data-f="images/saffron-2.webp" alt="Winter Kahwa Set (Kahwa 250g, Saffron 1g, Honey 500ml)" width="600" height="450" loading="lazy" decoding="async"><img src="images/t-honey-1.webp" data-f="images/honey-1.webp" alt="Winter Kahwa Set (Kahwa 250g, Saffron 1g, Honey 500ml)" width="600" height="450" loading="lazy" decoding="async"></div></div>
+    <div class="cb"><h3>Winter Kahwa Set (Kahwa 250g, Saffron 1g, Honey 500ml)</h3>
+    
+    <div class="pr"><s>₹1,647</s><b>₹1,199</b><em>27% OFF</em><span class="sb">Save ₹448</span></div>
+    
+    <div class="act"><div class="qt"><i onclick="qd('winter',-1)">−</i><input value="1" inputmode="numeric" onchange="qset('winter',this.value)"><i onclick="qd('winter',1)">+</i></div><div class="add" onclick="addP('winter')">ADD TO CART</div></div></div></div></div>
+</div>
+
+<div class="choc">
+  <small>COMING SOON</small>
+  <h2 class="serif">Riwaaz-e-Kashmir Chocolates</h2>
+  <p>Our own chocolates, made with Kashmiri essence and saffron. Be the first to know when they arrive.</p>
+  <a class="btn" href="https://wa.me/919149480384?text=Hi%2C%20please%20notify%20me%20when%20Riwaaz-e-Kashmir%20chocolates%20launch" target="_blank">NOTIFY ME</a>
+</div>
+
+<div class="sec" id="reviews">
+  <p class="st serif">Voices from the Valley</p>
+  <div class="vs" id="vs"><div class="rv"><div class="stars">★★★★★</div>Tried our saffron, kahwa or walnuts? Share why you love it and your words will appear here after approval.<small>Riwaaz-e-Kashmir</small></div></div>
+  <div style="text-align:center"><a class="btn o" style="margin:0" onclick="openReview('')">WRITE A REVIEW</a></div>
+</div>
+
+<div class="story">
+  <small style="color:var(--gold);letter-spacing:4px;font-size:10px">OUR STORY</small>
+  <h2 class="serif" style="font-size:28px;margin:8px 0 12px">An emerging brand, straight from Kashmir</h2>
+  <p>Riwaaz-e-Kashmir is a young brand built on one idea: genuine Kashmiri products at fair prices. We source directly, with no third person and no middle commission, so you pay wholesale-rate prices for genuine quality.</p>
+  <p>We buy directly from the manufacturers and producers in Kashmir. With no third person and no middle commission, you get prices far below typical retail for the same genuine quality.</p>
+  <p>Every product is hand-picked and checked. No third grade, only pure, authentic quality, packed with care and delivered free across India.</p>
+  <div class="pts"><div>No middlemen</div><div>Wholesale-rate prices</div><div>Genuine, authentic quality</div><div>No third grade</div></div>
+</div>
+
+<div class="why" style="margin-top:20px">
+  <div><b>100% Authentic</b><span>Sourced directly from Kashmir</span></div>
+  <div><b>Hand Picked</b><span>Every kernel checked by hand</span></div>
+  <div><b>No Additives</b><span>Pure and natural</span></div>
+  <div><b>Free Delivery</b><span>Across India</span></div>
+</div>
+
+<div class="sec"><p class="st serif">Good to know</p><div class="faq">
+<details><summary>How long does delivery take?</summary><p>Usually 5-8 working days across India. Delivery is free on orders above ₹499 and ₹70 up to ₹499.</p></details>
+<details><summary>How can I check if saffron is real?</summary><p>Put a few threads in a glass of lukewarm water. Real saffron releases its golden colour slowly and the threads stay red. Fake saffron turns the water red quickly.</p></details>
+<details><summary>How should I store dry fruits?</summary><p>Keep them in an airtight jar in a cool, dry place away from sunlight.</p></details>
+<details><summary>What if my parcel arrives damaged?</summary><p>Message us on WhatsApp within 48 hours with a photo or video, and we will replace it.</p></details>
+<details><summary>How do I track my order?</summary><p>Tap "Track order" at the top and enter your order number and phone number.</p></details></div></div>
+<div class="help"><p class="st serif" style="margin-bottom:6px">We are here to help</p><p style="color:var(--mute);font-size:13px;margin-bottom:10px">Customer support: every day, 8 AM to 12 midnight</p>
+<a class="btn" href="https://wa.me/919149480384" target="_blank">WhatsApp</a>
+<a class="btn" href="tel:+919149480384"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>Call</a>
+<a class="btn" href="mailto:riwaazekashmiroffical@gmail.com"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>Email</a></div>
+<div class="foot">
+  <div class="serif">Riwaaz-e-Kashmir</div>
+  <p style="margin:4px 0 14px">Tradition in every bite &nbsp;•&nbsp; Srinagar, Kashmir</p>
+  <a class="btn o" style="margin:0 6px 0 0" href="/travel/">TRAVEL KASHMIR</a><a class="btn o" style="margin:0" href="https://www.instagram.com/riwaazekashmir" target="_blank">INSTAGRAM</a><div class="pl"><a onclick="pol('ship')">Shipping</a><a onclick="pol('ret')">Returns &amp; refunds</a><a onclick="pol('priv')">Privacy</a><a onclick="pol('terms')">Terms</a><a onclick="pol('contact')">Contact</a><a href="/mehfil/">Mehfil-e-Kashmir</a><a href="/lounge/">Mehfil-e-Adab</a></div><p style="margin-top:14px">Bulk &amp; wholesale orders: <a href="https://wa.me/919149480384?text=Hi%2C%20I%20want%20to%20enquire%20about%20bulk%20orders" target="_blank" style="color:var(--gold)">WhatsApp us</a></p>
+</div>
+
+<a class="wa" href="https://wa.me/919149480384" target="_blank" aria-label="WhatsApp">
+  <svg viewBox="0 0 32 32"><path d="M16 3C8.8 3 3 8.8 3 16c0 2.3.6 4.5 1.7 6.4L3 29l6.8-1.8A13 13 0 0 0 16 29c7.2 0 13-5.8 13-13S23.2 3 16 3zm0 23.7c-2 0-3.9-.6-5.6-1.6l-.4-.2-4 1 1.1-3.9-.3-.4A10.7 10.7 0 1 1 16 26.7zm5.9-8c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7 0a8.7 8.7 0 0 1-4.3-3.8c-.3-.6.3-.5.9-1.7.1-.2 0-.4 0-.5l-1-2.3c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4s-1 1-1 2.5 1.1 2.9 1.2 3.1c.2.2 2.1 3.3 5.2 4.6 1.9.8 2.7.9 3.6.8.6-.1 1.9-.8 2.2-1.5s.3-1.4.2-1.5-.3-.2-.6-.4z"/></svg>
+</a>
+
+<a class="ig" href="https://www.instagram.com/riwaazekashmir" target="_blank" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1" fill="#fff" stroke="none"/></svg></a>
+<div id="toast"></div>
+<div class="ov" id="sov" style="align-items:flex-start;background:rgba(8,14,10,.96);z-index:170"><div style="width:100%;max-width:560px;margin:0 auto;padding:16px"><div style="display:flex;gap:10px;align-items:center"><input id="hq" class="nm" style="margin:0;border-radius:24px;padding:12px 16px" placeholder="Search saffron, walnuts, kahwa, shawls..." oninput="renderSres(this.value)" onkeydown="if(event.key==='Enter')searchGo()"><span class="zx2" onclick="hide('sov')">&#10005;</span></div><div id="sres" style="margin-top:14px"></div><div class="add" style="margin-top:12px;padding:11px" onclick="searchGo()">SEE ALL RESULTS</div></div></div>
+<div class="zov" id="zov"><span class="zx" onclick="hide('zov')">&#10005;</span><span class="zp" onclick="zn(-1)">&#8249;</span><img id="zimg" onclick="this.classList.toggle('z')"><span class="zn" onclick="zn(1)">&#8250;</span><div id="zc"></div><div id="zt"></div></div>
+<div class="pg" id="pp"><div class="pgi" id="ppc"></div><div class="ppbar" id="ppbar"></div></div>
+<div class="ov" id="rvov" style="z-index:150"><div class="modal">
+  <h4>Share your experience</h4>
+  <select id="rp" class="nm"></select>
+  <div class="stp" id="stp"><span onclick="setStar(1)">&#9733;</span><span onclick="setStar(2)">&#9733;</span><span onclick="setStar(3)">&#9733;</span><span onclick="setStar(4)">&#9733;</span><span onclick="setStar(5)">&#9733;</span></div>
+  <div class="chp" id="chp"><span onclick="this.classList.toggle('on')">Taste</span><span onclick="this.classList.toggle('on')">Freshness</span><span onclick="this.classList.toggle('on')">Packing</span><span onclick="this.classList.toggle('on')">Delivery</span><span onclick="this.classList.toggle('on')">Value for money</span></div>
+  <textarea id="rt" class="nm" style="height:70px" placeholder="Why do you love it?"></textarea>
+  <input id="rn" class="nm" placeholder="Your name">
+  <input id="rc" class="nm" placeholder="Your city (optional)"><details style="margin-bottom:10px;font-size:12px;color:var(--mute)"><summary>Bought from us? Get a Verified buyer badge</summary><input id="rno" class="nm" style="margin-top:8px" placeholder="Order number (like REK-1234)"><input id="rph" class="nm" type="tel" placeholder="Phone used for the order"></details><div style="margin-bottom:10px"><label class="phl" for="rpf">&#128247; Add photos (up to 2, optional)</label><input id="rpf" type="file" accept="image/*" multiple style="display:none" onchange="pickPics(this)"><div id="rpv" style="display:flex;gap:8px;margin-top:8px"></div></div><input id="rhp" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0" aria-hidden="true"><div class="add" style="padding:12px" onclick="sendReview()">SEND REVIEW</div>
+  <div class="cancel" onclick="hide('rvov')">Cancel</div>
+</div></div>
+
+<div class="cbar" id="cbar"><span id="cbn" onclick="toggleCart()"></span><div class="cbb"><b onclick="toggleCart()">View cart</b><b class="co" onclick="showCheckout()">Checkout &rarr;</b></div></div>
+<div class="ov" id="pol" style="z-index:160" onclick="if(event.target===this)hide('pol')"><div class="modal" style="max-width:420px"><h4 id="pt"></h4><div id="pb" style="font-size:13px;line-height:1.7;color:var(--mute)"></div><div class="cancel" onclick="hide('pol')">Close</div></div></div>
+<div class="ov" id="cartov" onclick="if(event.target===this)toggleCart()">
+  <div class="drawer">
+    <h4>Your cart</h4>
+    <div id="ci"></div>
+    <div class="cp"><input id="coupon" class="nm" placeholder="Coupon code"><div class="add" onclick="applyCoupon()">APPLY</div></div>
+    <div id="smpw"></div>
+    <div class="cps"><span onclick="useC('WELCOME')">WELCOME: free shipping (not on saffron). Tap to apply</span><span onclick="useC('DIWALI')">DIWALI: free gift on orders above ₹1,499, till 8 Nov. Tap to apply</span></div>
+    <div id="cbd"></div>
+    <div class="add" style="margin-top:14px;padding:12px" onclick="showCheckout()">PROCEED TO CHECKOUT</div>
+    <div class="cancel" onclick="toggleCart()">Continue shopping</div>
+  </div>
+</div>
+
+<div class="ov" id="chkov">
+  <div class="modal">
+    <h4>Delivery details</h4><div id="sv2"></div>
+    <input id="cn" class="nm" placeholder="Full name">
+    <input id="cp" class="nm" type="tel" placeholder="Mobile number (WhatsApp)">
+    <input id="pin" class="nm" inputmode="numeric" maxlength="6" placeholder="Pincode" oninput="pinLookup()">
+    <div class="two"><input id="city" class="nm" placeholder="City"><input id="state" class="nm" placeholder="State"></div>
+    <input id="addr" class="nm" placeholder="House no., street, area">
+    <input id="lm" class="nm" placeholder="Landmark (optional)"><input id="em" class="nm" type="email" placeholder="Email (optional, for payment receipt)"><input id="gm" class="nm" placeholder="Gift message (optional)"><p style="font-size:11px;color:var(--mute);text-align:center;margin-bottom:8px">Secure payment by Razorpay: UPI, cards, netbanking</p>
+    <div class="add" style="padding:12px" onclick="placeOrder()">PAY &amp; PLACE ORDER</div>
+    <div class="cancel" onclick="hide('chkov')">Cancel</div>
+  </div>
+</div>
+
+<div class="ov" id="okov"><div class="modal"><h4>Order placed. Thank you!</h4>
+<p style="text-align:center;color:var(--mute);font-size:12.5px">Your order number</p>
+<p id="okno" style="text-align:center;font-size:26px;color:var(--gold);letter-spacing:2px;margin:6px 0 12px"></p>
+<p style="text-align:center;color:var(--mute);font-size:12.5px;line-height:1.6;margin-bottom:14px">Please save this number. You can track your order on this website anytime with your order number and phone number. We will also contact you on WhatsApp.</p>
+<a class="add" id="okwa" target="_blank" style="display:block;text-decoration:none;margin-bottom:8px">SEND ORDER NUMBER ON WHATSAPP</a><div class="add" style="padding:12px" onclick="openTrack()">TRACK MY ORDER</div><div class="cancel" onclick="hide('okov')">Close</div></div></div>
+<div class="ov" id="prepay" style="z-index:140"><div class="modal"><h4>One more step</h4>
+<p style="text-align:center;color:var(--mute);font-size:12.5px">Your order number</p><p id="ppno" style="text-align:center;font-size:24px;color:var(--gold);letter-spacing:2px;margin:6px 0 12px"></p>
+<div class="sv" style="margin-top:0">Paying by <b>UPI QR</b>? After you pay, please <b>wait about a minute</b>. Do not refresh or close this page. We will confirm your order automatically.</div>
+<div class="add" style="padding:12px" onclick="startPay()">CONTINUE TO PAYMENT</div><div class="cancel" onclick="hide('prepay')">Back</div></div></div>
+<div class="ov" id="pwait" style="z-index:145"><div class="modal"><h4>Checking your payment...</h4>
+<p style="text-align:center;font-size:22px;color:var(--gold);letter-spacing:2px;margin:6px 0" id="pwno"></p>
+<p style="text-align:center;color:var(--mute);font-size:13px;line-height:1.7;margin-bottom:12px">If you have paid, please wait a minute. Do not refresh or close this page. We will confirm your order automatically.</p>
+<p style="text-align:center;color:var(--mute);font-size:12px;line-height:1.6;margin-bottom:12px">Paid but not confirmed after 2 minutes? Tap Track order, or message us on WhatsApp with your order number.</p>
+<div class="add" style="padding:11px;margin-bottom:8px" onclick="hide('pwait');openTrack()">TRACK ORDER</div><a class="add" style="display:block;text-decoration:none;padding:11px" target="_blank" href="https://wa.me/919149480384">WHATSAPP US</a><div class="cancel" onclick="hide('pwait')">Hide this</div></div></div>
+<div class="ov" id="trov"><div class="modal"><h4>Track your order</h4>
+<input id="tn" class="nm" placeholder="Order number (like RK1A2B3C)"><input id="tp" class="nm" type="tel" placeholder="Phone number used for the order">
+<div class="add" style="padding:12px" onclick="doTrack()">CHECK STATUS</div><div id="tres" style="margin-top:12px;font-size:13px;line-height:1.6"></div><div class="cancel" onclick="hide('trov')">Close</div></div></div>
+
 <script>
-const MOON='<svg class="ic" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg>',SUN='<svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.4 1.4M17.6 17.6L19 19M5 19l1.4-1.4M17.6 6.4L19 5"/></svg>';
-const LFS='<svg class="lf" viewBox="0 0 24 24"><use href="#lf"/></svg>';
-const PM=[[/wazwan|rista|gushtaba|trami|yakhni|tabak|rogan|korma|marchwangan|mutton|harissa/i,'wazwan'],[/tujj|kebab|seekh|tikka|bbq|grill/i,'kebab'],[/pizza/i,'pizza'],[/burger|fries|wrap|sandwich/i,'burger'],[/biryani|pulao|rice|pasta/i,'biryani'],[/sheermal|kulcha|girda|lavasa|naan|bread|roti|bakar|pastry|croissant|cake|brownie|cookie|kandur/i,'kandur'],[/kahwa|kehwa|chai|tea|coffee/i,'kehwa'],[/thali|rajma|paneer|veg|dal\b/i,'veg'],[/juice|shake|cold|lassi/i,'juice'],[/barfi|halwa|sweet|mithai|phirni|gulab|fudge/i,'sweets']];
-function ph(n){const m=PM.find(p=>p[0].test(n||''));return m?`<img loading="lazy" decoding="async" width="54" height="54" alt="" src="/images/food/cat-${m[1]}.webp" onerror="this.outerHTML=LFS">`:LFS}
-function loadUr(){if(document.getElementById('urf'))return;const l=document.createElement('link');l.id='urf';l.rel='stylesheet';l.href='https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;500&display=swap';document.head.appendChild(l)}
-try{if(/ur/.test(localStorage.getItem('mkl')||''))loadUr()}catch(e){}
-const E1=/[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{2B50}\u{FE0F}\u{200D}]/u,EG=new RegExp(E1.source,'gu'),KP='★♥♡✓✕✦';
-function scrub(r){const w=document.createTreeWalker(r,NodeFilter.SHOW_TEXT);let n;while(n=w.nextNode()){const v=n.nodeValue;if(E1.test(v))n.nodeValue=v.replace(EG,c=>KP.includes(c)?c:'').replace(/^\s+/,'')}}
-let _sq=0;new MutationObserver(()=>{if(_sq)return;_sq=requestAnimationFrame(()=>{_sq=0;scrub(document.body)})}).observe(document.body,{childList:true,subtree:true});
-const $=i=>document.getElementById(i),M=n=>'₹'+Number(n).toLocaleString('en-IN');
-const esc=t=>String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const LS={g(k,d){try{const v=JSON.parse(localStorage.getItem(k));return v==null?d:v}catch(e){return d}},s(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
 
-/* ══════ EDIT HERE ══════ */
-const CFG={
- fee:30, free:499,
- call:'+91 91494 80384',
- wa:'919149480384',
- orderApi:'',                      // later: your Cloudflare Worker URL that receives orders (leave empty to hand off via WhatsApp)
- showRatings:false,                // ratings are sample data; turn on only when they are real
- sample:false,
- // pay: (payment gateway slot, intentionally empty for now)
- cuis:['All','Wazwan','Kandur Bakery','Fast Food','Pure Veg','Street Food','Sweets and Kahwa'],
- icons:[['Wazwan',['rista','gushtaba','trami','yakhni','tabak'],['Wazwan']],['Kebabs and BBQ',['tujj','kebab','seekh','tikka'],[]],['Pizza',['pizza'],[]],['Burgers',['burger'],[]],['Biryani and Rice',['biryani','pulao','rice'],[]],['Kandur Bakery',['sheermal','kulcha','girda','lavasa','bakar','pastry','cake'],['Kandur Bakery']],['Momos and Thukpa',['momo','thukpa'],[]],['Kehwa and Tea',['kahwa','kehwa','chai',' tea'],[]],['Pure Veg',['rajma','paneer','lassi','thali'],['Pure Veg']],['Juices and Cold Drinks',['juice','cold drink','shake','cold coffee'],[]],['Sweets and Mithai',['jamun','barfi'],['Sweets and Kahwa']]],
- crv:[/* label, filter, emoji fallback, photo file (/images/food/cat-<file>.webp), optional web photo id */
-  ['Wazwan','Wazwan','🍖','wazwan',''],['Tujj & Kebabs','Kebabs and BBQ','🍢','kebab',''],['Pizza','Pizza','🍕','pizza',''],['Burgers','Burgers','🍔','burger',''],['Biryani','Biryani and Rice','🥘','biryani',''],['Kandur & Sheermal','Kandur Bakery','🥐','kandur',''],['Noon Chai & Kehwa','Kehwa and Tea','🍵','kehwa',''],['Veg Thalis','Pure Veg','🥗','veg',''],['Juices & Shakes','Juices and Cold Drinks','🧃','juice',''],['Mithai','Sweets and Mithai','🍮','sweets','']],
- tiles:[['Family Wazwan Platters','🍖','Feasts for the whole family',"cu='Wazwan';rr()"],['Wedding & Event Wazwan','💒','Dates, guests, a quote',"go('wed')"],['Morning Kandur Trail','🥐','Warm from the oven',"cu='Kandur Bakery';rr()"],['Khayam BBQ','🍢','Charcoal tujj and kebabs',"cu='Kebabs and BBQ';rr()"],['Pure Veg Picks','🥗','Thalis, rajma, lassi',"cu='Pure Veg';rr()"]],
- col:[['Lake View Dining','🏞️','Lake view'],['Romantic Dates','🌹','Romantic'],['Family Dinners','👨‍👩‍👧','Family'],['Heritage Wazwan','🏛️','Heritage']],
- occ:['Date night','Family dinner','Birthday','Business'],
- wp:[['Classic Wazwan','Custom quote','Seven-course Wazwan, kehwa, phirni'],['Royal Trami','Custom quote','Trami service, live counters, desserts'],['Mixed Celebration','Custom quote','Wazwan and continental, veg options']],
- R:[]};
-const ZN=['City Centre · Lal Chowk','Uptown · Rajbagh','Lake Belt · Boulevard','Downtown · Old City'];
-const ZC=[[34.0716,74.8092],[34.0745,74.8225],[34.0870,74.8380],[34.1000,74.8072]];
-/* ══════ LIVE DATA (from your admin) ══════ */
-let D={loc:['Lal Chowk'],dining:false,paused:false,promos:[]},PRM=null,placing=0,ETAt='';
-const CUL={wazwan:'Wazwan',bakery:'Kandur Bakery',fast:'Fast Food',veg:'Pure Veg',street:'Street Food',sweets:'Sweets and Kahwa'},AOC=/drink|tea|sweet|bread|kahwa|rice|side|dessert|beverage/i;
-function adapt(x){const dd=(x.dishes||[]).map(d=>[d.name,d.price,'',AOC.test(d.cat||'')&&d.price<=150?1:0,d.stock?0:1,d.desc||'',0,d.id,d.veg?1:0,d.was||0,d.cat||'']);
-return{id:x.id,n:x.name,e:'',t:(x.cuisines||[]).map(c=>CUL[c]).filter(Boolean),tags:x.tags||'',a:x.zone||'Srinagar',h:x.hours||'',r:0,eta:String(x.eta||'30–40').replace(/\s*min.*$/i,'')||'30–40',p:+x.forTwo||0,fd:0,o:null,open:x.open?1:0,dn:x.dine?1:0,tg:x.dtags||[],banner:x.banner||'',nv:0,d:dd}}
-const offerOf=r=>D.promos.find(p=>p.rid===r.id)||D.promos.find(p=>!p.rid);
-const ofTxt=p=>p.title||(p.freeDel?'Free delivery':p.pct?p.pct+'% off':'₹'+p.flat+' off');
-const dfee=s=>(PRM&&PRM.freeDel)||(CFG.free&&s>=CFG.free)?0:CFG.fee;
-async function loadData(){try{const r=await fetch('/api/food/menu',{cache:'no-store'});if(!r.ok)throw 0;const d=await r.json(),c=d.cfg||{};
-CFG.fee=c.fee==null?CFG.fee:c.fee;CFG.free=c.freeAbove==null?CFG.free:c.freeAbove;D={loc:(c.localities&&c.localities.length)?c.localities:['Lal Chowk'],dining:!!c.dining,paused:!!c.paused,promos:d.promos||[]};CFG.R=(d.restaurants||[]).map(adapt);return true}catch(e){return false}}
-const BUD=[['All Prices',0,1e9],['💰 Under ₹100 per person',0,100],['🪙 Under ₹200 per person',0,200],['💵 Under ₹400 per person',0,400],['👑 Royal Dining (₹1,000+)',1000,1e9]];
-const PAL=['#1f4a37,#0d2a22','#5a2a24,#2a1210','#1d3b57,#0d1e2e','#5a4318,#241a08','#3d2a52,#1a1226','#164a4a,#092424'];
+const L='images/',A=n=>L+n+'.webp',TH=n=>L+'t-'+n+'.webp';
+const FREE_ABOVE=499,DELIVERY=70,GIFT_MIN=1499,SAMPLE=149,SAMPLE_WORTH=250,OOS=[];// OOS: 'id|size' e.g. 'saffron|2g'
+const F=n=>'\u20B9'+Number(n).toLocaleString('en-IN');
+const DRY=['Walnuts','Almonds','Pistachio & Cashew','Saffron','Honey & Tea','Wellness'];
+// s = sizes [label, price, market price (optional), needs name (optional)]
+const P=[
+{id:'walnut',c:'Walnuts',n:'Kashmiri Kernels (Walnuts)',i:['walnut-1','walnut-2','walnut-3'],s:[['100g',249,350],['250g',499,875],['500g',990,1750],['1kg',1999,3499]],d:'Hand-picked, snow-white walnut kernels from the valleys of Kashmir. Fresh, crunchy and naturally mild.'},
+{id:'giftbox',c:'Combos & Gifts',n:'Walnut Kernels Gift Box',i:['walnut-1'],s:[['Simple',1200],['Custom Box',1499,0,1]],d:'Our premium Riwaaz-e-Kashmir gift box filled with hand-picked kernels. The Custom Box carries your own name or message.'},
+{id:'mamra',c:'Almonds',n:'Mamra Kashmiri Badam',i:['almond-1'],s:[['250g',499],['500g',990],['1kg',1950]],d:'Rich, oil-dense almonds with a deep, sweet taste.'},
+{id:'badam',c:'Almonds',n:'Kashmiri Badam',i:['almond-1'],s:[['250g',349],['500g',649],['1kg',1199]],d:'Crunchy everyday Kashmiri almonds, sorted by hand.'},
+{id:'pista',c:'Pistachio & Cashew',n:'Shahi Pista',i:[],s:[['250g',499],['500g',949],['1kg',1799]],d:'Premium pistachios with a rich, buttery flavour.'},
+{id:'kaju',c:'Pistachio & Cashew',n:'Shahi Kaju',i:['cashew-1'],s:[['250g',299],['500g',599],['1kg',1150]],d:'Creamy, whole cashews with a naturally sweet taste.'},
+{id:'saffron',c:'Saffron',tag:'Most loved',n:'Kashmiri Saffron (Kesar / Zafran)',i:['saffron-2','saffron-3','saffron-4','saffron-5'],s:[['1g',499],['2g',998]],d:'Deep-red Kashmiri saffron threads with rich colour and aroma. A few strands go a long way.'},
+{id:'honey',c:'Honey & Tea',n:'Pure Raw Kashmiri Honey',i:['honey-1'],s:[['250ml',299],['500ml',549],['1kg jar',999]],d:'Raw, unprocessed honey from Kashmir, with a naturally thick texture.'},
+{id:'kahwa',c:'Honey & Tea',n:'Kashmiri Kahwa (Ready to Make)',i:['kahwa-1'],s:[['150g',299],['250g',599,780]],d:'Traditional Kashmiri kahwa mix, ready to brew. Just add hot water for a warming cup.'},
+{id:'noon',c:'Honey & Tea',n:'Kashmiri Noon Chai',i:['noon-1'],s:[['Pack',499]],d:'The classic pink salt tea of Kashmir, ready to prepare the traditional way.'},
+{id:'shila',c:'Wellness',n:'Himalayan Shilajit',i:['shilajit-1'],s:[['20g',999]],d:'Himalayan shilajit resin in a 20g jar.'},
+{id:'combo',c:'Combos & Gifts',n:'Kashmir Treasure Combo (Walnut Kernels, Badam, Pista 250g, Saffron 1g, Honey 250ml)',i:['saffron-2','walnut-1','honey-1','kahwa-1'],col:1,s:[['Combo',1799,2145]],d:'Five of our best sellers in one combo, ready to gift.'},
+{id:'winter',c:'Combos & Gifts',n:'Winter Kahwa Set (Kahwa 250g, Saffron 1g, Honey 500ml)',i:['kahwa-1','saffron-2','honey-1'],col:1,s:[['Set',1199,1647]],d:'Everything for a perfect cup of Kashmiri kahwa: kahwa, saffron and honey together.'},
+{id:'sh1',c:'Kashmiri Shawls',hd:1,n:'Shahi Kashmiri Paisley Shawl',i:['black-1','black-2'],s:[['1 shawl',1499,3500]],d:'Rich black shawl with detailed multicolour paisley work and a striped woven border.'},
+{id:'sh2',c:'Kashmiri Shawls',n:'Midnight Floral Paisley',i:['hero-shawl','shawl-1','shawl-2','shawl-3'],s:[['1 shawl',499]],d:'Dark base with multicolour floral paisley and a rich woven border.'},
+{id:'sh3',c:'Kashmiri Shawls',n:'Black Copper & Silver Embroidery',i:['blk-1','blk-2','blk-3','blk-4'],s:[['1 shawl',699]],d:'Black shawl with intricate copper and silver embroidered medallions.'},
+{id:'sh4',c:'Kashmiri Shawls',n:'Navy Paisley',i:['navy-1','navy-2'],s:[['1 shawl',499]],d:'Deep navy with colourful paisley and a patterned border.'},
+{id:'sh5',c:'Kashmiri Shawls',n:'Ivory Floral Embroidery',i:['ivf-1'],s:[['1 shawl',1299]],d:'Soft ivory shawl with delicate multicolour floral embroidery.'},
+{id:'sh6',c:'Kashmiri Shawls',n:'Ivory & Gold Paisley',i:['ivg-1'],s:[['1 shawl',1699]],d:'Ivory shawl with golden paisley border work.'}
+];
+const SHAWL='Kashmiri Shawls';
+const sel={},qty={};let cat='All',group=null,q='',cart=[],coupon=null;
+const $=id=>document.getElementById(id);
+const off=(p,m)=>m>p?Math.round((m-p)/m*100):0;
+const BEN={
+walnut:{w:'Snow-white, hand-picked and crunchy, with a naturally mild, buttery taste.',g:['Plant-based source of Omega-3 (ALA)','Provides protein and fibre','A popular brain-friendly snack','No additives'],u:'Eat a handful daily, or soak overnight and add to oats and desserts.'},
+giftbox:{w:'A premium gift box of hand-picked kernels, ready to give.',g:['Same fresh kernels as our regular pack','Custom Box carries your name or message','Safe, protective packing'],u:'Gift it as it is, or keep kernels in an airtight jar.'},
+mamra:{w:'Rich, oil-dense almonds with a deep, sweet taste.',g:['Source of vitamin E','Healthy fats and protein','Adds natural richness to milk and sweets'],u:'Soak overnight and peel, or add to milk, kheer and kahwa.'},
+badam:{w:'Crunchy everyday Kashmiri almonds, sorted by hand.',g:['Source of vitamin E and fibre','A filling, satisfying snack','No added sugar or salt'],u:'Enjoy 5-6 a day, soaked or plain.'},
+pista:{w:'Premium pistachios with a rich, buttery flavour.',g:['Source of protein and fibre','Contains healthy fats','A tasty low-sugar snack'],u:'Snack on them, or crush over kheer and sweets.'},
+kaju:{w:'Creamy whole cashews with a naturally sweet taste.',g:['Source of protein and minerals','Healthy fats for energy','Adds creaminess to curries'],u:'Eat as a snack, or grind for gravies and sweets.'},
+saffron:{w:'Deep red threads with rich colour and aroma. A few strands transform milk, kahwa or biryani.',g:['Used in Indian kitchens for centuries','Natural antioxidants','Adds flavour without extra sugar'],u:'Soak 3-4 threads in warm milk for 10 minutes. Water test: real saffron releases colour slowly.'},
+honey:{w:'Raw, thick honey with a natural floral sweetness.',g:['A natural alternative to refined sugar','Raw and unprocessed','Lovely in warm water, tea or kahwa'],u:'Add a spoon to warm water, tea or breakfast. Crystallising over time is natural.'},
+kahwa:{w:'A warming Kashmiri tea blend, ready to brew in minutes.',g:['A comforting, aromatic spiced tea','Easy to make at home','Best with honey and a few almonds'],u:'Brew a spoon in hot water for 3-4 minutes and add honey.'},
+noon:{w:'The classic pink salt tea of Kashmir.',g:['A traditional Kashmiri drink','Comforting in cold weather','Enjoyed with bread at breakfast'],u:'Follow the pack directions and brew with milk.'},
+shila:{w:'Himalayan shilajit resin in a 20g jar.',g:['Traditionally taken as a daily supplement','Use only as directed on the pack','Consult a doctor if you have a health condition'],u:'Follow the usage directions on the pack.'},
+combo:{w:'Five of our best sellers in one gift-ready combo.',g:['Priced lower than buying each separately','Great variety in one box','Ideal for gifting'],u:'Gift it, or enjoy a bit of everything yourself.'},
+winter:{w:'Everything for a perfect cup of Kashmiri kahwa.',g:['Kahwa, saffron and honey together','Priced lower than buying separately','Warm and comforting'],u:'Brew kahwa, add 2 saffron threads and a spoon of honey.'},
 
-/* ══════ STATE ══════ */
-let cart={},cr=null,V='home',cu='All',tg='All',rtab='Menu',src='home',bi=0,nm=0,me=null,dq=null,doneO=null,MSG='',trk=0,strm=null,sraf=0,tbl=null;
-let zn=LS.g('rk_zn','All');if(zn!='All'&&!ZN.includes(zn))zn='All';
-let fav=LS.g('rk_fav',[]),ords=LS.g('rk_ord',[]),L=LS.g('rk_l','en');
-const R=id=>CFG.R.find(x=>x.id==id),cnt=()=>Object.values(cart).reduce((a,b)=>a+b,0);
-function sub(){let s=0;for(const k in cart){const[i,j]=k.split('|');s+=R(i).d[j][1]*cart[k]}return s}
-function disc(s){return PRM?[PRM.disc,PRM.code]:[0,'']}
-const H=new Date().getHours(),TOD=H>=5&&H<11?'m':H>=11&&H<17?'d':H>=17&&H<20?'e':'n';document.body.dataset.tod=TOD;
-const GT={m:['Subah Bakhair · Fresh kandur breads & kehwa','صبح بخیر · تازہ کندور روٹیاں اور قہوہ'],d:['Salaam · Wazwan, tujj & a warm kehwa','سلام · وازوان، تُجّ اور گرم قہوہ'],e:['Shaam Bakhair · Warm tujj & wazwan by the Dal','شام بخیر · ڈل جھیل کنارے گرم تُجّ اور وازوان'],n:['Shab Bakhair · Late-night kebabs & kehwa','شب بخیر · رات گئے کباب اور قہوہ']};
+};
+const BEN2={
+sh1:{w:'A bold black shawl with detailed multicolour paisley and a striped woven border.',g:['Soft drape for shoulders, stoles and wraps','Detailed design with a finished border','Great for gifting'],u:'Fabric, size and care details: ask us on WhatsApp. Store folded in a dry place.'},
+sh2:{w:'Rich colours and detailed floral paisley with a woven border.',g:['Soft drape for shoulders, stoles and wraps','Detailed design with a finished border','Great for gifting'],u:'Fabric, size and care details: ask us on WhatsApp. Store folded in a dry place.'},
+sh3:{w:'Black shawl with copper and silver embroidered medallions.',g:['Soft drape for shoulders, stoles and wraps','Detailed design with a finished border','Great for gifting'],u:'Fabric, size and care details: ask us on WhatsApp. Store folded in a dry place.'},
+sh4:{w:'Deep navy with colourful paisley and a patterned border.',g:['Soft drape for shoulders, stoles and wraps','Detailed design with a finished border','Great for gifting'],u:'Fabric, size and care details: ask us on WhatsApp. Store folded in a dry place.'},
+sh5:{w:'Soft ivory with delicate multicolour floral embroidery.',g:['Soft drape for shoulders, stoles and wraps','Detailed design with a finished border','Great for gifting'],u:'Fabric, size and care details: ask us on WhatsApp. Store folded in a dry place.'},
+sh6:{w:'Ivory with golden paisley border work.',g:['Soft drape for shoulders, stoles and wraps','Detailed design with a finished border','Great for gifting'],u:'Fabric, size and care details: ask us on WhatsApp. Store folded in a dry place.'}};Object.assign(BEN,BEN2);
+const POL={ship:['Shipping','Delivery is ₹70 on orders up to ₹499 and free above ₹499, across India. Orders are packed within 1-2 working days and usually arrive in 5-8 working days. You get a tracking link once shipped. Track anytime with "Track order".'],
+ret:['Returns & refunds','Because these are food products, we cannot take back opened packs. If an item arrives damaged or wrong, message us on WhatsApp within 48 hours with a photo or video and we will replace it or refund you. Refunds go back to the original payment method in 5-7 working days.'],
+priv:['Privacy','We collect your name, phone, address and (optionally) email only to deliver your order and support you. Payments are handled by Razorpay, and we never see or store your card details. We do not sell your data.'],
+terms:['Terms','All prices are in Indian Rupees and include applicable taxes. Orders are subject to availability. Product photos are for illustration; packaging may vary slightly. By ordering you agree to these terms.'],
+contact:['Contact us','Riwaaz-e-Kashmir, Srinagar, Kashmir. WhatsApp and phone: +91 91494 80384. Email: riwaazekashmiroffical@gmail.com. Support hours: every day, 8 AM to 12 midnight.']};
 
-/* ══════ UTIL ══════ */
-function toast(t){const e=document.createElement('div');e.className='toast';e.textContent=t;document.body.appendChild(e);setTimeout(()=>e.remove(),2600)}
-function cp(t){try{navigator.clipboard.writeText(t).then(()=>toast('Copied'),()=>toast('Could not copy'))}catch(e){toast('Could not copy')}}
-function send(t){if(/X/.test(CFG.wa)){cp(t);toast('WhatsApp number not set yet. Message copied instead.');return}window.open('https://wa.me/'+CFG.wa+'?text='+encodeURIComponent(t),'_blank')}
-function sheet(h){let e=$('dr');if(!e){e=document.createElement('div');e.id='dr';e.className='dr';e.onclick=ev=>{if(ev.target==e)closeS()};document.body.appendChild(e)}e.innerHTML='<div role="dialog" aria-modal="true">'+h+'</div>';tr()}
-function closeS(){dq=null;const e=$('dr');if(e)e.remove()}
-addEventListener('keydown',e=>{if(e.key=='Escape'){closeS();closeA()}});
-function hh(id){let h=0;for(const c of id)h=(h*31+c.charCodeAt(0))>>>0;return h}
-function pal(id){const p=PAL[hh(id)%PAL.length].split(',');return `--p1:${p[0]};--p2:${p[1]}`}
-function p2(id,e,x,h){const z=CFG.R.find(q=>q.id==id),u=z&&/^(https:\/\/|\/images\/)[^\s"'<>]+$/.test(z.banner||'')?z.banner:'/images/food/'+id+'.webp';return `<div class="ph" style="${pal(id)};${h?'height:'+h+'px':''}"><span class="em">${e}</span><img loading="lazy" width="560" height="132" alt="" src="${u}" onerror="this.remove()">${x||''}</div>`}
-const smp=()=>CFG.sample?'<span class="smp">SAMPLE</span>':'';
-function fld(id,l,t,o){return `<label class="fl">${l}${t=='sel'?`<select id="${id}">${o.map(x=>`<option>${x}</option>`).join('')}</select>`:`<input id="${id}" type="${t}" ${o||''}>`}</label>`}
-function zd(r){if(!me)return 0;const c=ZC[r.z],t=Math.PI/180,x=(c[1]-me[1])*t*Math.cos(me[0]*t),y=(c[0]-me[0])*t;return Math.hypot(x,y)*6371}
-function locate(){if(!navigator.geolocation)return toast('Location is not available. Please choose your area.');toast('Finding you…');
-navigator.geolocation.getCurrentPosition(p=>{me=[p.coords.latitude,p.coords.longitude];let b=0,m=1e9;ZC.forEach((c,i)=>{const d=zd({z:i});if(d<m){m=d;b=i}});if(m>25){me=null;return toast("You're outside our Srinagar delivery area.")}zn=ZN[b];LS.s('rk_zn',zn);nm=1;go('home');toast('Showing restaurants near '+ZN[b])},e=>toast(e.code==1?'Location permission was denied. Pick your area from the list.':'Could not get your location. Pick your area from the list.'),{timeout:10000,maximumAge:60000})}
-function fv(id){fav=fav.includes(id)?fav.filter(x=>x!=id):fav.concat(id);LS.s('rk_fav',fav);V=='home'||V=='din'?rr():draw()}
-function setZ(v){zn=v;LS.s('rk_zn',v);rr()}
+const live=()=>new Date()<new Date('2026-11-09');
+function cpn(){return coupon==='WELCOME'?'WELCOME':(coupon==='DIWALI'&&live()?'DIWALI':null)}
+const COMBO_EX=['combo','winter','sample'];
+function comboInfo(){const el=cart.filter(i=>!COMBO_EX.includes(i.id)),ids=new Set(el.map(i=>i.id)),esub=el.reduce((a,i)=>a+i.p*i.q,0);return {n:ids.size,off:ids.size>=3?Math.round(esub*0.05):0}}
+function calc(){
+  const sub=cart.reduce((a,i)=>a+i.p*i.q,0),c=cpn(),ci=comboInfo(),ship=(!sub||sub>FREE_ABOVE||(c==='WELCOME'&&!cart.some(i=>i.id==='saffron')))?0:DELIVERY,gift=c==='DIWALI'&&sub>=GIFT_MIN;
+  let save=ci.off;cart.forEach(i=>{if(i.m)save+=(i.m-i.p)*i.q});if(sub&&!ship)save+=DELIVERY;
+  return {sub,ship,gift,save,disc:ci.off,total:sub-ci.off+ship,c,cn:ci.n}
+}
+function renderChips(){
+  const cs=['All',...new Set(P.filter(p=>p.c!==SHAWL).map(p=>p.c))];
+  $('chips').innerHTML=cs.map(c=>`<div class="chip ${c===cat&&!group?'on':''}" onclick="setCat('${c}')">${c}</div>`).join('');
+}
+function setCat(c){cat=c;group=null;renderChips();renderGrid()}
+function media(p){
+  const im=p.i.map(n=>`<img src="${TH(n)}" data-f="${A(n)}" alt="${p.n}" width="600" height="450" loading="lazy" decoding="async">`);
+  if(!p.i.length)return '<div class="gw"><div class="ph">RK<small>Photo coming soon</small></div></div>';
+  if(p.col)return `<div class="gw"><div class="col">${im.join('')}</div></div>`;
+  return `<div class="gw"><div class="gal" onscroll="gs(this)">${im.join('')}</div>${p.i.length>1?`<span class="cnt">1/${p.i.length}</span>`:''}</div>`;
+}
+function gs(e){const n=e.children.length,k=Math.round(e.scrollLeft/e.clientWidth);e.parentNode.querySelector('.cnt').textContent=(k+1)+'/'+n}
+function badge(s,p){return s[2]&&s[2]>s[1]?`${p&&p.hd?'<span class="hd">HEAVY DISCOUNT</span>':''}<em>${off(s[1],s[2])}% OFF</em><span class="sb">Save ${F(s[2]-s[1])}</span>`:''}
+function cardHtml(p){
+  const k=sel[p.id]||0,s=p.s[k],n=qty[p.id]||1;
+  return `<div class="card" onclick="cardClick(event,'${p.id}')">${media(p)}
+    <div class="cb">${p.tag?`<span class="bdg">${p.tag}</span>`:''}<h3>${p.n}</h3>${ratingLine(p.id)}
+    ${p.s.length>1?`<div class="sz">${p.s.map((x,j)=>`<span class="${j===k?'on':''}${OOS.includes(p.id+'|'+x[0])?' oos':''}" onclick="pick('${p.id}',${j})">${x[0]}</span>`).join('')}</div>`:''}
+    <div class="pr">${s[2]?`<s>${F(s[2])}</s>`:''}<b>${F(s[1])}</b>${badge(s,p)}</div>
+    ${s[3]?`<input class="nm" id="nm-${p.id}" placeholder="Name(s) to print on box">`:''}
+    <div class="act"><div class="qt"><i onclick="qd('${p.id}',-1)">&minus;</i><input value="${n}" inputmode="numeric" onchange="qset('${p.id}',this.value)"><i onclick="qd('${p.id}',1)">+</i></div><div class="add" onclick="addP('${p.id}')">ADD TO CART</div></div></div></div>`;
+}
+function renderGrid(){
+  const ql=q.trim().toLowerCase();
+  $('grid').innerHTML=P.filter(p=>(p.c!==SHAWL||ql)&&(group==='dry'?DRY.includes(p.c):(cat==='All'||p.c===cat))&&p.n.toLowerCase().includes(ql)).map(cardHtml).join('')||'<p style="grid-column:1/-1;text-align:center;color:var(--mute);padding:20px">No products found. Try saffron, walnut, kahwa or shawl.</p>';
+  $('shawlgrid').innerHTML=P.filter(p=>p.c===SHAWL).map(cardHtml).join('');
+}
+function cardClick(e,id){if(e.target.closest('.sz,.act,.nm'))return;details(id)}
+function pick(id,j){sel[id]=j;renderGrid();if($('pp').classList.contains('on'))ppRender()}
+function qd(id,d){qty[id]=Math.min(20,Math.max(1,(qty[id]||1)+d));renderGrid();if($('pp').classList.contains('on'))ppRender()}
+function qset(id,v){qty[id]=Math.min(20,Math.max(1,parseInt(v)||1));renderGrid();if($('pp').classList.contains('on'))ppRender()}
+function openSearch(){$('sov').classList.add('on');$('hq').value='';renderSres('');setTimeout(()=>$('hq').focus(),50)}
+function renderSres(v){const ql=v.trim().toLowerCase();
+  $('sres').innerHTML=ql?(P.filter(p=>p.n.toLowerCase().includes(ql)||p.c.toLowerCase().includes(ql)).slice(0,8).map(p=>`<div class="sr" onclick="hide('sov');details('${p.id}')"><img src="${p.i.length?TH(p.i[0]):''}" alt=""><span>${p.n.split(' (')[0]}</span><b>${F(p.s[0][1])}</b></div>`).join('')||'<p style="color:var(--mute);padding:10px">No products found. Try saffron, walnut, kahwa or shawl.</p>'):'<div class="sch">'+['Saffron','Walnuts','Kahwa','Honey','Almonds','Shawl'].map(x=>`<span onclick="$('hq').value='${x}';renderSres('${x}')">${x}</span>`).join('')+'</div>'}
+function searchGo(){q=$('hq').value;hide('sov');hide('pp');renderGrid();go('shop')}
+function navCat(k){hide('pp');q='';if(k==='shawl'){go('shawls');return}if(k==='dry'){cat='All';group='dry'}else{cat='Combos & Gifts';group=null}q='';$('hq').value='';renderChips();renderGrid();go('shop')}
+let zL=[],zI=0,tx=0;
+function zoomList(l,i){zL=l;zI=i;zShow();$('zov').classList.add('on')}
+function zShow(){$('zimg').src=zL[zI];$('zimg').classList.remove('z');$('zc').textContent=zL.length>1?(zI+1)+' / '+zL.length:'';document.querySelectorAll('.zp,.zn').forEach(e=>e.style.display=zL.length>1?'flex':'none');$('zt').innerHTML=zL.length>1?zL.map((u,i)=>`<img src="${u}" class="${i===zI?'on':''}" onclick="zI=${i};zShow()">`).join(''):''}
+function zn(d){zI=(zI+d+zL.length)%zL.length;zShow()}
+function zl(el){const a=[...el.parentNode.querySelectorAll('img')];zoomList(a.map(i=>i.dataset.f||i.src),a.indexOf(el))}
+$('zov').addEventListener('touchstart',e=>{tx=e.changedTouches[0].clientX},{passive:true});
+$('zov').addEventListener('touchend',e=>{const d=e.changedTouches[0].clientX-tx;if(Math.abs(d)>50&&!$('zimg').classList.contains('z'))zn(d<0?1:-1)});
+let ppid=null;
+function details(id){ppid=id;ppRender();$('pp').classList.add('on');$('pp').scrollTop=0}
+function ppPick(j){sel[ppid]=j;ppRender();renderGrid()}
+function ppRender(){
+  const p=P.find(x=>x.id===ppid),B=BEN[ppid]||{w:'',g:[],u:''},rel=P.filter(x=>x.id!==ppid&&x.c===p.c).concat(P.filter(x=>['saffron','kahwa','honey'].includes(x.id)&&x.id!==ppid)).filter((x,i,a)=>a.indexOf(x)===i).slice(0,3),k=sel[p.id]||0,s=p.s[k],n=qty[p.id]||1,rs=REVIEWS.filter(r=>r.p===p.id);
+  $('ppc').innerHTML=`<div class="pgh" onclick="hide('pp')">&#8592; Back to shop</div>
+  ${p.i.length?`<div class="pgg">${p.i.map((x,i)=>`<img src="${A(x)}" alt="${p.n}" ${i?'loading="lazy"':''} onclick="zl(this)">`).join('')}</div>`:'<div class="ph" style="height:240px">RK<small>Photo coming soon</small></div>'}
+  <div class="pgb"><h2 class="serif" style="font-size:26px">${p.n}</h2>${ratingLine(p.id,1)}<p style="color:var(--mute);margin:8px 0;line-height:1.6">${p.d}</p>
+  <div class="sz" style="margin:12px 0">${p.s.map((x,j)=>`<span class="${j===k?'on':''}${OOS.includes(p.id+'|'+x[0])?' oos':''}" onclick="ppPick(${j})">${x[0]}</span>`).join('')}</div>
+  <div class="pr" style="margin-bottom:12px">${s[2]?`<s>${F(s[2])}</s>`:''}<b style="font-size:24px">${F(s[1])}</b>${badge(s,p)}</div>
+  ${s[3]?`<input class="nm" id="pn-${p.id}" placeholder="Name(s) to print on box" style="margin-bottom:10px">`:''}
+  <div class="act" style="height:46px"><div class="qt"><i onclick="qd('${p.id}',-1)">&minus;</i><input value="${n}" inputmode="numeric" onchange="qset('${p.id}',this.value)"><i onclick="qd('${p.id}',1)">+</i></div><div class="add" onclick="addP('${p.id}')">ADD TO CART</div></div>
+  ${p.c===SHAWL?'<p style="color:var(--mute);font-size:12px;margin-top:8px">Fabric, size and care: <a style="color:var(--gold)" target="_blank" href="https://wa.me/919149480384?text='+encodeURIComponent('Hi, please share fabric, size and care details for the '+p.n)+'">ask us on WhatsApp</a></p>':''}<p style="color:var(--mute);font-size:12px;margin-top:8px">Free delivery above ₹499. Arrives in 5-8 working days. Secure payment by Razorpay.</p>
+  <h4>Why you'll love it</h4><p style="color:var(--mute);line-height:1.6">${B.w}</p>
+  <h4>Good for you</h4><ul>${B.g.map(b=>`<li>${b}</li>`).join('')}</ul>
+  ${B.u?`<h4>How to use</h4><p style="color:var(--mute);line-height:1.6">${B.u}</p>`:''}
+  <h4>Why order from us</h4><p style="color:var(--mute);line-height:1.6">Direct from Kashmir, no middlemen, genuine quality, no third grade.</p>
+  <h4>You may also like</h4><div style="display:flex;gap:8px;flex-wrap:wrap">${rel.map(x=>`<span class="chip" onclick="details('${x.id}')">${x.n.split(' (')[0]}</span>`).join('')}</div>
+  <h4>Customer reviews</h4>${rs.length?rs.map(r=>revHtml(r,1)).join(''):'<p style="color:var(--mute)">No reviews yet. Be the first to share your experience.</p>'}
+  <div class="add" style="margin-top:10px;padding:12px" onclick="openReview('${p.id}')">WRITE A REVIEW</div></div>`;
+  $('ppbar').innerHTML=`<b class="a" onclick="addP('${p.id}')">Add to cart</b><b onclick="hide('pp');toggleCart()">Cart</b><b onclick="hide('pp');showCheckout()">Checkout &rarr;</b><b onclick="openReview('${p.id}')">&#9998; Review</b>`;
+}
+function toast(t){const e=$('toast');e.textContent=t;e.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(()=>e.style.display='none',1800)}
+function party(){for(let i=0;i<26;i++){const e=document.createElement('span');e.className='cf';e.textContent=['\uD83C\uDF89','\u2728','\uD83C\uDF8A','\uD83D\uDE0A'][i%4];e.style.left=Math.random()*95+'vw';e.style.animationDelay=Math.random()*.6+'s';document.body.appendChild(e);setTimeout(()=>e.remove(),3600)}}
+function addP(id){
+  const p=P.find(x=>x.id===id),j=sel[id]||0,s=p.s[j],n=qty[id]||1;
+  if(OOS.includes(id+'|'+s[0])){alert('Sorry, this size is out of stock');return}
+  let nm=p.n+' - '+s[0];
+  if(s[3]){const el=$('pp').classList.contains('on')?$('pn-'+id):$('nm-'+id),v=((el&&el.value)||'').trim();if(!v){alert('Please enter the name(s) to print on the box');return}nm+=' ('+v+')'}
+  const e=cart.find(i=>i.n===nm);e?e.q=Math.min(20,e.q+n):cart.push({n:nm,p:s[1],q:n,id,sz:j,m:s[2]||0});
+  qty[id]=1;upd();renderGrid();if($('pp').classList.contains('on'))ppRender();toast('\u2713 Added to cart');
+}
+function toggleSample(on){cart=cart.filter(i=>i.id!=='sample');if(on)cart.push({n:'Pure Kashmiri Saffron Sample Jar 0.5g',p:SAMPLE,q:1,id:'sample',sz:0,m:SAMPLE_WORTH});upd()}
+function qty2(x,d){cart[x].q+=d;if(cart[x].q<1)cart.splice(x,1);if(cart[x])cart[x].q=Math.min(20,cart[x].q);upd()}
+function upd(){
+  try{localStorage.setItem('rk_cart',JSON.stringify({cart,c:coupon}))}catch(e){}
+  const c=calc(),n=cart.reduce((a,i)=>a+i.q,0);
+  document.body.classList.toggle('hasbar',n>0);$('cc').textContent=n;$('cbn').textContent=n+' item'+(n>1?'s':'')+' | '+F(c.total);
+  $('ci').innerHTML=cart.length?cart.map((i,x)=>`<div class="ci"><span>${i.n}</span><span class="q"><i onclick="qty2(${x},-1)">-</i>${i.q}<i onclick="qty2(${x},1)">+</i></span><span>${F(i.p*i.q)}</span></div>`).join(''):'<p style="color:var(--mute);font-size:12px;padding:10px 0">Your cart is empty</p>';
+  const has=cart.some(i=>i.id==='sample');
+  $('smpw').innerHTML=cart.length?`<label class="smp"><input type="checkbox" ${has?'checked':''} onchange="toggleSample(this.checked)"><span>Add 0.5g Pure Kashmiri Saffron Sample Jar for just <b>+${F(SAMPLE)}</b> (retail value <s style="color:var(--red)">${F(SAMPLE_WORTH)}</s>)</span></label>`:'';
+  let b='';
+  if(cart.length){
+    if(c.ship>0)b+=`<div style="font-size:12px;color:var(--mute)">Add ${F(FREE_ABOVE+1-c.sub)} more for FREE delivery</div><div class="pgs"><div style="width:${Math.min(100,c.sub/(FREE_ABOVE+1)*100)}%"></div></div>`;
+    if(coupon==='WELCOME'&&cart.some(i=>i.id==='saffron'))b+='<div style="font-size:12px;color:var(--red);margin-bottom:6px">WELCOME free shipping does not apply to Kashmiri Saffron</div>';
+    if(c.c==='DIWALI'&&!c.gift)b+=`<div style="font-size:12px;color:var(--gold);margin-bottom:6px">Add ${F(GIFT_MIN-c.sub)} more to unlock your free Diwali gift</div>`;
+    if(c.cn>0&&c.cn<3)b+=`<div style="font-size:12px;color:var(--gold);margin-bottom:6px">Make your own combo: add ${3-c.cn} more different product${3-c.cn>1?'s':''} for 5% off</div>`;
+    b+=`<div class="row"><span>Item subtotal</span><span>${F(c.sub)}</span></div>${c.disc?`<div class="row"><span>Your combo discount (5%)</span><b>-${F(c.disc)}</b></div>`:''}
+    <div class="row"><span>Delivery fee</span><span>${c.ship?F(c.ship):`<s>${F(DELIVERY)}</s><b>FREE</b>`}</span></div>
+    <div class="row"><span>Packaging &amp; quality check</span><b>FREE</b></div><div class="row"><span>Platform fee</span><b>FREE</b></div>
+    ${c.gift?'<div class="row"><span>\uD83C\uDF81 Free Diwali gift (kahwa sachet)</span><b>FREE</b></div>':''}
+    <p style="font-size:11px;color:var(--mute);margin:4px 0">Prices include all taxes. No hidden charges.</p>
+    ${c.save>0?`<div class="sv">\uD83C\uDF89 Congratulations! You saved ${F(c.save)} on this order!</div>`:''}
+    <div class="row t"><span>Total</span><span>${F(c.total)}</span></div>`;
+  }
+  $('cbd').innerHTML=b;
+  if($('sv2'))$('sv2').innerHTML=c.save>0?`<div class="sv">\uD83C\uDF89 You saved ${F(c.save)} on this order!<br>Pay ${F(c.total)}</div>`:'';
+}
+function applyCoupon(){
+  const c=$('coupon').value.trim().toUpperCase();
+  if(c==='WELCOME'&&cart.some(i=>i.id==='saffron')){alert('WELCOME free shipping does not apply to Kashmiri Saffron');return}
+  if(c==='WELCOME'||(c==='DIWALI'&&live())){coupon=c;upd();party();toast('\uD83C\uDF89 Coupon applied')}else{coupon=null;upd();alert(c==='DIWALI'?'This Diwali offer has ended':'Invalid coupon code')}
+}
+function useC(c){$('coupon').value=c;applyCoupon()}
+function toggleCart(){$('cartov').classList.toggle('on')}
+function hide(id){$(id).classList.remove('on')}
+function go(id){$(id).scrollIntoView({behavior:'smooth'})}
+function showCheckout(){if(!cart.length){alert('Your cart is empty');return}hide('cartov');upd();$('chkov').classList.add('on')}
+function pinLookup(){
+  const v=$('pin').value.trim();if(v.length!==6)return;
+  fetch('https://api.postalpincode.in/pincode/'+v).then(r=>r.json()).then(d=>{const o=d&&d[0]&&d[0].PostOffice&&d[0].PostOffice[0];if(o){$('city').value=o.District;$('state').value=o.State}}).catch(()=>{});
+}
+function pol(k){$('pt').textContent=POL[k][0];$('pb').textContent=POL[k][1];$('pol').classList.add('on')}
 
-/* ══════ THEME + LANGUAGE ══════ */
-const UR={"Delivery":"ڈیلیوری","Dining Out":"باہر کھانا","Weddings":"شادیاں","Prefer to order by phone? A real person will take your order.":"فون پر آرڈر دینا چاہتے ہیں؟ ایک حقیقی شخص آپ کا آرڈر لے گا۔","Local food, honest prices.":"مقامی کھانا، ایماندار قیمتیں۔","Menu price = restaurant price. One flat delivery fee.":"مینو کی قیمت = ریستوران کی قیمت۔ ایک ہی ڈیلیوری فیس۔","Quick cravings":"فوری خواہشات","Wazwan & Kashmiri favourites":"وازوان اور کشمیری پسندیدہ","Popular picks":"مقبول انتخاب","All restaurants":"تمام ریستوران","Order again":"دوبارہ آرڈر کریں","Your favourites":"آپ کے پسندیدہ","Budget":"بجٹ","Area":"علاقہ","All Prices":"تمام قیمتیں","💰 Under ₹100 per person":"💰 ₹100 فی کس سے کم","🪙 Under ₹200 per person":"🪙 ₹200 فی کس سے کم","💵 Under ₹400 per person":"💵 ₹400 فی کس سے کم","👑 Royal Dining (₹1,000+)":"👑 شاہی کھانا (₹1,000+)","All":"سب","Your cart":"آپ کی ٹوکری","Items":"اشیاء","Delivery (flat)":"ڈیلیوری (مقررہ)","Total":"کل","Place order on WhatsApp":"واٹس ایپ پر آرڈر بھیجیں","Add to your order":"اپنے آرڈر میں شامل کریں","Your cart is empty.":"آپ کی ٹوکری خالی ہے۔","ADD +":"شامل کریں +","Add":"شامل کریں","‹ Back":"‹ واپس","Menu":"مینو","Overview":"جائزہ","Reviews":"ریویوز","Photos":"تصاویر","View cart ›":"ٹوکری دیکھیں ›","Details ›":"تفصیلات ›","How many are eating?":"کتنے لوگ کھائیں گے؟","Wedding Wazwan, done right.":"شادی کا وازوان، بہترین انداز میں۔","Dine out in Srinagar.":"سری نگر میں باہر کھائیں۔","Reserve a table":"میز ریزرو کریں","Request a table":"میز کی درخواست","Wedding enquiry":"شادی کی انکوائری","Send enquiry":"درخواست بھیجیں","Your name":"آپ کا نام","Phone":"فون","Date":"تاریخ","Time":"وقت","Guests":"مہمان","Order sent":"آرڈر بھیج دیا گیا","My Account":"میرا اکاؤنٹ","Promo wallet":"پرومو والٹ","Saved addresses":"محفوظ پتے","Order history":"آرڈر کی تاریخ","Save address":"پتہ محفوظ کریں","No saved addresses yet.":"ابھی کوئی پتہ محفوظ نہیں۔","No orders yet.":"ابھی کوئی آرڈر نہیں۔","Search dishes or restaurants":"کھانے یا ریستوران تلاش کریں","Reorder":"دوبارہ منگوائیں","Track my order":"میرا آرڈر ٹریک کریں","Back to restaurants":"ریستورانوں پر واپس"};
-function tr(){const u=L=='ur',h=document.documentElement;h.lang=u?'ur':'en';h.dir=u?'rtl':'ltr';const w=document.createTreeWalker(document.body,4);let n;while(n=w.nextNode()){const t=n.parentNode.tagName;if(t=='SCRIPT'||t=='STYLE')continue;const o=n._o==null?(n._o=n.nodeValue):n._o,k=o.trim(),v=u&&UR[k];n.nodeValue=v?o.replace(k,v):o}
-$('q').placeholder=u?UR['Search dishes or restaurants']:'Search dishes or restaurants';$('lg').textContent=u?'EN':'اردو'}
-function setL(){loadUr();L=L=='ur'?'en':'ur';LS.s('rk_l',L);tr()}
-const effT=()=>document.documentElement.dataset.theme||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
-function thl(){$('th').innerHTML=effT()=='light'?MOON:SUN}
-function setT(){const t=effT()=='light'?'dark':'light';document.documentElement.dataset.theme=t;LS.s('rk_th',t);thl()}
-{const t=LS.g('rk_th','');if(t)document.documentElement.dataset.theme=t}
+const esc=s=>String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function normNo(s){s=String(s||'').toUpperCase().replace(/\s+/g,'');const m=s.match(/^REK-?(\d{4})$/);return m?'REK-'+m[1]:s}
+function placeOrder(){
+  const name=$('cn').value.trim(),phone=$('cp').value.trim(),pin=$('pin').value.trim(),city=$('city').value.trim(),state=$('state').value.trim(),a=$('addr').value.trim(),lm=$('lm').value.trim();
+  if(!name||phone.replace(/\D/g,'').length<10||pin.length!==6||!city||!state||!a){alert('Please fill name, 10-digit mobile, pincode, city, state and address');return}
+  const c=calc(),address=a+(lm?', Landmark: '+lm:'')+', '+city+', '+state+' - '+pin,gm=$('gm').value.trim(),em=$('em').value.trim();
+  const items=cart.map(i=>i.n+' x'+i.q).join(', ')+(c.c?' | Coupon '+c.c:'')+(c.gift?' | FREE GIFT: Kahwa sachet':'')+(gm?' | Gift note: '+gm:'');
+  fetch('/api/create-order',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({lines:cart.map(i=>({id:i.id,sz:i.sz,q:i.q})),coupon:c.c,name,phone,address,items,email:em})})
+  .then(r=>r.json().then(b=>({ok:r.ok,b})))
+  .then(({ok,b})=>{
+    if(!ok||!b||!b.id||!b.amount){alert('Could not start payment. Please try again or contact us on WhatsApp.');return}
+    const no=b.receipt||b.id;
+    PAY={b,no,phone,name,em};
+    try{localStorage.setItem('rk_pending',JSON.stringify({no,phone,name,ts:Date.now()}))}catch(e){}
+    hide('chkov');$('ppno').textContent=no;$('prepay').classList.add('on');
+  }).catch(()=>alert('Something went wrong creating the order. Please try again.'));
+}
+let paidShown='';
+let PAY=null;
+function showWait(no){$('pwno').textContent=no;$('pwait').classList.add('on')}
+function startPay(){
+  const {b,no,phone,name,em}=PAY;hide('prepay');
+  const rzp=new Razorpay({key:b.key||'rzp_live_TjTHI6nlesU7e1',amount:b.amount,currency:'INR',name:'Riwaaz-e-Kashmir',description:'Order '+no,order_id:b.id,
+    handler:function(){paidDone(no,phone,name)},modal:{ondismiss:function(){if(paidShown!==no)showWait(no)}},
+    prefill:{name:name,contact:phone,email:em},theme:{color:'#c9a961'}});
+  rzp.open();watchPay(no,phone,name,rzp);
+}
+function paidDone(no,phone,name){
+  if(paidShown===no)return;paidShown=no;
+  try{localStorage.setItem('rk_last',JSON.stringify({no,phone}));localStorage.removeItem('rk_pending')}catch(e){}
+  hide('chkov');hide('cartov');hide('pwait');hide('prepay');$('okno').textContent=no;$('okwa').href='https://wa.me/919149480384?text='+encodeURIComponent('Hi, I placed order '+no+'. Name: '+(name||''));
+  $('okov').classList.add('on');party();cart=[];coupon=null;upd();['cn','cp','pin','city','state','addr','lm','em','gm'].forEach(i=>{if($(i))$(i).value=''});
+}
+// Confirms payment from our server, so the order is confirmed even if the payment window does not close by itself (for example after a UPI QR scan).
+function watchPay(no,phone,name,rzp){
+  let n=0;const t=setInterval(()=>{
+    n++;if(n>400||paidShown===no){clearInterval(t);return}
+    fetch('/api/track?no='+encodeURIComponent(no)+'&phone='+encodeURIComponent(phone)).then(r=>r.json()).then(d=>{
+      if(d&&d.paid){clearInterval(t);try{rzp&&rzp.close()}catch(e){}paidDone(no,phone,name)}
+    }).catch(()=>{});
+  },3000);
+}
+function resumePending(){try{const p=JSON.parse(localStorage.getItem('rk_pending')||'null');if(p&&p.no&&Date.now()-p.ts<45*60*1000){showWait(p.no);watchPay(p.no,p.phone,p.name,null)}else localStorage.removeItem('rk_pending')}catch(e){}}
+function openTrack(){let l={};try{l=JSON.parse(localStorage.getItem('rk_last')||'{}')}catch(e){}
+  $('tn').value=l.no||'';$('tp').value=l.phone||'';$('tres').innerHTML='';hide('okov');$('trov').classList.add('on')}
+function doTrack(){
+  const no=normNo($('tn').value),ph=$('tp').value.trim();if(!no||ph.replace(/\D/g,'').length<10){alert('Enter your order number and phone number');return}
+  $('tres').textContent='Checking...';
+  fetch('/api/track?no='+encodeURIComponent(no)+'&phone='+encodeURIComponent(ph)).then(r=>r.json()).then(d=>{
+    if(d.error){$('tres').innerHTML='<p style="color:var(--red)">'+esc(d.error)+'</p>';return}
+    const st=['Order placed','Confirmed','Packed','Shipped','Delivered'],k=Math.max(0,st.indexOf(d.status));
+    $('tres').innerHTML=(d.paid?'':'<p style="color:var(--red)">Payment not received yet for this order.</p>')+'<div class="tl">'+st.map((x,i)=>`<div class="${d.paid&&i<=k?'on':''}">${x}</div>`).join('')+'</div><p>'+esc(d.items)+'</p><p>Total: '+F(d.total)+'</p>'+(/^https?:/.test(d.trk)?`<a class="btn" style="margin-top:8px" href="${esc(d.trk)}" target="_blank">TRACK PARCEL</a>`:'');
+  }).catch(()=>{$('tres').textContent='Could not check right now. Please try again.'});
+}
+// Add approved reviews here: {p:'saffron',r:5,t:'Review text',n:'Name, City'}
+const REVIEWS=[];let star=5;
+const stars=n=>'&#9733;'.repeat(n)+'<span style="opacity:.25">'+'&#9733;'.repeat(5-n)+'</span>';
+const fdate=t=>t?new Date(t).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}):'';
+const revHtml=(r,w)=>`<div class="rv"${w?' style="width:auto;margin-bottom:8px"':''}><div class="stars">${stars(r.r)}<span class="rvd">${fdate(r.d)}</span></div>${esc(r.t)}${r.np&&r.id?`<div class="rvp">${[1,2].slice(0,r.np).map(n=>`<img loading="lazy" src="/api/rphoto?id=${encodeURIComponent(r.id)}&n=${n}" alt="Customer photo" onclick="zl(this)">`).join('')}</div>`:''}<small>${esc(r.n)}${r.c?', '+esc(r.c):''}${r.v?' <span class="vb">&#10003; Verified buyer</span>':''}</small></div>`;
+const avgOf=id=>{const a=REVIEWS.filter(r=>r.p===id);return a.length?{n:a.length,a:(a.reduce((s,r)=>s+r.r,0)/a.length).toFixed(1)}:null};
+const ratingLine=(id,big)=>{const a=avgOf(id),fs=big?13:11;return a?`<div style="font-size:${fs}px;color:var(--gold)">&#9733; ${a.a} <span style="color:var(--mute)">(${a.n} review${a.n>1?'s':''})</span></div>`:`<div style="font-size:${fs}px;color:var(--mute)">&#9734; Be the first to review</div>`};
+function renderReviews(){
+  $('vs').innerHTML=REVIEWS.length?REVIEWS.map(r=>revHtml(r)).join(''):'<div class="rv"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>Tried our saffron, kahwa or walnuts? Share why you love it and your words will appear here after approval.<small>Riwaaz-e-Kashmir</small></div>';
+}
+function setStar(n){star=n;[...$('stp').children].forEach((s,i)=>s.classList.toggle('on',i<n))}
+let rpics=[];
+function pickPics(inp){
+  const fs=[...inp.files].slice(0,2);rpics=[];$('rpv').innerHTML='';
+  fs.forEach(f=>{const im=new Image();im.onload=()=>{const m=900,k=Math.min(1,m/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);c.getContext('2d').drawImage(im,0,0,c.width,c.height);let q=.75,d=c.toDataURL('image/jpeg',q);while(d.length>230000&&q>.35){q-=.1;d=c.toDataURL('image/jpeg',q)}rpics.push(d);const t=document.createElement('img');t.src=d;t.style.cssText='width:64px;height:64px;object-fit:cover;border-radius:8px';$('rpv').appendChild(t);URL.revokeObjectURL(im.src)};im.onerror=()=>alert('Could not read that photo');im.src=URL.createObjectURL(f)});
+}
+function openReview(id){rpics=[];$('rpv').innerHTML='';$('rpf').value='';
+  $('rp').innerHTML=P.map(p=>`<option value="${p.id}" ${p.id===id?'selected':''}>${p.n.split(' (')[0]}</option>`).join('');
+  setStar(5);[...$('chp').children].forEach(c=>c.classList.remove('on'));$('rvov').classList.add('on');
+}
+function reviewWA(b){window.open('https://wa.me/919149480384?text='+encodeURIComponent('Review for '+(P.find(x=>x.id===b.p)||{n:''}).n+'\nRating: '+b.r+'/5\n'+b.t+'\n- '+b.n),'_blank');hide('rvov')}
+function sendReview(){
+  const t=$('rt').value.trim(),n=$('rn').value.trim();if(t.length<5||!n){alert('Please add your review and name');return}
+  const tags=[...$('chp').children].filter(c=>c.classList.contains('on')).map(c=>c.innerText).join(', ');
+  const b={p:$('rp').value,r:star,t:(tags?'['+tags+'] ':'')+t,n,c:$('rc').value.trim(),no:$('rno').value.trim(),ph:$('rph').value.trim(),hp:$('rhp').value,pics:rpics};
+  fetch('/api/review',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(b)}).then(r=>r.json().then(d=>({ok:r.ok,d}))).then(({ok,d})=>{
+    if(ok){hide('rvov');rpics=[];$('rpv').innerHTML='';['rt','rn','rc','rno','rph'].forEach(i=>$(i).value='');alert('Thank you! Your review will appear on the site after our team approves it.')}
+    else if(d&&d.fallback)reviewWA(b);else alert((d&&d.error)||'Could not send your review. Please try again.');
+  }).catch(()=>reviewWA(b));
+}
+renderReviews();
 
-/* ══════ HERO (real photos / your video) ══════ */
-const RM=matchMedia('(prefers-reduced-motion:reduce)');
-/* Drop short muted MP4s (under 3 MB each) into /video/ and list them here: chef grilling tujj, kandur bread, burger flip, pizza oven, trami, rider handing over a bag. */
-const HERO={videos:[],photos:[]};
-function fb(i){if(i.dataset.fb){const u=i.dataset.fb;i.dataset.fb='';i.src=u}else i.remove()}
-function vNext(v){const l=HERO.videos;v._i=((v._i||0)+1)%l.length;v.src=l[v._i];v.play()}
-function hero(){const vid=!RM.matches&&!(navigator.connection&&navigator.connection.saveData);
-return `<section class="hero"><div class="hm" aria-hidden="true"><img class="hp" src="/images/food/hero-1.webp" alt="" width="854" height="480" fetchpriority="high">${vid?`<video src="/images/food/hero.mp4" poster="/images/food/hero-1.webp" autoplay muted loop playsinline preload="metadata" onerror="this.remove()"></video>`:''}</div><div class="hov"></div>
-<div class="hx"><div class="wm"><svg class="lf" viewBox="0 0 24 24" aria-hidden="true"><use href="#lf"/></svg>RIWAAZ-E-KASHMIR</div><h1>Where Taste<br>Meets Art.</h1><p>Made by Kashmiris, for Kashmiris.</p><div class="cta"><button class="btn a" onclick="$('res').scrollIntoView({behavior:'smooth'})">Explore food →</button><button class="btn" onclick="$('res').scrollIntoView({behavior:'smooth'})">View restaurants</button></div></div></section>
-<div class="pp2"><b>Menu price = restaurant price</b><span>No inflated menu prices. Just honest restaurant pricing.</span><em>${M(CFG.fee)} delivery under ${M(CFG.free)} · Free delivery from ${M(CFG.free)}</em></div>`}
-function crvRow(){return `<div class="ro qc" id="qc" dir="ltr">${CFG.crv.map(i=>`<button class="cr ${cu==i[1]?'sel':''}" data-c="${i[1]}" onclick="setCu('${i[1]}')"><span class="c"><img loading="lazy" decoding="async" width="92" height="92" alt="" src="/images/food/cat-${i[3]}.webp" onerror="this.remove()"></span>${i[0]}</button>`).join('')}</div>`}
-const TASTE=[['Traditional Wazwan','The royal multi-course feast','wazwan',"tk('cu','Wazwan')"],['Kashmiri Tujj','Charcoal-grilled skewers','tujj',"tk('cu','Kebabs and BBQ')"],['Harissa','A slow-cooked winter classic','harissa',"tk('q','harissa')"],['Rogan Josh','Slow-cooked in Kashmiri chillies','roganjosh',"tk('q','rogan')"],['Kandur breads','Fresh from the clay oven','kandur',"tk('cu','Kandur Bakery')"],['Noon Chai','Pink salted tea','noonchai',"tk('cu','Kehwa and Tea')"],['Kahwa','Saffron and almond tea','kahwa',"tk('cu','Kehwa and Tea')"]];
-function tasteGrid(){return `<div class="tk">${TASTE.map(t=>`<button class="tkc" style="${pal(t[2])}" onclick="${t[3]}"><img loading="lazy" width="320" height="240" alt="" src="/images/food/taste-${t[2]}.webp" onerror="fb(this)"><span>${t[0]}<small>${t[1]}</small></span></button>`).join('')}</div>`}
-function tk(t,v){if(t=='q'){cu='All';$('q').value=v}else{cu=v;$('q').value=''}rr();$('res').scrollIntoView({behavior:'smooth'})}
+const SHAWLS=[
+{n:'Midnight Floral Paisley',i:['hero-shawl','shawl-1','shawl-2','shawl-3'],d:'Dark base with multicolour floral paisley and a rich woven border.'},
+{n:'Black Copper & Silver Embroidery',i:['blk-1','blk-2','blk-3','blk-4'],d:'Black shawl with intricate copper and silver embroidered medallions.'},
+{n:'Navy Paisley',i:['navy-1','navy-2'],d:'Deep navy with colourful paisley and a patterned border.'},
+{n:'Ivory Floral Embroidery',i:['ivf-1'],d:'Soft ivory shawl with delicate multicolour floral embroidery.'},
+{n:'Ivory & Gold Paisley',i:['ivg-1'],d:'Ivory shawl with golden paisley border work.'}];
 
-/* ══════ DRAW ══════ */
-function go(v,id){clearInterval(tm);cancelAnimationFrame(raf);if(v=='home'||v=='din')src=v;if(v=='rest'&&id)rtab=src=='din'?'Overview':'Menu';V=v;if(id)cr=id=='x'?cr:id;window.scrollTo(0,0);draw()}
-function draw(){if(V=='din'&&!D.dining)V='home';document.querySelector('.sr').style.display=V=='home'||V=='din'?'':'none';
-$('tb').innerHTML=[['home','Delivery'],['din','Dining Out'],['wed','Weddings']].filter(t=>t[0]!='din'||D.dining).map(t=>`<button class="${(V==t[0]||(V=='rest'&&src==t[0]))?'on':''}" onclick="go('${t[0]}')">${t[1]}</button>`).join('');
-({home:vHome,din:vDin,wed:vWed,rest:vRest,cart:vCart,done:vDone,track:vTrack})[V]();bar();tr();thl();$('ft').style.display=CFG.sample?'':'none'}
-function bar(){const n=cnt();$('bar').style.display=n&&!['cart','track','done'].includes(V)?'flex':'none';$('bc').textContent=n+(n>1?' items · ':' item · ')+M(sub())}
-function rr(){const e=$('res');if(e&&(V=='home'||V=='din')){e.innerHTML=V=='home'?resHome():resDin();document.querySelectorAll('.cr').forEach(c=>c.classList.toggle('sel',c.dataset.c==cu));tr()}else draw()}
-function onq(){rr()}
-function srch(l){const q=($('q').value||'').toLowerCase().trim();return q?l.filter(r=>(r.n+r.t.join()+r.a+r.d.map(d=>d[0]).join()).toLowerCase().includes(q)):l}
-function cat(c){return CFG.icons.find(i=>i[0]==c)}
-function mt(r,c){if(c=='All')return 1;const k=cat(c);return k?(r.t.some(t=>k[2].includes(t))||r.d.some(d=>k[1].some(w=>d[0].toLowerCase().includes(w)))):r.t.includes(c)}
-function dm(c){const k=cat(c),o=[];if(!k||c=='All')return o;CFG.R.forEach(r=>r.open&&r.d.forEach((d,i)=>{if(!d[4]&&k[1].some(w=>d[0].toLowerCase().includes(w)))o.push([r,d,i])}));return o.slice(0,8)}
-function bf(r){const p=r.p/2,b=BUD[bi];return p>=b[1]&&p<=b[2]}
-function card(r,m){const dl=m!='din',op=dl&&r.open?offerOf(r):null,b1=op?ofTxt(op):'',tb=r.tg.includes('Heritage')?'✦ Heritage':(r.tg[0]||r.t[0]||'');
-return `<div class="rc ${r.open?'':'cl'}" onclick="go('rest','${r.id}')">${p2(r.id,r.e,(b1?`<span class="bd ${op.freeDel?'fd':''}">${esc(b1)}</span>`:'')+(tb?`<span class="tgb">${esc(tb)}</span>`:'')+(CFG.showRatings?`<b class="rat">${r.r} ★</b>`:''))}<div class="in"><button class="hr" aria-label="Favourite" onclick="event.stopPropagation();fv('${r.id}')">${fav.includes(r.id)?'♥':'♡'}</button><h3>${esc(r.n)}</h3><p>${esc(r.tags||r.t.join(', '))}${r.a?' · '+esc(r.a):''}</p><p>${r.p?`<b style="color:var(--gd);font-weight:500">${M(Math.round(r.p/2))} for one</b> · ${M(r.p)} for two`:''}${dl?(r.p?' · ':'')+esc(r.eta)+' min':''}</p><p style="color:var(--gd)">${dl?'Menu price = restaurant price · '+M(CFG.fee)+' delivery'+(CFG.free?', free over '+M(CFG.free):''):(r.dn?'Table reservations open':'Delivery only')}${r.open?'':' · Closed now'}</p></div></div>`}
-function mini(r){return `<div class="col" style="width:170px" onclick="go('rest','${r.id}')"><span>${ph(r.n+' '+(r.t||[]).join(' '))}</span><b>${esc(r.n)}</b><small>${r.eta} min</small></div>`}
-
-/* HOME */
-function vHome(){const lastO=ords.map((o,i)=>[o,i]).filter(([o])=>R(o.r)).slice(0,3),fr=CFG.R.filter(r=>fav.includes(r.id)),pk=CFG.R.filter(r=>r.open).map(r=>[r,r.d.findIndex(d=>!d[4])]).filter(x=>x[1]>=0).slice(0,6);
-$('app').innerHTML=`${D.paused?'<div class="note" style="margin-top:12px"><b>Ordering is paused for a short while.</b> Please call us to order.</div>':''}${hero()}
-${lastO.length?`<div class="h2">Order again</div><div class="ro">${lastO.map(([o,i])=>`<div class="col" style="width:200px;cursor:default"><b>${esc(R(o.r).n)}</b><small style="display:block;margin:4px 0 10px">${esc(o.s)}<br>${M(o.t)}</small><button class="btn a" onclick="reord(${i})">Reorder</button></div>`).join('')}</div>`:''}
-${fr.length?`<div class="h2">Your favourites</div><div class="ro">${fr.map(mini).join('')}</div>`:''}
-<div class="h2">Quick cravings</div>${crvRow()}
-${pk.length?`<div class="h2">Picks from our kitchens</div><div class="ro">${pk.map(([r,i])=>{const d=r.d[i];return `<div class="pk"><span class="e">${ph(d[0])}</span><b>${esc(d[0])}</b><small>${esc(r.n)}</small><div><i>${M(d[1])}</i><button class="btn" onclick="ch(${i},1,'${r.id}')">ADD +</button></div></div>`}).join('')}</div>`:''}
-<div class="h2">The Taste of Kashmir</div>${tasteGrid()}
-<div class="h2">All restaurants</div><div id="res">${resHome()}</div>`}
-function setCu(c){cu=cu==c?'All':c;rr()}
-function resHome(){if(!CFG.R.length)return `<div class="note"><b>Our kitchens are joining.</b><br>We are bringing Srinagar's best kitchens here, one by one. Ordering opens very soon.</div><a class="btn a w100" style="text-decoration:none" href="tel:${CFG.call.replace(/[^+\d]/g,'')}">Call ${CFG.call}</a><a class="btn w100" style="text-decoration:none" target="_blank" rel="noopener" href="https://wa.me/${CFG.wa}?text=${encodeURIComponent('Hello Riwaaz-e-Kashmir, please tell me when food ordering opens.')}">WhatsApp us</a>`;
-let l=srch(CFG.R.filter(r=>mt(r,cu)&&bf(r)));const dd=dm(cu);
-return `<div class="chips">${CFG.cuis.map(c=>`<button class="chip ${c==cu?'on':''}" onclick="cu='${c}';rr()">${c=='Kandur Bakery'?'Kandur Bakery & Sheermal':c=='Sweets and Kahwa'?'Noon Chai & Kehwa':c}</button>`).join('')}</div>
-<div class="chips"><span class="bl">Budget</span>${BUD.map((b,i)=>`<button class="chip ${i==bi?'on':''}" onclick="bi=${i};rr()">${b[0]}</button>`).join('')}</div>
-<div style="height:12px"></div>${l.length?`<div class="gr">${l.map(r=>card(r,'del')).join('')}</div>`:'<div class="note">Nothing found. Try another search or filter, or call us to order.</div>'}
-${dd.length?`<div class="h2">Matching dishes</div><div class="gr">${dd.map(([r,d,i])=>`<div class="dish"><div class="e">${ph(d[0])}</div><div class="t"><b>${esc(d[0])}</b><small>${esc(r.n)} · ${M(d[1])}</small></div><button class="btn" onclick="ch(${i},1,'${r.id}')">ADD +</button></div>`).join('')}</div>`:''}`}
-function reord(i){const o=ords[i],r=o&&R(o.r);if(!r)return toast('That restaurant is not available now.');cart={};PRM=null;cr=o.r;let n=0;(o.i||[]).forEach(([id,q])=>{const k=r.d.findIndex(x=>x[7]===id);if(k>=0&&!r.d[k][4]){cart[o.r+'|'+k]=q;n++}});if(!n){cr=null;return toast('Those items are not available right now.')}toast('Items added from your last order');go('cart')}
-
-/* DINING */
-function vDin(){$('app').innerHTML=`<div class="band"><h1>Dine out in Srinagar.</h1><p>Reserve a table at lake views, romantic spots and family favourites.</p><button class="btn" style="margin-top:12px" onclick="scan()">📷 Scan table QR</button></div>
-<div class="ro" style="margin-top:8px">${CFG.col.map(c=>`<button class="col" onclick="tg='${c[2]}';rr()"><span>${c[1]}</span><b>${c[0]}</b></button>`).join('')}</div><div id="res">${resDin()}</div>`}
-function resDin(){const l=srch(CFG.R.filter(r=>r.dn&&(tg=='All'||r.tg.includes(tg))));
-return `<div class="chips">${['All','Lake view','Romantic','Family','Heritage'].map(c=>`<button class="chip ${c==tg?'on':''}" onclick="tg='${c}';rr()">${c}</button>`).join('')}</div>${l.length?`<div class="gr">${l.map(r=>card(r,'din')).join('')}</div>`:'<div class="note">No match yet. Try another filter.</div>'}`}
-function scan(){const o=document.createElement('div');o.id='sc';o.className='scn2';o.innerHTML='<video id="sv" playsinline muted></video><p>Point at the QR code on your table</p><button class="btn a" onclick="scx()">Close</button>';document.body.appendChild(o);
-if(!(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia)){scx();toast('Scanning is not supported on this browser.');return}
-navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'}}).then(m=>{strm=m;const v=$('sv');v.srcObject=m;v.play();lib(lp)}).catch(()=>{scx();toast('Allow camera access to scan.')})}
-function lib(f){if(window.jsQR)return f();const c=document.createElement('script');c.src='https://cdnjs.cloudflare.com/ajax/libs/jsQR/1.4.0/jsQR.min.js';c.onload=f;c.onerror=()=>{scx();toast('Scanner could not load. Check your connection.')};document.head.appendChild(c)}
-function lp(){const c=document.createElement('canvas'),x=c.getContext('2d');(function t(){const v=$('sv');if(!v)return;if(v.readyState>=2){c.width=v.videoWidth;c.height=v.videoHeight;x.drawImage(v,0,0);const d=x.getImageData(0,0,c.width,c.height),k=jsQR(d.data,d.width,d.height);if(k&&k.data){scx();got(k.data);return}}sraf=requestAnimationFrame(t)})()}
-function scx(){cancelAnimationFrame(sraf);if(strm){strm.getTracks().forEach(t=>t.stop());strm=null}const o=$('sc');if(o)o.remove()}
-function got(t){const m=/^RK:TABLE:([a-z0-9]+):(\d+)$/.exec(t);if(m&&R(m[1])){toast('Table '+m[2]+' at '+R(m[1]).n);src='din';cr=m[1];rtab='Overview';V='rest';draw()}else toast('This QR code is not recognised.')}
-
-/* WEDDINGS + request sheet */
-function vWed(){$('app').innerHTML=`<div class="band"><h1>Wedding Wazwan, done right.</h1><p>Tell us your date and guests. We will call with a menu and price.</p></div>
-<div class="gr" style="margin-top:14px">${CFG.wp.map(w=>`<div class="rc" style="cursor:default"><div class="in"><h3>${w[0]}</h3><p style="color:var(--gd)">${w[1]}</p><p>${w[2]}</p>${CFG.sample?'<p style="font-size:11px;border:1px dashed var(--gd);display:inline-block;padding:0 7px;border-radius:10px;margin-top:6px;color:var(--gd)">SAMPLE PRICE</p>':''}</div></div>`).join('')}</div>
-<div class="fm"><h3 style="font-size:26px;margin-top:10px">Wedding enquiry</h3>${fld('wn','Your name','text')}${fld('wp','Phone','tel','inputmode="numeric"')}${fld('wd','Event date','date')}${fld('wg','Number of guests','number','min="10"')}${fld('wm','Menu','sel',['Wazwan','Mixed','Veg'])}${fld('wa','Area','text')}${fld('wb','Budget range','sel',['Under ₹1 lakh','₹1–3 lakh','₹3–6 lakh','₹6 lakh and above'])}
-<p class="er" id="er-w"></p><button class="btn a w100" onclick="snd('w',['wn','wp','wd','wg','wa'],'Wedding enquiry',()=>'Wedding enquiry – Riwaaz-e-Kashmir\\nName: '+$('wn').value+'\\nPhone: '+$('wp').value+'\\nDate: '+$('wd').value+'\\nGuests: '+$('wg').value+'\\nMenu: '+$('wm').value+'\\nArea: '+$('wa').value+'\\nBudget: '+$('wb').value)">Send enquiry</button></div>`}
-function snd(k,ids,title,build){let bad='';ids.forEach(i=>{if(!$(i).value.trim())bad='Please fill every field.'});if(!bad&&$(ids[1]).value.replace(/\D/g,'').slice(-10).length!=10)bad='Enter a valid 10-digit phone number.';$('er-'+k).textContent=bad;if(bad)return;
-MSG=build();sheet(`<div class="shh"><h3 style="font-size:26px">${title} ready</h3><button class="bk" onclick="closeS()" aria-label="Close">✕</button></div><p style="color:var(--mu);margin:6px 0 0;font-size:14.5px">Send it on WhatsApp and we will confirm by call.</p><pre class="msg">${esc(MSG)}</pre><button class="btn a w100" onclick="send(MSG)">Send on WhatsApp</button><button class="btn w100" onclick="cp(MSG)">Copy message</button>`)}
-
-/* RESTAURANT */
-function vRest(){const r=R(cr),q=k=>cart[cr+'|'+k]||0;
-const T=['Menu','Overview','Reviews','Photos'].map(x=>`<button class="chip ${x==rtab?'on':''}" onclick="rtab='${x}';draw()">${x}</button>`).join('');let b='';
-if(rtab=='Overview')b=`<div class="ad"><b>Address</b> ${esc(r.a)}, Srinagar<br>${r.h?'<b>Timings</b> '+esc(r.h)+'<br>':''}${r.p?'<b>Average cost</b> '+M(r.p)+' for two<br>':''}<b>Contact</b> <a href="tel:${CFG.call.replace(/[^+\d]/g,'')}" style="color:var(--gd)">${CFG.call}</a></div>`+(r.dn?`<div class="fm"><h3 style="font-size:26px;margin-top:10px">Reserve a table</h3>${fld('rn','Your name','text')}${fld('rp','Phone','tel','inputmode="numeric"')}${fld('rd','Date','date')}${fld('rm','Time','time')}${fld('rg','Guests','number','min="1" max="30"')}${fld('ro','Occasion','sel',CFG.occ)}<p class="er" id="er-r"></p><button class="btn a w100" onclick="snd('r',['rn','rp','rd','rm','rg'],'Table request',()=>'Table request – Riwaaz-e-Kashmir\\nRestaurant: '+R(cr).n+'\\nName: '+$('rn').value+'\\nPhone: '+$('rp').value+'\\nDate: '+$('rd').value+'\\nTime: '+$('rm').value+'\\nGuests: '+$('rg').value+'\\nOccasion: '+$('ro').value)">Request a table</button></div>`:'<div class="note">This restaurant is delivery only.</div>');
-else if(rtab=='Reviews')b=`<div class="fm">${CFG.showRatings?`<span class="h2" style="color:var(--gd);margin:8px 0 0">★ ${r.r}</span>`:''}<p style="color:var(--mu);margin:4px 0 0">${CFG.showRatings&&CFG.sample?'Sample rating. ':''}Only people who ordered can leave a review, so ratings stay honest. Reviews open when ordering goes live.</p></div>`;
-else if(rtab=='Photos')b=`<div class="pg">${['🍽️','🍖','🍵','🥘','🏞️','🥐'].map(x=>`<div>${x}</div>`).join('')}</div><div class="note">Real photos will be added here.</div>`;
-else b=(r.open?`<div class="note">${(()=>{const p=offerOf(r);return (p?'<b style="color:var(--gd)">'+esc(ofTxt(p))+'</b>'+(p.min?' on orders above '+M(p.min)+'. ':'. '):'')+(CFG.free?'Free delivery above '+M(CFG.free)+'.':'One flat delivery fee.')})()}</div>`:'<div class="note">Closed right now.</div>')+r.d.map((d,k)=>`<div class="dish"><div class="e">${ph(d[0])}</div><div class="t" style="cursor:pointer" onclick="openD('${r.id}',${k})"><b>${esc(d[0])}</b><small>${M(d[1])}${d[4]?' · Sold out':''} · <span style="color:var(--gd)">Details ›</span></small></div>${!r.open||d[4]?'':q(k)?`<span class="st"><button onclick="ch(${k},-1)" aria-label="Remove one">−</button><span>${q(k)}</span><button onclick="ch(${k},1)" aria-label="Add one">+</button></span>`:`<button class="btn" onclick="ch(${k},1)">ADD +</button>`}</div>`).join('');
-$('app').innerHTML=`<button class="bk" onclick="go('${src}')">‹ Back</button>${p2(r.id,r.e,`<button class="hr" style="top:8px;right:8px;background:rgba(0,0,0,.5);border-radius:50%;color:#f3cf7e" aria-label="Favourite" onclick="fv('${r.id}')">${fav.includes(r.id)?'♥':'♡'}</button>`,'160')}<h2 style="font-size:32px;margin-top:12px">${esc(r.n)}</h2><p style="color:var(--mu);margin:2px 0">${CFG.showRatings?'★ '+r.r+' · ':''}${esc(r.tags||r.t.join(', '))} · ${esc(r.a)}</p><div class="chips">${T}</div>${b}`}
-function openD(rid,k){dq=[rid,k];rD()}
-function dset(rid,k,n){if(cnt()&&Object.keys(cart)[0].split('|')[0]!=rid){cart={};PRM=null;toast('Cart cleared. One restaurant per order.')}cr=rid;const key=rid+'|'+k;if(n<=0)delete cart[key];else cart[key]=n;if(!cnt())PRM=null;if(PRM)applyP(PRM.code,1);rD();draw()}
-function rD(){if(!dq)return;const[rid,k]=dq,r=R(rid),d=r.d[k],q=cart[rid+'|'+k]||0,sv=d[6]||(d[1]>=600?4:d[1]>=300?2:1),can=r.open&&!d[4];
-sheet(`<div style="display:flex;gap:14px;align-items:center"><div class="dish" style="border:0;padding:0"><div class="e" style="width:64px;height:64px;font-size:32px">${ph(d[0])}</div></div><div style="flex:1"><h3 style="font-size:26px">${esc(d[0])}</h3><div style="color:var(--gd)">${M(d[1])} · ${esc(r.n)}</div></div><button class="bk" onclick="closeS()" aria-label="Close">✕</button></div>
-<p style="color:var(--mu);margin:12px 0 4px">${d[5]?esc(d[5]):'Freshly prepared and packed by '+esc(r.n)+'.'}</p><p style="margin:0;font-size:14px"><b style="color:var(--gd);font-weight:500">Portion:</b> serves ${sv}${sv>1?' people':' person'}</p>
-${can?`<p style="margin:12px 0 0;font-size:13.5px;color:var(--mu)">How many are eating?</p><div class="pp">${[1,2,4,6].map(n=>`<button class="chip ${q==Math.ceil(n/sv)?'on':''}" onclick="dset('${rid}',${k},${Math.ceil(n/sv)})">${n} ${n>1?'people':'person'} · ${Math.ceil(n/sv)}×</button>`).join('')}</div>
-<div style="display:flex;gap:10px;align-items:center"><span class="st"><button onclick="dset('${rid}',${k},${Math.max(0,q-1)})" aria-label="Remove one">−</button><span>${q}</span><button onclick="dset('${rid}',${k},${q+1})" aria-label="Add one">+</button></span><button class="btn a" style="flex:1;min-height:48px" onclick="${q?'closeS()':`dset('${rid}',${k},1)`}">${q?'Done · '+M(d[1]*q):'Add to cart · '+M(d[1])}</button></div>`:`<div class="note">${d[4]?'Sold out right now.':'Restaurant is closed right now.'}</div>`}`)}
-function ch(k,n,r){r=r||cr;if(cnt()&&Object.keys(cart)[0].split('|')[0]!=r){cart={};PRM=null;toast('Cart cleared. One restaurant per order.')}cr=r;const key=r+'|'+k;cart[key]=(cart[key]||0)+n;if(cart[key]<=0)delete cart[key];if(!cnt())PRM=null;if(PRM)applyP(PRM.code,1);
-if(V=='rest'||V=='cart')draw();else{bar();if(n>0)toast('Added · '+R(r).d[k][0])}}
-
-/* CART + ORDER */
-function vCart(){const s=sub();if(!cnt()){$('app').innerHTML='<button class="bk" onclick="go(\'home\')">‹ Back</button><div class="note">Your cart is empty.</div>';return}
-const r=R(cr),[d,dl]=disc(s),fee=dfee(s),t=s-d+fee,left=CFG.free?Math.max(0,CFG.free-s):0,sv=LS.g('rk_me',{}),ad=r.d.map((x,k)=>[x,k]).filter(([x,k])=>x[3]&&!x[4]&&!cart[cr+'|'+k]).slice(0,3),adr=LS.g('rk_addr',[]),zs=LS.g('rk_zone','');
-$('app').innerHTML=`<button class="bk" onclick="go('rest','${cr}')">‹ ${esc(r.n)}</button><h2 style="font-size:32px">Your cart</h2>
-${Object.keys(cart).map(key=>{const j=key.split('|')[1],x=r.d[j];return `<div class="dish"><div class="e">${ph(x[0])}</div><div class="t"><b>${esc(x[0])}</b><small>${M(x[1]*cart[key])}</small></div><span class="st"><button onclick="ch(${j},-1)" aria-label="Remove one">−</button><span>${cart[key]}</span><button onclick="ch(${j},1)" aria-label="Add one">+</button></span></div>`}).join('')}
-${CFG.free||!fee?`<div style="margin:14px 0 4px;font-size:14px">${fee?`Add ${M(left)} more for <b style="color:var(--gd)">free delivery</b>`:'<b style="color:var(--gd)">You have free delivery</b>'}</div><div class="pb"><i style="width:${CFG.free?Math.min(100,s/CFG.free*100):100}%"></i></div>`:''}
-${ad.length?`<p style="margin:16px 0 4px;color:var(--mu);font-size:14px">Add to your order</p>${ad.map(([x,k])=>`<div class="dish"><div class="e">${ph(x[0])}</div><div class="t"><b>${esc(x[0])}</b><small>${M(x[1])}</small></div><button class="btn" onclick="ch(${k},1)">Add</button></div>`).join('')}`:''}
-<div class="bill" style="margin-top:16px"><div><span>Items</span><span>${M(s)}</span></div>${d?`<div style="color:var(--ok)"><span>${esc(dl)}</span><span>−${M(d)}</span></div>`:''}<div><span>Delivery (flat)</span><span>${fee?M(fee):'Free'}</span></div><div class="tt"><span>Total</span><span>${d?`<s style="color:var(--mu);font-size:14px;margin-right:8px;font-weight:400">${M(s+(CFG.free&&s>=CFG.free?0:CFG.fee))}</s>`:''}${M(t)}</span></div></div>
-<div class="dt" style="margin-top:12px"><div style="display:flex;gap:8px"><input id="pcd" placeholder="Promo code" maxlength="20" value="${esc(PRM?PRM.code:'')}" style="text-transform:uppercase;flex:1"><button class="btn a" style="flex:none;margin-top:8px" onclick="applyP()">${PRM?'Remove':'Apply'}</button></div><p class="er" id="pce"></p></div>${d?`<div class="pc">${esc(PRM.code)} applied · You saved ${M(d)}</div>`:''}
-<div class="note">Menu price = restaurant price. No handling or platform charges.</div>
-<div class="pay2"><label><input type="radio" name="py" value="cod" checked> Cash on delivery</label><label><input type="radio" name="py" value="upi"> UPI to the rider</label></div>
-<div class="dt"><input id="cn" placeholder="Your name" autocomplete="name" value="${esc(sv.n||'')}"><input id="cp" placeholder="10-digit mobile number" inputmode="numeric" autocomplete="tel" maxlength="10" oninput="this.value=this.value.replace(/\\D/g,'')" value="${esc(sv.p||'')}"><select id="cz" aria-label="Your area">${D.loc.map(l=>`<option ${l===zs?'selected':''}>${esc(l)}</option>`).join('')}</select><input id="ca" placeholder="Delivery address and landmark" autocomplete="street-address" value="${esc(sv.a||adr[0]||'')}">${adr.length?`<div class="addr">${adr.map((a,i)=>`<button class="chip" onclick="$('ca').value=LS.g('rk_addr',[])[${i}]">${esc(a)}</button>`).join('')}</div>`:''}<input id="cx" placeholder="Note for the kitchen (optional)" maxlength="140"><input class="hp" id="hp" tabindex="-1" autocomplete="off" aria-hidden="true"><p class="er" id="er"></p></div>
-<button class="btn a w100" id="pb" onclick="place()">Place order · ${M(t)}</button>`}
-function det(){const n=$('cn').value.trim(),p=$('cp').value.replace(/\D/g,'').slice(-10),a=$('ca').value.trim();let b='';if(!n||n.length<2||!a)b='Please enter your name and delivery address.';else if(a.length<8)b='Please enter your full delivery address.';else if(p.length!=10)b='Enter a valid 10-digit mobile number.';$('er').textContent=b;if(b)return null;LS.s('rk_me',{n,p,a});LS.s('rk_zone',$('cz').value);const ad=LS.g('rk_addr',[]);if(!ad.includes(a))LS.s('rk_addr',[a].concat(ad).slice(0,5));return{n,p,a,x:$('cx').value.trim(),z:$('cz').value}}
-async function applyP(code,silent){if(!code&&PRM){PRM=null;return draw()}const c=(code||($('pcd')&&$('pcd').value)||'').trim().toUpperCase();if(!c)return;
-try{const r=await fetch('/api/food/promo',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({code:c,sub:sub(),rid:cr,phone:LS.g('rk_me',{}).p||''})}),j=await r.json();if(!r.ok)throw new Error(j.error||'This code is not valid.');PRM={code:j.code,disc:j.disc||0,freeDel:!!j.freeDel};if(V=='cart')draw();if(!silent)toast('Code applied')}
-catch(e){PRM=null;if(V=='cart'){draw();const el=$('pce');if(el)el.textContent=e.message||'Could not check the code. Try again.'}}}
-async function place(){if(placing)return;const d=det();if(!d)return;const rid=cr,r=R(rid),b=$('pb'),s=sub(),t0=s-disc(s)[0]+dfee(s);if(!r.open)return toast('This kitchen is closed right now.');
-placing=1;b.disabled=true;b.textContent='Placing your order…';
-const keys=Object.keys(cart),items=keys.map(k=>({d:r.d[+k.split('|')[1]][7],q:cart[k]})),sm=keys.map(k=>cart[k]+' × '+r.d[+k.split('|')[1]][0]).join(', '),pay=(document.querySelector('[name=py]:checked')||{}).value||'cod';
-try{const res=await fetch('/api/food/order',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:d.n,phone:d.p,address:d.a,zone:d.z,rid,items,pay,promo:PRM?PRM.code:'',note:d.x,hp:$('hp').value})}),j=await res.json();
-if(!res.ok||!j.ok)throw new Error(j.error||'We could not place your order. Please try again or call us.');
-const ord={id:j.id,r:rid,i:items.map(x=>[x.d,x.q]),s:sm,t:j.total==null?t0:j.total,ts:Date.now(),phone:d.p,pay};ords.unshift(ord);ords=ords.slice(0,10);LS.s('rk_ord',ords);LS.s('rk_last',{id:j.id,phone:d.p});doneO=ord;cart={};PRM=null;placing=0;go('done')}
-catch(e){placing=0;b.disabled=false;b.textContent='Place order · '+M(t0);toast(e.message==='Failed to fetch'?'No internet. Please try again.':e.message)}}
-function vDone(){const o=doneO;if(!o){go('home');return}
-$('app').innerHTML=`<div class="band" style="text-align:center"><h1>Order received</h1><p>Order <b>${esc(o.id)}</b> · ${M(o.t)}</p></div><div class="note">${esc(R(o.r)?R(o.r).n:'The kitchen')} has your order. ${o.pay=='upi'?'Pay by UPI to the rider when your food arrives.':'Keep '+M(o.t)+' ready for the rider.'} Save your order number to track it.</div><button class="btn a w100" onclick="trk=0;go('track')">Track my order</button><button class="bk" style="width:100%" onclick="go('home')">Back to restaurants</button>`}
-
-/* TRACKING (live) */
-const ST=['Order placed','Preparing your food','Picked up by your rider','On the road','Delivered. Enjoy your meal'],F=[0,0,.12,.6,1],ETA=['35 min','28 min','18 min','7 min','Arrived'];let f0=0,raf,tm;
-function trackForm(){$('app').innerHTML=`<button class="bk" onclick="go('home')">‹ Back</button><h2 style="font-size:34px">Track your order</h2><div class="dt"><input id="ti" placeholder="Order number, like MK261029-A3F9" maxlength="16" style="text-transform:uppercase"><input id="tp" placeholder="Phone number you ordered with" inputmode="numeric" maxlength="10"><p class="er" id="te"></p></div><button class="btn a w100" onclick="trackGo()">Track</button>`}
-function trackGo(){const i=$('ti').value.trim().toUpperCase(),p=$('tp').value.replace(/\D/g,'').slice(-10);if(!i||p.length!=10){$('te').textContent='Enter your order number and your 10-digit phone.';return}doneO={id:i,phone:p,r:'',t:0,i:[],s:''};LS.s('rk_last',{id:i,phone:p});go('track')}
-function vTrack(){let o=doneO;if(!o){const l=LS.g('rk_last',null);if(l)o=doneO=l}if(!o||!o.id||!o.phone){trackForm();return}
-$('app').innerHTML=`<button class="bk" onclick="go('home')">‹ Back</button><p style="font-size:13px;color:var(--gd);margin:0">Order ${esc(o.id)}</p><h2 style="font-size:34px">On its way to you</h2>
-<div class="rc" style="cursor:default;margin-top:12px"><div class="lat"></div><div style="display:flex;justify-content:space-between;align-items:flex-end;padding:8px 16px"><div><small style="color:var(--mu)">Status</small><div id="stt"></div></div><div style="text-align:right"><b id="eta" style="font:600 32px 'Cormorant Garamond',serif;color:var(--gd)"></b><small style="display:block;color:var(--mu)">estimated arrival</small></div></div>
-<svg viewBox="0 0 360 190" style="display:block;width:100%" aria-label="Route from the restaurant to your home"><g stroke="#c9a45c" stroke-opacity=".18" fill="none"><path d="M0 40H360M0 100H360M0 160H360M60 0V190M150 0V190M240 0V190M320 0V190"/></g><path d="M-10 128C60 100 120 150 190 126S320 100 370 120" stroke="#3a6a86" stroke-width="10" fill="none" opacity=".35"/>
-<path id="rt" d="M36 150C80 150 92 96 142 104S214 148 262 112S300 70 326 56" stroke="#c9a45c" stroke-opacity=".3" stroke-width="5" fill="none" stroke-linecap="round"/><path id="pg" d="M36 150C80 150 92 96 142 104S214 148 262 112S300 70 326 56" stroke="#c9a45c" stroke-width="5" fill="none" stroke-linecap="round" style="transition:stroke-dashoffset 2.2s ease-in-out"/>
-<g transform="translate(36,150)"><circle r="15" style="fill:var(--card)" stroke="#c9a45c"/><text y="6" text-anchor="middle" font-size="16">🍲</text></g><g transform="translate(326,56)"><circle r="15" style="fill:var(--card)" stroke="#c9a45c"/><text y="6" text-anchor="middle" font-size="16">🏠</text></g>
-<g id="mk"><circle class="pulse" r="22" fill="#c9a45c" opacity=".25"/><g id="rot"><g transform="scale(1.05) translate(0 -6)"><ellipse cx="0" cy="17" rx="22" ry="3" fill="#000" opacity=".3"/><circle cx="-15" cy="11" r="6.5" fill="#161616" stroke="#9aa" stroke-width="1.2"/><circle cx="-15" cy="11" r="2" fill="#bbb"/><circle cx="16" cy="11" r="6.5" fill="#161616" stroke="#9aa" stroke-width="1.2"/><circle cx="16" cy="11" r="2" fill="#bbb"/><rect x="-30" y="-20" width="17" height="14" rx="2.5" fill="#d8b872" stroke="#7a5810"/><path d="M-30-14h17" stroke="#7a5810"/><path d="M-21 9Q-23-4-11-5L-3-5 0 9Z" fill="#c4302b"/><path d="M-10 4H12V9Q12 11 9 11H-7Q-10 11-10 9Z" fill="#a8241f"/><path d="M9 9L12-9 17-9 19 9Z" fill="#c4302b"/><path d="M14-9L11-15M9-15H14" stroke="#222" stroke-width="2" stroke-linecap="round"/><circle cx="20" cy="-2" r="2.2" fill="#ffe9a0"/><rect x="-12" y="-8" width="12" height="3.5" rx="1.7" fill="#2a2a2a"/><path d="M-6-7L-1-20 5-18 2-6Z" fill="#1d4a37"/><path d="M0-6L6 3 7 10" stroke="#243b4a" stroke-width="3.6" fill="none" stroke-linecap="round"/><path d="M2-17L12-10" stroke="#1d4a37" stroke-width="3.2" stroke-linecap="round"/><circle cx="13" cy="-9.5" r="1.8" fill="#e8c4a0"/><circle cx="3" cy="-25" r="4.6" fill="#e8c4a0"/><path d="M-2-25A5.6 5.6 0 0 1 8.4-25Z" fill="#c4302b"/><path d="M6-25h3" stroke="#222" stroke-width="1.5"/></g></g></g></svg><ul class="lst" id="ls"></ul></div><div id="tre"></div><div class="note">Arrival time is an estimate. This page updates by itself. Need help? <a href="tel:${CFG.call.replace(/[^+\d]/g,'')}" style="color:var(--gd)">Call us</a>.</div>`;
-const rt=$('rt'),pg=$('pg');pg.style.strokeDasharray=rt.getTotalLength();pg.style.strokeDashoffset=rt.getTotalLength();f0=0;trk=0;ETAt='';tshow();
-const poll=async()=>{if(document.hidden||V!='track')return;try{const r=await fetch('/api/food/order?id='+encodeURIComponent(o.id)+'&phone='+o.phone,{cache:'no-store'}),d=await r.json();
-if(!r.ok){clearInterval(tm);const e=$('tre');if(e)e.innerHTML='<div class="note">'+esc(d.error||'Order not found.')+'</div>';return}
-if(['rejected','cancelled'].includes(d.st)){clearInterval(tm);$('app').innerHTML=`<div class="band"><h1>We could not make this order</h1><p>${esc(d.rn)} could not take this order${d.reason&&d.st==='rejected'?' ('+esc(String(d.reason).replace(/_/g,' '))+')':''}. Sorry about that. Nothing has been charged. Please call us and we will help right away.</p></div><a class="btn a w100" style="text-decoration:none" href="tel:${CFG.call.replace(/[^+\d]/g,'')}">Call ${CFG.call}</a><button class="bk" style="width:100%" onclick="go('home')">Back to restaurants</button>`;return}
-const tAt=s=>((d.trail||[]).find(x=>x.s===s)||{}).t||0,ix={placed:0,accepted:1,ready:1,picked:3,delivered:4}[d.st];let eta='40 min';
-if(d.st==='accepted')eta=Math.max(8,(d.prep||20)+15-Math.floor((Date.now()-tAt('accepted'))/60000))+' min';else if(d.st==='ready')eta='15 min';else if(d.st==='picked')eta='8 min';else if(d.st==='delivered'){eta='Arrived';clearInterval(tm)}
-trk=ix==null?0:ix;ETAt=eta;tshow();const e=$('tre');if(e)e.innerHTML=d.rider?'<div class="note">Your rider: <b>'+esc(d.rider)+'</b></div>':''}catch(e){}};
-poll();clearInterval(tm);tm=setInterval(poll,8000)}
-function tshow(){const rt=$('rt'),pg=$('pg');if(!rt)return;const Ln=rt.getTotalLength(),to=F[trk],a=f0,t0=performance.now();cancelAnimationFrame(raf);pg.style.strokeDashoffset=Ln*(1-to);
-(function s(t){let k=Math.min(1,(t-t0)/2200);k=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;f0=a+(to-a)*k;if(!$('mk')||!rt.isConnected)return;const p=rt.getPointAtLength(Ln*f0);$('mk').setAttribute('transform','translate('+p.x+','+p.y+')');const a1=rt.getPointAtLength(Math.max(0,Ln*f0-3)),b1=rt.getPointAtLength(Math.min(Ln,Ln*f0+3));let g=Math.atan2(b1.y-a1.y,b1.x-a1.x)*180/Math.PI;g=Math.max(-25,Math.min(25,g));$('rot').setAttribute('transform','rotate('+g+')');if(k<1)raf=requestAnimationFrame(s)})(t0);
-$('stt').textContent=ST[trk];$('eta').textContent=ETAt||ETA[trk];$('ls').innerHTML=ST.map((t,i)=>`<li class="${i<trk?'dn':i==trk?'on':''}"><i>${i<trk?'✓':''}</i>${t}</li>`).join('')}
-
-/* ACCOUNT DRAWER */
-function openA(){let e=$('ad');if(!e){e=document.createElement('div');e.id='ad';e.className='adw';e.onclick=ev=>{if(ev.target==e)closeA()};document.body.appendChild(e)}rA();requestAnimationFrame(()=>e.classList.add('on'))}
-function closeA(){const e=$('ad');if(e){e.classList.remove('on');setTimeout(()=>e.remove(),300)}}
-function addA(){const v=$('adn').value.trim().slice(0,120);if(!v)return;const a=LS.g('rk_addr',[]);if(a.length>=5)return toast('You can save up to 5 addresses.');LS.s('rk_addr',a.concat(v));rA()}
-function delA(i){const a=LS.g('rk_addr',[]);a.splice(i,1);LS.s('rk_addr',a);rA()}
-function rA(){const e=$('ad');if(!e)return;const a=LS.g('rk_addr',[]);
-e.innerHTML=`<div class="apn" role="dialog" aria-modal="true"><div class="shh"><h3 style="font-size:28px">My Account</h3><button class="bk" onclick="closeA()" aria-label="Close">✕</button></div>
-<button class="btn a w100" style="min-height:44px" onclick="closeA();doneO=null;go('track')">Track an order</button>
-<div class="h2">Saved addresses</div>${a.length?a.map((x,i)=>`<div class="arow"><span>${esc(x)}</span><button class="bk" onclick="delA(${i})" aria-label="Remove">✕</button></div>`).join(''):'<div class="note">No saved addresses yet.</div>'}<input id="adn" placeholder="House no., street, landmark" maxlength="120" style="margin-top:10px"><button class="btn a w100" style="min-height:44px" onclick="addA()">Save address</button>
-<div class="h2">Order history</div>${ords.length?ords.map((x,i)=>`<div class="arow"><span><b style="font-weight:500">${esc(R(x.r)?R(x.r).n:'Order')}</b><br><small style="color:var(--mu)">${new Date(x.ts).toLocaleDateString()} · ${M(x.t)}${x.id?' · '+esc(x.id):''}</small></span><span style="display:flex;gap:6px">${x.phone?`<button class="btn" onclick="closeA();doneO=ords[${i}];go('track')">Track</button>`:''}${R(x.r)?`<button class="btn" onclick="closeA();reord(${i})">Reorder</button>`:''}</span></div>`).join(''):'<div class="note">No orders yet.</div>'}
-<p style="color:var(--mu);font-size:12.5px;margin-top:14px">Saved on this phone only.</p></div>`;tr()}
-
-/* ══════ START ══════ */
-$('tel').textContent='Call '+CFG.call;$('tel').href='tel:'+CFG.call.replace(/[^+\d]/g,'');
-$('app').innerHTML='<div class="note" style="margin-top:16px">Loading restaurants…</div>';
-loadData().then(ok=>{if(!ok){$('app').innerHTML=`<div class="note" style="margin-top:16px"><b>We could not load the restaurants.</b><br>Please check your internet. You can also call us to order.</div><button class="btn a w100" onclick="location.reload()">Try again</button>`;return}draw()});
-</script></body></html>
+function renderShawls(){}
+try{const s=JSON.parse(localStorage.getItem('rk_cart')||'{}');if(s.cart&&s.cart.length&&s.cart.every(i=>i.id&&i.sz!==undefined)){cart=s.cart;coupon=s.c==='WELCOME'||s.c==='DIWALI'?s.c:null}}catch(e){}
+renderChips();renderGrid();upd();resumePending();
+fetch('/api/reviews').then(r=>r.json()).then(d=>{if(Array.isArray(d)){REVIEWS.splice(0,REVIEWS.length,...d);renderReviews();renderGrid();if($('pp').classList.contains('on'))ppRender()}}).catch(()=>{});
+</script>
+</body>
+</html>
