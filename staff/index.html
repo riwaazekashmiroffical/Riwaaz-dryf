@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Riwaaz-e-Kashmir Food | Team links</title><meta name="robots" content="noindex, nofollow"><meta name="theme-color" content="#4A3525">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Jost:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#1E3A2B;--paper:#FAF6F0;--ink:#3A2A1C;--mute:#7A6A58;--line:#D9CDB6;--wal:#4A3525;--gold:#D4AF37;--gd:#9A7B16;--ok:#2F6B47}
+*{box-sizing:border-box;margin:0;padding:0}body{font:400 16px/1.5 Jost,system-ui,sans-serif;background:var(--bg);color:#F3E7C7;padding-bottom:40px}
+.w{max-width:640px;margin:0 auto;padding:0 14px}header{background:var(--wal);border-bottom:2px solid var(--gold);padding:16px 0}
+h1,h2,h3{font-family:'Cormorant Garamond',Georgia,serif;line-height:1.1}h1{font-size:28px;color:var(--gold)}header p{font-size:13px;opacity:.85;margin-top:4px}
+h2{font-size:22px;margin:22px 0 8px;color:#F3E7C7}
+.c{background:var(--paper);color:var(--ink);border-radius:14px;padding:14px;margin-bottom:12px;border:1px solid var(--line)}
+.c h3{font-size:23px;color:var(--ink)}.c p{font-size:14px;color:var(--mute);margin-top:3px}.u{font:500 14px/1.3 Jost;color:var(--gd);word-break:break-all;margin-top:8px}
+.r{display:flex;gap:8px;margin-top:10px}.b{flex:1;min-height:44px;border-radius:11px;border:1.5px solid var(--ok);background:var(--ok);color:#FAF6F0;font:500 15px Jost;text-decoration:none;display:flex;align-items:center;justify-content:center;cursor:pointer}.b.o{background:transparent;color:var(--ok)}
+ol{padding-left:20px}li{margin:6px 0;font-size:15px;color:var(--ink)}.t{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--gold);color:#2a1d0a;padding:10px 18px;border-radius:22px;font-size:14px;display:none}
+</style></head><body>
+<header><div class="w"><h1>Riwaaz-e-Kashmir Food</h1><p>Team links. Private page. Do not share it with customers.</p></div></header>
+<main class="w">
+<h2>The 4 links</h2>
+<div id="L"></div>
+<h2>First-time setup, in order</h2>
+<div class="c"><ol>
+<li>Open <b>Admin</b>, enter your admin key.</li>
+<li>Restaurants, then Add. Fill name, area and FSSAI. Save.</li>
+<li>Create a login for that kitchen. Send the ID and password to the owner.</li>
+<li>Menu: add each dish with its price. Switch the kitchen <b>Open</b>.</li>
+<li>Settings: set delivery fee, free-delivery amount, and the rider cost.</li>
+<li>Settings: create the dispatch login. Give it to your dispatcher.</li>
+<li>Open the customer page. The kitchen shows up by itself, in the same layout.</li>
+</ol></div>
+<h2>Every day</h2>
+<div class="c"><ol>
+<li>Kitchen owner: open Kitchen link, log in, keep the screen on.</li>
+<li>Dispatcher: open Dispatch link, assign a rider when an order is ready.</li>
+<li>You: open Admin, Live tab, watch late orders. Press Pause if a problem starts.</li>
+</ol></div>
+</main><div class="t" id="t">Link copied</div>
+<script>
+const o=location.origin,K=[
+['Customer page','What customers see: food, cart, tracking. Share this when you launch.','/food/'],
+['Admin','Only you and your team. Restaurants, menus, orders, money, offers.','/foodadmin/'],
+['Kitchen login','Give to each restaurant owner with their own ID and password.','/restaurant/'],
+['Dispatch login','For your dispatcher. Assigns riders, marks picked up and delivered.','/dispatch/']];
+document.getElementById('L').innerHTML=K.map((k,i)=>`<div class="c"><h3>${k[0]}</h3><p>${k[1]}</p><div class="u">${o}${k[2]}</div><div class="r"><a class="b" target="_blank" rel="noopener" href="${k[2]}">Open</a><button class="b o" data-c="${i}">Copy link</button></div></div>`).join('');
+document.addEventListener('click',e=>{const b=e.target.closest('[data-c]');if(!b)return;const u=o+K[b.dataset.c][2],t=document.getElementById('t');const ok=()=>{t.style.display='block';setTimeout(()=>t.style.display='none',1800)};
+ if(navigator.clipboard)navigator.clipboard.writeText(u).then(ok,ok);else ok()});
+</script></body></html>
