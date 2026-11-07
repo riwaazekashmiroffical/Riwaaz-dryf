@@ -290,7 +290,9 @@ async function webhook({ request, env }) {
   const ev = JSON.parse(body);
   if (ev.event === 'payment.captured') {
     const oid = ev.payload.payment.entity.order_id;
-    const o = await (await rz(env, '/orders/' + oid)).json(), n = o.notes || {}, items = (n.i1 || '') + (n.i2 || ''), addr = (n.a1 || '') + (n.a2 || '');
+    const o = await (await rz(env, '/orders/' + oid)).json(), n = o.notes || {};
+    if (n.kind === 'food' || /^MK\d{6}-/.test(o.receipt || '')) { if (env.REVIEWS) { const fk = fkey(o.receipt), fo = fk && await fget(env, fk); if (fo && !fo.paid && fo.pay === 'online' && fo.rzpOrderId === oid && Number(o.amount) === fo.rzpAmount) await fpaid(env, fo, ev.payload.payment.entity.id); } return json({ ok: true }); }
+    const items = (n.i1 || '') + (n.i2 || ''), addr = (n.a1 || '') + (n.a2 || '');
     const text = 'New paid order ' + o.receipt + '\nTotal: Rs ' + o.amount / 100 + '\n' + n.n + ' ' + n.p + '\n' + addr + '\n' + items;
     await tg(env, text);
     await mail(env, env.OWNER_EMAIL || 'riwaazekashmiroffical@gmail.com', 'New paid order ' + o.receipt, '<pre>' + esc(text) + '</pre>');
@@ -309,8 +311,8 @@ const ADMIN_PAGE = 'PCFET0NUWVBFIGh0bWw+PGh0bWw+PGhlYWQ+PG1ldGEgY2hhcnNldD0idXRm
      fp:{CODE} promo            fpu:{CODE}:{phone} promo use     fg:{ts}-{r}    price-change log
      fb:{phone} blocked number  fs:{rid}:{from}:{to} settlement paid
    ===================================================================== */
-const FNEXT = { placed: ['accepted', 'rejected', 'cancelled'], accepted: ['ready', 'cancelled'], ready: ['picked', 'cancelled'], picked: ['delivered', 'cancelled'] };
-const FCFG = { fee: 30, freeAbove: 499, paused: false, riderCost: 0, localities: ['Lal Chowk', 'Rajbagh', 'Karan Nagar', 'Bemina', 'Hazratbal', 'Jawahar Nagar'] };
+const FNEXT = { awaiting: ['placed', 'cancelled'], placed: ['accepted', 'rejected', 'cancelled'], accepted: ['ready', 'cancelled'], ready: ['picked', 'cancelled'], picked: ['delivered', 'cancelled'] };
+const FCFG = { fee: 30, freeAbove: 499, paused: false, dining: false, riderCost: 0, localities: ['Lal Chowk', 'Rajbagh', 'Karan Nagar', 'Bemina', 'Hazratbal', 'Jawahar Nagar'] };
 const fhex = a => [...new Uint8Array(a)].map(b => b.toString(16).padStart(2, '0')).join('');
 const frnd = n => fhex(crypto.getRandomValues(new Uint8Array(n)));
 const fget = async (env, k) => { const v = await env.REVIEWS.get(k); if (!v) return null; try { return JSON.parse(v); } catch (e) { return null; } };
@@ -338,16 +340,74 @@ async function fmove(env, o, to, extra) {
   return null;
 }
 
+/* ---------- online payment (Razorpay) ---------- */
+const FPAY_MIN = 30; /* minutes an unpaid online order is kept */
+function fsafeEq(a, b) { if (typeof a !== 'string' || typeof b !== 'string' || a.length !== b.length) return false; let d = 0; for (let i = 0; i < a.length; i++) d |= a.charCodeAt(i) ^ b.charCodeAt(i); return d === 0; }
+async function frelease(env, o) { if (!o.promo) return; const p = await fget(env, 'fp:' + o.promo); if (p && p.used > 0) { p.used--; await fput(env, 'fp:' + o.promo, p); } await env.REVIEWS.delete('fpu:' + o.promo + ':' + o.phone); }
+async function fexpire(env, list) { const now = Date.now(); for (const o of list) if (o.st === 'awaiting' && !o.paid && now - o.ts > FPAY_MIN * 60000) { o.st = 'cancelled'; o.reason = 'payment not completed'; o.trail.push({ s: 'cancelled', t: now }); await fput(env, fkey(o.id), o); await frelease(env, o); } }
+async function fnotifyNew(env, o) { await tg(env, 'NEW FOOD ORDER ' + o.id + '\n' + o.rn + ' | ' + o.zone + '\n' + o.lines.map(l => l.q + 'x ' + l.n).join(', ') + '\nTotal Rs ' + o.total + ' (' + (o.pay === 'online' ? 'PAID ONLINE' : o.pay.toUpperCase()) + ')\n' + o.name + ' ' + o.phone); }
+async function frefund(env, o, why) {
+  if (!o.paid || o.pay !== 'online' || !o.paymentId || o.refund) return null;
+  try {
+    const r = await rz(env, '/payments/' + o.paymentId + '/refund', { method: 'POST', body: JSON.stringify({ amount: Math.round(o.total * 100), speed: 'normal', receipt: 'RF-' + o.id, notes: { order_id: o.id, reason: fstr(why, 60) } }) });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error((j.error && j.error.description) || 'Razorpay refused the refund');
+    o.refund = { id: j.id, at: Date.now(), amount: o.total }; delete o.refundErr;
+  } catch (e) { o.refundErr = String(e.message || e).slice(0, 120); await tg(env, 'REFUND FAILED ' + o.id + ' Rs ' + o.total + ' - please refund it by hand in the Razorpay dashboard. ' + o.refundErr); }
+  await fput(env, fkey(o.id), o); return o.refund || null;
+}
+/* called by the browser check AND by the webhook; safe to call twice */
+async function fpaid(env, o, pid) {
+  if (o.paid) return;
+  o.paid = true; o.paymentId = pid || o.paymentId || null; o.paidAt = Date.now();
+  if (o.st === 'awaiting') { o.st = 'placed'; o.trail.push({ s: 'placed', t: Date.now() }); await fput(env, fkey(o.id), o); await fnotifyNew(env, o); return; }
+  await fput(env, fkey(o.id), o);
+  if (['cancelled', 'rejected'].includes(o.st)) { await frefund(env, o, 'paid after order closed'); await tg(env, 'LATE PAYMENT on closed order ' + o.id + ' Rs ' + o.total + (o.refund ? ' - refunded automatically.' : ' - refund it by hand.')); }
+}
+async function foodPayCreate(env, request) {
+  const b = await readJson(request); if (!b) return json({ ok: false, error: 'Bad request.' }, 400);
+  if (await overLimit(env, request, 'fpay', 40)) return json({ ok: false, error: 'Too many tries. Please wait a little.' }, 429);
+  if (!SEC(env)) return json({ ok: false, error: 'Online payment is not set up yet. Please call us.' }, 503);
+  const id = fstr(b.id, 40), phone = last10(b.phone), k = fkey(id), o = k && await fget(env, k);
+  if (!o || o.phone !== phone) return json({ ok: false, error: 'Order not found.' }, 404);
+  if (o.pay !== 'online') return json({ ok: false, error: 'This order is cash on delivery.' }, 400);
+  if (o.paid) return json({ ok: true, paid: true });
+  await fexpire(env, [o]);
+  if (o.st !== 'awaiting') return json({ ok: false, error: 'This order has expired. Please place it again.' }, 409);
+  const amount = Math.round(Number(o.total) * 100);
+  if (!Number.isFinite(amount) || amount < 100) return json({ ok: false, error: 'This order has an invalid amount.' }, 400);
+  try {
+    if (!o.rzpOrderId || o.rzpAmount !== amount) {
+      const r = await rz(env, '/orders', { method: 'POST', body: JSON.stringify({ amount, currency: 'INR', receipt: id, notes: { kind: 'food', order_id: id } }) });
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok || !j.id) throw new Error('rzp');
+      o.rzpOrderId = j.id; o.rzpAmount = amount; await fput(env, k, o);
+    }
+  } catch (e) { return json({ ok: false, error: 'We could not start the payment. Please try again.' }, 502); }
+  return json({ ok: true, key: KID(env), orderId: o.rzpOrderId, amount, currency: 'INR' });
+}
+async function foodPayVerify(env, request) {
+  const b = await readJson(request); if (!b) return json({ ok: false, error: 'Bad request.' }, 400);
+  if (await overLimit(env, request, 'fpay', 40)) return json({ ok: false, error: 'Too many tries. Please wait a little.' }, 429);
+  const id = fstr(b.id, 40), phone = last10(b.phone), k = fkey(id), o = k && await fget(env, k);
+  const pid = fstr(b.razorpay_payment_id, 60), roid = fstr(b.razorpay_order_id, 60), sig = fstr(b.razorpay_signature, 128);
+  if (!o || o.phone !== phone) return json({ ok: false, error: 'Order not found.' }, 404);
+  if (o.paid) return json({ ok: true });
+  if (!o.rzpOrderId || roid !== o.rzpOrderId || !pid || !sig) return json({ ok: false, error: 'Payment details do not match this order.' }, 400);
+  if (!fsafeEq(await hmac(SEC(env), o.rzpOrderId + '|' + pid), sig)) return json({ ok: false, error: 'Payment could not be verified.' }, 400);
+  await fpaid(env, o, pid); return json({ ok: true });
+}
+
 /* ---------- public ---------- */
 async function foodMenu(env) {
   const cfg = await fcfg(env), rs = (await listPrefix(env, 'fr:')).filter(r => !r.suspended), out = [];
   for (const r of rs) {
     const l = await env.REVIEWS.list({ prefix: 'fd:' + r.id + ':', limit: 300 }), dishes = [];
     for (const k of l.keys) { const d = await fget(env, k.name); if (d) dishes.push({ id: d.id, name: d.name, cat: d.cat, price: d.price, was: d.was || null, veg: !!d.veg, stock: !!d.stock, desc: d.desc || '' }); }
-    out.push({ id: r.id, name: r.name, zone: r.zone, banner: r.banner || '', open: !!r.open, hours: r.hours || '', tags: r.tags || '', cuisines: r.cuisines || [], eta: r.eta || '', forTwo: r.forTwo || '', dishes });
+    out.push({ id: r.id, name: r.name, zone: r.zone, banner: r.banner || '', open: !!r.open, hours: r.hours || '', tags: r.tags || '', cuisines: r.cuisines || [], eta: r.eta || '', forTwo: r.forTwo || '', dine: !!r.dine, dtags: r.dtags || [], lat: r.lat == null ? null : r.lat, lng: r.lng == null ? null : r.lng, dishes });
   }
   const promos = (await listPrefix(env, 'fp:')).filter(p => p.pub && p.active && (!p.until || Date.now() <= p.until)).map(p => ({ code: p.code, title: p.title || '', flat: p.flat || 0, pct: p.pct || 0, min: p.min || 0, max: p.max || 0, rid: p.rid || null, freeDel: !!p.freeDel }));
-  return json({ cfg: { fee: cfg.fee, freeAbove: cfg.freeAbove, paused: cfg.paused, localities: cfg.localities }, promos, restaurants: out }, 200, { 'Cache-Control': 'no-store' });
+  return json({ cfg: { fee: cfg.fee, freeAbove: cfg.freeAbove, paused: cfg.paused, dining: !!cfg.dining, localities: cfg.localities }, promos, restaurants: out }, 200, { 'Cache-Control': 'no-store' });
 }
 
 async function foodPlace(env, request) {
@@ -356,6 +416,8 @@ async function foodPlace(env, request) {
   if (await overLimit(env, request, 'forder', 10)) return json({ error: 'Too many orders from this network. Please try later or call us.' }, 429);
   const cfg = await fcfg(env);
   if (cfg.paused) return json({ error: 'Ordering is paused for now. Please call us to order.' }, 503);
+  const pay = b.pay === 'online' ? 'online' : (b.pay === 'upi' ? 'upi' : 'cod');
+  if (pay === 'online' && !SEC(env)) return json({ error: 'Online payment is not available yet. Please choose cash on delivery.' }, 503);
   const name = fstr(b.name, 60), phone = String(b.phone || '').replace(/\D/g, '').slice(-10), addr = fstr(b.address, 200), zone = fstr(b.zone, 40);
   if (name.length < 2 || phone.length !== 10 || addr.length < 8 || !cfg.localities.includes(zone)) return json({ error: 'Please give your name, a 10-digit phone, full address and area.' }, 400);
   if (BAD.test(name + ' ' + addr)) return json({ error: 'Please check your details.' }, 400);
@@ -382,9 +444,9 @@ async function foodPlace(env, request) {
     p.used = (p.used || 0) + 1; await fput(env, 'fp:' + code, p); await env.REVIEWS.put('fpu:' + code + ':' + phone, '1');
   }
   const fee = (freeDel || sub >= cfg.freeAbove) ? 0 : cfg.fee, ts = Date.now(), id = 'MK' + fymd(ts) + '-' + frnd(2).toUpperCase();
-  const o = { id, ts, rid: r.id, rn: r.name, comm: r.commission == null ? 10 : r.commission, name, phone, addr, zone, lines, sub, disc, fund, promo: code || null, fee, total: sub - disc + fee, pay: b.pay === 'upi' ? 'upi' : 'cod', paid: false, st: 'placed', trail: [{ s: 'placed', t: ts }], prep: null, rider: null, note: fstr(b.note, 150) };
+  const o = { id, ts, rid: r.id, rn: r.name, comm: r.commission == null ? 10 : r.commission, name, phone, addr, zone, lines, sub, disc, fund, promo: code || null, fee, total: sub - disc + fee, pay, paid: false, st: pay === 'online' ? 'awaiting' : 'placed', trail: [{ s: pay === 'online' ? 'awaiting' : 'placed', t: ts }], prep: null, rider: null, note: fstr(b.note, 150), rlat: r.lat == null ? null : r.lat, rlng: r.lng == null ? null : r.lng };
   await fput(env, fkey(id), o);
-  await tg(env, 'NEW FOOD ORDER ' + id + '\n' + r.name + ' | ' + zone + '\n' + lines.map(l => l.q + 'x ' + l.n).join(', ') + '\nTotal Rs ' + o.total + ' (' + o.pay.toUpperCase() + ')\n' + name + ' ' + phone);
+  if (pay !== 'online') await fnotifyNew(env, o);
   return json({ ok: true, id, total: o.total });
 }
 
@@ -403,7 +465,8 @@ async function foodPromoCheck(env, request) {
 async function foodTrack(env, url) {
   const id = url.searchParams.get('id'), phone = String(url.searchParams.get('phone') || '').replace(/\D/g, '').slice(-10), k = fkey(id), o = k && await fget(env, k);
   if (!o || o.phone !== phone) return json({ error: 'Order not found. Check the order number and phone.' }, 404);
-  return json({ id: o.id, st: o.st, rn: o.rn, total: o.total, prep: o.prep, rider: o.rider ? o.rider.split(' ')[0] : null, trail: o.trail, reason: o.reason || null }, 200, { 'Cache-Control': 'no-store' });
+  await fexpire(env, [o]);
+  return json({ id: o.id, st: o.st, rn: o.rn, total: o.total, prep: o.prep, rider: o.rider ? o.rider.split(' ')[0] : null, trail: o.trail, reason: o.reason || null, pay: o.pay, paid: !!o.paid, refunded: !!o.refund, restaurantLat: o.rlat == null ? null : o.rlat, restaurantLng: o.rlng == null ? null : o.rlng }, 200, { 'Cache-Control': 'no-store' });
 }
 
 /* ---------- login (restaurants and dispatch) ---------- */
@@ -423,7 +486,7 @@ async function foodRest(env, request) {
   if (b.action === 'login') return flogin(env, request, b);
   const t = await fauth(env, b, 'rest'); if (!t) return json({ error: 'Please log in again.', login: true }, 401);
   const r = await fget(env, 'fr:' + t.rid);
-  if (b.action === 'orders') return json({ orders: (await fdays(env, fdaysBack(2))).filter(o => o.rid === t.rid).map(fsafeRest), open: !!r.open }, 200, { 'Cache-Control': 'no-store' });
+  if (b.action === 'orders') return json({ orders: (await fdays(env, fdaysBack(2))).filter(o => o.rid === t.rid && o.st !== 'awaiting').map(fsafeRest), open: !!r.open }, 200, { 'Cache-Control': 'no-store' });
   if (b.action === 'menu') { const l = await env.REVIEWS.list({ prefix: 'fd:' + t.rid + ':', limit: 300 }), out = []; for (const k of l.keys) { const d = await fget(env, k.name); if (d) out.push(d); } return json({ dishes: out }); }
   if (b.action === 'open') { r.open = !!b.open; await fput(env, 'fr:' + r.id, r); return json({ ok: true, open: r.open }); }
   if (b.action === 'stock' || b.action === 'price') {
@@ -437,7 +500,8 @@ async function foodRest(env, request) {
   if (b.action === 'accept') { const p = parseInt(b.prep); if (![15, 20, 30].includes(p)) return json({ error: 'Choose 15, 20 or 30 minutes.' }, 400); e = await fmove(env, o, 'accepted', { prep: p }); }
   else if (b.action === 'reject') {
     const why = ['out_of_stock', 'too_busy', 'closed', 'other'].includes(b.reason) ? b.reason : 'other'; e = await fmove(env, o, 'rejected', { reason: why });
-    if (!e) await tg(env, 'ORDER REJECTED ' + o.id + ' by ' + o.rn + ': ' + why + '\nCustomer ' + o.name + ' ' + o.phone + ' - please call them.');
+    if (!e && o.paid && o.pay === 'online') await frefund(env, o, 'rejected by kitchen');
+    if (!e) await tg(env, 'ORDER REJECTED ' + o.id + ' by ' + o.rn + ': ' + why + '\nCustomer ' + o.name + ' ' + o.phone + ' - please call them.' + (o.pay === 'online' ? (o.refund ? ' (paid online, refund started)' : ' (paid online, REFUND NEEDED)') : ''));
   } else if (b.action === 'ready') { e = await fmove(env, o, 'ready'); if (!e) await tg(env, 'READY for pickup: ' + o.id + ' at ' + o.rn + (o.rider ? ' (rider ' + o.rider + ')' : ' - assign a rider')); }
   else return json({ error: 'Unknown action' }, 400);
   return e || json({ ok: true, order: fsafeRest(o) });
@@ -459,31 +523,34 @@ async function foodDispatch(env, request) {
 
 /* ---------- owner/admin ---------- */
 async function foodSummary(env, from, to) {
-  const cfg = await fcfg(env), orders = await fdays(env, frange(from, to)), now = Date.now(), per = {}, st = {}, late = [], rej = [];
-  let cod = 0, plat = 0;
+  const cfg = await fcfg(env), orders = await fdays(env, frange(from, to)), now = Date.now(), per = {}, st = {}, late = [], rej = [], refundDue = [];
+  await fexpire(env, orders);
+  let cod = 0, plat = 0, online = 0, refunded = 0;
   for (const o of orders) {
     st[o.st] = (st[o.st] || 0) + 1;
     const p = per[o.rid] || (per[o.rid] = { rid: o.rid, name: o.rn, orders: 0, sales: 0, commission: 0, restFunded: 0, payable: 0 });
     if (o.st === 'delivered') {
       const c = Math.round(o.sub * o.comm / 100), rf = o.fund === 'restaurant' ? o.disc : 0, pf = o.fund === 'platform' ? o.disc : 0;
       p.orders++; p.sales += o.sub; p.commission += c; p.restFunded += rf; p.payable += o.sub - c - rf;
-      plat += c + o.fee - pf - (cfg.riderCost || 0); if (o.pay === 'cod') cod += o.total;
+      plat += c + o.fee - pf - (cfg.riderCost || 0); if (o.pay === 'cod') cod += o.total; if (o.pay === 'online') online += o.total;
     }
+    if (o.refund) refunded += o.refund.amount;
+    if (o.paid && o.pay === 'online' && !o.refund && ['rejected', 'cancelled'].includes(o.st)) refundDue.push({ id: o.id, rn: o.rn, total: o.total, err: o.refundErr || '' });
     if (o.st === 'rejected') rej.push({ id: o.id, rn: o.rn, reason: o.reason, phone: o.phone });
     const end = (o.trail.find(x => x.s === 'delivered') || {}).t || now;
-    if (o.st === 'placed' && now - o.ts > 180000) late.push({ id: o.id, rn: o.rn, why: 'Not accepted in 3 min' });
+    if (o.st === 'placed' && now - o.trail[o.trail.length - 1].t > 180000) late.push({ id: o.id, rn: o.rn, why: 'Not accepted in 3 min' });
     else if (o.st === 'ready' && !o.rider && now - o.trail[o.trail.length - 1].t > 300000) late.push({ id: o.id, rn: o.rn, why: 'No rider in 5 min' });
     else if (!['rejected', 'cancelled'].includes(o.st) && end - o.ts > 3600000) late.push({ id: o.id, rn: o.rn, why: 'Over 60 min' });
   }
   const rows = Object.values(per); const t = rows.reduce((a, r) => ({ sales: a.sales + r.sales, commission: a.commission + r.commission, payable: a.payable + r.payable, orders: a.orders + r.orders }), { sales: 0, commission: 0, payable: 0, orders: 0 });
-  return { from, to, status: st, restaurants: rows, totals: { ...t, platformProfit: plat, codCashWithRiders: cod }, late, rejected: rej };
+  return { from, to, status: st, restaurants: rows, totals: { ...t, platformProfit: plat, codCashWithRiders: cod, onlineCollected: online, refunded }, late, rejected: rej, refundDue };
 }
 
 async function foodAdmin(env, request) {
   const b = await readJson(request);
   if (!b || !env.ADMIN_KEY || b.key !== env.ADMIN_KEY) return json({ error: 'Wrong key' }, 401);
   const A = b.action;
-  if (A === 'cfg') { const c = await fcfg(env); if (b.set) { const s = b.set; if (s.fee != null) c.fee = Math.max(0, parseInt(s.fee) || 0); if (s.freeAbove != null) c.freeAbove = Math.max(0, parseInt(s.freeAbove) || 0); if (s.riderCost != null) c.riderCost = Math.max(0, parseInt(s.riderCost) || 0); if (s.paused != null) c.paused = !!s.paused; if (Array.isArray(s.localities) && s.localities.length) c.localities = s.localities.map(x => fstr(x, 40)).filter(Boolean); await fput(env, 'fc:cfg', c); } return json({ cfg: c }); }
+  if (A === 'cfg') { const c = await fcfg(env); if (b.set) { const s = b.set; if (s.fee != null) c.fee = Math.max(0, parseInt(s.fee) || 0); if (s.freeAbove != null) c.freeAbove = Math.max(0, parseInt(s.freeAbove) || 0); if (s.riderCost != null) c.riderCost = Math.max(0, parseInt(s.riderCost) || 0); if (s.paused != null) c.paused = !!s.paused; if (s.dining != null) c.dining = !!s.dining; if (Array.isArray(s.localities) && s.localities.length) c.localities = s.localities.map(x => fstr(x, 40)).filter(Boolean); await fput(env, 'fc:cfg', c); } return json({ cfg: c }); }
   if (A === 'rlist') return json({ restaurants: await listPrefix(env, 'fr:') });
   if (A === 'rset') {
     const id = fslug(b.id || b.name); if (!id || fstr(b.name, 60).length < 2) return json({ error: 'Restaurant name needed' }, 400);
@@ -492,6 +559,8 @@ async function foodAdmin(env, request) {
     for (const k of ['tags', 'eta', 'forTwo']) if (b[k] != null) o[k] = fstr(b[k], 60);
     if (Array.isArray(b.cuisines)) o.cuisines = b.cuisines.filter(c => ['wazwan', 'bakery', 'fast', 'veg', 'street', 'sweets'].includes(c));
     if (b.commission != null) o.commission = Math.min(40, Math.max(0, Number(b.commission) || 0)); if (o.commission == null) o.commission = 10;
+    for (const k of ['lat', 'lng']) if (b[k] != null) { const n = parseFloat(b[k]); if (String(b[k]).trim() === '') o[k] = null; else if (Number.isFinite(n) && n > (k === 'lat' ? 32 : 73) && n < (k === 'lat' ? 35.5 : 76.5)) o[k] = Math.round(n * 1e6) / 1e6; else return json({ error: 'Latitude and longitude must be inside Kashmir (about 33-34.5 and 74-75.5).' }, 400); }
+    if (b.dine != null) o.dine = !!b.dine; if (Array.isArray(b.dtags)) o.dtags = b.dtags.filter(c => ['Lake view', 'Romantic', 'Family', 'Heritage'].includes(c));
     if (b.open != null) o.open = !!b.open; if (b.suspended != null) o.suspended = !!b.suspended;
     await fput(env, 'fr:' + id, o); return json({ ok: true, restaurant: o });
   }
@@ -508,12 +577,13 @@ async function foodAdmin(env, request) {
     await fput(env, 'fd:' + rid + ':' + id, { id, rid, name: fstr(b.name || (old && old.name), 80), cat: fstr(b.cat || (old && old.cat) || 'Menu', 40), price, was: was && was > price ? was : null, veg: !!b.veg, stock: b.stock == null ? (old ? old.stock : true) : !!b.stock, desc: fstr(b.desc, 140) }); return json({ ok: true, id });
   }
   if (A === 'ddel') { await env.REVIEWS.delete('fd:' + fslug(b.rid) + ':' + fslug(b.id)); return json({ ok: true }); }
-  if (A === 'olist') return json({ orders: (await fdays(env, frange(fstr(b.from, 6) || fymd(Date.now()), fstr(b.to, 6) || fymd(Date.now())))).filter(o => !b.st || o.st === b.st).map(o => ({ ...fsafe(o), comm: o.comm })) });
-  if (['oassign', 'ocancel', 'opaid'].includes(A)) {
+  if (A === 'olist') { const all = await fdays(env, frange(fstr(b.from, 6) || fymd(Date.now()), fstr(b.to, 6) || fymd(Date.now()))); await fexpire(env, all); return json({ orders: all.filter(o => !b.st || o.st === b.st).map(o => ({ ...fsafe(o), comm: o.comm, refunded: !!o.refund, refundErr: o.refundErr || '' })) }); }
+  if (['oassign', 'ocancel', 'opaid', 'orefund'].includes(A)) {
     const o = await forder(env, b); if (!o) return json({ error: 'Order not found' }, 404);
-    if (A === 'opaid') { o.paid = true; await fput(env, fkey(o.id), o); return json({ ok: true }); }
+    if (A === 'orefund') { if (!['rejected', 'cancelled'].includes(o.st)) return json({ error: 'Only cancelled or rejected orders can be refunded.' }, 409); const r = await frefund(env, o, 'admin refund'); return json({ ok: !!r || !!o.refund, refunded: !!o.refund, error: o.refund ? undefined : (o.refundErr || 'Nothing to refund.') }); }
+    if (A === 'opaid') { if (o.pay === 'online') return json({ error: 'Online payments are confirmed automatically.' }, 400); o.paid = true; await fput(env, fkey(o.id), o); return json({ ok: true }); }
     if (A === 'oassign') { o.rider = fstr(b.rider, 40); await fput(env, fkey(o.id), o); return json({ ok: true }); }
-    const e = await fmove(env, o, 'cancelled', { reason: fstr(b.reason, 100) || 'cancelled by admin' }); return e || json({ ok: true });
+    const e = await fmove(env, o, 'cancelled', { reason: fstr(b.reason, 100) || 'cancelled by admin' }); if (e) return e; if (o.paid && o.pay === 'online') await frefund(env, o, 'cancelled by admin'); return json({ ok: true, refunded: !!o.refund, refundErr: o.refundErr || '' });
   }
   if (A === 'plist') return json({ promos: await listPrefix(env, 'fp:') });
   if (A === 'pset') { const code = fslug(b.code).toUpperCase().replace(/-/g, ''); if (code.length < 3) return json({ error: 'Code needed' }, 400); const old = (await fget(env, 'fp:' + code)) || { used: 0, ts: Date.now() }; await fput(env, 'fp:' + code, { ...old, code, pct: Number(b.pct) || 0, flat: Number(b.flat) || 0, min: Number(b.min) || 0, max: Number(b.max) || 0, fund: b.fund === 'restaurant' ? 'restaurant' : 'platform', freeDel: !!b.freeDel, title: fstr(b.title, 60), pub: !!b.pub, rid: b.rid ? fslug(b.rid) : null, limit: Number(b.limit) || 0, until: b.until ? Date.parse(b.until + 'T23:59:59+05:30') : 0, active: b.active !== false }); return json({ ok: true, code }); }
@@ -542,6 +612,8 @@ async function foodApi({ request, env, pathname }) {
   try {
     if (a === 'menu' && m === 'GET') return await foodMenu(env);
     if (a === 'order' && m === 'POST') return await foodPlace(env, request);
+    if (a === 'pay/create' && m === 'POST') return await foodPayCreate(env, request);
+    if (a === 'pay/verify' && m === 'POST') return await foodPayVerify(env, request);
     if (a === 'promo' && m === 'POST') return await foodPromoCheck(env, request);
     if (a === 'order' && m === 'GET') return await foodTrack(env, new URL(request.url));
     if (a === 'rest' && m === 'POST') return await foodRest(env, request);
