@@ -329,7 +329,7 @@ async function fhash(pw, salt) {
 async function fdays(env, days) { let out = []; for (const d of days) out = out.concat(await listPrefix(env, 'fo:20' + d + ':')); return out.sort((a, b) => b.ts - a.ts); }
 function fdaysBack(n) { const out = []; for (let i = 0; i < n; i++) out.push(fymd(Date.now() - i * 86400000)); return out; }
 function frange(from, to) { const out = []; let t = Date.parse('20' + from.slice(0, 2) + '-' + from.slice(2, 4) + '-' + from.slice(4, 6) + 'T00:00:00+05:30'); const e = Date.parse('20' + to.slice(0, 2) + '-' + to.slice(2, 4) + '-' + to.slice(4, 6) + 'T00:00:00+05:30'); for (let i = 0; t <= e && i < 62; i++, t += 86400000) out.push(fymd(t)); return out; }
-const fsafe = o => ({ id: o.id, st: o.st, rn: o.rn, name: o.name, phone: o.phone, addr: o.addr, zone: o.zone, lines: o.lines, sub: o.sub, disc: o.disc, fee: o.fee, total: o.total, pay: o.pay, paid: o.paid, prep: o.prep, rider: o.rider, note: o.note, trail: o.trail, ts: o.ts, reason: o.reason });
+const fsafe = o => ({ id: o.id, st: o.st, rn: o.rn, name: o.name, phone: o.phone, addr: o.addr, zone: o.zone, lines: o.lines, sub: o.sub, disc: o.disc, fee: o.fee, total: o.total, pay: o.pay, paid: o.paid, prep: o.prep, rider: o.rider, note: o.note, trail: o.trail, ts: o.ts, reason: o.reason, clat: o.clat == null ? null : o.clat, clng: o.clng == null ? null : o.clng });
 
 /* kitchens see the first name only, never phone or address */
 const fsafeRest = o => ({ id: o.id, st: o.st, name: String(o.name || '').split(' ')[0], lines: o.lines, sub: o.sub, prep: o.prep, note: o.note, trail: o.trail, ts: o.ts, reason: o.reason });
@@ -338,6 +338,32 @@ async function fmove(env, o, to, extra) {
   if (!(FNEXT[o.st] || []).includes(to)) return json({ error: 'This order is already ' + o.st + '.' }, 409);
   o.st = to; o.trail.push({ s: to, t: Date.now() }); Object.assign(o, extra || {}); await fput(env, fkey(o.id), o);
   return null;
+}
+
+/* ---------- map pins and rider location ---------- */
+const flat = v => { const n = parseFloat(v); return Number.isFinite(n) && n > 32 && n < 35.5 ? Math.round(n * 1e6) / 1e6 : null; };
+const flng = v => { const n = parseFloat(v); return Number.isFinite(n) && n > 73 && n < 76.5 ? Math.round(n * 1e6) / 1e6 : null; };
+const fpin = (a, b) => { const x = flat(a), y = flng(b); return x != null && y != null ? [x, y] : null; };
+async function foodRider(env, request) {
+  const b = await readJson(request); if (!b) return json({ error: 'Bad request' }, 400);
+  if (b.action === 'login') return flogin(env, request, b);
+  const t = await fauth(env, b, 'rider'); if (!t) return json({ error: 'Please log in again.', login: true }, 401);
+  const mine = async () => (await fdays(env, fdaysBack(2))).filter(o => o.riderId === t.id && ['accepted', 'ready', 'picked'].includes(o.st));
+  if (b.action === 'orders') return json({ name: t.name || t.id, orders: (await mine()).map(o => ({ ...fsafe(o), rlat: o.rlat == null ? null : o.rlat, rlng: o.rlng == null ? null : o.rlng })) }, 200, { 'Cache-Control': 'no-store' });
+  const o = await forder(env, b); if (!o || o.riderId !== t.id) return json({ error: 'This order is not assigned to you.' }, 404);
+  if (b.action === 'ping') {
+    if (!['accepted', 'ready', 'picked'].includes(o.st)) return json({ ok: true, stop: true });
+    const ll = fpin(b.lat, b.lng); if (!ll) return json({ error: 'Bad location' }, 400);
+    const old = await fget(env, 'fl:' + o.id), now = Date.now();
+    if (old && now - old.t < 8000) return json({ ok: true, skipped: true });
+    await fput(env, 'fl:' + o.id, { lat: ll[0], lng: ll[1], t: now }, { expirationTtl: 7200 }); return json({ ok: true });
+  }
+  let e;
+  if (b.action === 'picked') e = await fmove(env, o, 'picked');
+  else if (b.action === 'delivered') e = await fmove(env, o, 'delivered', o.pay === 'cod' ? { paid: true, cash: o.total } : {});
+  else return json({ error: 'Unknown action' }, 400);
+  if (!e && b.action === 'delivered') await env.REVIEWS.delete('fl:' + o.id);
+  return e || json({ ok: true });
 }
 
 /* ---------- online payment (Razorpay) ---------- */
@@ -364,6 +390,7 @@ async function fpaid(env, o, pid) {
   await fput(env, fkey(o.id), o);
   if (['cancelled', 'rejected'].includes(o.st)) { await frefund(env, o, 'paid after order closed'); await tg(env, 'LATE PAYMENT on closed order ' + o.id + ' Rs ' + o.total + (o.refund ? ' - refunded automatically.' : ' - refund it by hand.')); }
 }
+async function frider(env, o) { const l = await fget(env, 'fl:' + o.id); return l && Date.now() - l.t < 600000 ? { riderLat: l.lat, riderLng: l.lng, riderAt: l.t } : {}; }
 async function foodPayCreate(env, request) {
   const b = await readJson(request); if (!b) return json({ ok: false, error: 'Bad request.' }, 400);
   if (await overLimit(env, request, 'fpay', 40)) return json({ ok: false, error: 'Too many tries. Please wait a little.' }, 429);
@@ -407,7 +434,7 @@ async function foodMenu(env) {
     out.push({ id: r.id, name: r.name, zone: r.zone, banner: r.banner || '', open: !!r.open, hours: r.hours || '', tags: r.tags || '', cuisines: r.cuisines || [], eta: r.eta || '', forTwo: r.forTwo || '', dine: !!r.dine, dtags: r.dtags || [], lat: r.lat == null ? null : r.lat, lng: r.lng == null ? null : r.lng, dishes });
   }
   const promos = (await listPrefix(env, 'fp:')).filter(p => p.pub && p.active && (!p.until || Date.now() <= p.until)).map(p => ({ code: p.code, title: p.title || '', flat: p.flat || 0, pct: p.pct || 0, min: p.min || 0, max: p.max || 0, rid: p.rid || null, freeDel: !!p.freeDel }));
-  return json({ cfg: { fee: cfg.fee, freeAbove: cfg.freeAbove, paused: cfg.paused, dining: !!cfg.dining, localities: cfg.localities }, promos, restaurants: out }, 200, { 'Cache-Control': 'no-store' });
+  return json({ cfg: { fee: cfg.fee, freeAbove: cfg.freeAbove, paused: cfg.paused, dining: !!cfg.dining, localities: cfg.localities, map: env.MAP_TILE_URL ? { url: String(env.MAP_TILE_URL), attr: String(env.MAP_ATTR || '') } : null }, promos, restaurants: out }, 200, { 'Cache-Control': 'no-store' });
 }
 
 async function foodPlace(env, request) {
@@ -444,7 +471,7 @@ async function foodPlace(env, request) {
     p.used = (p.used || 0) + 1; await fput(env, 'fp:' + code, p); await env.REVIEWS.put('fpu:' + code + ':' + phone, '1');
   }
   const fee = (freeDel || sub >= cfg.freeAbove) ? 0 : cfg.fee, ts = Date.now(), id = 'MK' + fymd(ts) + '-' + frnd(2).toUpperCase();
-  const o = { id, ts, rid: r.id, rn: r.name, comm: r.commission == null ? 10 : r.commission, name, phone, addr, zone, lines, sub, disc, fund, promo: code || null, fee, total: sub - disc + fee, pay, paid: false, st: pay === 'online' ? 'awaiting' : 'placed', trail: [{ s: pay === 'online' ? 'awaiting' : 'placed', t: ts }], prep: null, rider: null, note: fstr(b.note, 150), rlat: r.lat == null ? null : r.lat, rlng: r.lng == null ? null : r.lng };
+  const o = { id, ts, rid: r.id, rn: r.name, comm: r.commission == null ? 10 : r.commission, name, phone, addr, zone, lines, sub, disc, fund, promo: code || null, fee, total: sub - disc + fee, pay, paid: false, st: pay === 'online' ? 'awaiting' : 'placed', trail: [{ s: pay === 'online' ? 'awaiting' : 'placed', t: ts }], prep: null, rider: null, note: fstr(b.note, 150), rlat: r.lat == null ? null : r.lat, rlng: r.lng == null ? null : r.lng, clat: (fpin(b.clat, b.clng) || [null])[0], clng: (fpin(b.clat, b.clng) || [null, null])[1] };
   await fput(env, fkey(id), o);
   if (pay !== 'online') await fnotifyNew(env, o);
   return json({ ok: true, id, total: o.total });
@@ -466,7 +493,7 @@ async function foodTrack(env, url) {
   const id = url.searchParams.get('id'), phone = String(url.searchParams.get('phone') || '').replace(/\D/g, '').slice(-10), k = fkey(id), o = k && await fget(env, k);
   if (!o || o.phone !== phone) return json({ error: 'Order not found. Check the order number and phone.' }, 404);
   await fexpire(env, [o]);
-  return json({ id: o.id, st: o.st, rn: o.rn, total: o.total, prep: o.prep, rider: o.rider ? o.rider.split(' ')[0] : null, trail: o.trail, reason: o.reason || null, pay: o.pay, paid: !!o.paid, refunded: !!o.refund, restaurantLat: o.rlat == null ? null : o.rlat, restaurantLng: o.rlng == null ? null : o.rlng }, 200, { 'Cache-Control': 'no-store' });
+  return json({ id: o.id, st: o.st, rn: o.rn, total: o.total, prep: o.prep, rider: o.rider ? o.rider.split(' ')[0] : null, trail: o.trail, reason: o.reason || null, pay: o.pay, paid: !!o.paid, refunded: !!o.refund, restaurantLat: o.rlat == null ? null : o.rlat, restaurantLng: o.rlng == null ? null : o.rlng, customerLat: o.clat == null ? null : o.clat, customerLng: o.clng == null ? null : o.clng, ...(o.riderId && ['ready', 'picked'].includes(o.st) ? await frider(env, o) : {}) }, 200, { 'Cache-Control': 'no-store' });
 }
 
 /* ---------- login (restaurants and dispatch) ---------- */
@@ -474,9 +501,9 @@ async function flogin(env, request, b) {
   if (await overLimit(env, request, 'flogin', 30)) return json({ error: 'Too many attempts. Please wait an hour.' }, 429);
   const acc = await fget(env, 'fa:' + fslug(b.id));
   if (!acc || acc.off || (await fhash(String(b.password || ''), acc.salt)) !== acc.hash) return json({ error: 'Wrong ID or password.' }, 401);
-  const token = frnd(24); await fput(env, 'ft:' + token, { id: acc.id, role: acc.role, rid: acc.rid || null }, { expirationTtl: 43200 });
+  const token = frnd(24); await fput(env, 'ft:' + token, { id: acc.id, role: acc.role, rid: acc.rid || null, name: acc.name || null }, { expirationTtl: 43200 });
   const r = acc.rid ? await fget(env, 'fr:' + acc.rid) : null;
-  return json({ ok: true, token, role: acc.role, name: r ? r.name : 'Dispatch', open: r ? !!r.open : null });
+  return json({ ok: true, token, role: acc.role, name: r ? r.name : (acc.name || (acc.role === 'rider' ? acc.id : 'Dispatch')), open: r ? !!r.open : null });
 }
 const fauth = async (env, b, role) => { const t = await fget(env, 'ft:' + fstr(b.token, 60)); return t && t.role === role ? t : null; };
 async function forder(env, b, scope) { const k = fkey(b.oid), o = k && await fget(env, k); return o && (!scope || o.rid === scope) ? o : null; }
@@ -512,12 +539,14 @@ async function foodDispatch(env, request) {
   if (b.action === 'login') return flogin(env, request, b);
   const t = await fauth(env, b, 'dispatch'); if (!t) return json({ error: 'Please log in again.', login: true }, 401);
   if (b.action === 'orders') return json({ orders: (await fdays(env, fdaysBack(2))).filter(o => ['placed', 'accepted', 'ready', 'picked', 'delivered'].includes(o.st)).map(fsafe) }, 200, { 'Cache-Control': 'no-store' });
+  if (b.action === 'riders') return json({ riders: (await listPrefix(env, 'fa:')).filter(x => x.role === 'rider' && !x.off).map(x => ({ id: x.id, name: x.name || x.id })) });
   const o = await forder(env, b); if (!o) return json({ error: 'Order not found' }, 404);
-  if (b.action === 'assign') { const n = fstr(b.rider, 40); if (n.length < 2) return json({ error: 'Enter the rider name.' }, 400); if (['delivered', 'rejected', 'cancelled'].includes(o.st)) return json({ error: 'Order is already ' + o.st + '.' }, 409); o.rider = n; await fput(env, fkey(o.id), o); return json({ ok: true, order: fsafe(o) }); }
+  if (b.action === 'assign') { const n = fstr(b.rider, 40); if (n.length < 2) return json({ error: 'Enter the rider name.' }, 400); if (['delivered', 'rejected', 'cancelled'].includes(o.st)) return json({ error: 'Order is already ' + o.st + '.' }, 409); o.rider = n; const rd = (await listPrefix(env, 'fa:')).find(x => x.role === 'rider' && !x.off && (String(x.name || '').toLowerCase() === n.toLowerCase() || x.id === fslug(n))); o.riderId = rd ? rd.id : null; await fput(env, fkey(o.id), o); return json({ ok: true, order: fsafe(o), riderApp: !!rd }); }
   let e;
   if (b.action === 'picked') { if (!o.rider) return json({ error: 'Assign a rider first.' }, 400); e = await fmove(env, o, 'picked'); }
   else if (b.action === 'delivered') { e = await fmove(env, o, 'delivered', o.pay === 'cod' ? { paid: true, cash: o.total } : {}); }
   else return json({ error: 'Unknown action' }, 400);
+  if (!e && b.action === 'delivered') await env.REVIEWS.delete('fl:' + o.id);
   return e || json({ ok: true, order: fsafe(o) });
 }
 
@@ -565,10 +594,10 @@ async function foodAdmin(env, request) {
     await fput(env, 'fr:' + id, o); return json({ ok: true, restaurant: o });
   }
   if (A === 'acct') {
-    const lid = fslug(b.loginId), role = b.role === 'dispatch' ? 'dispatch' : 'rest', pw = String(b.password || '');
+    const lid = fslug(b.loginId), role = b.role === 'dispatch' ? 'dispatch' : (b.role === 'rider' ? 'rider' : 'rest'), pw = String(b.password || '');
     if (lid.length < 3 || pw.length < 6) return json({ error: 'Login ID (3+ letters) and password (6+ characters) needed.' }, 400);
     if (role === 'rest' && !(await fget(env, 'fr:' + fslug(b.rid)))) return json({ error: 'Restaurant not found' }, 404);
-    const salt = frnd(8); await fput(env, 'fa:' + lid, { id: lid, role, rid: role === 'rest' ? fslug(b.rid) : null, salt, hash: await fhash(pw, salt), off: !!b.off }); return json({ ok: true, loginId: lid });
+    const salt = frnd(8); await fput(env, 'fa:' + lid, { id: lid, role, name: role === 'rider' ? (fstr(b.name, 40) || lid) : undefined, rid: role === 'rest' ? fslug(b.rid) : null, salt, hash: await fhash(pw, salt), off: !!b.off }); return json({ ok: true, loginId: lid });
   }
   if (A === 'dset') {
     const rid = fslug(b.rid), r = await fget(env, 'fr:' + rid); if (!r) return json({ error: 'Restaurant not found' }, 404);
@@ -600,7 +629,7 @@ async function foodAdmin(env, request) {
     await env.REVIEWS.delete('fr:' + id); return json({ ok: true });
   }
   if (A === 'dlist') { const l = await env.REVIEWS.list({ prefix: 'fd:' + fslug(b.rid) + ':', limit: 300 }), out = []; for (const k of l.keys) { const d = await fget(env, k.name); if (d) out.push(d); } return json({ dishes: out }); }
-  if (A === 'alist') return json({ accounts: (await listPrefix(env, 'fa:')).map(x => ({ id: x.id, role: x.role, rid: x.rid, off: !!x.off })) });
+  if (A === 'alist') return json({ accounts: (await listPrefix(env, 'fa:')).map(x => ({ id: x.id, role: x.role, rid: x.rid, name: x.name || '', off: !!x.off })) });
   if (A === 'aset') { const x = await fget(env, 'fa:' + fslug(b.loginId)); if (!x) return json({ error: 'Login not found' }, 404); x.off = !!b.off; await fput(env, 'fa:' + x.id, x); return json({ ok: true }); }
   if (A === 'blist') return json({ phones: (await env.REVIEWS.list({ prefix: 'fb:', limit: 300 })).keys.map(k => k.name.slice(3)) });
   return json({ error: 'Unknown action' }, 400);
@@ -618,6 +647,7 @@ async function foodApi({ request, env, pathname }) {
     if (a === 'order' && m === 'GET') return await foodTrack(env, new URL(request.url));
     if (a === 'rest' && m === 'POST') return await foodRest(env, request);
     if (a === 'dispatch' && m === 'POST') return await foodDispatch(env, request);
+    if (a === 'rider' && m === 'POST') return await foodRider(env, request);
     if (a === 'admin' && m === 'POST') return await foodAdmin(env, request);
   } catch (e) { return json({ error: 'Something went wrong. Please try again.' }, 500); }
   return json({ error: 'Not found' }, 404);
