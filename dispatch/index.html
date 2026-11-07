@@ -100,12 +100,14 @@ const tAt=(o,s)=>((o.trail.find(x=>x.s===s)||{}).t)||o.ts;
 const today=ts=>new Date(ts+19800000).toISOString().slice(0,10)===new Date(Date.now()+19800000).toISOString().slice(0,10);
 function riders(){try{return JSON.parse(localStorage.getItem('dr')||'[]')}catch(e){return[]}}
 function remember(n){try{const l=riders().filter(x=>x!==n);l.unshift(n);localStorage.setItem('dr',JSON.stringify(l.slice(0,40)))}catch(e){}}
-function dl(){$('rl').innerHTML=[...new Set([...riders(),...ORD.map(o=>o.rider).filter(Boolean)])].map(n=>`<option value="${esc(n)}">`).join('')}
+let APPR=[];
+async function loadRiders(){try{const r=await api({action:'riders'});APPR=(r.riders||[]).map(x=>x.name)}catch(e){}}
+function dl(){$('rl').innerHTML=[...new Set([...APPR,...riders(),...ORD.map(o=>o.rider).filter(Boolean)])].map(n=>`<option value="${esc(n)}">`).join('')}
 function setSound(){$('so').classList.toggle('on',SOUND);$('so').lastChild.textContent=SOUND?'Sound on':'Sound off'}
 const itemsTxt=o=>o.lines.map(l=>l.q+'x '+esc(l.n)).join(', ');
 function card(o){
  const cod=o.pay==='cod',head=`<div class="oh"><b>${esc(o.id.slice(-9))}</b><span class="ag">${ago(o.ts)}</span></div><p style="font-size:18px;margin-top:2px">${esc(o.rn)}</p>`;
- const cust=`<p class="ad"><b>${esc(o.name)}</b> - ${esc(o.zone)}<br>${esc(o.addr)}</p><a class="ph" href="tel:${esc(o.phone)}" aria-label="Call ${esc(o.name)}">Call ${esc(o.phone)}</a>`;
+ const cust=`<p class="ad"><b>${esc(o.name)}</b> - ${esc(o.zone)}<br>${esc(o.addr)}</p><a class="ph" href="tel:${esc(o.phone)}" aria-label="Call ${esc(o.name)}">Call ${esc(o.phone)}</a>${o.clat!=null?` <a class="ph" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${o.clat},${o.clng}">Customer pin</a>`:' <span class="ag">(no pin)</span>'}`;
  const pay=`<div class="st"><span class="${cod?'cod':''}">${cod?'Collect Rs '+o.total+' cash':(o.paid?'Paid online':'UPI: confirm payment')}</span><span>${itemsTxt(o)}</span></div>`;
  let x='',cls='';
  if(o.st==='placed')x='<p class="tm">Waiting for the kitchen to accept.</p>';
@@ -125,12 +127,12 @@ function renderR(){const m={};ORD.filter(o=>o.st==='delivered'&&today(tAt(o,'del
  const l=Object.values(m).sort((a,b)=>b.d-a.d),t=l.reduce((s,r)=>s+r.cash,0);
  $('mv').innerHTML=l.length?`<div class="card"><table class="tb"><tr><th>Rider</th><th>Deliveries</th><th>Cash to hand over</th></tr>${l.map(r=>`<tr><td>${esc(r.n)}</td><td>${r.d}</td><td>Rs ${r.cash}</td></tr>`).join('')}<tr><td><b>Total</b></td><td><b>${l.reduce((s,r)=>s+r.d,0)}</b></td><td><b>Rs ${t}</b></td></tr></table></div><p class="ag" style="text-align:center">Cash orders delivered today. Count the cash with each rider at the end of the day.</p>`:'<div class="empty">No deliveries yet today.</div>'}
 async function load(first){try{const d=await api({action:'orders'});ORD=d.orders;renderO();if(tab===2)renderR();ringCheck();$('up').textContent='Updated '+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}catch(e){if(first&&e.message!=='net'&&e.message!=='auth')$('ov').innerHTML=`<div class="empty">${esc(e.message)}<br><br><button class="btn" data-a="retry">Try again</button></div>`}}
-async function start(){show(true);$('ov').innerHTML='<div class="sk"></div><div class="sk"></div>';setSound();await load(true);clearInterval(poll);poll=setInterval(()=>{if(!document.hidden)load()},7000);try{if(navigator.wakeLock)wl=await navigator.wakeLock.request('screen')}catch(e){}}
+async function start(){show(true);loadRiders();$('ov').innerHTML='<div class="sk"></div><div class="sk"></div>';setSound();await load(true);clearInterval(poll);poll=setInterval(()=>{if(!document.hidden)load()},7000);try{if(navigator.wakeLock)wl=await navigator.wakeLock.request('screen')}catch(e){}}
 document.addEventListener('click',async e=>{const t=e.target.closest('[data-a]');if(!t)return;const a=t.dataset.a;
  if(a==='cfask'){cf=t.dataset.o;renderO();return}if(a==='cfno'){cf=null;renderO();return}if(a==='retry'){load(true);return}
  if(busy)return;busy=true;t.disabled=true;
  try{
-  if(a==='assign'){const n=($('ri-'+t.dataset.o).value||'').trim();if(n.length<2){toast('Type the rider name first.')}else{await api({action:'assign',oid:t.dataset.o,rider:n});remember(n);toast('Assigned to '+n)}}
+  if(a==='assign'){const n=($('ri-'+t.dataset.o).value||'').trim();if(n.length<2){toast('Type the rider name first.')}else{const ar=await api({action:'assign',oid:t.dataset.o,rider:n});remember(n);toast(ar.riderApp===false?'Assigned to '+n+'. Not on the rider app, so no live location.':'Assigned to '+n)}}
   else if(a==='picked'){await api({action:'picked',oid:t.dataset.o});toast('Marked picked up.')}
   else if(a==='deliv'){await api({action:'delivered',oid:t.dataset.o});cf=null;toast('Delivered. Well done.')}
   await load()}
