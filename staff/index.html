@@ -25,6 +25,7 @@ ol{padding-left:20px}li{margin:6px 0;font-size:15px;color:var(--ink)}.t{position
 <li>Menu: add each dish with its price. Switch the kitchen <b>Open</b>.</li>
 <li>Settings: set delivery fee, free-delivery amount, and the rider cost.</li>
 <li>Settings: create the dispatch login. Give it to your dispatcher.</li>
+<li>Settings: create a rider login for each rider. Give them the Rider app link.</li>
 <li>Open the customer page. The kitchen shows up by itself, in the same layout.</li>
 </ol></div>
 <h2>Every day</h2>
@@ -39,7 +40,8 @@ const o=location.origin,K=[
 ['Customer page','What customers see: food, cart, tracking. Share this when you launch.','/food/'],
 ['Admin','Only you and your team. Restaurants, menus, orders, money, offers.','/foodadmin/'],
 ['Kitchen login','Give to each restaurant owner with their own ID and password.','/restaurant/'],
-['Dispatch login','For your dispatcher. Assigns riders, marks picked up and delivered.','/dispatch/']];
+['Dispatch login','For your dispatcher. Assigns riders, marks picked up and delivered.','/dispatch/'],
+['Rider app','For each delivery rider. Shows their orders, directions and shares live location.','/rider/']];
 document.getElementById('L').innerHTML=K.map((k,i)=>`<div class="c"><h3>${k[0]}</h3><p>${k[1]}</p><div class="u">${o}${k[2]}</div><div class="r"><a class="b" target="_blank" rel="noopener" href="${k[2]}">Open</a><button class="b o" data-c="${i}">Copy link</button></div></div>`).join('');
 document.addEventListener('click',e=>{const b=e.target.closest('[data-c]');if(!b)return;const u=o+K[b.dataset.c][2],t=document.getElementById('t');const ok=()=>{t.style.display='block';setTimeout(()=>t.style.display='none',1800)};
  if(navigator.clipboard)navigator.clipboard.writeText(u).then(ok,ok);else ok()});
