@@ -332,7 +332,7 @@ function frange(from, to) { const out = []; let t = Date.parse('20' + from.slice
 const fsafe = o => ({ id: o.id, st: o.st, rn: o.rn, name: o.name, phone: o.phone, addr: o.addr, zone: o.zone, lines: o.lines, sub: o.sub, disc: o.disc, fee: o.fee, total: o.total, pay: o.pay, paid: o.paid, prep: o.prep, rider: o.rider, note: o.note, trail: o.trail, ts: o.ts, reason: o.reason, clat: o.clat == null ? null : o.clat, clng: o.clng == null ? null : o.clng });
 
 /* kitchens see the first name only, never phone or address */
-const fsafeRest = o => ({ id: o.id, st: o.st, name: String(o.name || '').split(' ')[0], lines: o.lines, sub: o.sub, prep: o.prep, note: o.note, trail: o.trail, ts: o.ts, reason: o.reason });
+const fsafeRest = o => ({ id: o.id, st: o.st, name: String(o.name || '').split(' ')[0], lines: o.lines, sub: o.sub, prep: o.prep, rider: o.rider ? String(o.rider).split(' ')[0] : null, note: o.note, trail: o.trail, ts: o.ts, reason: o.reason });
 
 async function fmove(env, o, to, extra) {
   if (!(FNEXT[o.st] || []).includes(to)) return json({ error: 'This order is already ' + o.st + '.' }, 409);
@@ -348,8 +348,11 @@ async function foodRider(env, request) {
   const b = await readJson(request); if (!b) return json({ error: 'Bad request' }, 400);
   if (b.action === 'login') return flogin(env, request, b);
   const t = await fauth(env, b, 'rider'); if (!t) return json({ error: 'Please log in again.', login: true }, 401);
-  const mine = async () => (await fdays(env, fdaysBack(2))).filter(o => o.riderId === t.id && ['accepted', 'ready', 'picked'].includes(o.st));
-  if (b.action === 'orders') return json({ name: t.name || t.id, orders: (await mine()).map(o => ({ ...fsafe(o), rlat: o.rlat == null ? null : o.rlat, rlng: o.rlng == null ? null : o.rlng })) }, 200, { 'Cache-Control': 'no-store' });
+  if (b.action === 'orders') {
+    const all = (await fdays(env, fdaysBack(2))).filter(o => o.riderId === t.id), td = fymd(Date.now());
+    const done = all.filter(o => o.st === 'delivered' && fymd(((o.trail.find(x => x.s === 'delivered') || {}).t) || o.ts) === td);
+    return json({ name: t.name || t.id, orders: all.filter(o => ['accepted', 'ready', 'picked'].includes(o.st)).map(o => ({ ...fsafe(o), rlat: o.rlat == null ? null : o.rlat, rlng: o.rlng == null ? null : o.rlng })), today: { n: done.length, cash: done.filter(o => o.pay === 'cod').reduce((a, o) => a + o.total, 0) } }, 200, { 'Cache-Control': 'no-store' });
+  }
   const o = await forder(env, b); if (!o || o.riderId !== t.id) return json({ error: 'This order is not assigned to you.' }, 404);
   if (b.action === 'ping') {
     if (!['accepted', 'ready', 'picked'].includes(o.st)) return json({ ok: true, stop: true });
@@ -434,7 +437,7 @@ async function foodMenu(env) {
     out.push({ id: r.id, name: r.name, zone: r.zone, banner: r.banner || '', open: !!r.open, hours: r.hours || '', tags: r.tags || '', cuisines: r.cuisines || [], eta: r.eta || '', forTwo: r.forTwo || '', dine: !!r.dine, dtags: r.dtags || [], lat: r.lat == null ? null : r.lat, lng: r.lng == null ? null : r.lng, dishes });
   }
   const promos = (await listPrefix(env, 'fp:')).filter(p => p.pub && p.active && (!p.until || Date.now() <= p.until)).map(p => ({ code: p.code, title: p.title || '', flat: p.flat || 0, pct: p.pct || 0, min: p.min || 0, max: p.max || 0, rid: p.rid || null, freeDel: !!p.freeDel }));
-  return json({ cfg: { fee: cfg.fee, freeAbove: cfg.freeAbove, paused: cfg.paused, dining: !!cfg.dining, localities: cfg.localities, map: env.MAP_TILE_URL ? { url: String(env.MAP_TILE_URL), attr: String(env.MAP_ATTR || '') } : null }, promos, restaurants: out }, 200, { 'Cache-Control': 'no-store' });
+  return json({ cfg: { fee: cfg.fee, freeAbove: cfg.freeAbove, paused: cfg.paused, dining: !!cfg.dining, localities: cfg.localities, map: (env.MAP_TILE_URL || env.MAP_ROUTE_URL) ? { url: String(env.MAP_TILE_URL || ''), attr: String(env.MAP_ATTR || ''), route: String(env.MAP_ROUTE_URL || '') } : null }, promos, restaurants: out }, 200, { 'Cache-Control': 'no-store' });
 }
 
 async function foodPlace(env, request) {
@@ -493,7 +496,7 @@ async function foodTrack(env, url) {
   const id = url.searchParams.get('id'), phone = String(url.searchParams.get('phone') || '').replace(/\D/g, '').slice(-10), k = fkey(id), o = k && await fget(env, k);
   if (!o || o.phone !== phone) return json({ error: 'Order not found. Check the order number and phone.' }, 404);
   await fexpire(env, [o]);
-  return json({ id: o.id, st: o.st, rn: o.rn, total: o.total, prep: o.prep, rider: o.rider ? o.rider.split(' ')[0] : null, trail: o.trail, reason: o.reason || null, pay: o.pay, paid: !!o.paid, refunded: !!o.refund, restaurantLat: o.rlat == null ? null : o.rlat, restaurantLng: o.rlng == null ? null : o.rlng, customerLat: o.clat == null ? null : o.clat, customerLng: o.clng == null ? null : o.clng, ...(o.riderId && ['ready', 'picked'].includes(o.st) ? await frider(env, o) : {}) }, 200, { 'Cache-Control': 'no-store' });
+  return json({ id: o.id, st: o.st, rn: o.rn, total: o.total, prep: o.prep, rider: o.rider ? o.rider.split(' ')[0] : null, trail: o.trail, reason: o.reason || null, pay: o.pay, paid: !!o.paid, refunded: !!o.refund, restaurantLat: o.rlat == null ? null : o.rlat, restaurantLng: o.rlng == null ? null : o.rlng, now: Date.now(), customerLat: o.clat == null ? null : o.clat, customerLng: o.clng == null ? null : o.clng, ...(o.rider && ['ready', 'picked'].includes(o.st) ? { riderPhone: o.riderPhone || null } : {}), ...(o.riderId && ['ready', 'picked'].includes(o.st) ? await frider(env, o) : {}) }, 200, { 'Cache-Control': 'no-store' });
 }
 
 /* ---------- login (restaurants and dispatch) ---------- */
@@ -541,7 +544,7 @@ async function foodDispatch(env, request) {
   if (b.action === 'orders') return json({ orders: (await fdays(env, fdaysBack(2))).filter(o => ['placed', 'accepted', 'ready', 'picked', 'delivered'].includes(o.st)).map(fsafe) }, 200, { 'Cache-Control': 'no-store' });
   if (b.action === 'riders') return json({ riders: (await listPrefix(env, 'fa:')).filter(x => x.role === 'rider' && !x.off).map(x => ({ id: x.id, name: x.name || x.id })) });
   const o = await forder(env, b); if (!o) return json({ error: 'Order not found' }, 404);
-  if (b.action === 'assign') { const n = fstr(b.rider, 40); if (n.length < 2) return json({ error: 'Enter the rider name.' }, 400); if (['delivered', 'rejected', 'cancelled'].includes(o.st)) return json({ error: 'Order is already ' + o.st + '.' }, 409); o.rider = n; const rd = (await listPrefix(env, 'fa:')).find(x => x.role === 'rider' && !x.off && (String(x.name || '').toLowerCase() === n.toLowerCase() || x.id === fslug(n))); o.riderId = rd ? rd.id : null; await fput(env, fkey(o.id), o); return json({ ok: true, order: fsafe(o), riderApp: !!rd }); }
+  if (b.action === 'assign') { const n = fstr(b.rider, 40); if (n.length < 2) return json({ error: 'Enter the rider name.' }, 400); if (['delivered', 'rejected', 'cancelled'].includes(o.st)) return json({ error: 'Order is already ' + o.st + '.' }, 409); o.rider = n; const rd = (await listPrefix(env, 'fa:')).find(x => x.role === 'rider' && !x.off && (String(x.name || '').toLowerCase() === n.toLowerCase() || x.id === fslug(n))); o.riderId = rd ? rd.id : null; o.riderPhone = rd && rd.phone ? rd.phone : null; if (!o.trail.some(x => x.s === 'assigned')) o.trail.push({ s: 'assigned', t: Date.now() }); await fput(env, fkey(o.id), o); return json({ ok: true, order: fsafe(o), riderApp: !!rd }); }
   let e;
   if (b.action === 'picked') { if (!o.rider) return json({ error: 'Assign a rider first.' }, 400); e = await fmove(env, o, 'picked'); }
   else if (b.action === 'delivered') { e = await fmove(env, o, 'delivered', o.pay === 'cod' ? { paid: true, cash: o.total } : {}); }
@@ -597,7 +600,7 @@ async function foodAdmin(env, request) {
     const lid = fslug(b.loginId), role = b.role === 'dispatch' ? 'dispatch' : (b.role === 'rider' ? 'rider' : 'rest'), pw = String(b.password || '');
     if (lid.length < 3 || pw.length < 6) return json({ error: 'Login ID (3+ letters) and password (6+ characters) needed.' }, 400);
     if (role === 'rest' && !(await fget(env, 'fr:' + fslug(b.rid)))) return json({ error: 'Restaurant not found' }, 404);
-    const salt = frnd(8); await fput(env, 'fa:' + lid, { id: lid, role, name: role === 'rider' ? (fstr(b.name, 40) || lid) : undefined, rid: role === 'rest' ? fslug(b.rid) : null, salt, hash: await fhash(pw, salt), off: !!b.off }); return json({ ok: true, loginId: lid });
+    const salt = frnd(8); await fput(env, 'fa:' + lid, { id: lid, role, name: role === 'rider' ? (fstr(b.name, 40) || lid) : undefined, phone: role === 'rider' ? (String(b.phone || '').replace(/\D/g, '').slice(-10) || undefined) : undefined, rid: role === 'rest' ? fslug(b.rid) : null, salt, hash: await fhash(pw, salt), off: !!b.off }); return json({ ok: true, loginId: lid });
   }
   if (A === 'dset') {
     const rid = fslug(b.rid), r = await fget(env, 'fr:' + rid); if (!r) return json({ error: 'Restaurant not found' }, 404);
@@ -629,7 +632,7 @@ async function foodAdmin(env, request) {
     await env.REVIEWS.delete('fr:' + id); return json({ ok: true });
   }
   if (A === 'dlist') { const l = await env.REVIEWS.list({ prefix: 'fd:' + fslug(b.rid) + ':', limit: 300 }), out = []; for (const k of l.keys) { const d = await fget(env, k.name); if (d) out.push(d); } return json({ dishes: out }); }
-  if (A === 'alist') return json({ accounts: (await listPrefix(env, 'fa:')).map(x => ({ id: x.id, role: x.role, rid: x.rid, name: x.name || '', off: !!x.off })) });
+  if (A === 'alist') return json({ accounts: (await listPrefix(env, 'fa:')).map(x => ({ id: x.id, role: x.role, rid: x.rid, name: x.name || '', phone: x.phone || '', off: !!x.off })) });
   if (A === 'aset') { const x = await fget(env, 'fa:' + fslug(b.loginId)); if (!x) return json({ error: 'Login not found' }, 404); x.off = !!b.off; await fput(env, 'fa:' + x.id, x); return json({ ok: true }); }
   if (A === 'blist') return json({ phones: (await env.REVIEWS.list({ prefix: 'fb:', limit: 300 })).keys.map(k => k.name.slice(3)) });
   return json({ error: 'Unknown action' }, 400);
