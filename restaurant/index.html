@@ -102,8 +102,8 @@ function card(o){const items='<ul class="li">'+o.lines.map(l=>`<li><b>${l.q}x</b
  if(o.st==='placed'){const r=rej===o.id;x=r?`<p class="tm">Why can you not make it?</p><div class="bt two"><button class="btn r" data-a="reject" data-o="${o.id}" data-r="out_of_stock">Out of stock</button><button class="btn r" data-a="reject" data-o="${o.id}" data-r="too_busy">Too busy</button><button class="btn r" data-a="reject" data-o="${o.id}" data-r="closed">Closed</button><button class="btn r" data-a="reject" data-o="${o.id}" data-r="other">Other</button></div><div class="bt one"><button class="btn o sm" data-a="back">Go back</button></div>`
   :`<p class="tm">Accept and tell us how long it will take:</p><div class="bt"><button class="btn g" data-a="accept" data-o="${o.id}" data-p="15">15 min</button><button class="btn g" data-a="accept" data-o="${o.id}" data-p="20">20 min</button><button class="btn g" data-a="accept" data-o="${o.id}" data-p="30">30 min</button></div><div class="bt one"><button class="btn r sm" data-a="rejask" data-o="${o.id}">Reject</button></div>`}
  else if(o.st==='accepted')x=`<p class="tm">Promised in ${o.prep} min</p><div class="bt one"><button class="btn" data-a="ready" data-o="${o.id}">Food is ready</button></div>`;
- else if(o.st==='ready')x='<p class="tm">Waiting for the rider to pick up.</p>';
- else if(o.st==='picked')x='<p class="tm">Picked up by the rider.</p>';
+ else if(o.st==='ready')x=`<p class="tm">${o.rider?'Rider '+esc(o.rider)+' is coming to pick it up.':'Waiting for a rider to pick it up.'}</p>`;
+ else if(o.st==='picked')x=`<p class="tm">Picked up${o.rider?' by '+esc(o.rider):''}. On the way to the customer.</p>`;
  return `<div class="card ${o.st==='placed'?'new':''}"><div class="oh"><b>${esc(o.id.slice(-9))}</b><span class="ag ${late?'late':''}">${ago(o.ts)}${late?' - please answer':''}</span></div><p class="ag">For ${esc(o.name)}</p>${items}${o.note?`<p class="nt">Note: ${esc(o.note)}</p>`:''}<p class="ag">Order value Rs ${o.sub}</p>${x}</div>`}
 function renderO(){const g=s=>ORD.filter(o=>s.includes(o.st)),nw=g(['placed']),kt=g(['accepted']),rd=g(['ready','picked']),dn=g(['delivered','rejected','cancelled']);
  const nb=$('nb');nb.textContent=nw.length;nb.classList.toggle('hide',!nw.length);
@@ -125,7 +125,7 @@ document.addEventListener('click',async e=>{const t=e.target.closest('[data-a]')
  try{
   if(a==='accept'){await api({action:'accept',oid:t.dataset.o,prep:+t.dataset.p});toast('Accepted. Cook it for '+t.dataset.p+' min.')}
   else if(a==='reject'){await api({action:'reject',oid:t.dataset.o,reason:t.dataset.r});rej=null;toast('Order rejected. We will inform the customer.')}
-  else if(a==='ready'){await api({action:'ready',oid:t.dataset.o});toast('Marked ready. Rider is informed.')}
+  else if(a==='ready'){await api({action:'ready',oid:t.dataset.o});toast('Marked ready. The delivery team is told.')}
   else if(a==='stock'){const d=await api({action:'stock',did:t.dataset.d,stock:t.dataset.s==='1'});const i=MENU.findIndex(x=>x.id===d.dish.id);MENU[i]=d.dish;renderM();toast(d.dish.stock?'Back in stock':'Marked out of stock')}
   else if(a==='price'){const v=$('pi-'+t.dataset.d).value;const d=await api({action:'price',did:t.dataset.d,price:+v});const i=MENU.findIndex(x=>x.id===d.dish.id);MENU[i]=d.dish;renderM();toast('Price saved: Rs '+d.dish.price)}
   if(['accept','reject','ready'].includes(a))await load()}
