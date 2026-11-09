@@ -433,8 +433,8 @@ async function foodMenu(env) {
   const cfg = await fcfg(env), rs = (await listPrefix(env, 'fr:')).filter(r => !r.suspended), out = [];
   for (const r of rs) {
     const l = await env.REVIEWS.list({ prefix: 'fd:' + r.id + ':', limit: 300 }), dishes = [];
-    for (const k of l.keys) { const d = await fget(env, k.name); if (d) dishes.push({ id: d.id, name: d.name, cat: d.cat, price: d.price, was: d.was || null, veg: !!d.veg, stock: !!d.stock, desc: d.desc || '' }); }
-    out.push({ id: r.id, name: r.name, zone: r.zone, banner: r.banner || '', open: !!r.open, hours: r.hours || '', tags: r.tags || '', cuisines: r.cuisines || [], eta: r.eta || '', forTwo: r.forTwo || '', dine: !!r.dine, dtags: r.dtags || [], lat: r.lat == null ? null : r.lat, lng: r.lng == null ? null : r.lng, dishes });
+    for (const k of l.keys) { const d = await fget(env, k.name); if (d) dishes.push({ id: d.id, name: d.name, cat: d.cat, price: d.price, was: d.was || null, veg: !!d.veg, stock: !!d.stock, desc: d.desc || '', img: d.img || '' }); }
+    out.push({ id: r.id, name: r.name, zone: r.zone, banner: r.banner || '', logo: r.logo || '', rating: r.rn >= FRATE_MIN ? { avg: Math.round(r.rs / r.rn * 10) / 10, n: r.rn } : null, open: !!r.open, hours: r.hours || '', tags: r.tags || '', cuisines: r.cuisines || [], eta: r.eta || '', forTwo: r.forTwo || '', dine: !!r.dine, dtags: r.dtags || [], lat: r.lat == null ? null : r.lat, lng: r.lng == null ? null : r.lng, dishes });
   }
   const promos = (await listPrefix(env, 'fp:')).filter(p => p.pub && p.active && (!p.until || Date.now() <= p.until)).map(p => ({ code: p.code, title: p.title || '', flat: p.flat || 0, pct: p.pct || 0, min: p.min || 0, max: p.max || 0, rid: p.rid || null, freeDel: !!p.freeDel }));
   return json({ cfg: { fee: cfg.fee, freeAbove: cfg.freeAbove, paused: cfg.paused, dining: !!cfg.dining, localities: cfg.localities, map: (env.MAP_TILE_URL || env.MAP_ROUTE_URL) ? { url: String(env.MAP_TILE_URL || ''), attr: String(env.MAP_ATTR || ''), route: String(env.MAP_ROUTE_URL || '') } : null }, promos, restaurants: out }, 200, { 'Cache-Control': 'no-store' });
@@ -496,7 +496,7 @@ async function foodTrack(env, url) {
   const id = url.searchParams.get('id'), phone = String(url.searchParams.get('phone') || '').replace(/\D/g, '').slice(-10), k = fkey(id), o = k && await fget(env, k);
   if (!o || o.phone !== phone) return json({ error: 'Order not found. Check the order number and phone.' }, 404);
   await fexpire(env, [o]);
-  return json({ id: o.id, st: o.st, rn: o.rn, total: o.total, prep: o.prep, rider: o.rider ? o.rider.split(' ')[0] : null, trail: o.trail, reason: o.reason || null, pay: o.pay, paid: !!o.paid, refunded: !!o.refund, restaurantLat: o.rlat == null ? null : o.rlat, restaurantLng: o.rlng == null ? null : o.rlng, now: Date.now(), customerLat: o.clat == null ? null : o.clat, customerLng: o.clng == null ? null : o.clng, ...(o.rider && ['ready', 'picked'].includes(o.st) ? { riderPhone: o.riderPhone || null } : {}), ...(o.riderId && ['ready', 'picked'].includes(o.st) ? await frider(env, o) : {}) }, 200, { 'Cache-Control': 'no-store' });
+  return json({ id: o.id, st: o.st, rn: o.rn, total: o.total, prep: o.prep, rider: o.rider ? o.rider.split(' ')[0] : null, trail: o.trail, reason: o.reason || null, pay: o.pay, paid: !!o.paid, refunded: !!o.refund, restaurantLat: o.rlat == null ? null : o.rlat, restaurantLng: o.rlng == null ? null : o.rlng, now: Date.now(), items: (o.lines || []).map(l => ({ id: l.d, n: l.n, q: l.q, p: l.p })), address: o.addr || '', rated: !!o.rating, customerLat: o.clat == null ? null : o.clat, customerLng: o.clng == null ? null : o.clng, ...(o.rider && ['ready', 'picked'].includes(o.st) ? { riderPhone: o.riderPhone || null } : {}), ...(o.riderId && ['ready', 'picked'].includes(o.st) ? await frider(env, o) : {}) }, 200, { 'Cache-Control': 'no-store' });
 }
 
 /* ---------- login (restaurants and dispatch) ---------- */
@@ -555,7 +555,7 @@ async function foodDispatch(env, request) {
 
 /* ---------- owner/admin ---------- */
 async function foodSummary(env, from, to) {
-  const cfg = await fcfg(env), orders = await fdays(env, frange(from, to)), now = Date.now(), per = {}, st = {}, late = [], rej = [], refundDue = [];
+  const cfg = await fcfg(env), orders = await fdays(env, frange(from, to)), now = Date.now(), per = {}, st = {}, late = [], rej = [], refundDue = [], lowRated = [];
   await fexpire(env, orders);
   let cod = 0, plat = 0, online = 0, refunded = 0;
   for (const o of orders) {
@@ -566,6 +566,7 @@ async function foodSummary(env, from, to) {
       p.orders++; p.sales += o.sub; p.commission += c; p.restFunded += rf; p.payable += o.sub - c - rf;
       plat += c + o.fee - pf - (cfg.riderCost || 0); if (o.pay === 'cod') cod += o.total; if (o.pay === 'online') online += o.total;
     }
+    if (o.rating && ((o.rating.food && o.rating.food <= 2) || (o.rating.delivery && o.rating.delivery <= 2))) lowRated.push({ id: o.id, rn: o.rn, phone: o.phone, food: o.rating.food, delivery: o.rating.delivery, note: o.rating.note });
     if (o.refund) refunded += o.refund.amount;
     if (o.paid && o.pay === 'online' && !o.refund && ['rejected', 'cancelled'].includes(o.st)) refundDue.push({ id: o.id, rn: o.rn, total: o.total, err: o.refundErr || '' });
     if (o.st === 'rejected') rej.push({ id: o.id, rn: o.rn, reason: o.reason, phone: o.phone });
@@ -575,7 +576,7 @@ async function foodSummary(env, from, to) {
     else if (!['rejected', 'cancelled'].includes(o.st) && end - o.ts > 3600000) late.push({ id: o.id, rn: o.rn, why: 'Over 60 min' });
   }
   const rows = Object.values(per); const t = rows.reduce((a, r) => ({ sales: a.sales + r.sales, commission: a.commission + r.commission, payable: a.payable + r.payable, orders: a.orders + r.orders }), { sales: 0, commission: 0, payable: 0, orders: 0 });
-  return { from, to, status: st, restaurants: rows, totals: { ...t, platformProfit: plat, codCashWithRiders: cod, onlineCollected: online, refunded }, late, rejected: rej, refundDue };
+  return { from, to, status: st, restaurants: rows, totals: { ...t, platformProfit: plat, codCashWithRiders: cod, onlineCollected: online, refunded }, late, rejected: rej, refundDue, lowRated };
 }
 
 async function foodAdmin(env, request) {
@@ -587,7 +588,8 @@ async function foodAdmin(env, request) {
   if (A === 'rset') {
     const id = fslug(b.id || b.name); if (!id || fstr(b.name, 60).length < 2) return json({ error: 'Restaurant name needed' }, 400);
     const o = (await fget(env, 'fr:' + id)) || { id, ts: Date.now(), open: false };
-    for (const k of ['name', 'zone', 'banner', 'hours', 'fssai', 'fssaiExp', 'payout']) if (b[k] != null) o[k] = fstr(b[k], 120);
+    for (const k of ['name', 'zone', 'hours', 'fssai', 'fssaiExp', 'payout']) if (b[k] != null) o[k] = fstr(b[k], 120);
+    for (const k of ['banner', 'logo']) if (b[k] != null) { const v = fstr(b[k], 300); if (v && !imgOk(v)) return json({ error: 'The ' + (k === 'banner' ? 'cover' : 'logo') + ' link must start with https:// . Or upload a photo instead.' }, 400); if (v !== (o[k] || '')) await imgDrop(env, o[k]); o[k] = v; }
     for (const k of ['tags', 'eta', 'forTwo']) if (b[k] != null) o[k] = fstr(b[k], 60);
     if (Array.isArray(b.cuisines)) o.cuisines = b.cuisines.filter(c => ['wazwan', 'bakery', 'fast', 'veg', 'street', 'sweets'].includes(c));
     if (b.commission != null) o.commission = Math.min(40, Math.max(0, Number(b.commission) || 0)); if (o.commission == null) o.commission = 10;
@@ -606,10 +608,16 @@ async function foodAdmin(env, request) {
     const rid = fslug(b.rid), r = await fget(env, 'fr:' + rid); if (!r) return json({ error: 'Restaurant not found' }, 404);
     const id = fslug(b.id || b.name), price = parseInt(b.price); if (!id || !(price >= 1 && price <= 5000)) return json({ error: 'Dish name and price (1 to 5000) needed' }, 400);
     const old = await fget(env, 'fd:' + rid + ':' + id), was = b.was ? parseInt(b.was) : null;
-    await fput(env, 'fd:' + rid + ':' + id, { id, rid, name: fstr(b.name || (old && old.name), 80), cat: fstr(b.cat || (old && old.cat) || 'Menu', 40), price, was: was && was > price ? was : null, veg: !!b.veg, stock: b.stock == null ? (old ? old.stock : true) : !!b.stock, desc: fstr(b.desc, 140) }); return json({ ok: true, id });
+    await fput(env, 'fd:' + rid + ':' + id, { id, rid, name: fstr(b.name || (old && old.name), 80), cat: fstr(b.cat || (old && old.cat) || 'Menu', 40), price, was: was && was > price ? was : null, veg: !!b.veg, stock: b.stock == null ? (old ? old.stock : true) : !!b.stock, desc: fstr(b.desc, 140), img: old && old.img ? old.img : '' }); return json({ ok: true, id });
   }
-  if (A === 'ddel') { await env.REVIEWS.delete('fd:' + fslug(b.rid) + ':' + fslug(b.id)); return json({ ok: true }); }
-  if (A === 'olist') { const all = await fdays(env, frange(fstr(b.from, 6) || fymd(Date.now()), fstr(b.to, 6) || fymd(Date.now()))); await fexpire(env, all); return json({ orders: all.filter(o => !b.st || o.st === b.st).map(o => ({ ...fsafe(o), comm: o.comm, refunded: !!o.refund, refundErr: o.refundErr || '' })) }); }
+  if (A === 'ddel') { const dk = 'fd:' + fslug(b.rid) + ':' + fslug(b.id), od = await fget(env, dk); if (od) await imgDrop(env, od.img); await env.REVIEWS.delete(dk); return json({ ok: true }); }
+  if (A === 'imgdel') {
+    const rid = fslug(b.rid), kind = b.kind;
+    if (kind === 'dish') { const dk = 'fd:' + rid + ':' + fslug(b.did), d = await fget(env, dk); if (!d) return json({ error: 'Dish not found' }, 404); await imgDrop(env, d.img); d.img = ''; await fput(env, dk, d); return json({ ok: true }); }
+    const r = await fget(env, 'fr:' + rid); if (!r || !['logo', 'cover'].includes(kind)) return json({ error: 'Restaurant not found' }, 404);
+    const f = kind === 'logo' ? 'logo' : 'banner'; await imgDrop(env, r[f]); r[f] = ''; await fput(env, 'fr:' + rid, r); return json({ ok: true });
+  }
+  if (A === 'olist') { const all = await fdays(env, frange(fstr(b.from, 6) || fymd(Date.now()), fstr(b.to, 6) || fymd(Date.now()))); await fexpire(env, all); return json({ orders: all.filter(o => !b.st || o.st === b.st).map(o => ({ ...fsafe(o), comm: o.comm, refunded: !!o.refund, refundErr: o.refundErr || '', rating: o.rating || null })) }); }
   if (['oassign', 'ocancel', 'opaid', 'orefund'].includes(A)) {
     const o = await forder(env, b); if (!o) return json({ error: 'Order not found' }, 404);
     if (A === 'orefund') { if (!['rejected', 'cancelled'].includes(o.st)) return json({ error: 'Only cancelled or rejected orders can be refunded.' }, 409); const r = await frefund(env, o, 'admin refund'); return json({ ok: !!r || !!o.refund, refunded: !!o.refund, error: o.refund ? undefined : (o.refundErr || 'Nothing to refund.') }); }
@@ -617,6 +625,8 @@ async function foodAdmin(env, request) {
     if (A === 'oassign') { o.rider = fstr(b.rider, 40); await fput(env, fkey(o.id), o); return json({ ok: true }); }
     const e = await fmove(env, o, 'cancelled', { reason: fstr(b.reason, 100) || 'cancelled by admin' }); if (e) return e; if (o.paid && o.pay === 'online') await frefund(env, o, 'cancelled by admin'); return json({ ok: true, refunded: !!o.refund, refundErr: o.refundErr || '' });
   }
+  if (A === 'qlist') return json({ reports: (await listPrefix(env, 'fq:')).sort((x, y) => y.t - x.t).slice(0, 40) });
+  if (A === 'qdel') { await env.REVIEWS.delete('fq:' + fstr(b.id, 40)); return json({ ok: true }); }
   if (A === 'plist') return json({ promos: await listPrefix(env, 'fp:') });
   if (A === 'pset') { const code = fslug(b.code).toUpperCase().replace(/-/g, ''); if (code.length < 3) return json({ error: 'Code needed' }, 400); const old = (await fget(env, 'fp:' + code)) || { used: 0, ts: Date.now() }; await fput(env, 'fp:' + code, { ...old, code, pct: Number(b.pct) || 0, flat: Number(b.flat) || 0, min: Number(b.min) || 0, max: Number(b.max) || 0, fund: b.fund === 'restaurant' ? 'restaurant' : 'platform', freeDel: !!b.freeDel, title: fstr(b.title, 60), pub: !!b.pub, rid: b.rid ? fslug(b.rid) : null, limit: Number(b.limit) || 0, until: b.until ? Date.parse(b.until + 'T23:59:59+05:30') : 0, active: b.active !== false }); return json({ ok: true, code }); }
   if (A === 'pdel') { await env.REVIEWS.delete('fp:' + fstr(b.code, 20).toUpperCase()); return json({ ok: true }); }
@@ -627,7 +637,8 @@ async function foodAdmin(env, request) {
   if (A === 'glog') return json({ log: await listPrefix(env, 'fg:') });
   if (A === 'rdel') {
     const id = fslug(b.id), r = await fget(env, 'fr:' + id); if (!r) return json({ error: 'Restaurant not found' }, 404);
-    const l = await env.REVIEWS.list({ prefix: 'fd:' + id + ':', limit: 500 }); for (const k of l.keys) await env.REVIEWS.delete(k.name);
+    const l = await env.REVIEWS.list({ prefix: 'fd:' + id + ':', limit: 500 }); for (const k of l.keys) { const dd = await fget(env, k.name); if (dd) await imgDrop(env, dd.img); await env.REVIEWS.delete(k.name); }
+    await imgDrop(env, r.banner); await imgDrop(env, r.logo);
     for (const x of await listPrefix(env, 'fa:')) if (x.rid === id) await env.REVIEWS.delete('fa:' + x.id);
     await env.REVIEWS.delete('fr:' + id); return json({ ok: true });
   }
@@ -636,6 +647,80 @@ async function foodAdmin(env, request) {
   if (A === 'aset') { const x = await fget(env, 'fa:' + fslug(b.loginId)); if (!x) return json({ error: 'Login not found' }, 404); x.off = !!b.off; await fput(env, 'fa:' + x.id, x); return json({ ok: true }); }
   if (A === 'blist') return json({ phones: (await env.REVIEWS.list({ prefix: 'fb:', limit: 300 })).keys.map(k => k.name.slice(3)) });
   return json({ error: 'Unknown action' }, 400);
+}
+
+/* ---------- restaurant and dish photos (stored in the same KV, served at /img/<id>) ---------- */
+const IMG_MAX = { logo: 250000, dish: 400000, cover: 700000 };
+const imgOk = u => typeof u === 'string' && /^(\/img\/[a-z0-9]{8,24}|\/images\/[A-Za-z0-9._-]+|https:\/\/[^\s"'<>]+)$/.test(u) && u.length <= 300;
+const imgId = u => { const m = typeof u === 'string' && u.match(/^\/img\/([a-z0-9]{8,24})/); return m ? m[1] : null; };
+const imgDrop = async (env, u) => { const id = imgId(u); if (id) await env.REVIEWS.delete('fi:' + id); };
+function imgSniff(b) {
+  const a = new Uint8Array(b, 0, Math.min(12, b.byteLength));
+  if (a[0] === 0xFF && a[1] === 0xD8 && a[2] === 0xFF) return 'image/jpeg';
+  if (a[0] === 0x89 && a[1] === 0x50 && a[2] === 0x4E && a[3] === 0x47) return 'image/png';
+  if (a[0] === 0x52 && a[1] === 0x49 && a[2] === 0x46 && a[3] === 0x46 && a[8] === 0x57 && a[9] === 0x45 && a[10] === 0x42 && a[11] === 0x50) return 'image/webp';
+  return null;
+}
+function adminOk(env, request) {
+  const k = request.headers.get('x-admin-key') || '';
+  return !!env.ADMIN_KEY && k.length === env.ADMIN_KEY.length && fsafeEq(k, env.ADMIN_KEY);
+}
+async function foodImgUpload(env, request) {
+  if (!adminOk(env, request)) return json({ error: 'Wrong key' }, 401);
+  if (await overLimit(env, request, 'fimg', 120)) return json({ error: 'Too many uploads. Please wait a little.' }, 429);
+  const u = new URL(request.url), kind = u.searchParams.get('kind'), rid = fslug(u.searchParams.get('rid')), did = fslug(u.searchParams.get('did'));
+  if (!['logo', 'cover', 'dish'].includes(kind)) return json({ error: 'Unknown photo type.' }, 400);
+  const max = IMG_MAX[kind], len = Number(request.headers.get('content-length') || 0);
+  if (len > max + 2048) return json({ error: 'This photo is too large (' + Math.round(len / 1024) + ' KB). Limit is ' + Math.round(max / 1000) + ' KB after resizing.' }, 413);
+  const r = await fget(env, 'fr:' + rid); if (!r) return json({ error: 'Restaurant not found.' }, 404);
+  let d = null; if (kind === 'dish') { d = await fget(env, 'fd:' + rid + ':' + did); if (!d) return json({ error: 'Dish not found. Save the dish first.' }, 404); }
+  const buf = await request.arrayBuffer();
+  if (!buf.byteLength) return json({ error: 'No photo received.' }, 400);
+  if (buf.byteLength > max) return json({ error: 'This photo is too large (' + Math.round(buf.byteLength / 1024) + ' KB). Limit is ' + Math.round(max / 1000) + ' KB after resizing.' }, 413);
+  const type = imgSniff(buf); if (!type) return json({ error: 'Only JPG, PNG or WebP photos are allowed.' }, 415);
+  const id = frnd(12).toLowerCase().replace(/[^a-z0-9]/g, 'x').slice(0, 12);
+  await env.REVIEWS.put('fi:' + id, buf, { metadata: { t: type, k: kind, rid, ts: Date.now(), n: buf.byteLength } });
+  const url = '/img/' + id;
+  if (kind === 'dish') { const old = d.img; d.img = url; await fput(env, 'fd:' + rid + ':' + did, d); await imgDrop(env, old); }
+  else { const f = kind === 'logo' ? 'logo' : 'banner', old = r[f]; r[f] = url; await fput(env, 'fr:' + rid, r); await imgDrop(env, old); }
+  return json({ ok: true, url, type, bytes: buf.byteLength });
+}
+async function foodImgServe(env, ctx, request, id) {
+  const cache = typeof caches !== 'undefined' ? caches.default : null, key = new Request(new URL(request.url).origin + '/img/' + id);
+  if (cache) { const hit = await cache.match(key); if (hit) return hit; }
+  const x = await env.REVIEWS.getWithMetadata('fi:' + id, 'arrayBuffer');
+  if (!x || !x.value) return new Response('Not found', { status: 404, headers: { 'Cache-Control': 'no-store' } });
+  const res = new Response(x.value, { headers: { 'Content-Type': (x.metadata && x.metadata.t) || 'image/jpeg', 'Cache-Control': 'public, max-age=31536000, immutable', 'X-Content-Type-Options': 'nosniff' } });
+  if (cache && ctx && ctx.waitUntil) ctx.waitUntil(cache.put(key, res.clone()));
+  return res;
+}
+
+/* ---------- customer ratings and problem reports ---------- */
+const FRATE_MIN = 5; /* a rating is shown to customers only after this many real ratings */
+async function foodRate(env, request) {
+  const b = await readJson(request); if (!b) return json({ error: 'Bad request.' }, 400);
+  if (await overLimit(env, request, 'frate', 20)) return json({ error: 'Too many tries. Please wait a little.' }, 429);
+  const k = fkey(fstr(b.id, 40)), o = k && await fget(env, k), phone = last10(b.phone);
+  if (!o || o.phone !== phone) return json({ error: 'Order not found.' }, 404);
+  if (o.st !== 'delivered') return json({ error: 'You can rate an order after it is delivered.' }, 409);
+  if (o.rating) return json({ error: 'This order was already rated. Thank you.' }, 409);
+  const star = v => { const n = Math.round(Number(v)); return n >= 1 && n <= 5 ? n : 0; }, food = star(b.food), delivery = star(b.delivery);
+  if (!food && !delivery) return json({ error: 'Please tap the stars first.' }, 400);
+  o.rating = { food, delivery, note: fstr(b.note, 300), t: Date.now() }; await fput(env, k, o);
+  if (food) { const r = await fget(env, 'fr:' + o.rid); if (r) { r.rs = (r.rs || 0) + food; r.rn = (r.rn || 0) + 1; await fput(env, 'fr:' + o.rid, r); } }
+  if ((food && food <= 2) || (delivery && delivery <= 2)) await tg(env, 'LOW RATING ' + o.id + ' (' + o.rn + ')\nFood ' + (food || '-') + '/5, Delivery ' + (delivery || '-') + '/5\n' + (o.rating.note ? '"' + o.rating.note + '"\n' : '') + o.name + ' ' + o.phone);
+  return json({ ok: true });
+}
+async function foodReport(env, request) {
+  const b = await readJson(request); if (!b) return json({ error: 'Bad request.' }, 400);
+  if (await overLimit(env, request, 'freport', 10)) return json({ error: 'Too many tries. Please wait a little.' }, 429);
+  const k = fkey(fstr(b.id, 40)), o = k && await fget(env, k), phone = last10(b.phone);
+  if (!o || o.phone !== phone) return json({ error: 'Order not found.' }, 404);
+  const note = fstr(b.note, 400); if (note.length < 3) return json({ error: 'Please tell us briefly what went wrong.' }, 400);
+  const type = fstr(b.type, 60) || 'Something else', id = Date.now() + '-' + frnd(4);
+  await fput(env, 'fq:' + id, { id, oid: o.id, rn: o.rn, name: o.name, phone: o.phone, type, note, t: Date.now() }, { expirationTtl: 60 * 86400 });
+  await tg(env, 'CUSTOMER REPORT ' + o.id + ' (' + o.rn + ')\n' + type + '\n"' + note + '"\n' + o.name + ' ' + o.phone);
+  return json({ ok: true });
 }
 
 async function foodApi({ request, env, pathname }) {
@@ -647,6 +732,9 @@ async function foodApi({ request, env, pathname }) {
     if (a === 'pay/create' && m === 'POST') return await foodPayCreate(env, request);
     if (a === 'pay/verify' && m === 'POST') return await foodPayVerify(env, request);
     if (a === 'promo' && m === 'POST') return await foodPromoCheck(env, request);
+    if (a === 'img' && m === 'POST') return await foodImgUpload(env, request);
+    if (a === 'rate' && m === 'POST') return await foodRate(env, request);
+    if (a === 'report' && m === 'POST') return await foodReport(env, request);
     if (a === 'order' && m === 'GET') return await foodTrack(env, new URL(request.url));
     if (a === 'rest' && m === 'POST') return await foodRest(env, request);
     if (a === 'dispatch' && m === 'POST') return await foodDispatch(env, request);
@@ -658,8 +746,9 @@ async function foodApi({ request, env, pathname }) {
 /* ===================== end FOOD block ===================== */
 
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const { pathname } = new URL(request.url), m = request.method;
+    if (m === 'GET' && env.REVIEWS && /^\/img\/[a-z0-9]{8,24}$/.test(pathname)) return foodImgServe(env, ctx, request, pathname.slice(5));
     if (pathname.startsWith('/api/food/')) return foodApi({ request, env, pathname });
     if (pathname === '/api/create-order' && m === 'POST') return createOrder({ request, env });
     if (pathname === '/api/track' && m === 'GET') return trackOrder({ request, env });
