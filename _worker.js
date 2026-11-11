@@ -322,6 +322,70 @@ const fstr = (v, n) => String(v == null ? '' : v).trim().slice(0, n);
 const fslug = s => fstr(s, 40).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const fymd = ts => new Date(ts + 19800000).toISOString().slice(2, 10).replace(/-/g, '');
 const fkey = id => { const m = /^MK(\d{6})-[0-9A-F]{4}$/.exec(String(id)); return m ? 'fo:20' + m[1] + ':' + id : null; };
+/* ---------- short customer-facing order reference (RK4821) ----------
+   The internal id (MK261111-3184) is NEVER changed: it stays the KV key, the Razorpay receipt and the id every API uses.
+   The short reference is display-only. It is stored on the order (o.ref) and indexed as fx:RK4821 -> internal id.
+   Safety rules:
+   - A reference is only shown as an RK number if the order itself stores it (o.ref). An order that has none shows its internal id,
+     which always resolves; a number is never worked out from the id for display.
+   - A reference is only accepted for an order if the index points at that same order. If the index already points at a different
+     order, the order is given a replacement reference instead and the conflicting one is removed from it.
+   - A lookup by RK number returns an order only if that order stores the same number. Anything ambiguous returns nothing.
+   KV has no atomic "create if absent", so two orders claiming the same number in the same instant cannot be fully ruled out. Claims
+   are therefore read back after writing, and every order is re-checked (and repaired) the next time it is looked at. */
+const FREF_RE = /^RK\d{4,5}$/;
+const frefCand = id => { const m = /-([0-9A-F]{4})$/.exec(String(id)); return 1000 + (m ? parseInt(m[1], 16) % 9000 : Math.floor(Math.random() * 9000)); };
+const frefOf = o => (o && o.ref && FREF_RE.test(o.ref)) ? o.ref : ((o && o.id) || '');
+/* tries to make 'RKnnnn' belong to this order; true only if the index reads back as this order's id */
+async function fclaimRef(env, ref, id) {
+  const ex = await env.REVIEWS.get('fx:' + ref);
+  if (ex && ex !== id) return false;
+  if (ex !== id) { await env.REVIEWS.put('fx:' + ref, id); if ((await env.REVIEWS.get('fx:' + ref)) !== id) return false; }
+  return true;
+}
+/* refv: 1 = number claimed but not yet re-checked after KV has had time to settle, 2 = re-checked at least 2 minutes after the claim.
+   An order that is not settled is re-checked (one KV read) every time it is looked at, so a number that two orders ended up sharing in a
+   race is noticed and one of them is moved to a replacement. */
+const FREF_SETTLE_MS = 120000;
+async function fassignRef(env, o) {
+  if (!o || !fkey(o.id)) return null;
+  if (o.ref && FREF_RE.test(o.ref)) {
+    if (o.refv === 2) return o.ref;
+    if (await fclaimRef(env, o.ref, o.id)) { o.refv = (Date.now() - (o.refT || o.ts || 0) > FREF_SETTLE_MS) ? 2 : 1; if (!o.refT) o.refT = o.ts || Date.now(); return o.ref; }
+    delete o.ref; delete o.refv; delete o.refT; /* the number belongs to another order: this order gets a replacement below */
+  }
+  let n = frefCand(o.id);
+  for (let i = 0; i < 8; i++) { /* the order's own predictable number first, then the next ones up */
+    const ref = 'RK' + n; if (await fclaimRef(env, ref, o.id)) { o.ref = ref; o.refv = 1; o.refT = Date.now(); return ref; }
+    n = n >= 9999 ? 1000 : n + 1;
+  }
+  for (let i = 0; i < 8; i++) { const ref = 'RK' + (10000 + Math.floor(Math.random() * 90000)); if (await fclaimRef(env, ref, o.id)) { o.ref = ref; o.refv = 1; o.refT = Date.now(); return ref; } }
+  return null; /* no safe number found: the order keeps showing its internal id */
+}
+/* makes sure the order has a verified reference and saves the order only if that changed it */
+async function fensureRef(env, o) {
+  if (o && o.refv !== 2) { const b0 = o.ref || null, b1 = o.refv || 0; await fassignRef(env, o); if ((o.ref || null) !== b0 || (o.refv || 0) !== b1) await fput(env, fkey(o.id), o); }
+  return frefOf(o);
+}
+/* display reference for an order known only by its internal id (reports, ratings) */
+async function frefById(env, id) { const k = fkey(id), o = k && await fget(env, k); return o ? frefOf(o) : String(id || ''); }
+/* accepts either the internal id or an RK reference and returns the internal id, or null. An RK number resolves only to an order that stores that number. */
+async function fidOf(env, s) {
+  s = fstr(s, 40); const u = s.toUpperCase().replace(/[\s-]+/g, '');
+  if (!FREF_RE.test(u)) return fkey(s) ? s : null;
+  const id = await env.REVIEWS.get('fx:' + u);
+  if (id && fkey(id)) { const o = await fget(env, fkey(id)); if (o && o.id === id && o.ref === u) return id; }
+  /* no usable index entry (older order, or an entry that does not match its order): look for an order that really holds this number */
+  const days = await fdays(env, fdaysBack(14)), holders = days.filter(o => o.ref === u);
+  if (holders.length === 1) { if (!id) { try { await env.REVIEWS.put('fx:' + u, holders[0].id); } catch (e) {} } return holders[0].id; }
+  if (holders.length > 1 || id) return null; /* two orders claim it, or the index points elsewhere: never guess */
+  const legacy = days.filter(o => !(o.ref && FREF_RE.test(o.ref)) && 'RK' + frefCand(o.id) === u);
+  if (legacy.length !== 1) return null;
+  const lo = legacy[0]; if (!(await fclaimRef(env, u, lo.id))) return null; /* claim it so the number can never also be given to another order */
+  const fresh = await fget(env, fkey(lo.id)); /* re-read so nothing else on the order is overwritten by a stale copy */
+  if (fresh && !(fresh.ref && FREF_RE.test(fresh.ref))) { fresh.ref = u; fresh.refv = 1; fresh.refT = Date.now(); await fput(env, fkey(fresh.id), fresh); }
+  return lo.id;
+}
 async function fhash(pw, salt) {
   const k = await crypto.subtle.importKey('raw', new TextEncoder().encode(pw), 'PBKDF2', false, ['deriveBits']);
   return fhex(await crypto.subtle.deriveBits({ name: 'PBKDF2', hash: 'SHA-256', salt: new TextEncoder().encode(salt), iterations: 100000 }, k, 256));
@@ -329,10 +393,10 @@ async function fhash(pw, salt) {
 async function fdays(env, days) { let out = []; for (const d of days) out = out.concat(await listPrefix(env, 'fo:20' + d + ':')); return out.sort((a, b) => b.ts - a.ts); }
 function fdaysBack(n) { const out = []; for (let i = 0; i < n; i++) out.push(fymd(Date.now() - i * 86400000)); return out; }
 function frange(from, to) { const out = []; let t = Date.parse('20' + from.slice(0, 2) + '-' + from.slice(2, 4) + '-' + from.slice(4, 6) + 'T00:00:00+05:30'); const e = Date.parse('20' + to.slice(0, 2) + '-' + to.slice(2, 4) + '-' + to.slice(4, 6) + 'T00:00:00+05:30'); for (let i = 0; t <= e && i < 62; i++, t += 86400000) out.push(fymd(t)); return out; }
-const fsafe = o => ({ id: o.id, st: o.st, rn: o.rn, name: o.name, phone: o.phone, addr: o.addr, zone: o.zone, lines: o.lines, sub: o.sub, disc: o.disc, fee: o.fee, total: o.total, pay: o.pay, paid: o.paid, prep: o.prep, rider: o.rider, note: o.note, trail: o.trail, ts: o.ts, reason: o.reason, clat: o.clat == null ? null : o.clat, clng: o.clng == null ? null : o.clng });
+const fsafe = o => ({ id: o.id, ref: frefOf(o), st: o.st, rn: o.rn, name: o.name, phone: o.phone, addr: o.addr, zone: o.zone, lines: o.lines, sub: o.sub, disc: o.disc, fee: o.fee, total: o.total, pay: o.pay, paid: o.paid, prep: o.prep, rider: o.rider, note: o.note, trail: o.trail, ts: o.ts, reason: o.reason, clat: o.clat == null ? null : o.clat, clng: o.clng == null ? null : o.clng });
 
 /* kitchens see the first name only, never phone or address */
-const fsafeRest = o => ({ id: o.id, st: o.st, name: String(o.name || '').split(' ')[0], lines: o.lines, sub: o.sub, prep: o.prep, rider: o.rider ? String(o.rider).split(' ')[0] : null, note: o.note, trail: o.trail, ts: o.ts, reason: o.reason });
+const fsafeRest = o => ({ id: o.id, ref: frefOf(o), st: o.st, name: String(o.name || '').split(' ')[0], lines: o.lines, sub: o.sub, prep: o.prep, rider: o.rider ? String(o.rider).split(' ')[0] : null, note: o.note, trail: o.trail, ts: o.ts, reason: o.reason });
 
 async function fmove(env, o, to, extra) {
   if (!(FNEXT[o.st] || []).includes(to)) return json({ error: 'This order is already ' + o.st + '.' }, 409);
@@ -343,7 +407,13 @@ async function fmove(env, o, to, extra) {
 /* ---------- map pins and rider location ---------- */
 const flat = v => { const n = parseFloat(v); return Number.isFinite(n) && n > 32 && n < 35.5 ? Math.round(n * 1e6) / 1e6 : null; };
 const flng = v => { const n = parseFloat(v); return Number.isFinite(n) && n > 73 && n < 76.5 ? Math.round(n * 1e6) / 1e6 : null; };
-const fpin = (a, b) => { const x = flat(a), y = flng(b); return x != null && y != null ? [x, y] : null; };
+const fblank = v => v == null || v === '' || typeof v === 'boolean';
+const fpin = (a, b) => {
+  if (fblank(a) || fblank(b)) return null;
+  const x = flat(a), y = flng(b); if (x != null && y != null) return [x, y];
+  const x2 = flat(b), y2 = flng(a); /* lat and lng were sent the wrong way round */
+  return x2 != null && y2 != null ? [x2, y2] : null;
+};
 async function foodRider(env, request) {
   const b = await readJson(request); if (!b) return json({ error: 'Bad request' }, 400);
   if (b.action === 'login') return flogin(env, request, b);
@@ -374,7 +444,7 @@ const FPAY_MIN = 30; /* minutes an unpaid online order is kept */
 function fsafeEq(a, b) { if (typeof a !== 'string' || typeof b !== 'string' || a.length !== b.length) return false; let d = 0; for (let i = 0; i < a.length; i++) d |= a.charCodeAt(i) ^ b.charCodeAt(i); return d === 0; }
 async function frelease(env, o) { if (!o.promo) return; const p = await fget(env, 'fp:' + o.promo); if (p && p.used > 0) { p.used--; await fput(env, 'fp:' + o.promo, p); } await env.REVIEWS.delete('fpu:' + o.promo + ':' + o.phone); }
 async function fexpire(env, list) { const now = Date.now(); for (const o of list) if (o.st === 'awaiting' && !o.paid && now - o.ts > FPAY_MIN * 60000) { o.st = 'cancelled'; o.reason = 'payment not completed'; o.trail.push({ s: 'cancelled', t: now }); await fput(env, fkey(o.id), o); await frelease(env, o); } }
-async function fnotifyNew(env, o) { await tg(env, 'NEW FOOD ORDER ' + o.id + '\n' + o.rn + ' | ' + o.zone + '\n' + o.lines.map(l => l.q + 'x ' + l.n).join(', ') + '\nTotal Rs ' + o.total + ' (' + (o.pay === 'online' ? 'PAID ONLINE' : o.pay.toUpperCase()) + ')\n' + o.name + ' ' + o.phone); }
+async function fnotifyNew(env, o) { await tg(env, 'NEW FOOD ORDER ' + frefOf(o) + ' (' + o.id + ')\n' + o.rn + ' | ' + o.zone + '\n' + o.lines.map(l => l.q + 'x ' + l.n).join(', ') + '\nTotal Rs ' + o.total + ' (' + (o.pay === 'online' ? 'PAID ONLINE' : o.pay.toUpperCase()) + ')\n' + o.name + ' ' + o.phone); }
 async function frefund(env, o, why) {
   if (!o.paid || o.pay !== 'online' || !o.paymentId || o.refund) return null;
   try {
@@ -475,9 +545,10 @@ async function foodPlace(env, request) {
   }
   const fee = (freeDel || sub >= cfg.freeAbove) ? 0 : cfg.fee, ts = Date.now(), id = 'MK' + fymd(ts) + '-' + frnd(2).toUpperCase();
   const o = { id, ts, rid: r.id, rn: r.name, comm: r.commission == null ? 10 : r.commission, name, phone, addr, zone, lines, sub, disc, fund, promo: code || null, fee, total: sub - disc + fee, pay, paid: false, st: pay === 'online' ? 'awaiting' : 'placed', trail: [{ s: pay === 'online' ? 'awaiting' : 'placed', t: ts }], prep: null, rider: null, note: fstr(b.note, 150), rlat: r.lat == null ? null : r.lat, rlng: r.lng == null ? null : r.lng, clat: (fpin(b.clat, b.clng) || [null])[0], clng: (fpin(b.clat, b.clng) || [null, null])[1] };
+  try { await fassignRef(env, o); } catch (e) { /* the order must never fail because of the display reference; it is assigned on first look instead */ }
   await fput(env, fkey(id), o);
   if (pay !== 'online') await fnotifyNew(env, o);
-  return json({ ok: true, id, total: o.total });
+  return json({ ok: true, id, ref: frefOf(o), total: o.total });
 }
 
 async function foodPromoCheck(env, request) {
@@ -493,10 +564,14 @@ async function foodPromoCheck(env, request) {
 }
 
 async function foodTrack(env, url) {
-  const id = url.searchParams.get('id'), phone = String(url.searchParams.get('phone') || '').replace(/\D/g, '').slice(-10), k = fkey(id), o = k && await fget(env, k);
+  const raw = url.searchParams.get('id'), phone = String(url.searchParams.get('phone') || '').replace(/\D/g, '').slice(-10), id = await fidOf(env, raw), k = id && fkey(id), o = k && await fget(env, k);
   if (!o || o.phone !== phone) return json({ error: 'Order not found. Check the order number and phone.' }, 404);
   await fexpire(env, [o]);
-  return json({ id: o.id, st: o.st, rn: o.rn, total: o.total, prep: o.prep, rider: o.rider ? o.rider.split(' ')[0] : null, trail: o.trail, reason: o.reason || null, pay: o.pay, paid: !!o.paid, refunded: !!o.refund, restaurantLat: o.rlat == null ? null : o.rlat, restaurantLng: o.rlng == null ? null : o.rlng, now: Date.now(), items: (o.lines || []).map(l => ({ id: l.d, n: l.n, q: l.q, p: l.p })), address: o.addr || '', rated: !!o.rating, customerLat: o.clat == null ? null : o.clat, customerLng: o.clng == null ? null : o.clng, ...(o.rider && ['ready', 'picked'].includes(o.st) ? { riderPhone: o.riderPhone || null } : {}), ...(o.riderId && ['ready', 'picked'].includes(o.st) ? await frider(env, o) : {}) }, 200, { 'Cache-Control': 'no-store' });
+  const ref = await fensureRef(env, o);
+  /* restaurant pin: the one saved with the order; if the kitchen's pin was added after the order was placed, use the kitchen's current pin */
+  let rll = fpin(o.rlat, o.rlng); if (!rll) { const r = await fget(env, 'fr:' + o.rid); if (r) rll = fpin(r.lat, r.lng); }
+  const cll = fpin(o.clat, o.clng);
+  return json({ id: o.id, ref, rid: o.rid, st: o.st, rn: o.rn, total: o.total, prep: o.prep, rider: o.rider ? o.rider.split(' ')[0] : null, trail: o.trail, reason: o.reason || null, pay: o.pay, paid: !!o.paid, refunded: !!o.refund, restaurantLat: rll ? rll[0] : null, restaurantLng: rll ? rll[1] : null, now: Date.now(), items: (o.lines || []).map(l => ({ id: l.d, n: l.n, q: l.q, p: l.p })), address: o.addr || '', rated: !!o.rating, customerLat: cll ? cll[0] : null, customerLng: cll ? cll[1] : null, customerPinned: !!cll, ...(o.rider && ['ready', 'picked'].includes(o.st) ? { riderPhone: o.riderPhone || null } : {}), ...(o.riderId && ['ready', 'picked'].includes(o.st) ? await frider(env, o) : {}) }, 200, { 'Cache-Control': 'no-store' });
 }
 
 /* ---------- login (restaurants and dispatch) ---------- */
@@ -509,7 +584,7 @@ async function flogin(env, request, b) {
   return json({ ok: true, token, role: acc.role, name: r ? r.name : (acc.name || (acc.role === 'rider' ? acc.id : 'Dispatch')), open: r ? !!r.open : null });
 }
 const fauth = async (env, b, role) => { const t = await fget(env, 'ft:' + fstr(b.token, 60)); return t && t.role === role ? t : null; };
-async function forder(env, b, scope) { const k = fkey(b.oid), o = k && await fget(env, k); return o && (!scope || o.rid === scope) ? o : null; }
+async function forder(env, b, scope) { const id = await fidOf(env, b.oid), k = id && fkey(id), o = k && await fget(env, k); return o && (!scope || o.rid === scope) ? o : null; }
 
 async function foodRest(env, request) {
   const b = await readJson(request); if (!b) return json({ error: 'Bad request' }, 400);
@@ -566,14 +641,14 @@ async function foodSummary(env, from, to) {
       p.orders++; p.sales += o.sub; p.commission += c; p.restFunded += rf; p.payable += o.sub - c - rf;
       plat += c + o.fee - pf - (cfg.riderCost || 0); if (o.pay === 'cod') cod += o.total; if (o.pay === 'online') online += o.total;
     }
-    if (o.rating && ((o.rating.food && o.rating.food <= 2) || (o.rating.delivery && o.rating.delivery <= 2))) lowRated.push({ id: o.id, rn: o.rn, phone: o.phone, food: o.rating.food, delivery: o.rating.delivery, note: o.rating.note });
+    if (o.rating && ((o.rating.food && o.rating.food <= 2) || (o.rating.delivery && o.rating.delivery <= 2))) lowRated.push({ id: o.id, ref: frefOf(o), rn: o.rn, phone: o.phone, food: o.rating.food, delivery: o.rating.delivery, note: o.rating.note });
     if (o.refund) refunded += o.refund.amount;
-    if (o.paid && o.pay === 'online' && !o.refund && ['rejected', 'cancelled'].includes(o.st)) refundDue.push({ id: o.id, rn: o.rn, total: o.total, err: o.refundErr || '' });
-    if (o.st === 'rejected') rej.push({ id: o.id, rn: o.rn, reason: o.reason, phone: o.phone });
+    if (o.paid && o.pay === 'online' && !o.refund && ['rejected', 'cancelled'].includes(o.st)) refundDue.push({ id: o.id, ref: frefOf(o), rn: o.rn, total: o.total, err: o.refundErr || '' });
+    if (o.st === 'rejected') rej.push({ id: o.id, ref: frefOf(o), rn: o.rn, reason: o.reason, phone: o.phone });
     const end = (o.trail.find(x => x.s === 'delivered') || {}).t || now;
-    if (o.st === 'placed' && now - o.trail[o.trail.length - 1].t > 180000) late.push({ id: o.id, rn: o.rn, why: 'Not accepted in 3 min' });
-    else if (o.st === 'ready' && !o.rider && now - o.trail[o.trail.length - 1].t > 300000) late.push({ id: o.id, rn: o.rn, why: 'No rider in 5 min' });
-    else if (!['rejected', 'cancelled'].includes(o.st) && end - o.ts > 3600000) late.push({ id: o.id, rn: o.rn, why: 'Over 60 min' });
+    if (o.st === 'placed' && now - o.trail[o.trail.length - 1].t > 180000) late.push({ id: o.id, ref: frefOf(o), rn: o.rn, why: 'Not accepted in 3 min' });
+    else if (o.st === 'ready' && !o.rider && now - o.trail[o.trail.length - 1].t > 300000) late.push({ id: o.id, ref: frefOf(o), rn: o.rn, why: 'No rider in 5 min' });
+    else if (!['rejected', 'cancelled'].includes(o.st) && end - o.ts > 3600000) late.push({ id: o.id, ref: frefOf(o), rn: o.rn, why: 'Over 60 min' });
   }
   const rows = Object.values(per); const t = rows.reduce((a, r) => ({ sales: a.sales + r.sales, commission: a.commission + r.commission, payable: a.payable + r.payable, orders: a.orders + r.orders }), { sales: 0, commission: 0, payable: 0, orders: 0 });
   return { from, to, status: st, restaurants: rows, totals: { ...t, platformProfit: plat, codCashWithRiders: cod, onlineCollected: online, refunded }, late, rejected: rej, refundDue, lowRated };
@@ -617,7 +692,7 @@ async function foodAdmin(env, request) {
     const r = await fget(env, 'fr:' + rid); if (!r || !['logo', 'cover'].includes(kind)) return json({ error: 'Restaurant not found' }, 404);
     const f = kind === 'logo' ? 'logo' : 'banner'; await imgDrop(env, r[f]); r[f] = ''; await fput(env, 'fr:' + rid, r); return json({ ok: true });
   }
-  if (A === 'olist') { const all = await fdays(env, frange(fstr(b.from, 6) || fymd(Date.now()), fstr(b.to, 6) || fymd(Date.now()))); await fexpire(env, all); return json({ orders: all.filter(o => !b.st || o.st === b.st).map(o => ({ ...fsafe(o), comm: o.comm, refunded: !!o.refund, refundErr: o.refundErr || '', rating: o.rating || null })) }); }
+  if (A === 'olist') { const all = await fdays(env, frange(fstr(b.from, 6) || fymd(Date.now()), fstr(b.to, 6) || fymd(Date.now()))); await fexpire(env, all); let nref = 0; for (const o of all) { if (o.refv !== 2 && nref++ < 40) await fensureRef(env, o); } return json({ orders: all.filter(o => !b.st || o.st === b.st).map(o => ({ ...fsafe(o), rlat: o.rlat == null ? null : o.rlat, rlng: o.rlng == null ? null : o.rlng, rv: o.rv || null, comm: o.comm, refunded: !!o.refund, refundErr: o.refundErr || '', rating: o.rating || null })) }); }
   if (['oassign', 'ocancel', 'opaid', 'orefund'].includes(A)) {
     const o = await forder(env, b); if (!o) return json({ error: 'Order not found' }, 404);
     if (A === 'orefund') { if (!['rejected', 'cancelled'].includes(o.st)) return json({ error: 'Only cancelled or rejected orders can be refunded.' }, 409); const r = await frefund(env, o, 'admin refund'); return json({ ok: !!r || !!o.refund, refunded: !!o.refund, error: o.refund ? undefined : (o.refundErr || 'Nothing to refund.') }); }
@@ -625,7 +700,7 @@ async function foodAdmin(env, request) {
     if (A === 'oassign') { o.rider = fstr(b.rider, 40); await fput(env, fkey(o.id), o); return json({ ok: true }); }
     const e = await fmove(env, o, 'cancelled', { reason: fstr(b.reason, 100) || 'cancelled by admin' }); if (e) return e; if (o.paid && o.pay === 'online') await frefund(env, o, 'cancelled by admin'); return json({ ok: true, refunded: !!o.refund, refundErr: o.refundErr || '' });
   }
-  if (A === 'qlist') return json({ reports: (await listPrefix(env, 'fq:')).sort((x, y) => y.t - x.t).slice(0, 40) });
+  if (A === 'qlist') { const rs = (await listPrefix(env, 'fq:')).sort((x, y) => y.t - x.t).slice(0, 40), out = []; for (const x of rs) out.push({ ...x, ref: await frefById(env, x.oid) }); return json({ reports: out }); }
   if (A === 'qdel') { await env.REVIEWS.delete('fq:' + fstr(b.id, 40)); return json({ ok: true }); }
   if (A === 'plist') return json({ promos: await listPrefix(env, 'fp:') });
   if (A === 'pset') { const code = fslug(b.code).toUpperCase().replace(/-/g, ''); if (code.length < 3) return json({ error: 'Code needed' }, 400); const old = (await fget(env, 'fp:' + code)) || { used: 0, ts: Date.now() }; await fput(env, 'fp:' + code, { ...old, code, pct: Number(b.pct) || 0, flat: Number(b.flat) || 0, min: Number(b.min) || 0, max: Number(b.max) || 0, fund: b.fund === 'restaurant' ? 'restaurant' : 'platform', freeDel: !!b.freeDel, title: fstr(b.title, 60), pub: !!b.pub, rid: b.rid ? fslug(b.rid) : null, limit: Number(b.limit) || 0, until: b.until ? Date.parse(b.until + 'T23:59:59+05:30') : 0, active: b.active !== false }); return json({ ok: true, code }); }
@@ -645,6 +720,46 @@ async function foodAdmin(env, request) {
   if (A === 'dlist') { const l = await env.REVIEWS.list({ prefix: 'fd:' + fslug(b.rid) + ':', limit: 300 }), out = []; for (const k of l.keys) { const d = await fget(env, k.name); if (d) out.push(d); } return json({ dishes: out }); }
   if (A === 'alist') return json({ accounts: (await listPrefix(env, 'fa:')).map(x => ({ id: x.id, role: x.role, rid: x.rid, name: x.name || '', phone: x.phone || '', off: !!x.off })) });
   if (A === 'aset') { const x = await fget(env, 'fa:' + fslug(b.loginId)); if (!x) return json({ error: 'Login not found' }, 404); x.off = !!b.off; await fput(env, 'fa:' + x.id, x); return json({ ok: true }); }
+  /* ---- review moderation: every change is written to the review's audit trail; customer text is never overwritten ---- */
+  if (A === 'vlist') {
+    const rid = b.rid ? fslug(b.rid) : '', f = fstr(b.filter, 12), l = await env.REVIEWS.list({ prefix: rid ? 'fv:' + rid + ':' : 'fv:', limit: 50, cursor: b.cursor || undefined }), out = [];
+    for (const kk of l.keys) { const x = await fget(env, kk.name); if (!x) continue; if (f === 'hidden' && !(x.hidden && !x.deleted)) continue; if (f === 'deleted' && !x.deleted) continue; if (f === 'noreply' && (x.reply || x.hidden || x.deleted)) continue; if (f === 'photos' && !(x.photos || []).some(p => !p.gone)) continue; if (!f && x.deleted) continue; out.push(rvAdmin(x)); }
+    return json({ reviews: out, next: l.list_complete ? null : (l.cursor || null) });
+  }
+  if (['vreply', 'vhide', 'vdel', 'vphoto', 'vedit'].includes(A)) {
+    const rid = fslug(b.rid), id = fstr(b.id, 40), kk = rid && /^\d{16}[0-9a-f]{6}$/.test(id) ? rvKey(rid, id) : null, x = kk && await fget(env, kk);
+    if (!x) return json({ error: 'Review not found.' }, 404);
+    const why = fstr(b.reason, 140);
+    if (A === 'vreply') {
+      const t = fstr(b.text, 400);
+      if (!t) { if (x.reply) { rvAudit(x, 'reply removed', why, { was: x.reply.text }); x.reply = null; } }
+      else if (!x.reply) { x.reply = { text: t, t: Date.now(), by: 'Riwaaz-e-Kashmir' }; rvAudit(x, 'reply added', '', {}); }
+      else if (x.reply.text !== t) { rvAudit(x, 'reply edited', why, { was: x.reply.text }); x.reply = { ...x.reply, text: t, edited: Date.now() }; }
+    } else if (A === 'vhide') {
+      if (x.deleted) return json({ error: 'This review was deleted.' }, 409);
+      const h = !!b.hidden; if (h && why.length < 3) return json({ error: 'Please give a short reason for hiding it.' }, 400);
+      if (h !== !!x.hidden) { x.hidden = h; if (!h) x.held = false; rvAudit(x, h ? 'hidden' : 'shown again', why); }
+    } else if (A === 'vdel') {
+      if (why.length < 3) return json({ error: 'Please give a short reason for deleting it.' }, 400);
+      if (!x.deleted) {
+        x.deleted = true; x.hidden = true; x.deletedAt = Date.now(); x.reply = null;
+        if (x.counted) { const r = await fget(env, 'fr:' + x.rid); if (r && r.rn > 0) { r.rs = Math.max(0, (r.rs || 0) - x.stars); r.rn = r.rn - 1; await fput(env, 'fr:' + x.rid, r); } x.counted = false; } /* a deleted review no longer counts in the average */
+        rvAudit(x, 'deleted', why);
+      }
+      /* runs on every Delete press, so a photo whose removal failed is retried; a photo is marked gone only once its KV delete succeeded */
+      const failedDel = await rvPurgePhotos(env, request, x);
+      if (failedDel) { await fput(env, kk, x); return json({ error: 'The review is hidden, but ' + failedDel + ' photo(s) could not be removed yet. Press Delete again to retry.', review: rvAdmin(x) }, 502); }
+    } else if (A === 'vphoto') {
+      const p = (x.photos || []).find(q => q.id === fstr(b.photo, 24)); if (!p) return json({ error: 'Photo not found.' }, 404);
+      if (!p.gone) { try { await imgPurge(env, '/img/' + p.id, request); } catch (e) { return json({ error: 'The photo could not be removed just now. Please try again.' }, 502); } p.gone = true; rvAudit(x, 'photo removed', why, { photo: p.id }); }
+    } else if (A === 'vedit') {
+      if (x.deleted) return json({ error: 'This review was deleted.' }, 409);
+      if (why.length < 3) return json({ error: 'Moderation edits need a reason.' }, 400);
+      if (b.revert) { if (x.edited) { rvAudit(x, 'edit reverted', why, { was: x.edited.text }); x.edited = null; } }
+      else { const t = fstr(b.text, RV_TEXT); if (t === (rvText(x) || '')) return json({ error: 'Nothing was changed.' }, 400); rvAudit(x, 'text edited', why, { was: rvText(x) }); x.edited = { text: t, t: Date.now(), reason: why, by: 'admin' }; }
+    }
+    await fput(env, kk, x); return json({ ok: true, review: rvAdmin(x) });
+  }
   if (A === 'blist') return json({ phones: (await env.REVIEWS.list({ prefix: 'fb:', limit: 300 })).keys.map(k => k.name.slice(3)) });
   return json({ error: 'Unknown action' }, 400);
 }
@@ -685,20 +800,75 @@ async function foodImgUpload(env, request) {
   else { const f = kind === 'logo' ? 'logo' : 'banner', old = r[f]; r[f] = url; await fput(env, 'fr:' + rid, r); await imgDrop(env, old); }
   return json({ ok: true, url, type, bytes: buf.byteLength });
 }
+/* Photo caching rules.
+   - Restaurant logos, covers and dish photos: unchanged. Cached at the edge and in browsers for one year (the id changes whenever the photo changes).
+   - Customer REVIEW photos: never stored in the edge cache, and browsers may keep them for 60 seconds only, so a deleted
+     photo stops being served quickly. Any kind that is not logo/cover/dish is treated the same way (fail safe).
+   - Edge-cache entries are stamped X-RK-Img: 2 when this code writes them. An entry without the stamp was written by older code
+     (which cached review photos for a year), so it is re-checked against KV, replaced if it is a restaurant photo and deleted if not. */
+const IMG_LONG_CACHE = ['logo', 'cover', 'dish'], IMG_STAMP = '2', REVIEW_IMG_CACHE = 'public, max-age=60';
 async function foodImgServe(env, ctx, request, id) {
   const cache = typeof caches !== 'undefined' ? caches.default : null, key = new Request(new URL(request.url).origin + '/img/' + id);
-  if (cache) { const hit = await cache.match(key); if (hit) return hit; }
+  let stale = false;
+  if (cache) { const hit = await cache.match(key); if (hit) { if (hit.headers.get('X-RK-Img') === IMG_STAMP) return hit; stale = true; } }
+  const later = p => { if (ctx && ctx.waitUntil) ctx.waitUntil(p); else p.catch(() => {}); };
   const x = await env.REVIEWS.getWithMetadata('fi:' + id, 'arrayBuffer');
-  if (!x || !x.value) return new Response('Not found', { status: 404, headers: { 'Cache-Control': 'no-store' } });
-  const res = new Response(x.value, { headers: { 'Content-Type': (x.metadata && x.metadata.t) || 'image/jpeg', 'Cache-Control': 'public, max-age=31536000, immutable', 'X-Content-Type-Options': 'nosniff' } });
-  if (cache && ctx && ctx.waitUntil) ctx.waitUntil(cache.put(key, res.clone()));
+  if (!x || !x.value) { if (stale) later(cache.delete(key).catch(() => {})); return new Response('Not found', { status: 404, headers: { 'Cache-Control': 'no-store' } }); }
+  const kind = x.metadata && x.metadata.k, type = (x.metadata && x.metadata.t) || 'image/jpeg';
+  if (!IMG_LONG_CACHE.includes(kind)) { /* review photo (or unknown): short lifetime, never put in the edge cache */
+    if (stale) later(cache.delete(key).catch(() => {}));
+    return new Response(x.value, { headers: { 'Content-Type': type, 'Cache-Control': REVIEW_IMG_CACHE, 'X-Content-Type-Options': 'nosniff' } });
+  }
+  const res = new Response(x.value, { headers: { 'Content-Type': type, 'Cache-Control': 'public, max-age=31536000, immutable', 'X-Content-Type-Options': 'nosniff', 'X-RK-Img': IMG_STAMP } });
+  if (cache) later(cache.put(key, res.clone()).catch(() => {}));
   return res;
 }
 
-/* ---------- customer ratings and problem reports ---------- */
+/* ---------- customer reviews (stars, text, up to 3 photos) ----------
+   KV layout (same REVIEWS namespace, no new binding needed; photos reuse the existing fi:<id> photo store served at /img/<id>):
+     fv:<rid>:<invTs><rand>   one review record (newest sorts first)      o.rv on the order points at it
+   A review is created once per delivered order, public at once. Customer text is never overwritten:
+   rec.text is the original; a moderator edit is stored separately in rec.edited with a reason, and every admin action is appended to rec.audit. */
 const FRATE_MIN = 5; /* a rating is shown to customers only after this many real ratings */
+const RV_PHOTOS = 3, RV_PHOTO_MAX = 450000, RV_BODY_MAX = 1700000, RV_TEXT = 300;
+const rvKey = (rid, id) => 'fv:' + rid + ':' + id;
+const rvFirst = n => String(n || '').trim().split(/\s+/)[0].slice(0, 20) || 'Customer';
+const rvPhotos = r => (r.photos || []).filter(p => !p.gone).map(p => '/img/' + p.id);
+const rvText = r => (r.edited && r.edited.text != null) ? r.edited.text : r.text;
+function rvPublic(r) { return { id: r.id, stars: r.stars, text: rvText(r), name: r.name, ts: r.ts, edited: !!r.edited, photos: rvPhotos(r), reply: r.reply ? { text: r.reply.text, ts: r.reply.t } : null }; }
+function rvAdmin(r) { return { id: r.id, rid: r.rid, oid: r.oid, ref: r.ref || null, rn: r.rn, name: r.name, stars: r.stars, delivery: r.delivery || 0, text: r.text, edited: r.edited || null, photos: (r.photos || []).map(p => ({ id: p.id, url: '/img/' + p.id, gone: !!p.gone })), ts: r.ts, hidden: !!r.hidden, held: !!r.held, deleted: !!r.deleted, reply: r.reply || null, audit: r.audit || [] }; }
+const rvAudit = (r, a, why, extra) => { (r.audit = r.audit || []).push({ t: Date.now(), a, by: 'admin', why: fstr(why, 140), ...(extra || {}) }); if (r.audit.length > 60) r.audit.splice(0, r.audit.length - 60); };
+/* Deletes a photo from KV first (this is the step that matters: the file can no longer be served from storage), then clears the
+   edge-cache copy under every address the site can be reached on. Cache.delete only reaches the data centre this request runs in;
+   other data centres are not reachable from a Worker. Review photos are never put in the edge cache any more (see foodImgServe),
+   so this only matters for copies written by older code. KV itself is eventually consistent: a deleted key can still be read from
+   other locations for up to about 60 seconds. Throws if the KV delete fails, so the caller never records a photo as removed when it is not. */
+async function imgPurge(env, u, request) {
+  const id = imgId(u); if (!id) return { id: null, cleared: 0 };
+  await env.REVIEWS.delete('fi:' + id);
+  const origins = new Set(['https://riwaazekashmir.com', 'https://www.riwaazekashmir.com']);
+  try { if (request) origins.add(new URL(request.url).origin); } catch (e) {}
+  let cleared = 0;
+  if (typeof caches !== 'undefined') for (const o of origins) { try { if (await caches.default.delete(new Request(o + '/img/' + id))) cleared++; } catch (e) {} }
+  return { id, cleared };
+}
+/* removes every photo of a review that is not yet marked gone; a photo is marked gone only after its KV delete succeeded. Returns how many failed. */
+async function rvPurgePhotos(env, request, x) {
+  let failed = 0;
+  for (const p of x.photos || []) { if (p.gone) continue; try { await imgPurge(env, '/img/' + p.id, request); p.gone = true; } catch (e) { failed++; } }
+  return failed;
+}
+
 async function foodRate(env, request) {
-  const b = await readJson(request); if (!b) return json({ error: 'Bad request.' }, 400);
+  const ct = request.headers.get('content-type') || '', multi = /multipart\/form-data/i.test(ct);
+  if (multi && Number(request.headers.get('content-length') || 0) > RV_BODY_MAX) return json({ error: 'The photos are too large together. Please use fewer or smaller photos.' }, 413);
+  let b = null, files = [];
+  if (multi) {
+    let fd; try { fd = await request.formData(); } catch (e) { return json({ error: 'Bad request.' }, 400); }
+    b = { id: fd.get('id'), phone: fd.get('phone'), food: fd.get('food'), delivery: fd.get('delivery'), note: fd.get('note') };
+    files = fd.getAll('photo').filter(f => f && typeof f !== 'string' && f.size != null);
+  } else b = await readJson(request);
+  if (!b) return json({ error: 'Bad request.' }, 400);
   if (await overLimit(env, request, 'frate', 20)) return json({ error: 'Too many tries. Please wait a little.' }, 429);
   const k = fkey(fstr(b.id, 40)), o = k && await fget(env, k), phone = last10(b.phone);
   if (!o || o.phone !== phone) return json({ error: 'Order not found.' }, 404);
@@ -706,10 +876,40 @@ async function foodRate(env, request) {
   if (o.rating) return json({ error: 'This order was already rated. Thank you.' }, 409);
   const star = v => { const n = Math.round(Number(v)); return n >= 1 && n <= 5 ? n : 0; }, food = star(b.food), delivery = star(b.delivery);
   if (!food && !delivery) return json({ error: 'Please tap the stars first.' }, 400);
-  o.rating = { food, delivery, note: fstr(b.note, 300), t: Date.now() }; await fput(env, k, o);
+  if (files.length > RV_PHOTOS) return json({ error: 'You can add up to ' + RV_PHOTOS + ' photos.' }, 400);
+  /* validate every photo BEFORE anything is saved */
+  const bufs = [];
+  for (const f of files) {
+    if (f.size > RV_PHOTO_MAX) return json({ error: 'A photo is too large (' + Math.round(f.size / 1024) + ' KB). Please choose a smaller one.' }, 413);
+    const buf = await f.arrayBuffer(); if (!buf.byteLength) return json({ error: 'A photo was empty.' }, 400);
+    const type = imgSniff(buf); if (!type) return json({ error: 'Only JPG, PNG or WebP photos are allowed.' }, 415);
+    bufs.push({ buf, type });
+  }
+  const note = fstr(b.note, RV_TEXT), ts = Date.now();
+  o.rating = { food, delivery, note, t: ts };
+  const flagged = BAD.test(note); /* rude words: the stars count, the words wait for a person to look */
+  const rid = o.rid, rid2 = (Number.MAX_SAFE_INTEGER - ts).toString().padStart(16, '0'), id = rid2 + frnd(3);
+  const photos = [];
+  for (const x of bufs) { const pid = frnd(12).toLowerCase().replace(/[^a-z0-9]/g, 'x').slice(0, 12); await env.REVIEWS.put('fi:' + pid, x.buf, { metadata: { t: x.type, k: 'review', rid, oid: o.id, ts, n: x.buf.byteLength } }); photos.push({ id: pid, t: x.type, n: x.buf.byteLength }); }
+  try { await fassignRef(env, o); } catch (e) {} /* o is saved just below */
+  const rec = { id, rid, oid: o.id, ref: frefOf(o), rn: o.rn, name: rvFirst(o.name), stars: food || delivery, delivery, counted: !!food, text: note, photos, ts, hidden: flagged, held: flagged, deleted: false, edited: null, reply: null, audit: flagged ? [{ t: ts, a: 'held', by: 'system', why: 'language filter' }] : [] };
+  await fput(env, rvKey(rid, id), rec);
+  o.rv = rvKey(rid, id); await fput(env, k, o);
   if (food) { const r = await fget(env, 'fr:' + o.rid); if (r) { r.rs = (r.rs || 0) + food; r.rn = (r.rn || 0) + 1; await fput(env, 'fr:' + o.rid, r); } }
-  if ((food && food <= 2) || (delivery && delivery <= 2)) await tg(env, 'LOW RATING ' + o.id + ' (' + o.rn + ')\nFood ' + (food || '-') + '/5, Delivery ' + (delivery || '-') + '/5\n' + (o.rating.note ? '"' + o.rating.note + '"\n' : '') + o.name + ' ' + o.phone);
-  return json({ ok: true });
+  if ((food && food <= 2) || (delivery && delivery <= 2)) await tg(env, 'LOW RATING ' + frefOf(o) + ' (' + o.id + ') ' + o.rn + '\nFood ' + (food || '-') + '/5, Delivery ' + (delivery || '-') + '/5\n' + (note ? '"' + note + '"\n' : '') + o.name + ' ' + o.phone);
+  if (flagged) await tg(env, 'REVIEW HELD (language) ' + frefOf(o) + ' at ' + o.rn + ' - open Food Admin > Reviews to check it.');
+  return json({ ok: true, held: flagged, review: flagged ? null : rvPublic(rec) });
+}
+
+/* public: the reviews of one restaurant, newest first (hidden and deleted ones are never returned) */
+async function foodReviews(env, url) {
+  const rid = fslug(url.searchParams.get('rid')); if (!rid) return json({ error: 'Restaurant not found.' }, 404);
+  const r = await fget(env, 'fr:' + rid); if (!r || r.suspended) return json({ error: 'Restaurant not found.' }, 404);
+  const lim = Math.min(20, Math.max(1, parseInt(url.searchParams.get('limit')) || 10)), cur = url.searchParams.get('cursor') || undefined;
+  const l = await env.REVIEWS.list({ prefix: 'fv:' + rid + ':', limit: lim, cursor: cur }), out = [];
+  for (const kk of l.keys) { const rec = await fget(env, kk.name); if (rec && !rec.hidden && !rec.deleted) out.push(rvPublic(rec)); }
+  const next = l.list_complete ? null : (l.cursor || null);
+  return json({ ok: true, rating: r.rn >= FRATE_MIN ? { avg: Math.round(r.rs / r.rn * 10) / 10, n: r.rn } : null, reviews: out, next }, 200, { 'Cache-Control': 'public, max-age=15' });
 }
 async function foodReport(env, request) {
   const b = await readJson(request); if (!b) return json({ error: 'Bad request.' }, 400);
@@ -734,6 +934,7 @@ async function foodApi({ request, env, pathname }) {
     if (a === 'promo' && m === 'POST') return await foodPromoCheck(env, request);
     if (a === 'img' && m === 'POST') return await foodImgUpload(env, request);
     if (a === 'rate' && m === 'POST') return await foodRate(env, request);
+    if (a === 'reviews' && m === 'GET') return await foodReviews(env, new URL(request.url));
     if (a === 'report' && m === 'POST') return await foodReport(env, request);
     if (a === 'order' && m === 'GET') return await foodTrack(env, new URL(request.url));
     if (a === 'rest' && m === 'POST') return await foodRest(env, request);
