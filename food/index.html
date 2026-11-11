@@ -165,11 +165,12 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;op
 .gh-hint{position:absolute;z-index:650;left:50%;top:50%;transform:translate(-50%,-50%);max-width:80%;text-align:center;background:rgba(7,23,15,.92);color:#f4e8c8;border:1px solid #c9a45c;border-radius:12px;padding:10px 14px;font:500 14px/1.3 Jost,sans-serif;pointer-events:none;opacity:0;transition:opacity .2s}.gh-hint.on{opacity:1}
 .map-nocoord{margin:0;padding:10px 14px;background:#09180f;border-top:1px solid rgba(212,175,55,.3);color:#c0c8b8;font-size:12px}.map-nocoord summary{cursor:pointer;color:#e4c778;font-weight:500;list-style:none;display:flex;align-items:center;gap:6px;min-height:32px}.map-nocoord summary::-webkit-details-marker{display:none}.map-nocoord summary::after{content:'▾';margin-left:auto;opacity:.7}.map-nocoord[open] summary::after{content:'▴'}.map-nocoord ul{list-style:none;margin:6px 0 2px;padding:0;display:flex;flex-wrap:wrap;gap:6px}.map-nocoord li button{min-height:32px;padding:0 11px;border-radius:16px;border:1px solid rgba(212,175,55,.45);background:#102318;color:#f2e6c8;font:500 12px Jost,sans-serif;cursor:pointer}
 .map-soon{display:inline-block;margin:5px 0 0 6px;padding:3px 7px;border-radius:20px;border:1px solid rgba(212,175,55,.5);color:#e4c778;font-size:10px;font-weight:500}
-.rkp{background:none!important;border:0!important}
+/* map markers use their own class. (.rkp is the Phase 3 card style; sharing it squeezed the markers to a few pixels and clipped them.) */
+.rk-mk{background:none!important;border:0!important;padding:0!important;overflow:visible!important;border-radius:0!important;box-shadow:none!important}.rk-mk svg{overflow:visible}
 .rk-pin{width:38px;height:38px;border-radius:50% 50% 50% 6px;transform:rotate(-45deg);background:linear-gradient(135deg,#f6dc8a,#b98a1c);border:2px solid #fff1b8;box-shadow:0 4px 14px #000a;display:grid;place-items:center}
 .rk-pin svg{transform:rotate(45deg);width:20px;height:22px}
 .rk-home{width:40px;height:40px;border-radius:50%;background:#102b1d;border:2px solid #e4c778;display:grid;place-items:center;box-shadow:0 0 0 6px rgba(212,175,55,.2),0 4px 12px #000a}
-.rk-rider{position:relative;width:56px;height:56px}.rk-pu{position:absolute;inset:8px;border-radius:50%;background:rgba(212,175,55,.38);animation:rkpu 1.8s ease-out infinite}
+.rk-rider{position:relative;width:68px;height:68px}.rk-pu{position:absolute;inset:9px;border-radius:50%;background:rgba(212,175,55,.38);animation:rkpu 1.8s ease-out infinite}
 .rk-rin{position:absolute;inset:0;display:grid;place-items:center;filter:drop-shadow(0 3px 4px #000b)}.rk-rin svg{transition:transform .3s}.rk-rin.flip svg{transform:scaleX(-1)}
 @keyframes rkpu{0%{transform:scale(.55);opacity:.9}100%{transform:scale(1.5);opacity:0}}
 @keyframes rkpu2{0%{box-shadow:0 0 0 0 rgba(212,175,55,.55)}100%{box-shadow:0 0 0 11px rgba(212,175,55,0)}}
@@ -285,11 +286,33 @@ h3[style*="26px"]{font-size:24.8px!important}
 .gt{position:relative;min-height:96px;border:1px solid var(--ln);border-radius:14px;padding:10px;background:linear-gradient(150deg,#1f4a37,#0d2a22);overflow:hidden;color:#f2ecda}
 .gt img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.55}.gt b,.gt small{position:relative;display:block}.gt small{color:#d4af37;font-size:11.5px;margin-top:2px}
 .rkd{border:1px dashed var(--ln2);border-radius:12px;padding:12px;margin:8px 0;color:var(--mu);font-size:14px}.rkd b{color:var(--tx)}
-.rkcel{position:fixed;left:50%;top:max(14px,env(safe-area-inset-top));transform:translateX(-50%);z-index:60;pointer-events:none;text-align:center;padding:10px 22px;border-radius:999px;border:1px solid #d4af37;background:#0b1b12;color:#f2ecda;box-shadow:0 10px 30px rgba(0,0,0,.45);animation:rki .5s both,rko .5s 3.6s forwards}
-.rkcel b{display:block;font:600 20px 'Cormorant Garamond',serif;color:#d4af37}.rkcel span{font-size:13.5px}
-.rkfx{position:fixed;inset:0;width:100%;height:100%;z-index:59;pointer-events:none}
-@keyframes rki{from{opacity:0;transform:translate(-50%,-14px)}}@keyframes rko{to{opacity:0}}
-@media(prefers-reduced-motion:reduce){.rkcel{animation:none}}
+/* RK GRAND ORDER CELEBRATION (display only; every layer is pointer-events:none) */
+.rkg{position:fixed;inset:0;z-index:80;pointer-events:none;overflow:hidden;display:grid;place-items:center;transition:opacity .55s ease}
+.rkg *{pointer-events:none}
+.rkg.out{opacity:0}
+.rkg-glow{position:absolute;inset:0;box-shadow:inset 0 0 90px 12px rgba(212,175,55,.34),inset 0 0 260px 50px rgba(24,125,72,.52);animation:rkgG .5s ease-out both}
+.rkg-core{position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(212,175,55,.24),rgba(212,175,55,0) 46%),radial-gradient(ellipse 90% 64% at 50% 50%,rgba(11,27,18,.97) 0,rgba(11,27,18,.92) 48%,rgba(5,13,8,.84) 100%);animation:rkgC .6s ease-out both}
+.rkg-ring{position:absolute;left:50%;top:50%;width:min(88vw,540px);height:min(88vw,540px);border-radius:50%;border:2px solid rgba(242,214,119,.95);box-shadow:0 0 44px 6px rgba(212,175,55,.5),inset 0 0 44px rgba(212,175,55,.35);opacity:0;animation:rkgR 1.15s cubic-bezier(.12,.7,.2,1) both}
+.rkg-ring.r2{animation-delay:.26s;border-color:rgba(116,212,154,.85);box-shadow:0 0 44px 6px rgba(31,122,69,.55),inset 0 0 44px rgba(31,122,69,.3)}
+.rkg-cv{position:absolute;inset:0;width:100%;height:100%}
+.rkg-box{position:relative;text-align:center;padding:0 5vw;max-width:96vw}
+.rkg-em{width:clamp(64px,17vw,92px);height:clamp(64px,17vw,92px);margin:0 auto clamp(10px,2.4vh,18px);border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#F2D774,#D4AF37 55%,#9c7a1c);border:2px solid #F2E6C0;box-shadow:0 0 0 5px rgba(212,175,55,.2),0 0 38px 8px rgba(212,175,55,.6);animation:rkgE .8s .1s cubic-bezier(.2,1.3,.4,1) both}
+.rkg-em svg{width:54%;height:54%}
+.rkg-t{font:700 clamp(40px,11.5vw,78px)/.98 'Cormorant Garamond',Georgia,serif;letter-spacing:.045em;max-width:92vw;margin:0 auto;text-wrap:balance;background:linear-gradient(100deg,#8f6d14 0%,#F2D774 28%,#D4AF37 46%,#FFF4C2 56%,#C9A02B 72%,#8f6d14 100%);background-size:240% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;filter:drop-shadow(0 2px 0 rgba(5,13,8,.6)) drop-shadow(0 0 22px rgba(212,175,55,.55));animation:rkgT .7s .15s cubic-bezier(.2,1.1,.3,1) both,rkgSh 1.7s .5s ease-in-out both}
+.rkg-s{margin:clamp(8px,1.6vh,14px) auto 0;font:500 clamp(16px,4.4vw,24px)/1.35 'Jost',system-ui,sans-serif;letter-spacing:.03em;color:#F2E6C0;text-shadow:0 1px 14px rgba(5,13,8,.9),0 0 18px rgba(212,175,55,.35);animation:rkgU .6s .55s ease-out both}
+.rkg-hr{display:block;width:min(46vw,220px);height:1px;margin:clamp(14px,2.6vh,22px) auto 10px;background:linear-gradient(90deg,transparent,#D4AF37,transparent);animation:rkgW .7s .8s ease-out both}
+.rkg-b{display:block;font:600 clamp(18px,4.6vw,24px)/1.2 'Cormorant Garamond',Georgia,serif;letter-spacing:.14em;color:#D4AF37;text-shadow:0 0 16px rgba(212,175,55,.75),0 0 2px rgba(5,13,8,.8);animation:rkgU .6s .95s ease-out both}
+.rkg-rm{opacity:0}.rkg-rm.on{opacity:1}.rkg-rm.out{opacity:0}
+.rkg-rm *{animation:none!important}
+.rkg-rm .rkg-ring{display:none}
+@keyframes rkgG{from{opacity:0}to{opacity:1}}
+@keyframes rkgC{from{opacity:0;transform:scale(1.08)}to{opacity:1;transform:none}}
+@keyframes rkgR{0%{opacity:.95;transform:translate(-50%,-50%) scale(.08)}100%{opacity:0;transform:translate(-50%,-50%) scale(1.35)}}
+@keyframes rkgE{from{opacity:0;transform:scale(.4) rotate(-20deg)}to{opacity:1;transform:none}}
+@keyframes rkgT{from{opacity:0;transform:translateY(14px) scale(.82)}to{opacity:1;transform:none}}
+@keyframes rkgSh{from{background-position:100% 0}to{background-position:0 0}}
+@keyframes rkgU{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes rkgW{from{opacity:0;transform:scaleX(0)}to{opacity:1;transform:none}}
 /* ── Phase 3 · Session 2: RK Rewards, Surprise Spin, Welcome Reward, Refer & Earn ── */
 .rk3h{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}.rk3h h3{font-size:28px;margin:0;line-height:1.1}.rk3h h3:focus{outline:none}
 .rk3bk{display:block;background:none;border:0;color:var(--gd);font:500 14px Jost,sans-serif;min-height:40px;padding:0;cursor:pointer}.rk3bk::before{content:'‹ '}[dir=rtl] .rk3bk::before{content:'› '}
@@ -318,6 +341,27 @@ h3[style*="26px"]{font-size:24.8px!important}
 @keyframes rkf{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 @media(max-width:340px){.rk3 .rkp h2{font-size:24px}.rk3pl{grid-template-columns:1fr}.rk3hd,.rk3hl li{grid-template-columns:76px 1fr auto}}
 @media(prefers-reduced-motion:reduce){.rkw-r{transition:none}.rkw-r.nd{animation:none}.rkw-c,.rk3f{animation:none}.dr[data-rk]>div{animation:none}}
+
+/* ══════ order-map note, review photos, public reviews ══════ */
+.trk-mnote{position:absolute;z-index:500;left:54px;right:12px;top:12px;padding:8px 12px;border-radius:12px;background:rgba(7,23,15,.92);border:1px solid rgba(201,164,92,.55);color:#f2e6c8;font-size:12.5px;line-height:1.35}
+.trk-mnote.only{position:static;border-radius:0;border:0;padding:14px 16px;font-size:14px}
+.rk2e{color:var(--er);font-size:13.5px;min-height:18px;margin:8px 0 0}
+.rkph{display:flex;flex-wrap:wrap;gap:10px;margin:8px 0 2px}
+.rkph-i{position:relative;width:84px;height:84px;border-radius:14px;overflow:hidden;border:1px solid var(--ln2);background:var(--card2)}
+.rkph-i img{width:100%;height:100%;object-fit:cover;display:block}
+.rkph-x{position:absolute;top:4px;right:4px;width:30px;height:30px;min-height:30px;border-radius:50%;border:1px solid rgba(244,228,178,.7);background:rgba(7,23,15,.88);color:#f4e4b2;font-size:14px;line-height:1;cursor:pointer;display:grid;place-items:center;padding:0}
+.rkph-add{width:84px;height:84px;border-radius:14px;border:1.5px dashed var(--ln2);background:transparent;color:var(--gd);cursor:pointer;display:grid;place-items:center;align-content:center;gap:0;font:inherit}
+.rkph-add span{font-size:26px;line-height:1}.rkph-add small{font-size:11.5px;color:var(--mu)}
+.rkph-st{font-size:12.5px;color:var(--mu);min-height:18px;margin:4px 0 0}.rkph-st.bad{color:var(--er)}
+.rvc{background:var(--card);border:1px solid var(--ln);border-radius:16px;padding:12px 14px;margin:12px 0}
+.rvc-h{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px}.rvc-h b{font:600 20px/1.1 'Cormorant Garamond',serif}.rvc-h time{margin-left:auto;font-size:12px;color:var(--mu)}
+.rvc-v{font-size:11.5px;color:var(--ok)}.rvc .rk2st{margin-left:0;margin-top:2px}
+.rvc-t{margin:6px 0 0;font-size:14.5px;line-height:1.5;overflow-wrap:anywhere}.rvc-e{display:block;color:var(--mu);font-size:11.5px;margin-top:2px}
+.rvc-p{display:flex;gap:8px;margin-top:10px;overflow-x:auto;scrollbar-width:none}.rvc-p::-webkit-scrollbar{display:none}
+.rvc-ph{flex:none;width:96px;height:96px;padding:0;border:1px solid var(--ln2);border-radius:12px;overflow:hidden;background:var(--card2);cursor:pointer}.rvc-ph img{width:100%;height:100%;object-fit:cover;display:block}
+.rvc-r{margin-top:10px;padding:9px 12px;border-left:3px solid var(--gd);border-radius:0 10px 10px 0;background:var(--card2);font-size:13.5px}.rvc-r b{font-size:12px;letter-spacing:.04em;color:var(--gd)}.rvc-r p{margin:3px 0 0;overflow-wrap:anywhere}
+.rk-lb{position:fixed;inset:0;z-index:9999;background:rgba(3,8,5,.92);display:grid;place-items:center;padding:16px}.rk-lb img{max-width:100%;max-height:88vh;border-radius:12px;border:1px solid rgba(201,164,92,.5)}
+.rk-lbx{position:absolute;top:calc(12px + env(safe-area-inset-top));right:14px;width:44px;height:44px;border-radius:50%;border:1px solid rgba(244,228,178,.6);background:rgba(7,23,15,.9);color:#f4e4b2;font-size:18px;cursor:pointer}
 </style></head><body data-tod="d">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="rkGold" x1="10%" y1="0%" x2="90%" y2="100%"><stop offset="0" stop-color="#fff1a8"/><stop offset=".28" stop-color="#e9c85d"/><stop offset=".55" stop-color="#d4af37"/><stop offset=".8" stop-color="#a47c1b"/><stop offset="1" stop-color="#7d5c12"/></linearGradient><linearGradient id="rkGloss" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".6"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/></linearGradient></defs><symbol id="lf2" viewBox="120 18 355 392"><path d="M297 25 L318 70 L333 88 L362 98 L348 145 L372 160 L400 150 L468 142 L445 205 L436 232 L455 298 L412 290 L385 342 L345 325 L318 302 L297 312 L276 302 L249 325 L209 342 L182 290 L139 298 L158 232 L149 205 L126 142 L194 150 L222 160 L246 145 L232 98 L261 88 L276 70Z" fill="#0f2a1c"/><path d="M297 305V80M297 300L362 105M297 300L455 150M297 300L232 105M297 300L139 150" stroke="#e4c778" stroke-opacity=".55" stroke-width="9" fill="none" stroke-linecap="round"/></symbol>
 <symbol id="lf" viewBox="120 18 355 392"><path d="M297 25 L318 70 L333 88 L362 98 L348 145 L372 160 L400 150 L468 142 L445 205 L436 232 L455 298 L412 290 L385 342 L345 325 L318 302 L297 312 L276 302 L249 325 L209 342 L182 290 L139 298 L158 232 L149 205 L126 142 L194 150 L222 160 L246 145 L232 98 L261 88 L276 70Z" fill="url(#rkGold)" stroke="#f6e49a" stroke-width="5" stroke-linejoin="round"/><path d="M297 25 L318 70 L333 88 L362 98 L348 145 L372 160 L400 150 L468 142 L445 205 L436 232 L455 298 L412 290 L385 342 L345 325 L318 302 L297 312 L276 302 L249 325 L209 342 L182 290 L139 298 L158 232 L149 205 L126 142 L194 150 L222 160 L246 145 L232 98 L261 88 L276 70Z" fill="url(#rkGloss)"/><path d="M297 305V80M297 300L362 105M297 300L455 150M297 300L440 285M297 300L232 105M297 300L139 150M297 300L154 285" stroke="#8a6410" stroke-opacity=".55" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M297 300V404" stroke="#d4af37" stroke-width="11" stroke-linecap="round"/></symbol></svg>
@@ -533,7 +577,16 @@ ${dd.length?`<div class="h2">Matching dishes</div><div class="gr">${dd.map(([r,d
    the last real status is saved locally as a fallback. Nothing here creates, changes or cancels an order, and no order IDs are generated. */
 const OST={awaiting:['💳','Awaiting payment','a'],placed:['🍽️','Order sent','a'],accepted:['👨‍🍳','Preparing','a'],ready:['📦','Food ready','a'],picked:['🛵','On the way','a'],delivered:['💚','Delivered','d'],rejected:['⚠️','Not accepted','c'],cancelled:['✖️','Cancelled','c']};
 let oTab='all',oBusy=0,oAt={},oFail={},oNF={},oPend={},oOpen={};
-const oRef=id=>String(id==null?'':id).replace(/[\s-]+/g,'');
+/* Customer-facing order reference, display only. The internal id (MK261111-3184) is still what every API call, payment and lookup uses.
+   The Worker returns the real reference (RK4821) with each order; a number is never worked out from the id: until the Worker has returned a verified reference, the internal order id is shown. */
+const RKREF=(()=>{try{const o=JSON.parse(localStorage.getItem('rk_refs')||'{}');return o&&typeof o=='object'&&!Array.isArray(o)?o:{}}catch(e){return{}}})();
+const refKey=id=>String(id==null?'':id).trim().toUpperCase(),refOk=v=>/^RK\d{4,5}$/.test(String(v==null?'':v).trim().toUpperCase()),refGet=k=>Object.prototype.hasOwnProperty.call(RKREF,k)&&refOk(RKREF[k])?String(RKREF[k]).trim().toUpperCase():'';
+function refSave(){try{localStorage.setItem('rk_refs',JSON.stringify(RKREF))}catch(e){}}
+function refSet(id,ref){try{const k=refKey(id),r=String(id==null?'':id).trim(),v=String(ref==null?'':ref).trim().toUpperCase();if(!k||!refOk(v))return;if(RKREF[k]===v&&r===k)return;RKREF[k]=v;if(r!==k)delete RKREF[r];const ks=Object.keys(RKREF);if(ks.length>60)ks.slice(0,ks.length-60).forEach(x=>delete RKREF[x]);refSave()}catch(e){}}
+function refClear(id){try{const k=refKey(id),r=String(id==null?'':id).trim();let c=0;[k,r].forEach(x=>{if(x&&Object.prototype.hasOwnProperty.call(RKREF,x)){delete RKREF[x];c=1}});if(c)refSave()}catch(e){}}
+/* d = an order response the Worker returned successfully. A valid RK reference in it replaces the saved one. The saved one is cleared only when the response is complete (it has a status) and says ref is null, '' or false, which is the Worker confirming that no verified reference exists. A missing ref field, an unreadable value, a failed request or an incomplete response changes nothing. */
+function refSync(id,d){try{if(!d||typeof d!='object'||!('ref' in d))return;if(refOk(d.ref))return refSet(id,d.ref);if((d.ref===null||d.ref===''||d.ref===false)&&(typeof d.st=='string'||d.ok===true))refClear(id)}catch(e){}}
+const oRef=id=>{id=String(id==null?'':id).trim();if(/^RK\d{4,5}$/i.test(id))return id.toUpperCase();const k=id.toUpperCase();return refGet(k)||refGet(id)||k};
 const oCat=o=>{if(oNF[o.id])return'u';const k=OST[o.st];return k?k[2]:'u'};
 const oRecent=o=>!!o.ts&&Date.now()-o.ts<2592e6;
 const oShow=(o,t)=>t=='all'||(t=='active'&&oCat(o)=='a')||(t=='done'&&oCat(o)=='d'&&oRecent(o))||(t=='cancel'&&oCat(o)=='c');
@@ -571,11 +624,12 @@ const oTm=ts=>{const d=ts?new Date(ts):null;if(!d||isNaN(d))return'';const t=d.t
 const oHasItems=o=>!!o&&((Array.isArray(o.it)&&o.it.length>0)||(Array.isArray(o.i)&&o.i.length>0));
 const oPayable=o=>{if(!o||!o.id||o.pay!='online'||o.paid||o.pending||oNF[o.id])return false;const c=oCat(o);return c!='d'&&c!='c'&&!(OST[o.st]&&OST[o.st][2]!='a')};
 const oActive=(x,ms)=>!!(x&&x.id&&x.ts&&!oNF[x.id]&&((oCat(x)=='a'&&Date.now()-x.ts<2*864e5)||(oCat(x)=='u'&&Date.now()-x.ts<(ms||108e5))));
-function ordSave(id,d){try{const k=ords.findIndex(x=>x&&x.id==id);if(k<0||!d||typeof d.st!='string')return;const o=ords[k];try{p2Hook(o,d)}catch(e){}o.st=d.st;o.sat=Date.now();if(d.rn)o.rn=String(d.rn);
+function ordSave(id,d){try{if(d)refSync(id,d);const k=ords.findIndex(x=>x&&x.id==id);if(k<0||!d||typeof d.st!='string')return;const o=ords[k];try{p2Hook(o,d)}catch(e){}o.st=d.st;o.sat=Date.now();if(d.rn)o.rn=String(d.rn);
 if(d.paid!==undefined&&d.paid!==null){o.paid=d.paid?1:0;o.pat=Date.now();if(d.paid)o.pending=0}
 if(d.pay==='online'||d.pay==='cod')o.pay=d.pay;
 if(d.total!=null&&d.total!==''&&Number.isFinite(+d.total)&&+d.total>=0)o.t=+d.total;
-LS.s('rk_ord',ords)}catch(e){}}
+LS.s('rk_ord',ords);
+if(d.st=='cancelled'||d.st=='rejected')rkDisarm(id);else if(d.paid&&o.pay=='online')rkCel(o)}catch(e){}}
 function ordSnap(sn,s,dc,fe,jt,pc){const bt=jt==null||jt===''?NaN:+jt,ok=Number.isFinite(bt)&&Math.abs(s-dc+fe-bt)<.01,o={it:sn.map(x=>[x[0],String(x[1]).slice(0,80),ok?+x[2]:null,x[3]|0])};if(ok){o.sb=s;o.fe=fe;o.dc=dc;if(dc>0&&pc)o.pc=String(pc)}return o}
 function oLines(o){if(Array.isArray(o.it)&&o.it.length)return o.it.map(x=>({n:String(x[1]||''),q:+x[3]||1,p:x[2]!=null&&x[2]!==''&&Number.isFinite(+x[2])?+x[2]:null}));
 if(Array.isArray(o.i)&&o.i.length){const r=R(o.r);return o.i.map(x=>{const d=x&&r&&r.d.find(z=>z[7]===x[0]);return{n:d?d[0]:'',q:+(x&&x[1])||1,p:null}})}return[]}
@@ -653,10 +707,10 @@ MSG=build();sheet(`<div class="shh"><h3 style="font-size:26px">${title} ready</h
 function vRest(){const r=R(cr),q=k=>cart[cr+'|'+k]||0;
 const T=['Menu','Overview','Reviews','Photos'].map(x=>`<button class="chip ${x==rtab?'on':''}" onclick="rtab='${x}';draw()">${x}</button>`).join('');let b='';
 if(rtab=='Overview')b=`<div class="ad"><b>Address</b> ${esc(r.a)}, Srinagar<br>${r.h?'<b>Timings</b> '+esc(r.h)+'<br>':''}${r.p?'<b>Average cost</b> '+M(r.p)+' for two<br>':''}<b>Contact</b> <a href="tel:${CFG.call.replace(/[^+\d]/g,'')}" style="color:var(--gd)">${CFG.call}</a></div>`+(r.dn?`<div class="fm"><h3 style="font-size:26px;margin-top:10px">Reserve a table</h3>${fld('rn','Your name','text')}${fld('rp','Phone','tel','inputmode="numeric"')}${fld('rd','Date','date')}${fld('rm','Time','time')}${fld('rg','Guests','number','min="1" max="30"')}${fld('ro','Occasion','sel',CFG.occ)}<p class="er" id="er-r"></p><button class="btn a w100" onclick="snd('r',['rn','rp','rd','rm','rg'],'Table request',()=>'Table request – Riwaaz-e-Kashmir\\nRestaurant: '+R(cr).n+'\\nName: '+$('rn').value+'\\nPhone: '+$('rp').value+'\\nDate: '+$('rd').value+'\\nTime: '+$('rm').value+'\\nGuests: '+$('rg').value+'\\nOccasion: '+$('ro').value)">Request a table</button></div>`:'<div class="note">This restaurant is delivery only.</div>');
-else if(rtab=='Reviews')b=`<div class="fm">${pubRat(r)?`<span class="h2" style="color:var(--gd);margin:8px 0 0">★ ${pubRat(r).a.toFixed(1)}</span>`:''}<p style="color:var(--mu);margin:4px 0 0">${pubNote(r)}</p></div>`;
+else if(rtab=='Reviews')b=`<div class="fm">${pubRat(r)?`<span class="h2" style="color:var(--gd);margin:8px 0 0">★ ${pubRat(r).a.toFixed(1)}</span>`:''}<p style="color:var(--mu);margin:4px 0 0">${pubNote(r)}</p></div><div id="rvList" data-rid="${esc(r.id)}" aria-live="polite"></div>`;
 else if(rtab=='Photos'){const ph0=[okImg(r.banner)?[r.banner,r.n]:null,...r.d.filter(d=>okImg(d[12])).map(d=>[d[12],d[0]])].filter(Boolean);b=ph0.length?`<div class="pgal">${ph0.map(([u,t])=>`<figure><img loading="lazy" alt="${esc(t)}" src="${esc(u)}" onerror="this.closest('figure').remove()"><figcaption>${esc(t)}</figcaption></figure>`).join('')}</div>`:`<div class="note">Real photos will be added here.</div>`}
 else b=(r.open?`<div class="note">${(()=>{const p=offerOf(r);return (p?'<b style="color:var(--gd)">'+esc(ofTxt(p))+'</b>'+(p.min?' on orders above '+M(p.min)+'. ':'. '):'')+(CFG.free?'Free delivery above '+M(CFG.free)+'.':'One flat delivery fee.')})()}</div>`:'<div class="note">Closed right now.</div>')+r.d.map((d,k)=>`<div class="dish"><div class="e">${dph(d)}</div><div class="t" style="cursor:pointer" onclick="openD('${r.id}',${k})"><b>${esc(d[0])}</b><small>${M(d[1])}${d[4]?' · Sold out':''} · <span style="color:var(--gd)">Details ›</span></small></div>${rkHeart(r.id,k)}${!r.open||d[4]?'':q(k)?`<span class="st"><button onclick="ch(${k},-1)" aria-label="Remove one">−</button><span>${q(k)}</span><button onclick="ch(${k},1)" aria-label="Add one">+</button></span>`:`<button class="btn" onclick="ch(${k},1)">ADD +</button>`}</div>`).join('');
-$('app').innerHTML=`<button class="bk" onclick="go('${src}')">‹ Back</button>${p2(r.id,r.e,`<button class="hr" style="top:8px;right:8px;background:rgba(0,0,0,.5);border-radius:50%;color:#f3cf7e" aria-label="Favourite" onclick="fv('${r.id}')">${fav.includes(r.id)?'♥':'♡'}</button>`,'160')}<h2 style="font-size:32px;margin-top:12px">${esc(r.n)}</h2><p style="color:var(--mu);margin:2px 0">${pubBadge(r,1)}${esc(r.tags||r.t.join(', '))} · ${esc(r.a)}</p><div class="chips">${T}</div>${b}`}
+$('app').innerHTML=`<button class="bk" onclick="go('${src}')">‹ Back</button>${p2(r.id,r.e,`<button class="hr" style="top:8px;right:8px;background:rgba(0,0,0,.5);border-radius:50%;color:#f3cf7e" aria-label="Favourite" onclick="fv('${r.id}')">${fav.includes(r.id)?'♥':'♡'}</button>`,'160')}<h2 style="font-size:32px;margin-top:12px">${esc(r.n)}</h2><p style="color:var(--mu);margin:2px 0">${pubBadge(r,1)}${esc(r.tags||r.t.join(', '))} · ${esc(r.a)}</p><div class="chips">${T}</div>${b}`;if(rtab=='Reviews')rvLoad(r.id)}
 function openD(rid,k){dq=[rid,k];rD()}
 function dset(rid,k,n){if(cnt()&&Object.keys(cart)[0].split('|')[0]!=rid){cart={};PRM=null;toast('Cart cleared. One restaurant per order.')}cr=rid;const key=rid+'|'+k;if(n<=0)delete cart[key];else cart[key]=n;if(!cnt())PRM=null;if(PRM)applyP(PRM.code,1);rD();draw()}
 function rD(){if(!dq)return;const[rid,k]=dq,r=R(rid),d=r.d[k],q=cart[rid+'|'+k]||0,sv=d[6]||(d[1]>=600?4:d[1]>=300?2:1),can=r.open&&!d[4];
@@ -673,7 +727,7 @@ let pinLL=null,pinMap=null,pinMk=null;
 const PINCFG={prefix:'190',allow:null};/* allow: optional list of served PIN codes, e.g. ['190001','190018']. null = any PIN starting with the prefix */
 function nz(ll){let b=0,m=1e9;const t=Math.PI/180;ZC.forEach((c,i)=>{const d=Math.hypot((c[1]-ll[1])*t*Math.cos(ll[0]*t),(c[0]-ll[0])*t)*6371;if(d<m){m=d;b=i}});return[b,m]}
 function clrE(){const e=$('er');if(e)e.textContent=''}
-const inK=ll=>ll&&ll[0]>32&&ll[0]<35.5&&ll[1]>73&&ll[1]<76.5,pin2=(a,b)=>a!=null&&b!=null&&Number.isFinite(+a)&&Number.isFinite(+b)?[+a,+b]:null;
+const inK=ll=>ll&&ll[0]>32&&ll[0]<35.5&&ll[1]>73&&ll[1]<76.5,pin2=(a,b)=>{const ok=v=>v!==null&&v!==undefined&&v!==''&&typeof v!=='boolean'&&Number.isFinite(+v);if(!ok(a)||!ok(b))return null;const p=[+a,+b];if(inK(p))return p;const q=[+b,+a];return inK(q)?q:null};
 function pinSet(ll){pinLL=ll;const e=$('pin-st');if(!e)return;if(!ll){e.textContent='Not set (optional)';return}const z=nz(ll);if(z[1]>25){e.textContent='This location is outside our delivery area. Please check the pin.';return}const s=$('cz'),o=s&&[...s.options].find(o=>ZN[z[0]].includes(o.value));if(o)s.value=o.value;e.textContent='Location pinned'+(o?' near '+o.value:'')+'. Please check the area, PIN code and address below.';clrE()}
 function pinGps(){if(!navigator.geolocation){toast('This phone cannot share its location.');return}$('pin-st').textContent='Finding you…';navigator.geolocation.getCurrentPosition(p=>{const ll=[p.coords.latitude,p.coords.longitude];if(!inK(ll)){$('pin-st').textContent='That location is outside Kashmir. Please pick it on the map.';return}pinSet(ll);pinOpen(ll)},er=>{$('pin-st').textContent=er.code==1?'Location is blocked. Allow it in your browser settings, or pick it on the map.':'Could not get your location. Please pick it on the map.'},{enableHighAccuracy:true,timeout:15000})}
 function pinOpen(ll){const box=$('pin-box');if(!box)return;box.style.display='block';box.innerHTML='';loadL(()=>{if(!window.L){mapFail(box,'The map could not load. Your written address is enough.');return}if(pinMap){try{pinMap.remove()}catch(e){}pinMap=null;pinMk=null}const c=ll||pinLL;pinMap=window.L.map('pin-box',mapOpts({scrollWheelZoom:false},c?[c]:[])).setView(c||[34.0837,74.7973],c?17:13);mapTiles('pin-box').addTo(pinMap);touchGuard(pinMap);const mk=q=>{if(pinMk)pinMk.setLatLng(q);else{pinMk=window.L.marker(q,{draggable:true,icon:homePin()}).addTo(pinMap);pinMk.on('dragend',()=>{const p=pinMk.getLatLng();pinSet([p.lat,p.lng])})}};if(c)mk(c);pinMap.on('click',e=>{mk(e.latlng);pinSet([e.latlng.lat,e.latlng.lng])});setTimeout(()=>pinMap&&pinMap.invalidateSize(),200)})}
@@ -719,7 +773,7 @@ const snap=keys.map(k=>{const x=r.d[+k.split('|')[1]];return[x[7],x[0],x[1],cart
 placing=1;b.disabled=true;b.textContent=pay=='online'?'Opening secure payment…':'Placing your order…';
 try{const res=await fetch('/api/food/order',{method:'POST',headers:JH,body:JSON.stringify({name:d.n,phone:d.p,address:d.a,pin:d.pc,zone:d.z,rid,items,pay,promo:PRM?PRM.code:'',note:d.x,clat:pinLL?pinLL[0]:'',clng:pinLL?pinLL[1]:'',hp:$('hp').value})}),j=await res.json();
 if(!res.ok||!j.ok)throw new Error(j.error||'We could not place your order. Please try again or call us.');
-const ord={id:j.id,r:rid,i:items.map(x=>[x.d,x.q]),s:sm,t:j.total==null?t0:j.total,ts:Date.now(),phone:d.p,pay,paid:0,name:d.n,...ordSnap(snap,s,dc0,fe0,j.total,pc0)};ords.unshift(ord);ords=ords.slice(0,10);LS.s('rk_ord',ords);LS.s('rk_last',{id:j.id,phone:d.p,t:Date.now(),st:j.st||'placed'});doneO=ord;cart={};PRM=null;placing=0;pinLL=null;
+refSync(j.id,j);const ord={id:j.id,r:rid,i:items.map(x=>[x.d,x.q]),s:sm,t:j.total==null?t0:j.total,ts:Date.now(),phone:d.p,pay,paid:0,name:d.n,...ordSnap(snap,s,dc0,fe0,j.total,pc0)};ords.unshift(ord);ords=ords.slice(0,10);LS.s('rk_ord',ords);LS.s('rk_last',{id:j.id,phone:d.p,t:Date.now(),st:j.st||'placed'});rkArm(j.id);doneO=ord;cart={};PRM=null;placing=0;pinLL=null;
 if(pay=='online'){go('pay');payNow(ord)}else go('done')}
 catch(e){placing=0;b.disabled=false;b.dataset.t=t0;payUI();toast(e.message==='Failed to fetch'?'No internet. Please try again.':e.message)}}
 /* ── Razorpay: pay screen → checkout → server verifies signature ── */
@@ -732,7 +786,7 @@ async function payNow(o){o=o||doneO;if(!o||payBusy)return;payBusy=1;const b=$('p
 try{const [res]=await Promise.all([fetch('/api/food/pay/create',{method:'POST',headers:JH,body:JSON.stringify({id:o.id,phone:o.phone})}),rzpLoad()]),j=await res.json();
 if(!res.ok||!j.ok)throw new Error(j.error||'Could not start the payment. Please try again.');
 if(j.paid){o.paid=1;return payDone(o)}
-const rz=new Razorpay({key:j.key,order_id:j.orderId,amount:j.amount,currency:j.currency||'INR',name:'Riwaaz-e-Kashmir',description:'Order '+o.id,prefill:{name:o.name||LS.g('rk_me',{}).n||'',contact:o.phone},notes:{order:o.id},theme:{color:'#d4af37',backdrop_color:'#050d08'},retry:{enabled:true,max_count:3},timeout:900,
+const rz=new Razorpay({key:j.key,order_id:j.orderId,amount:j.amount,currency:j.currency||'INR',name:'Riwaaz-e-Kashmir',description:'Order '+oRef(o.id),prefill:{name:o.name||LS.g('rk_me',{}).n||'',contact:o.phone},notes:{order:o.id},theme:{color:'#d4af37',backdrop_color:'#050d08'},retry:{enabled:true,max_count:3},timeout:900,
 config:{display:{blocks:{upi:{name:'Pay with UPI',instruments:[{method:'upi'}]}},sequence:['block.upi'],preferences:{show_default_blocks:true}}},
 handler:p=>verifyPay(o,p),modal:{confirm_close:true,ondismiss:()=>payReset(o)}});
 rz.on('payment.failed',e=>{const x=$('pe');if(x)x.textContent=((e&&e.error&&e.error.description)||'The payment did not go through.')+' You can try again.';payReset(o)});
@@ -764,9 +818,9 @@ function payFromTrack(){const o=doneO;if(!o||!o.id)return;o.pay='online';go('pay
 function scooterSVG(w){return `<svg width="${w}" height="${w}" viewBox="0 0 64 64" aria-hidden="true"><rect x="5" y="20" width="16" height="15" rx="2.5" fill="#d4af37" stroke="#8a6410" stroke-width="1.5"/><path d="M13 24l2.5 4.6h-5z" fill="#1d4a37"/><circle cx="15" cy="49" r="7.5" fill="#0b1a12" stroke="#d4af37" stroke-width="2.5"/><circle cx="15" cy="49" r="2.2" fill="#d4af37"/><circle cx="52" cy="49" r="7.5" fill="#0b1a12" stroke="#d4af37" stroke-width="2.5"/><circle cx="52" cy="49" r="2.2" fill="#d4af37"/><path d="M9 45c0-6 5-9 11-9h19l5 6h8v7H46c-1-3-3-5-6-5H22c-3 0-5 2-6 5z" fill="#1f7a4d" stroke="#0f4a2d" stroke-width="1.5" stroke-linejoin="round"/><path d="M45 42l3-19" stroke="#c9a45c" stroke-width="3" stroke-linecap="round"/><path d="M42 22h9" stroke="#c9a45c" stroke-width="3" stroke-linecap="round"/><path d="M26 36l4-16" stroke="#2f9e63" stroke-width="7" stroke-linecap="round"/><path d="M31 24l15-2" stroke="#2f9e63" stroke-width="4" stroke-linecap="round"/><path d="M27 37l8 6" stroke="#10261a" stroke-width="4.5" stroke-linecap="round"/><circle cx="33" cy="13" r="5.3" fill="#e8c4a0"/><path d="M27.4 13a5.6 5.6 0 0 1 11.2 0z" fill="#d4af37" stroke="#8a6410" stroke-width="1"/></svg>`}
 const ICO={awaiting:'<rect x="8" y="14" width="32" height="22" rx="4"/><path d="M8 22h32"/><circle cx="32" cy="30" r="2"/>',placed:'<circle cx="24" cy="24" r="16"/><path d="M24 14v10l7 4"/>',accepted:'<path d="M10 22h28v5c0 7-5 12-14 12s-14-5-14-12z"/><path d="M7 22h34"/><path d="M18 16c0-3 3-3 3-6M27 16c0-3 3-3 3-6"/>',ready:'<path d="M12 16h24l2 24H10z"/><path d="M18 20v-4a6 6 0 0 1 12 0v4"/><path d="M19 30l4 4 7-8"/>',delivered:'<path d="M8 24L24 10l16 14"/><path d="M12 22v18h24V22"/><path d="M19 31l4 4 7-8"/>',off:'<circle cx="24" cy="24" r="16"/><path d="M18 18l12 12M30 18L18 30"/>'};
 function stIcon(st){if(st=='picked')return scooterSVG(48);return `<svg width="40" height="40" viewBox="0 0 48 48" fill="none" stroke="#e4c778" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICO[st]||ICO.placed}</svg>`}
-const leafPin=()=>window.L.divIcon({className:'rkp',html:'<div class="rk-pin"><svg viewBox="120 18 355 392" aria-hidden="true"><use href="#lf2"/></svg></div>',iconSize:[38,44],iconAnchor:[19,42],popupAnchor:[0,-38]});
-const homePin=()=>window.L.divIcon({className:'rkp',html:'<div class="rk-home"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#f5dfa0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg></div>',iconSize:[40,40],iconAnchor:[20,20],popupAnchor:[0,-18]});
-const riderIcon=()=>window.L.divIcon({className:'rkp',html:'<div class="rk-rider"><i class="rk-pu"></i><div class="rk-rin">'+scooterSVG(46)+'</div></div>',iconSize:[56,56],iconAnchor:[28,34],popupAnchor:[0,-28]});
+const leafPin=()=>window.L.divIcon({className:'rk-mk',html:'<div class="rk-pin"><svg viewBox="120 18 355 392" aria-hidden="true"><use href="#lf2"/></svg></div>',iconSize:[38,44],iconAnchor:[19,42],popupAnchor:[0,-38]});
+const homePin=()=>window.L.divIcon({className:'rk-mk',html:'<div class="rk-home"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#f5dfa0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg></div>',iconSize:[40,40],iconAnchor:[20,20],popupAnchor:[0,-18]});
+const riderIcon=()=>window.L.divIcon({className:'rk-mk',html:'<div class="rk-rider"><i class="rk-pu"></i><div class="rk-rin">'+scooterSVG(56)+'</div></div>',iconSize:[68,68],iconAnchor:[34,42],popupAnchor:[0,-36]});
 function dkm(a,b){const R=6371,r=x=>x*Math.PI/180,dl=r(b[0]-a[0]),dn=r(b[1]-a[1]),h=Math.sin(dl/2)**2+Math.cos(r(a[0]))*Math.cos(r(b[0]))*Math.sin(dn/2)**2;return 2*R*Math.asin(Math.sqrt(h))}
 /* gold route between two points. Uses a road-routing service when it answers, a dotted straight line when it does not */
 const RT={main:null,plan:null},routeFail={};
@@ -780,10 +834,14 @@ async function leg(slot,a,b,faint){if(!orderMap)return;const key=a.map(x=>x.toFi
  else{setLeg(slot,key,[a,b],faint,false);c=RT[slot]}
  c.at=Date.now();const pts=await getRoute(a,b),c2=RT[slot];if(pts&&c2&&c2.key===key)setLeg(slot,key,pts,faint,true)}
 function moveMk(m,to,ms){const f=m.getLatLng();if(Math.abs(f.lat-to[0])<1e-6&&Math.abs(f.lng-to[1])<1e-6)return;const t0=performance.now();ms=ms||1400;cancelAnimationFrame(m._af);const step=t=>{const k=Math.min(1,(t-t0)/ms),e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;m.setLatLng([f.lat+(to[0]-f.lat)*e,f.lng+(to[1]-f.lng)*e]);if(k<1)m._af=requestAnimationFrame(step)};m._af=requestAnimationFrame(step);const el=m.getElement&&m.getElement(),inn=el&&el.querySelector('.rk-rin');if(inn)inn.classList.toggle('flip',to[1]<f.lng-3e-5)}
-function trackMap(d){window._ltd=d;const P={r:pin2(d.restaurantLat,d.restaurantLng),c:pin2(d.customerLat,d.customerLng),d:pin2(d.riderLat,d.riderLng)},show=!!((P.r&&P.c)||P.d),wrap=$('trk-mapwrap'),box=$('trk');if(!wrap||!box)return;wrap.style.display=show?'block':'none';box.classList.toggle('has-map',show);if(!show)return;
+function trackMap(d){window._ltd=d;const P={r:pin2(d.restaurantLat,d.restaurantLng),c:pin2(d.customerLat,d.customerLng),d:pin2(d.riderLat,d.riderLng)},any=!!(P.r||P.c||P.d),active=['placed','accepted','ready','picked'].includes(d.st),wrap=$('trk-mapwrap'),box=$('trk');if(!wrap||!box)return;
+ /* clear notice instead of a map of somewhere unrelated */
+ const nt=$('trk-mnote'),miss=[];if(!P.c)miss.push('Delivery location not pinned. Your rider will use your written address.');if(!P.r)miss.push('Restaurant map pin is not available yet.');
+ if(nt){nt.textContent=miss.join(' ');nt.style.display=active&&miss.length?'block':'none';nt.classList.toggle('only',!any)}
+ const showWrap=any||(active&&miss.length>0);wrap.style.display=showWrap?'block':'none';box.classList.toggle('has-map',any);const om=$('order-map');if(om)om.style.display=any?'':'none';if(!any)return;
  loadL(()=>{if(V!='track'||!$('order-map'))return;if(!window.L){if(!orderMap)mapFail($('order-map'),'The live map could not load. Your order status below still updates.');return}paint(P,d)})}
 function paint(P,d){const L=window.L;
- if(!orderMap){$('order-map').innerHTML='';orderMap=L.map('order-map',mapOpts({zoomControl:true,scrollWheelZoom:false},[P.d,P.c,P.r].filter(Boolean))).setView(P.d||P.c||P.r,14);mapTiles('order-map').addTo(orderMap);touchGuard(orderMap);orderMap._sig='';setTimeout(()=>orderMap&&orderMap.invalidateSize(),250)}
+ if(!orderMap){$('order-map').innerHTML='';orderMap=L.map('order-map',mapOpts({zoomControl:true,scrollWheelZoom:false},[P.d,P.c,P.r].filter(Boolean))).setView(P.d||P.c||P.r,14);mapTiles('order-map').addTo(orderMap);touchGuard(orderMap);orderMap._sig='';orderMap._prog=0;orderMap._user=0;orderMap.on('dragstart zoomstart',()=>{if(Date.now()-(orderMap._prog||0)>1200)orderMap._user=Date.now()});setTimeout(()=>orderMap&&orderMap.invalidateSize(),250)}
  const put=(ll,old,icon,t)=>{if(!ll){if(old)orderMap.removeLayer(old);return null}return old||L.marker(ll,{icon}).addTo(orderMap).bindPopup(t)};
  restaurantMarker=put(P.r,restaurantMarker,leafPin(),d.rn||'Restaurant');customerMarker=put(P.c,customerMarker,homePin(),'Your delivery location');
  if(P.d){if(!riderMarker)riderMarker=L.marker(P.d,{icon:riderIcon(),zIndexOffset:900}).addTo(orderMap).bindPopup((d.rider||'Your rider')+(d.rider?' (your rider)':''));else moveMk(riderMarker,P.d)}else if(riderMarker){orderMap.removeLayer(riderMarker);riderMarker=null}
@@ -792,7 +850,10 @@ function paint(P,d){const L=window.L;
  else if(P.d&&d.st=='picked'&&P.c){leg('main',P.d,P.c,false);dropLeg('plan')}
  else if(P.r&&P.c&&d.st!='delivered'){leg('main',P.r,P.c,true);dropLeg('plan')}
  else{dropLeg('main');dropLeg('plan')}
- const sig=[P.r?1:0,P.c?1:0,P.d?1:0].join('');if(orderMap._sig!==sig){orderMap._sig=sig;const bl=[P.r,P.c,P.d].filter(Boolean);if(!bl.every(inSR))orderMap.setMaxBounds(null);if(bl.length>1)orderMap.fitBounds(bl,{padding:[50,50],maxZoom:16});else orderMap.setView(bl[0],15)}
+ /* Fit the saved restaurant + customer pins and the rider's real position. Re-fit only when a point appears or disappears, or the rider has left the view and the customer is not moving the map themselves. */
+ {const bl=[P.r,P.c,P.d].filter(Boolean),sig=[P.r?1:0,P.c?1:0,P.d?1:0].join(''),first=orderMap._sig==='',fitNow=anim=>{orderMap._prog=Date.now();if(!bl.every(inSR))orderMap.setMaxBounds(null);if(bl.length>1)orderMap.fitBounds(bl,{padding:[60,60],maxZoom:16,animate:!!anim});else orderMap.setView(bl[0],15,{animate:!!anim})};
+ if(orderMap._sig!==sig){orderMap._sig=sig;fitNow(!first)}
+ else if(P.d&&Date.now()-(orderMap._user||0)>45000&&Date.now()-(orderMap._prog||0)>4000&&!orderMap.getBounds().pad(-.12).contains(P.d))fitNow(true)}
  const age=P.d&&d.riderAt&&d.now?d.now-d.riderAt:null,lv=$('live');if(lv){lv.style.display='flex';if(P.d&&age!=null&&age<12e4){lv.className='live';lv.innerHTML='<i></i>Live tracking'}else if(P.d){lv.className='live off';lv.innerHTML='<i></i>Rider location paused'}else if(d.rider&&['accepted','ready','picked'].includes(d.st)){lv.className='live off';lv.innerHTML='<i></i>Rider location not shared yet'}else lv.style.display='none'}}
 /* status screen */
 let trkPoll=null,trkBusy=0;
@@ -802,11 +863,11 @@ document.addEventListener('visibilitychange',()=>{if(V=='track'&&!document.hidde
 const tfmt=t=>t?new Date(t).toLocaleTimeString([],{hour:'numeric',minute:'2-digit'}):'';
 function vTrack(){if(orderMap){try{orderMap.remove()}catch(e){}orderMap=null}RT.main=RT.plan=null;riderMarker=restaurantMarker=customerMarker=null;let o=doneO;if(!o){const l=lastOrder();if(l)o=doneO=l}if(!o||!o.id||!o.phone){trackForm();return}
 lastSave(o);
-$('app').innerHTML=`<button class="bk" onclick="go('home')">‹ Back</button><div class="map-kicker">RIWAAZ-E-KASHMIR · DELIVERY</div><h2 style="font:600 34px 'Cormorant Garamond',serif">Track your order</h2><div class="trk" id="trk"><section class="trkmap" id="trk-mapwrap" style="display:none"><div id="order-map"></div><div class="live" id="live" style="display:none"></div></section><aside class="track-panel"><div class="tp-h"><div class="tp-ico" id="tp-ico">${stIcon('placed')}</div><div><h3 id="trk-rn">Your order</h3><div class="tp-sub">Order ${esc(oRef(o.id))}</div></div><span class="track-pill" id="trk-pill">Checking…</span></div><div class="tp-eta"><small>ESTIMATED DELIVERY</small><div class="track-eta" id="eta">—</div></div><div id="stt" class="tp-msg">Checking your order…</div><div id="trk-pay"></div><div id="trk-p2" aria-live="polite"></div><ul class="track-steps tl" id="track-steps"></ul><div class="rider-box" id="rider-box" style="display:none"><div class="rider-avatar">${scooterSVG(38)}</div><div style="flex:1;min-width:0"><b id="rider-name"></b><div id="rider-sub" style="font-size:12px;color:#aebcad"></div></div><a class="btn sm" id="rider-call" style="display:none;text-decoration:none">Call rider</a></div><div class="oc-a trk-a" id="trk-acts"></div><div id="trk-det"></div><div class="tp-foot"><span id="upd">Updating…</span><button class="rf" onclick="trkNow()">↻ Refresh</button></div><a href="tel:${CFG.call.replace(/[^+\d]/g,'')}" class="btn w100" style="margin-top:12px;text-decoration:none;text-align:center">Need help? Call Riwaaz-e-Kashmir</a>${p2TrkFoot(o)}</aside></div>`;trkActs(o);
+$('app').innerHTML=`<button class="bk" onclick="go('home')">‹ Back</button><div class="map-kicker">RIWAAZ-E-KASHMIR · DELIVERY</div><h2 style="font:600 34px 'Cormorant Garamond',serif">Track your order</h2><div class="trk" id="trk"><section class="trkmap" id="trk-mapwrap" style="display:none"><div id="order-map"></div><div class="live" id="live" style="display:none"></div><div class="trk-mnote" id="trk-mnote" role="status" style="display:none"></div></section><aside class="track-panel"><div class="tp-h"><div class="tp-ico" id="tp-ico">${stIcon('placed')}</div><div><h3 id="trk-rn">Your order</h3><div class="tp-sub">Order ${esc(oRef(o.id))}</div></div><span class="track-pill" id="trk-pill">Checking…</span></div><div class="tp-eta"><small>ESTIMATED DELIVERY</small><div class="track-eta" id="eta">—</div></div><div id="stt" class="tp-msg">Checking your order…</div><div id="trk-pay"></div><div id="trk-p2" aria-live="polite"></div><ul class="track-steps tl" id="track-steps"></ul><div class="rider-box" id="rider-box" style="display:none"><div class="rider-avatar">${scooterSVG(38)}</div><div style="flex:1;min-width:0"><b id="rider-name"></b><div id="rider-sub" style="font-size:12px;color:#aebcad"></div></div><a class="btn sm" id="rider-call" style="display:none;text-decoration:none">Call rider</a></div><div class="oc-a trk-a" id="trk-acts"></div><div id="trk-det"></div><div class="tp-foot"><span id="upd">Updating…</span><button class="rf" onclick="trkNow()">↻ Refresh</button></div><a href="tel:${CFG.call.replace(/[^+\d]/g,'')}" class="btn w100" style="margin-top:12px;text-decoration:none;text-align:center">Need help? Call Riwaaz-e-Kashmir</a>${p2TrkFoot(o)}</aside></div>`;trkActs(o);
 const poll=async force=>{if((document.hidden&&!force)||V!='track'||trkBusy)return;trkBusy=1;const ac=new AbortController(),to=setTimeout(()=>ac.abort(),10000);
 try{const r=await fetch('/api/food/order?id='+encodeURIComponent(o.id)+'&phone='+encodeURIComponent(o.phone),{cache:'no-store',signal:ac.signal}),d=await r.json();if(V!='track')return;
 if(!r.ok){clearInterval(tm);$('stt').textContent=d.error||'Order not found. Check the order number and phone.';$('trk-pill').textContent='Not found';return}
-lastSave(o,d.st);ordSave(o.id,d);p2Trk(o,d);trkDetPaint();$('upd').textContent='Updated '+new Date().toLocaleTimeString([],{hour:'numeric',minute:'2-digit',second:'2-digit'});
+if(d.id&&d.id!==o.id){const old=o.id;o.id=d.id;LS.s('rk_last',{id:d.id,phone:o.phone,t:Date.now(),st:d.st});if(d.ref)refSet(d.id,d.ref);void old}lastSave(o,d.st);ordSave(o.id,d);p2Trk(o,d);trkDetPaint();$('upd').textContent='Updated '+new Date().toLocaleTimeString([],{hour:'numeric',minute:'2-digit',second:'2-digit'});
 const rn=esc(d.rn||'The restaurant');$('trk-rn').textContent=d.rn||'Your order';
 if(['rejected','cancelled'].includes(d.st)){clearInterval(tm);$('tp-ico').innerHTML=stIcon('off');{const ul=$('track-steps');ul.dataset.i='';ul.innerHTML=`<li class="tl-end ${d.st}"><i aria-hidden="true">${d.st==='rejected'?'⚠️':'✖️'}</i><span><b>${d.st==='rejected'?'Not accepted by the restaurant':d.reason==='payment not completed'?'Cancelled: payment not completed':'Order cancelled'}</b><small>No further updates are expected for this order.</small></span></li>`}$('trk-pay').innerHTML='';$('rider-box').style.display='none';$('eta').textContent='Cancelled';$('trk-pill').textContent='Cancelled';
 $('stt').textContent=d.reason==='payment not completed'?'This order was cancelled because the payment was not completed. You were not charged.':rn.replace(/&amp;/g,'&')+' could not take this order'+(d.reason&&d.st==='rejected'?' ('+String(d.reason).replace(/_/g,' ')+')':'')+'. '+p2PayLine(p2Norm(d),d.st)+' Please call us if you need help.';trackMap(d);return}
@@ -1027,19 +1088,21 @@ function revSum(id){const v=revGet(id);if(!v||!id)return'';const e=oEnc(id);
  +'<div class="rk2a"><button type="button" class="btn" onclick="revOpen(\''+e+'\')">'+x2('✏️')+' Edit</button><button type="button" class="btn" onclick="revDel2(\''+e+'\')">'+x2('🗑️')+' Delete</button>'+(v.r<=3?'<a class="btn" target="_blank" rel="noopener noreferrer" href="'+revWaUrl(id,v)+'">'+x2('💬')+' Tell support</a>':'')+'</div>')}
 let RV=null;
 function revOpen(e,pre){closeA();const id=p2Dec(e);if(!revOK(id)){p2Toast('You can rate an order once it has been delivered.');return}
- const ex=revGet(id);RV={id,r:ex?ex.r:(pre||0),tg:ex?ex.tg.slice():[],c:ex?ex.c:'',ex:!!ex,arm:0};
+ const ex=revGet(id);RV={id,r:ex?ex.r:(pre||0),tg:ex?ex.tg.slice():[],c:ex?ex.c:'',ex:!!ex,arm:0,ph:[],busy:0};
  sheet(`<div class="rs rk2 rv"><div class="shh"><h3>${x2('⭐')} ${ex?'Your review':'Rate your order'}</h3><button type="button" class="bk" onclick="closeS()" aria-label="Close">✕</button></div>
 <p class="mu2">${esc(p2Ord(id).rn||'Your order')} · Order ${esc(oRef(id))}</p>
-${p2m('ok',x2('🔒'),'Genuine ratings only.','Your first rating for this order is sent to Riwaaz-e-Kashmir. Later edits stay on this phone.')}
+${p2m('ok',x2('🔒'),'Genuine reviews only.',rvSent(id)?'Your first review was sent to Riwaaz-e-Kashmir. Later edits stay on this phone.':'Your first review (stars, words and photos) is shown on the restaurant page with your first name. Later edits stay on this phone.')}
 <h4 class="rk2h">How was your order?</h4>
 <div class="rk2s" role="radiogroup" aria-label="Star rating">${[1,2,3,4,5].map(n=>`<button type="button" role="radio" aria-checked="false" aria-label="${n} star${n>1?'s':''}" data-n="${n}" onclick="revStar(${n})">★</button>`).join('')}</div>
 <div id="rvTags"></div>
 <h4 class="rk2h">Anything to add? <small>(optional)</small></h4>
 <textarea id="rvC" aria-label="Optional comment, up to ${SUP.commentMax} characters" maxlength="${SUP.commentMax}" rows="3" placeholder="Tell us in a few words" oninput="revTxt(this)"></textarea><div class="rk2c"><span id="rvCnt">0/${SUP.commentMax}</span></div>
+${rvSent(id)?'':`<h4 class="rk2h">Add photos <small>(optional, up to ${RVPH_MAX})</small></h4><div class="rkph" id="rvPh"></div><input type="file" id="rvFile" accept="image/jpeg,image/png,image/webp" multiple hidden onchange="revPick(this)"><p class="rkph-st" id="rvPhSt" role="status"></p>`}
+<p class="rk2e" id="rvErr" role="alert"></p>
 <button type="button" id="rvSave" class="btn a w100" onclick="revSave()">${ex?'Update review':'Save review'}</button>
 ${ex?`<button type="button" id="rvDel" class="btn w100" onclick="revDel()">${x2('🗑️')} Delete review</button>`:''}
 <button type="button" class="btn w100" onclick="closeS()">Cancel</button></div>`);
- $('rvC').value=RV.c;revTxt($('rvC'));p2Dlg(ex?'Your review':'Rate your order');revPaint()}
+ $('rvC').value=RV.c;revTxt($('rvC'));p2Dlg(ex?'Your review':'Rate your order');revPaint();rvPhRender()}
 function revPaint(){if(!RV)return;document.querySelectorAll('.rk2s button').forEach(b=>{const on=+b.dataset.n<=RV.r;b.classList.toggle('on',on);b.setAttribute('aria-checked',+b.dataset.n==RV.r)});
  const set=RV.r>=4?SUP.tags.pos:SUP.tags.neg,keys=set.map(t=>t[0]);RV.tg=RV.tg.filter(k=>keys.indexOf(k)>=0);
  const w=$('rvTags');if(w)w.innerHTML=RV.r?`<h4 class="rk2h">${RV.r>=4?'What went well?':'What could be better?'} <small>(optional)</small></h4><div class="rk2t" role="group">${set.map(([k,em,lb])=>`<button type="button" aria-pressed="${RV.tg.indexOf(k)>=0}" class="${RV.tg.indexOf(k)>=0?'on':''}" onclick="revTag('${k}')">${x2(em)} ${lb}</button>`).join('')}</div>`:'<p class="mu2">Tap a star to rate.</p>';
@@ -1047,13 +1110,58 @@ function revPaint(){if(!RV)return;document.querySelectorAll('.rk2s button').forE
 function revStar(n){if(!RV)return;RV.r=n;revPaint()}
 function revTag(k){if(!RV)return;const i=RV.tg.indexOf(k);if(i>=0)RV.tg.splice(i,1);else RV.tg.push(k);revPaint()}
 function revTxt(el){if(!RV)return;RV.c=el.value.slice(0,SUP.commentMax);const c=$('rvCnt');if(c)c.textContent=RV.c.length+'/'+SUP.commentMax}
-async function revSend(id,rec){try{if(LS.g('rk_rsent_'+id,0))return;const ph=p2Ord(id).phone;if(!ph)return;const r=await fetch('/api/food/rate',{method:'POST',headers:JH,body:JSON.stringify({id,phone:ph,food:rec.r,delivery:0,note:rec.c||''})});if(r.ok||r.status===409)LS.s('rk_rsent_'+id,1)}catch(e){}}
-function revSave(){if(!RV||!(RV.r>=1&&RV.r<=5))return;const id=RV.id,ex=revGet(id),now=Date.now(),rec={r:RV.r,tg:RV.tg.slice(),c:RV.c.trim().slice(0,SUP.commentMax),t:ex&&ex.t?ex.t:now,u:ex?now:0,rn:p2Ord(id).rn};
- if(!revSet(id,rec)){p2Toast('Could not save on this device. Storage may be full or blocked.');return}revSend(id,rec);
+/* ── review photos: shrunk on this phone first (max 1280 px, about 250 KB each), previewed, removable ── */
+const RVPH_MAX=3,RVPH_LIM=260000,RVPH_PX=1280;
+const rvSent=id=>!!LS.g('rk_rsent_'+id,0);
+const rvErr=m=>{const e=$('rvErr');if(e)e.textContent=m||''};
+function rvPhRender(){const w=$('rvPh');if(!w||!RV)return;const ph=RV.ph||[];w.innerHTML=ph.map((p,i)=>`<div class="rkph-i"><img src="${p.url}" alt="Photo ${i+1} preview" width="84" height="84"><button type="button" class="rkph-x" aria-label="Remove photo ${i+1}" onclick="revPhDel(${i})">✕</button></div>`).join('')+(ph.length<RVPH_MAX?`<button type="button" class="rkph-add" onclick="$('rvFile').click()" aria-label="Add a photo"><span aria-hidden="true">+</span><small>Add photo</small></button>`:'')}
+const rvToBlob=(c,t,q)=>new Promise(r=>{try{c.toBlob(b=>r(b),t,q)}catch(e){r(null)}});
+function rvLoadImg(f){return new Promise((res,rej)=>{const u=URL.createObjectURL(f),i=new Image();i.onload=()=>{URL.revokeObjectURL(u);res(i)};i.onerror=()=>{URL.revokeObjectURL(u);rej(new Error('This photo could not be opened. Please choose a JPG, PNG or WebP photo.'))};i.src=u})}
+async function rvPrep(f){if(f.size>15*1048576)throw new Error('This photo is over 15 MB. Please choose a smaller one.');if(f.type&&!/^image\/(jpeg|png|webp|heic|heif)$/i.test(f.type))throw new Error('Please choose a JPG, PNG or WebP photo.');
+ const img=await rvLoadImg(f),W=img.naturalWidth,H=img.naturalHeight;if(!W||!H)throw new Error('This photo could not be read.');
+ let sc=Math.min(1,RVPH_PX/Math.max(W,H)),q=.82;
+ for(let i=0;i<7;i++){const cw=Math.max(1,Math.round(W*sc)),ch=Math.max(1,Math.round(H*sc)),c=document.createElement('canvas');c.width=cw;c.height=ch;const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,cw,ch);x.drawImage(img,0,0,cw,ch);
+  let b=await rvToBlob(c,'image/webp',q);if(!b||b.type!=='image/webp')b=await rvToBlob(c,'image/jpeg',q);
+  if(b&&b.size<=RVPH_LIM)return b;if(q>.5)q-=.12;else sc*=.8}
+ throw new Error('Could not make this photo small enough. Please try another one.')}
+async function revPick(inp){const fs=[...(inp.files||[])];inp.value='';const R0=RV;if(!R0||!fs.length)return;const st=$('rvPhSt'),say=(m,bad)=>{const e=$('rvPhSt');if(e){e.textContent=m;e.className='rkph-st'+(bad?' bad':'')}};
+ const room=RVPH_MAX-R0.ph.length;if(fs.length>room)say('You can add up to '+RVPH_MAX+' photos.',1);
+ for(const f of fs.slice(0,Math.max(0,room))){say('Preparing photo…');try{const b=await rvPrep(f);if(RV!==R0){return}R0.ph.push({blob:b,url:URL.createObjectURL(b)});rvPhRender();say(fs.length>room?'You can add up to '+RVPH_MAX+' photos.':'',fs.length>room)}catch(e){say(e.message,1)}}}
+function revPhDel(i){if(!RV||!RV.ph||RV.busy)return;const p=RV.ph.splice(i,1)[0];if(p)URL.revokeObjectURL(p.url);rvPhRender();const e=$('rvPhSt');if(e){e.textContent='';e.className='rkph-st'}}
+function revDone(id,rec,msg){
+ if(!revSet(id,rec)){p2Toast('Could not save on this device. Storage may be full or blocked.');return}
  const v=revGet(id);p2Toast('💚 Thank you for rating!');
- sheet(`<div class="rs rk2 rv"><div class="shh"><h3>${x2('💚')} Thank you!</h3><button type="button" class="bk" onclick="closeS()" aria-label="Close">✕</button></div>
+ sheet(`<div class="rs rk2 rv"><div class="shh"><h3>${x2('💚')} Thank you!</h3><button type="button" class="bk" onclick="closeS()" aria-label="Close">✕</button></div>${msg?'<p class="mu2">'+esc(msg)+'</p>':''}
 ${revSum(id)}${v.r<=3?p2m('late',x2('🤝'),'We are sorry it was not a great experience.','If you would like us to look into it, you can message support. You will need to tap Send yourself.','<div class="rk2a"><a class="btn a" target="_blank" rel="noopener noreferrer" href="'+revWaUrl(id,v)+'">'+x2('💬')+' Message support on WhatsApp</a></div>'):''}
-<button type="button" class="btn w100" onclick="closeS()">Close</button></div>`);RV=null;p2Repaint();if(V=='track')p2TrkPaint(true)}
+<button type="button" class="btn w100" onclick="closeS()">Close</button></div>`);(RV&&RV.ph||[]).forEach(p=>URL.revokeObjectURL(p.url));RV=null;p2Repaint();if(V=='track')p2TrkPaint(true)}
+async function revSave(){if(!RV||!(RV.r>=1&&RV.r<=5)||RV.busy)return;const R0=RV,id=R0.id,ex=revGet(id),now=Date.now(),rec={r:R0.r,tg:R0.tg.slice(),c:R0.c.trim().slice(0,SUP.commentMax),t:ex&&ex.t?ex.t:now,u:ex?now:0,rn:p2Ord(id).rn};
+ if(rvSent(id)){revDone(id,rec);return}   /* already sent once: later edits stay on this phone */
+ /* first review for this order: it must reach the backend, and the customer is told plainly if it did not */
+ const ph=p2Ord(id).phone;if(!ph){rvErr('We could not find the phone number for this order. Please open the order from My Orders.');return}
+ R0.busy=1;rvErr('');const sb=$('rvSave');if(sb){sb.disabled=true;sb.textContent=R0.ph.length?'Uploading…':'Sending…'}
+ const back=m=>{R0.busy=0;const b=$('rvSave');if(b){b.disabled=!R0.r;b.textContent='Save review'}rvErr(m)};
+ try{const fd=new FormData();fd.append('id',id);fd.append('phone',ph);fd.append('food',String(rec.r));fd.append('delivery','0');fd.append('note',rec.c||'');R0.ph.forEach((p,i)=>fd.append('photo',p.blob,'p'+(i+1)+(p.blob.type==='image/webp'?'.webp':'.jpg')));
+  const ac=new AbortController(),to=setTimeout(()=>ac.abort(),45000);let r,j={};try{r=await fetch('/api/food/rate',{method:'POST',body:fd,signal:ac.signal});j=await r.json().catch(()=>({}))}finally{clearTimeout(to)}
+  if(r.ok||r.status===409){LS.s('rk_rsent_'+id,1);const o=ords.find(x=>x&&x.id==id),rid=(o&&o.r)||(window._ltd&&window._ltd.id==id&&window._ltd.rid)||'';if(r.ok&&j.review&&rid){const s0=RVP[rid]||(RVP[rid]={list:[],next:null,rating:null,t:0,loaded:0});s0.mine=j.review;if(!s0.list.some(x=>x.id===j.review.id))s0.list.unshift(j.review)}
+   revDone(id,rec,r.ok?(j.held?'Thank you. Your words will appear after a quick check by our team.':(R0.ph.length?'Your review and photos are now on the restaurant page.':'Your review is now on the restaurant page.')):'This order was already reviewed, so your first review stays as it is.');return}
+  back(r.status==429?'Too many tries. Please wait a little and try again.':(j.error||'We could not send your review. Please try again.'))}
+ catch(e){back(e&&e.name==='AbortError'?'This is taking too long. Check your connection and try again. Your photos are kept here.':'No internet. Your review and photos are kept here. Please try again.')}}
+/* ── public reviews (from the backend only) ── */
+const RVP={};
+const rvDate=ts=>{try{return new Date(ts).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})}catch(e){return''}};
+const rvImgOk=u=>/^\/img\/[a-z0-9]{8,24}$/.test(String(u));
+function rvCard(v){const ph=(v.photos||[]).filter(rvImgOk);return `<article class="rvc"><div class="rvc-h"><b>${esc(v.name||'Customer')}</b><span class="rvc-v">✓ Verified order</span><time>${esc(rvDate(v.ts))}</time></div>${revStars(v.stars)}${v.text?`<p class="rvc-t">${esc(v.text)}</p>${v.edited?'<small class="rvc-e">Edited by Riwaaz-e-Kashmir moderation</small>':''}`:''}${ph.length?`<div class="rvc-p">${ph.map((u,i)=>`<button type="button" class="rvc-ph" onclick="rvZoom('${u}')" aria-label="Open photo ${i+1} of ${ph.length}"><img src="${u}" alt="Photo from a customer review" loading="lazy" decoding="async" width="96" height="96"></button>`).join('')}</div>`:''}${v.reply&&v.reply.text?`<div class="rvc-r"><b>Reply from Riwaaz-e-Kashmir</b><p>${esc(v.reply.text)}</p></div>`:''}</article>`}
+function rvPaintList(rid){const box=$('rvList');if(!box||box.dataset.rid!==rid)return;const s=RVP[rid]||{};
+ box.innerHTML=(s.list&&s.list.length?s.list.map(rvCard).join(''):(s.busy?'<div class="note">Loading reviews…</div>':s.err?'<div class="note">Reviews could not load right now. <button type="button" class="lnk" onclick="RVP[\''+esc(rid)+'\'].t=0;rvLoad(\''+esc(rid)+'\')">Try again</button></div>':'<div class="note">No reviews yet. Reviews from customers who received their order appear here.</div>'))+(s.next?'<button type="button" class="btn w100" onclick="rvLoad(\''+esc(rid)+'\',1)">Show more reviews</button>':'')}
+async function rvLoad(rid,more){const box=$('rvList');if(!box)return;const s=RVP[rid]||(RVP[rid]={list:[],next:null,rating:null,t:0,loaded:0});if(s.busy)return;
+ if(!more&&s.loaded&&Date.now()-s.t<60000){rvPaintList(rid);return}
+ s.busy=1;s.err=0;if(!more){s.list=[];s.next=null}rvPaintList(rid);
+ try{const r=await fetch('/api/food/reviews?rid='+encodeURIComponent(rid)+(more&&s.next?'&cursor='+encodeURIComponent(s.next):''));const j=await r.json();if(!r.ok||!j.ok)throw new Error('x');
+  s.list=s.list.concat(j.reviews||[]);s.next=j.next||null;s.rating=j.rating||null;s.loaded=1;s.t=Date.now();
+  if(s.mine&&!more&&!s.list.some(x=>x.id===s.mine.id))s.list.unshift(s.mine)}catch(e){s.err=1}
+ s.busy=0;rvPaintList(rid)}
+function rvZoom(u){if(!rvImgOk(u))return;const o=$('rkLb');if(o)o.remove();const z=document.createElement('div');z.id='rkLb';z.className='rk-lb';z.setAttribute('role','dialog');z.setAttribute('aria-label','Customer photo');z.innerHTML='<button type="button" class="rk-lbx" aria-label="Close photo">✕</button><img alt="Customer photo" src="'+u+'">';z.onclick=()=>z.remove();document.body.appendChild(z)}
+addEventListener('keydown',e=>{if(e.key==='Escape'){const z=$('rkLb');if(z)z.remove()}});
 function revDel(){if(!RV||!RV.ex)return;const b=$('rvDel');if(!RV.arm){RV.arm=1;if(b)b.innerHTML=x2('🗑️')+' Tap again to delete';setTimeout(()=>{if(RV){RV.arm=0;const z=$('rvDel');if(z)z.innerHTML=x2('🗑️')+' Delete review'}},4000);return}
  const id=RV.id;if(!revSet(id,null)){p2Toast('Could not delete on this device.');return}RV=null;closeS();p2Toast('Review deleted from this device.');p2Repaint();if(V=='track')p2TrkPaint(true)}
 function revDel2(e){const id=p2Dec(e);if(!id||!revGet(id))return;revOpen(e);if(RV)revDel()}   /* opens the review so deleting always takes a second, deliberate tap */
@@ -1181,17 +1289,57 @@ rkSheet(rkH('RK Surprise Gifts',1)+rkHero('Coming soon','Little treats, big smil
 +'<p class="rk3n">These are possibilities, not confirmed offers.</p>','RK Surprise Gifts')}
 /* partial Urdu for new headings (native-speaker review recommended); only fills keys that do not already exist */
 (function(){const u={'Coming soon':'جلد آ رہا ہے','Launching soon':'جلد شروع ہو رہا ہے','Explore RK Rewards':'RK Rewards دیکھیں','Every order brings a little more joy.':'ہر آرڈر کے ساتھ تھوڑی اور خوشی۔','How RK Rewards works':'RK Rewards کیسے کام کرتا ہے','Ways to earn':'پوائنٹس کمانے کے طریقے','Ways to redeem':'پوائنٹس استعمال کرنے کے طریقے','Reward history':'انعامات کی تاریخ','How it will work':'یہ کیسے کام کرے گا','Refer & Earn':'دوست کو بلائیں، انعام پائیں','Welcome Reward':'خوش آمدید انعام','Surprise Gifts':'سرپرائز تحفے'};Object.keys(u).forEach(k=>{if(!UR[k])UR[k]=u[k]})})();
-/* RK celebration: only for a genuine COD order or a verified online payment, once per order id */
-function rkCel(o){try{if(!RW.celebrate||!o||!o.id)return;const id=String(o.id),on=o.pay=='online';if(!(on?(o.paid==1&&!o.pending):o.pay=='cod'))return;const l=LS.g('rk_last',null);if(!l||l.id!=id||Date.now()-l.t>9e5)return;let g=LS.g('rk_cel',[]);if(!Array.isArray(g))g=[];if(g.includes(id))return;LS.s('rk_cel',g.concat(id).slice(-50));rkFx()}catch(e){}}
-function rkFx(){const m=document.createElement('div');m.className='rkcel';m.setAttribute('role','status');m.innerHTML='<b>Shukriya</b><span>Your order is confirmed.</span>';document.body.appendChild(m);setTimeout(()=>m.remove(),4300);if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
-const c=document.createElement('canvas'),W=c.width=innerWidth,Hh=c.height=innerHeight,x=c.getContext('2d');if(!x)return;c.className='rkfx';c.setAttribute('aria-hidden','true');document.body.appendChild(c);
-const A=[W*.1,Hh*.88],B=[W*.7,Hh*.34],T=900,P=[],K=['#D4AF37','#f3cf7e','#1f7a45','#74d49a','#f2ecda'],t0=performance.now();
-const hrt=(a,b,s)=>{x.beginPath();x.moveTo(a,b+s*.35);x.bezierCurveTo(a-s,b-s*.2,a-s*.55,b-s,a,b-s*.4);x.bezierCurveTo(a+s*.55,b-s,a+s,b-s*.2,a,b+s*.35);x.fill()};
-(function f(n){const t=n-t0;x.clearRect(0,0,W,Hh);
-if(t<T){const e=1-Math.pow(1-t/T,3),px=A[0]+(B[0]-A[0])*e,py=A[1]+(B[1]-A[1])*e,g=x.createLinearGradient(A[0],A[1],px,py);g.addColorStop(0,'rgba(212,175,55,0)');g.addColorStop(1,'rgba(243,207,126,.9)');x.strokeStyle=g;x.lineWidth=3;x.lineCap='round';x.beginPath();x.moveTo(A[0]+(px-A[0])*.55,A[1]+(py-A[1])*.55);x.lineTo(px,py);x.stroke();x.fillStyle='#f3cf7e';hrt(px,py,9)}
-else{if(!P.length)for(let i=0;i<42;i++){const a=Math.random()*6.283,v=2+Math.random()*4.5;P.push({x:B[0],y:B[1],vx:Math.cos(a)*v,vy:Math.sin(a)*v-1.5,r:1.6+Math.random()*2.4,c:K[i%5],l:1})}
-P.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.12;p.vx*=.985;p.l-=.016;if(p.l>0){x.globalAlpha=p.l;x.fillStyle=p.c;x.beginPath();x.arc(p.x,p.y,p.r,0,6.283);x.fill()}});x.globalAlpha=1}
-if(t<T+1500)requestAnimationFrame(f);else c.remove()})(t0)}
+/* RK GRAND ORDER CELEBRATION. Plays once per order, and only after the backend has confirmed it:
+   Cash on Delivery: when the Worker accepts the order (place() arms the order, the done screen plays it).
+   Pay online: only when payment is confirmed (verify call succeeded, or a later status check says paid), even if the customer left and came back.
+   rk_cela = orders waiting for their celebration (saved by place() only); rk_cel = orders already celebrated. Reopening an order, refreshing or looking up an old order never arms anything. */
+const RKC={busy:0};
+function rkArm(id){try{const a=LS.g('rk_cela',{}),o=a&&typeof a=='object'&&!Array.isArray(a)?a:{};o[String(id)]=Date.now();const ks=Object.keys(o).sort((x,y)=>o[x]-o[y]);ks.slice(0,Math.max(0,ks.length-20)).forEach(k=>delete o[k]);LS.s('rk_cela',o)}catch(e){}}
+function rkDisarm(id){try{const a=LS.g('rk_cela',null);if(a&&typeof a=='object'&&!Array.isArray(a)&&(String(id) in a)){delete a[id];LS.s('rk_cela',a)}}catch(e){}}
+function rkCel(o){try{if(!RW.celebrate||!o||!o.id||RKC.busy||document.hidden)return;const id=String(o.id);
+if(['cancelled','rejected'].includes(o.st))return;
+if(!(o.pay=='cod'||(o.pay=='online'&&o.paid==1&&!o.pending)))return;
+const a=LS.g('rk_cela',null);if(!a||typeof a!='object'||Array.isArray(a)||!(id in a))return;
+const t=+a[id];delete a[id];LS.s('rk_cela',a);if(!(Date.now()-t<216e5))return;
+let g=LS.g('rk_cel',[]);if(!Array.isArray(g))g=[];if(g.includes(id))return;
+LS.s('rk_cel',g.concat(id).slice(-50));rkFx()}catch(e){}}
+function rkFx(){if(RKC.busy)return;RKC.busy=1;
+const rm=RM.matches,root=document.createElement('div');root.className='rkg'+(rm?' rkg-rm':'');root.setAttribute('role','status');root.setAttribute('aria-live','polite');
+root.innerHTML='<div class="rkg-glow"></div><div class="rkg-core"></div>'+(rm?'':'<i class="rkg-ring"></i><i class="rkg-ring r2"></i><canvas class="rkg-cv" aria-hidden="true"></canvas>')+'<div class="rkg-box"><div class="rkg-em"><svg viewBox="120 18 355 392" aria-hidden="true"><use href="#lf2"/></svg></div><div class="rkg-t"><span>ORDER</span> <span>CONFIRMED!</span></div><p class="rkg-s">Your delicious journey begins!</p><i class="rkg-hr"></i><b class="rkg-b">Riwaaz-e-Kashmir</b></div>';
+document.body.appendChild(root);
+let raf=0,gone=0;const end=()=>{if(gone)return;gone=1;cancelAnimationFrame(raf);root.remove();RKC.busy=0};
+setTimeout(()=>root.classList.add('out'),rm?3000:3400);setTimeout(end,rm?3600:3950);
+if(rm){requestAnimationFrame(()=>root.classList.add('on'));return}
+const cv=root.querySelector('canvas'),x=cv.getContext('2d');if(!x)return;
+const W=innerWidth,H=innerHeight,dpr=Math.min(devicePixelRatio||1,1.5);cv.width=W*dpr|0;cv.height=H*dpr|0;x.setTransform(dpr,0,0,dpr,0,0);
+const k=(W>=700?1.4:1)*((navigator.hardwareConcurrency||4)<=2?.7:1),n=v=>Math.round(v*k),R=(a,b)=>a+Math.random()*(b-a),pick=a=>a[Math.random()*a.length|0],TAU=6.2832;
+const GOLD=['#D4AF37','#F2D774','#F2E6C0','#B8902A'],MIX=['#D4AF37','#F2E6C0','#2FA66A','#74D49A','#E8912D','#D94A6B','#9B6BC9','#2BB3A3'];
+const spr=document.createElement('canvas');spr.width=spr.height=48;{const g=spr.getContext('2d'),r=g.createRadialGradient(24,24,0,24,24,24);r.addColorStop(0,'rgba(255,240,180,1)');r.addColorStop(.35,'rgba(212,175,55,.55)');r.addColorStop(1,'rgba(212,175,55,0)');g.fillStyle=r;g.fillRect(0,0,48,48)}
+const P=[];
+/* type 0 confetti chip, 1 glow, 2 sparkle, 3 streamer. Each moves toward (tx,ty) at rate k, plus gravity g */
+function burst(cx,cy,nc,ng,ns,pw){for(let i=0;i<nc;i++){const a=R(0,TAU),s=R(200,780)*pw;P.push({t:0,x:cx,y:cy,vx:Math.cos(a)*s,vy:Math.sin(a)*s-140,tx:0,ty:0,k:1.9,g:360,w:R(5,10),h:R(3,6),r:R(0,TAU),vr:R(-9,9),f:R(6,12),p:R(0,TAU),c:pick(i%3?MIX:GOLD),l:R(1.5,2.5),a:0})}
+for(let i=0;i<ng;i++){const a=R(0,TAU),s=R(120,540)*pw;P.push({t:1,x:cx,y:cy,vx:Math.cos(a)*s,vy:Math.sin(a)*s,tx:0,ty:-20,k:2.2,g:0,z:R(16,40),l:R(.7,1.4),a:0})}
+for(let i=0;i<ns;i++){const a=R(0,TAU),s=R(100,480)*pw;P.push({t:2,x:cx,y:cy,vx:Math.cos(a)*s,vy:Math.sin(a)*s,tx:0,ty:30,k:2,g:40,z:R(7,15),r:R(0,1),vr:R(-1.5,1.5),p:R(0,TAU),c:pick(GOLD),l:R(.9,1.8),a:0})}}
+function fall(back,kind){const s=back?.62:1,d=back?-1:1,w=d*R(120,270)*s,vy=R(380,560)*s;P.push({t:kind,x:back?R(.1*W,1.3*W):R(-.3*W,.9*W),y:R(-70,-10),vx:w*.6,vy:vy*.8,tx:w,ty:vy,k:.9,g:0,w:R(6,12)*(back?.75:1),h:R(3.5,7)*(back?.75:1),r:R(0,TAU),vr:R(-8,8),f:R(5,11),p:R(0,TAU),c:pick(kind==3?MIX:(Math.random()<.4?GOLD:MIX)),len:R(80,140)*s,lw:R(3,5)*s,l:R(2.2,3.4),a:0,m:back?.6:1})}
+const bursts=[[0,.5,.5,n(64),n(24),n(24),1.12],[240,.2,.32,n(20),n(8),n(8),.6],[430,.8,.3,n(20),n(8),n(8),.6],[760,.5,.7,n(12),n(6),n(14),.55],[1500,.5,.2,0,n(6),n(16),.5]];
+const rain=[[0,n(72)],[1,n(40)],[2,n(8)],[3,n(5)]],sp=[0,0,0,0];
+let t0=0,last=0,slow=0,lite=0;
+function draw(now){if(gone)return;if(!t0){t0=last=now}const t=now-t0,raw=(now-last)/1000,dt=Math.min(.05,raw);last=now;
+if(raw>.034)slow++;else if(slow>0)slow--;if(slow>10)lite=1;
+while(bursts.length&&t>=bursts[0][0]){const b=bursts.shift();burst(W*b[1],H*b[2],b[3],b[4],b[5],b[6])}
+if(!lite&&P.length<460&&t>=80&&t<1900){const u=(t-80)/1820;[[0,0,rain[0][1]],[0,1,rain[1][1]],[3,0,rain[2][1]],[3,1,rain[3][1]]].forEach((q,i)=>{const want=Math.floor(q[2]*u);while(sp[i]<want){sp[i]++;fall(q[1],q[0])}})}
+x.clearRect(0,0,W,H);x.globalCompositeOperation='source-over';
+for(let i=P.length-1;i>=0;i--){const p=P[i];p.l-=dt;if(p.l<=0){P[i]=P[P.length-1];P.pop();continue}
+const q=1-Math.exp(-p.k*dt);p.vx+=(p.tx-p.vx)*q;p.vy+=(p.ty-p.vy)*q+p.g*dt;p.x+=p.vx*dt;p.y+=p.vy*dt;if(p.r!=null)p.r+=(p.vr||0)*dt;
+p.a=Math.min(1,p.a+dt*10);if(p.l<.4)p.a=Math.min(p.a,p.l/.4)}
+for(const p of P){if(p.t==0){const fy=Math.cos(p.p+t/1000*p.f);x.save();x.globalAlpha=p.a*(p.m||1);x.translate(p.x,p.y);x.rotate(p.r);x.scale(1,fy);x.fillStyle=p.c;x.fillRect(-p.w/2,-p.h/2,p.w,p.h);x.restore()}
+else if(p.t==3){const m=Math.hypot(p.tx,p.ty)||1,ux=p.tx/m,uy=p.ty/m,ph=p.p+t/1000*6;x.globalAlpha=p.a*(p.m||1);x.strokeStyle=p.c;x.lineWidth=p.lw;x.lineCap='round';x.lineJoin='round';x.beginPath();for(let j=0;j<=9;j++){const u=j/9,o=Math.sin(ph+u*5)*9*u;x.lineTo(p.x-ux*p.len*u-uy*o,p.y-uy*p.len*u+ux*o)}x.stroke()}}
+x.globalCompositeOperation='lighter';
+for(const p of P){if(p.t==1){x.globalAlpha=p.a*Math.min(1,p.l/.5);x.drawImage(spr,p.x-p.z/2,p.y-p.z/2,p.z,p.z)}
+else if(p.t==2){const s=p.z*(.65+.35*Math.sin(t/1000*14+p.p));x.globalAlpha=p.a;x.fillStyle=p.c;x.save();x.translate(p.x,p.y);x.rotate(p.r);x.beginPath();x.moveTo(0,-s);x.quadraticCurveTo(0,0,s,0);x.quadraticCurveTo(0,0,0,s);x.quadraticCurveTo(0,0,-s,0);x.quadraticCurveTo(0,0,0,-s);x.fill();x.restore()}}
+x.globalAlpha=1;x.globalCompositeOperation='source-over';
+if(t<3700)raf=requestAnimationFrame(draw);else x.clearRect(0,0,W,H)}
+raf=requestAnimationFrame(draw)}
 (function(){const _d=vDone;vDone=function(){_d();rkCel(doneO)}})();
 
 /* ══════ START ══════ */
