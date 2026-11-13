@@ -1,8 +1,29 @@
 // Riwaaz-e-Kashmir backend: one file for Cloudflare Pages ("advanced mode").
 // Routes: /api/create-order, /api/track, /api/review, /api/reviews, /api/rphoto, /api/enquiry, /api/buddy, /api/connect, /api/write, /api/writings, /api/wphoto, /api/journey, /api/journeys, /api/jphoto, /api/admin, /api/webhook, /admin. Everything else is served from the site files.
-const KID = e => e.RAZORPAY_KEY_ID || e.RZP_KEY_ID || 'rzp_live_TjTHI6nlesU7e1';
-const SEC = e => e.RAZORPAY_KEY_SECRET || e.RAZORPAY_SECRET || e.RZP_KEY_SECRET || e.KEY_SECRET;
-const rz = (env, path, opt = {}) => fetch('https://api.razorpay.com/v1' + path, { ...opt, headers: { Authorization: 'Basic ' + btoa(KID(env) + ':' + SEC(env)), 'Content-Type': 'application/json' } });
+/* ---------- Razorpay configuration (Phase 5b fix) ----------
+   No key is hard-coded. Payments run only when ALL of these hold; otherwise every Razorpay call is refused locally (no network request is made):
+   - a key ID (rzp_test_... or rzp_live_...) and a key secret are both set;
+   - a LIVE key is used only when RAZORPAY_MODE=live is set explicitly (so a test/staging Worker that has a live key by mistake cannot take real money);
+   - if RAZORPAY_MODE is set it must match the key type (test <-> rzp_test_, live <-> rzp_live_). Unset = test keys only. */
+const KID = e => String(e.RAZORPAY_KEY_ID || e.RZP_KEY_ID || '').trim();
+const SEC = e => String(e.RAZORPAY_KEY_SECRET || e.RAZORPAY_SECRET || e.RZP_KEY_SECRET || e.KEY_SECRET || '').trim();
+const rzKeyMode = e => { const m = /^rzp_(live|test)_[A-Za-z0-9]{6,}$/.exec(KID(e)); return m ? m[1] : null; };
+function rzProblem(e) {
+  if (!KID(e)) return 'Razorpay key ID is not set';
+  if (!SEC(e)) return 'Razorpay key secret is not set';
+  const km = rzKeyMode(e); if (!km) return 'Razorpay key ID is not a valid rzp_test_ or rzp_live_ key';
+  const want = String(e.RAZORPAY_MODE || '').trim().toLowerCase();
+  if (want && want !== 'test' && want !== 'live') return 'RAZORPAY_MODE must be test or live';
+  if (km === 'live' && want !== 'live') return 'a live Razorpay key needs RAZORPAY_MODE=live';
+  if (want && want !== km) return 'RAZORPAY_MODE=' + want + ' does not match the ' + km + ' key';
+  return null;
+}
+const rzStatus = e => { const p = rzProblem(e), id = KID(e); return { configured: !p, problem: p, keyMode: rzKeyMode(e), requiredMode: String(e.RAZORPAY_MODE || '').trim().toLowerCase() || null, keyIdHint: id ? id.slice(0, 9) + '...' + id.slice(-3) : null, secretSet: !!SEC(e), webhookSecretSet: !!e.RAZORPAY_WEBHOOK_SECRET }; };
+const rz = (env, path, opt = {}) => {
+  const p = rzProblem(env);
+  if (p) return Promise.resolve(new Response(JSON.stringify({ error: { description: 'Razorpay is not configured safely: ' + p } }), { status: 503, headers: { 'Content-Type': 'application/json' } }));
+  return fetch('https://api.razorpay.com/v1' + path, { ...opt, headers: { Authorization: 'Basic ' + btoa(KID(env) + ':' + SEC(env)), 'Content-Type': 'application/json' } });
+};
 const json = (o, s = 200, h = {}) => new Response(JSON.stringify(o), { status: s, headers: { 'Content-Type': 'application/json', ...h } });
 const last10 = s => String(s || '').replace(/\D/g, '').slice(-10);
 const esc = s => String(s || '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -42,7 +63,7 @@ async function tg(env, text) {
 
 async function createOrder({ request, env }) {
   try {
-    if (!SEC(env)) return json({ error: 'Razorpay secret not set' }, 500);
+    if (rzProblem(env)) return json({ error: 'Online payment is not available right now.' }, 503);
     const b = await request.json(), r0 = priceOrder(b.lines, b.coupon);
     if (!r0 || r0.total < 1) return json({ error: 'Invalid cart' }, 400);
     let receipt = '';
@@ -81,7 +102,7 @@ async function reviewSubmit({ request, env }) {
   if (cnt >= 3) return json({ error: 'Too many reviews from this device. Please try again later.' }, 429);
   await env.REVIEWS.put(rk, String(cnt + 1), { expirationTtl: 3600 });
   let v = false;
-  if (b.no && b.ph && SEC(env)) { try { const o = await byReceipt(env, normNo(b.no)); v = !!(o && o.status === 'paid' && last10(o.notes && o.notes.p) === last10(b.ph)); } catch (e) {} }
+  if (b.no && b.ph && !rzProblem(env)) { try { const o = await byReceipt(env, normNo(b.no)); v = !!(o && o.status === 'paid' && last10(o.notes && o.notes.p) === last10(b.ph)); } catch (e) {} }
   const ts = Date.now(), id = ts + '-' + Math.random().toString(36).slice(2, 6);
   const pics = (Array.isArray(b.pics) ? b.pics : []).slice(0, 2).filter(x => typeof x === 'string' && /^data:image\/(jpeg|webp|png);base64,[A-Za-z0-9+\/=]+$/.test(x) && x.length < 260000);
   for (let i = 0; i < pics.length; i++) await env.REVIEWS.put('ri:' + id + ':' + (i + 1), pics[i]);
@@ -287,6 +308,7 @@ async function mail(env, to, subject, html) {
 async function webhook({ request, env }) {
   const body = await request.text();
   if (!env.RAZORPAY_WEBHOOK_SECRET || (await hmac(env.RAZORPAY_WEBHOOK_SECRET, body)) !== request.headers.get('x-razorpay-signature')) return json({ error: 'bad signature' }, 401);
+  if (rzProblem(env)) return json({ error: 'payments not configured' }, 503); /* Razorpay retries on 5xx, so the event is not lost */
   const ev = JSON.parse(body);
   if (ev.event === 'payment.captured') {
     const oid = ev.payload.payment.entity.order_id;
@@ -414,6 +436,41 @@ const fpin = (a, b) => {
   const x2 = flat(b), y2 = flng(a); /* lat and lng were sent the wrong way round */
   return x2 != null && y2 != null ? [x2, y2] : null;
 };
+
+/* ---------- rider GPS (Phase 4) ----------
+   One KV record per active order: fl:<orderId> = { lat, lng, t (time of the GPS fix), by (riderId) }.
+   A write is skipped when the same rider pinged within FL_MIN_MS, or has moved less than FL_STILL_M and the stored point is younger than FL_STILL_MS.
+   Customers only receive a position up to FL_LIVE_MS old, so a stationary rider must be rewritten at least that often (the app sends a heartbeat every ~45 s). */
+const FL_MIN_MS = 8000, FL_STILL_M = 12, FL_STILL_MS = 40000, FL_FIX_MAX_MS = 30000, FL_MAX_ACC = 200, FL_LIVE_MS = 120000, FL_TTL = 1800, FL_BATCH = 5;
+const FL_OK_ST = ['ready', 'picked'];
+const fmeters = (a, b, c, d) => { const R = 6371000, r = Math.PI / 180, x = (c - a) * r, y = (d - b) * r * Math.cos((a + c) / 2 * r); return Math.sqrt(x * x + y * y) * R; };
+async function fpingOne(env, o, riderId, ll, fixT, now, bad) {
+  if (!o || o.riderId !== riderId) return 'denied';
+  if (!FL_OK_ST.includes(o.st)) return 'stop';
+  if (bad) return bad;
+  const old = await fget(env, 'fl:' + o.id), mine = old && (!old.by || old.by === riderId);
+  if (mine) {
+    if (fixT < old.t) return 'old';
+    if (now - old.t < FL_MIN_MS) return 'throttled';
+    if (now - old.t < FL_STILL_MS && fmeters(old.lat, old.lng, ll[0], ll[1]) < FL_STILL_M) return 'still';
+  }
+  await fput(env, 'fl:' + o.id, { lat: ll[0], lng: ll[1], t: fixT, by: riderId }, { expirationTtl: FL_TTL });
+  return 'saved';
+}
+async function fpingHandler(env, b, t) {
+  const ll = fpin(b.lat, b.lng); if (!ll) return json({ error: 'Bad location' }, 400);
+  const now = Date.now(), age = Math.min(Math.max(Number(b.age) || 0, 0), 1e9), fixT = now - age, acc = b.acc == null || b.acc === '' ? NaN : Number(b.acc);
+  const bad = age > FL_FIX_MAX_MS ? 'old' : (Number.isFinite(acc) && acc > FL_MAX_ACC ? 'accuracy' : null);
+  if (Array.isArray(b.oids)) {
+    const ids = [...new Set(b.oids.map(x => String(x)))].slice(0, FL_BATCH), results = {};
+    for (const id of ids) results[id] = await fpingOne(env, await forder(env, { oid: id }), t.id, ll, fixT, now, bad);
+    return json({ ok: true, results });
+  }
+  const r = await fpingOne(env, await forder(env, b), t.id, ll, fixT, now, bad);
+  if (r === 'denied') return json({ error: 'This order is not assigned to you.' }, 404);
+  if (r === 'stop') return json({ ok: true, stop: true });
+  return json(r === 'saved' ? { ok: true } : { ok: true, skipped: true, reason: r });
+}
 async function foodRider(env, request) {
   const b = await readJson(request); if (!b) return json({ error: 'Bad request' }, 400);
   if (b.action === 'login') return flogin(env, request, b);
@@ -423,14 +480,8 @@ async function foodRider(env, request) {
     const done = all.filter(o => o.st === 'delivered' && fymd(((o.trail.find(x => x.s === 'delivered') || {}).t) || o.ts) === td);
     return json({ name: t.name || t.id, orders: all.filter(o => ['accepted', 'ready', 'picked'].includes(o.st)).map(o => ({ ...fsafe(o), rlat: o.rlat == null ? null : o.rlat, rlng: o.rlng == null ? null : o.rlng })), today: { n: done.length, cash: done.filter(o => o.pay === 'cod').reduce((a, o) => a + o.total, 0) } }, 200, { 'Cache-Control': 'no-store' });
   }
+  if (b.action === 'ping') return fpingHandler(env, b, t);
   const o = await forder(env, b); if (!o || o.riderId !== t.id) return json({ error: 'This order is not assigned to you.' }, 404);
-  if (b.action === 'ping') {
-    if (!['accepted', 'ready', 'picked'].includes(o.st)) return json({ ok: true, stop: true });
-    const ll = fpin(b.lat, b.lng); if (!ll) return json({ error: 'Bad location' }, 400);
-    const old = await fget(env, 'fl:' + o.id), now = Date.now();
-    if (old && now - old.t < 8000) return json({ ok: true, skipped: true });
-    await fput(env, 'fl:' + o.id, { lat: ll[0], lng: ll[1], t: now }, { expirationTtl: 7200 }); return json({ ok: true });
-  }
   let e;
   if (b.action === 'picked') e = await fmove(env, o, 'picked');
   else if (b.action === 'delivered') e = await fmove(env, o, 'delivered', o.pay === 'cod' ? { paid: true, cash: o.total } : {});
@@ -463,11 +514,15 @@ async function fpaid(env, o, pid) {
   await fput(env, fkey(o.id), o);
   if (['cancelled', 'rejected'].includes(o.st)) { await frefund(env, o, 'paid after order closed'); await tg(env, 'LATE PAYMENT on closed order ' + o.id + ' Rs ' + o.total + (o.refund ? ' - refunded automatically.' : ' - refund it by hand.')); }
 }
-async function frider(env, o) { const l = await fget(env, 'fl:' + o.id); return l && Date.now() - l.t < 600000 ? { riderLat: l.lat, riderLng: l.lng, riderAt: l.t } : {}; }
+async function frider(env, o) {
+  const l = await fget(env, 'fl:' + o.id); if (!l || (l.by && l.by !== o.riderId)) return {};
+  const age = Date.now() - l.t;
+  return age <= FL_LIVE_MS ? { riderLat: l.lat, riderLng: l.lng, riderAt: l.t, riderAgeS: Math.max(0, Math.round(age / 1000)) } : { riderStale: true, riderLastAt: l.t };
+}
 async function foodPayCreate(env, request) {
   const b = await readJson(request); if (!b) return json({ ok: false, error: 'Bad request.' }, 400);
   if (await overLimit(env, request, 'fpay', 40)) return json({ ok: false, error: 'Too many tries. Please wait a little.' }, 429);
-  if (!SEC(env)) return json({ ok: false, error: 'Online payment is not set up yet. Please call us.' }, 503);
+  if (rzProblem(env)) return json({ ok: false, error: 'Online payment is not set up yet. Please call us.' }, 503);
   const id = fstr(b.id, 40), phone = last10(b.phone), k = fkey(id), o = k && await fget(env, k);
   if (!o || o.phone !== phone) return json({ ok: false, error: 'Order not found.' }, 404);
   if (o.pay !== 'online') return json({ ok: false, error: 'This order is cash on delivery.' }, 400);
@@ -493,6 +548,7 @@ async function foodPayVerify(env, request) {
   const pid = fstr(b.razorpay_payment_id, 60), roid = fstr(b.razorpay_order_id, 60), sig = fstr(b.razorpay_signature, 128);
   if (!o || o.phone !== phone) return json({ ok: false, error: 'Order not found.' }, 404);
   if (o.paid) return json({ ok: true });
+  if (rzProblem(env)) return json({ ok: false, error: 'Payment verification is not available right now. If you were charged, please call us.' }, 503);
   if (!o.rzpOrderId || roid !== o.rzpOrderId || !pid || !sig) return json({ ok: false, error: 'Payment details do not match this order.' }, 400);
   if (!fsafeEq(await hmac(SEC(env), o.rzpOrderId + '|' + pid), sig)) return json({ ok: false, error: 'Payment could not be verified.' }, 400);
   await fpaid(env, o, pid); return json({ ok: true });
@@ -507,7 +563,7 @@ async function foodMenu(env) {
     out.push({ id: r.id, name: r.name, zone: r.zone, banner: r.banner || '', logo: r.logo || '', rating: r.rn >= FRATE_MIN ? { avg: Math.round(r.rs / r.rn * 10) / 10, n: r.rn } : null, open: !!r.open, hours: r.hours || '', tags: r.tags || '', cuisines: r.cuisines || [], eta: r.eta || '', forTwo: r.forTwo || '', dine: !!r.dine, dtags: r.dtags || [], lat: r.lat == null ? null : r.lat, lng: r.lng == null ? null : r.lng, dishes });
   }
   const promos = (await listPrefix(env, 'fp:')).filter(p => p.pub && p.active && (!p.until || Date.now() <= p.until)).map(p => ({ code: p.code, title: p.title || '', flat: p.flat || 0, pct: p.pct || 0, min: p.min || 0, max: p.max || 0, rid: p.rid || null, freeDel: !!p.freeDel }));
-  return json({ cfg: { fee: cfg.fee, freeAbove: cfg.freeAbove, paused: cfg.paused, dining: !!cfg.dining, localities: cfg.localities, map: (env.MAP_TILE_URL || env.MAP_ROUTE_URL) ? { url: String(env.MAP_TILE_URL || ''), attr: String(env.MAP_ATTR || ''), route: String(env.MAP_ROUTE_URL || '') } : null }, promos, restaurants: out }, 200, { 'Cache-Control': 'no-store' });
+  return json({ cfg: { fee: cfg.fee, freeAbove: cfg.freeAbove, paused: cfg.paused, dining: !!cfg.dining, localities: cfg.localities, map: mapCfg(env) }, promos, restaurants: out }, 200, { 'Cache-Control': 'no-store' });
 }
 
 async function foodPlace(env, request) {
@@ -517,7 +573,7 @@ async function foodPlace(env, request) {
   const cfg = await fcfg(env);
   if (cfg.paused) return json({ error: 'Ordering is paused for now. Please call us to order.' }, 503);
   const pay = b.pay === 'online' ? 'online' : (b.pay === 'upi' ? 'upi' : 'cod');
-  if (pay === 'online' && !SEC(env)) return json({ error: 'Online payment is not available yet. Please choose cash on delivery.' }, 503);
+  if (pay === 'online' && rzProblem(env)) return json({ error: 'Online payment is not available yet. Please choose cash on delivery.' }, 503);
   const name = fstr(b.name, 60), phone = String(b.phone || '').replace(/\D/g, '').slice(-10), addr = fstr(b.address, 200), zone = fstr(b.zone, 40);
   if (name.length < 2 || phone.length !== 10 || addr.length < 8 || !cfg.localities.includes(zone)) return json({ error: 'Please give your name, a 10-digit phone, full address and area.' }, 400);
   if (BAD.test(name + ' ' + addr)) return json({ error: 'Please check your details.' }, 400);
@@ -612,20 +668,44 @@ async function foodRest(env, request) {
   return e || json({ ok: true, order: fsafeRest(o) });
 }
 
+/* ---------- rider assignment (shared by dispatch and Food Admin) ---------- */
+const fsafeDispatch = o => ({ ...fsafe(o), riderId: o.riderId || null, riderPhone: o.riderPhone || null, riderLinked: !!o.riderId });
+async function fassign(env, o, rawName) {
+  const n = fstr(rawName, 40);
+  if (n.length < 2) return { err: json({ error: 'Enter the rider name.' }, 400) };
+  if (['delivered', 'rejected', 'cancelled'].includes(o.st)) return { err: json({ error: 'Order is already ' + o.st + '.' }, 409) };
+  if (o.st === 'picked') return { err: json({ error: 'This order has already been picked up, so the rider cannot be changed.' }, 409) };
+  const prevId = o.riderId || null;
+  /* match order: 1) the exact login ID, 2) one single account with that display name (two with the same name is refused), 3) the old slug-of-name ID match */
+  const accts = (await listPrefix(env, 'fa:')).filter(x => x.role === 'rider' && !x.off);
+  let rd = accts.find(x => x.id === n) || null;
+  if (!rd) {
+    const byName = accts.filter(x => String(x.name || '').toLowerCase() === n.toLowerCase());
+    if (byName.length > 1) return { err: json({ error: 'More than one rider is called "' + n + '". Choose the rider by login ID.' }, 409) };
+    rd = byName[0] || accts.find(x => x.id === fslug(n)) || null;
+  }
+  o.rider = rd ? (rd.name || rd.id) : n; o.riderId = rd ? rd.id : null; o.riderPhone = rd && rd.phone ? rd.phone : null;
+  if (!o.trail.some(x => x.s === 'assigned')) o.trail.push({ s: 'assigned', t: Date.now() });
+  await fput(env, fkey(o.id), o);
+  /* save first, then clear: from this moment the previous rider fails the riderId check on ping */
+  if (prevId !== o.riderId) await env.REVIEWS.delete('fl:' + o.id);
+  return { rd };
+}
+
 async function foodDispatch(env, request) {
   const b = await readJson(request); if (!b) return json({ error: 'Bad request' }, 400);
   if (b.action === 'login') return flogin(env, request, b);
   const t = await fauth(env, b, 'dispatch'); if (!t) return json({ error: 'Please log in again.', login: true }, 401);
-  if (b.action === 'orders') return json({ orders: (await fdays(env, fdaysBack(2))).filter(o => ['placed', 'accepted', 'ready', 'picked', 'delivered'].includes(o.st)).map(fsafe) }, 200, { 'Cache-Control': 'no-store' });
+  if (b.action === 'orders') return json({ orders: (await fdays(env, fdaysBack(2))).filter(o => ['placed', 'accepted', 'ready', 'picked', 'delivered'].includes(o.st)).map(fsafeDispatch) }, 200, { 'Cache-Control': 'no-store' });
   if (b.action === 'riders') return json({ riders: (await listPrefix(env, 'fa:')).filter(x => x.role === 'rider' && !x.off).map(x => ({ id: x.id, name: x.name || x.id })) });
   const o = await forder(env, b); if (!o) return json({ error: 'Order not found' }, 404);
-  if (b.action === 'assign') { const n = fstr(b.rider, 40); if (n.length < 2) return json({ error: 'Enter the rider name.' }, 400); if (['delivered', 'rejected', 'cancelled'].includes(o.st)) return json({ error: 'Order is already ' + o.st + '.' }, 409); o.rider = n; const rd = (await listPrefix(env, 'fa:')).find(x => x.role === 'rider' && !x.off && (String(x.name || '').toLowerCase() === n.toLowerCase() || x.id === fslug(n))); o.riderId = rd ? rd.id : null; o.riderPhone = rd && rd.phone ? rd.phone : null; if (!o.trail.some(x => x.s === 'assigned')) o.trail.push({ s: 'assigned', t: Date.now() }); await fput(env, fkey(o.id), o); return json({ ok: true, order: fsafe(o), riderApp: !!rd }); }
+  if (b.action === 'assign') { const r = await fassign(env, o, b.rider); if (r.err) return r.err; return json({ ok: true, order: fsafeDispatch(o), riderApp: !!r.rd }); }
   let e;
   if (b.action === 'picked') { if (!o.rider) return json({ error: 'Assign a rider first.' }, 400); e = await fmove(env, o, 'picked'); }
   else if (b.action === 'delivered') { e = await fmove(env, o, 'delivered', o.pay === 'cod' ? { paid: true, cash: o.total } : {}); }
   else return json({ error: 'Unknown action' }, 400);
   if (!e && b.action === 'delivered') await env.REVIEWS.delete('fl:' + o.id);
-  return e || json({ ok: true, order: fsafe(o) });
+  return e || json({ ok: true, order: fsafeDispatch(o) });
 }
 
 /* ---------- owner/admin ---------- */
@@ -658,6 +738,7 @@ async function foodAdmin(env, request) {
   const b = await readJson(request);
   if (!b || !env.ADMIN_KEY || b.key !== env.ADMIN_KEY) return json({ error: 'Wrong key' }, 401);
   const A = b.action;
+  if (A === 'payconfig') return json(rzStatus(env));
   if (A === 'cfg') { const c = await fcfg(env); if (b.set) { const s = b.set; if (s.fee != null) c.fee = Math.max(0, parseInt(s.fee) || 0); if (s.freeAbove != null) c.freeAbove = Math.max(0, parseInt(s.freeAbove) || 0); if (s.riderCost != null) c.riderCost = Math.max(0, parseInt(s.riderCost) || 0); if (s.paused != null) c.paused = !!s.paused; if (s.dining != null) c.dining = !!s.dining; if (Array.isArray(s.localities) && s.localities.length) c.localities = s.localities.map(x => fstr(x, 40)).filter(Boolean); await fput(env, 'fc:cfg', c); } return json({ cfg: c }); }
   if (A === 'rlist') return json({ restaurants: await listPrefix(env, 'fr:') });
   if (A === 'rset') {
@@ -697,8 +778,8 @@ async function foodAdmin(env, request) {
     const o = await forder(env, b); if (!o) return json({ error: 'Order not found' }, 404);
     if (A === 'orefund') { if (!['rejected', 'cancelled'].includes(o.st)) return json({ error: 'Only cancelled or rejected orders can be refunded.' }, 409); const r = await frefund(env, o, 'admin refund'); return json({ ok: !!r || !!o.refund, refunded: !!o.refund, error: o.refund ? undefined : (o.refundErr || 'Nothing to refund.') }); }
     if (A === 'opaid') { if (o.pay === 'online') return json({ error: 'Online payments are confirmed automatically.' }, 400); o.paid = true; await fput(env, fkey(o.id), o); return json({ ok: true }); }
-    if (A === 'oassign') { o.rider = fstr(b.rider, 40); await fput(env, fkey(o.id), o); return json({ ok: true }); }
-    const e = await fmove(env, o, 'cancelled', { reason: fstr(b.reason, 100) || 'cancelled by admin' }); if (e) return e; if (o.paid && o.pay === 'online') await frefund(env, o, 'cancelled by admin'); return json({ ok: true, refunded: !!o.refund, refundErr: o.refundErr || '' });
+    if (A === 'oassign') { const r = await fassign(env, o, b.rider); if (r.err) return r.err; return json({ ok: true, riderApp: !!r.rd }); }
+    const e = await fmove(env, o, 'cancelled', { reason: fstr(b.reason, 100) || 'cancelled by admin' }); if (e) return e; await env.REVIEWS.delete('fl:' + o.id); if (o.paid && o.pay === 'online') await frefund(env, o, 'cancelled by admin'); return json({ ok: true, refunded: !!o.refund, refundErr: o.refundErr || '' });
   }
   if (A === 'qlist') { const rs = (await listPrefix(env, 'fq:')).sort((x, y) => y.t - x.t).slice(0, 40), out = []; for (const x of rs) out.push({ ...x, ref: await frefById(env, x.oid) }); return json({ reports: out }); }
   if (A === 'qdel') { await env.REVIEWS.delete('fq:' + fstr(b.id, 40)); return json({ ok: true }); }
@@ -923,7 +1004,53 @@ async function foodReport(env, request) {
   return json({ ok: true });
 }
 
-async function foodApi({ request, env, pathname }) {
+/* ---------- Phase 6: map configuration and Worker-proxied routing ----------
+   Tiles stay provider-neutral: MAP_TILE_URL (https template with {z}/{x}/{y}, optional {r}/{s}), MAP_ATTR, MAP_TILE_RETINA=1, MAP_TILE_MAXZOOM, MAP_TILE_TONE=none.
+   With nothing set the page falls back to the public OpenStreetMap server, which is for development/testing only.
+   Routing: the page calls GET /api/food/route?a=lat,lng&b=lat,lng; the Worker asks an OSRM-compatible service (MAP_ROUTE_URL, https, with {a} and {b} = lng,lat; default is the public OSRM demo, development only).
+   No KV is used: results go in the Cloudflare cache (5 min; failures 30 s) and the rate limit is an in-memory counter per Worker instance. The upstream URL (which may hold a key) is never returned. */
+const RT_MAX_KM = 40, RT_TTL = 300, RT_FAIL_TTL = 30, RT_TIMEOUT_MS = 5000, RT_PTS = 250, RT_IP_MAX = 40, RT_ALL_MAX = 400;
+const RT_DEFAULT = 'https://router.project-osrm.org/route/v1/driving/{a};{b}?overview=full&geometries=geojson';
+const rtHits = new Map(); const rtAll = { w: 0, n: 0 };
+const rtHttps = u => /^https:\/\/[^\s'"<>]+$/.test(u);
+function mapCfg(env) {
+  const u = String(env.MAP_TILE_URL || '').trim(), ok = rtHttps(u) && u.includes('{z}') && u.includes('{x}') && u.includes('{y}');
+  const mz = parseInt(env.MAP_TILE_MAXZOOM); const a = String(env.MAP_ATTR || '').trim().slice(0, 300);
+  return { url: ok ? u : '', attr: a || '© OpenStreetMap contributors', retina: String(env.MAP_TILE_RETINA || '') === '1', maxZoom: Number.isFinite(mz) ? Math.min(20, Math.max(12, mz)) : 19, tone: String(env.MAP_TILE_TONE || '') === 'none' ? 'none' : 'heritage', provider: ok ? 'custom' : 'osm-dev', route: '/api/food/route' };
+}
+function rtLimited(request) {
+  const w = Math.floor(Date.now() / 60000); if (rtAll.w !== w) { rtAll.w = w; rtAll.n = 0; rtHits.clear(); }
+  const ip = request.headers.get('CF-Connecting-IP') || 'x'; const n = (rtHits.get(ip) || 0) + 1; rtHits.set(ip, n); rtAll.n++;
+  return n > RT_IP_MAX || rtAll.n > RT_ALL_MAX;
+}
+const rtKm = (a, b) => { const r = x => x * Math.PI / 180, dl = r(b[0] - a[0]), dn = r(b[1] - a[1]), h = Math.sin(dl / 2) ** 2 + Math.cos(r(a[0])) * Math.cos(r(b[0])) * Math.sin(dn / 2) ** 2; return 12742 * Math.asin(Math.sqrt(h)); };
+const rtPt = v => { const m = /^\s*(-?\d{1,3}(?:\.\d{1,8})?)\s*,\s*(-?\d{1,3}(?:\.\d{1,8})?)\s*$/.exec(String(v || '')); if (!m) return null; const la = flat(m[1]), ln = flng(m[2]); return la == null || ln == null ? null : [Math.round(la * 1e4) / 1e4, Math.round(ln * 1e4) / 1e4]; };
+function rtThin(c) { if (c.length <= RT_PTS) return c; const o = []; for (let i = 0; i < RT_PTS; i++) o.push(c[Math.round(i * (c.length - 1) / (RT_PTS - 1))]); return o; }
+async function foodRoute(env, request, ctx) {
+  const H = ttl => ({ 'Cache-Control': 'public, max-age=' + ttl });
+  if (rtLimited(request)) return json({ route: null, reason: 'rate' }, 429, { 'Cache-Control': 'no-store', 'Retry-After': '30' });
+  const q = new URL(request.url).searchParams, a = rtPt(q.get('a')), b = rtPt(q.get('b'));
+  if (!a || !b) return json({ error: 'Bad location' }, 400, { 'Cache-Control': 'no-store' });
+  const km = rtKm(a, b);
+  if (km > RT_MAX_KM) return json({ route: null, reason: 'far' }, 200, H(3600));
+  if (km < 0.01) return json({ route: null, reason: 'same' }, 200, H(3600));
+  const tpl = String(env.MAP_ROUTE_URL || '').trim() || RT_DEFAULT;
+  if (!rtHttps(tpl) || !tpl.includes('{a}') || !tpl.includes('{b}')) return json({ route: null, reason: 'not-configured' }, 200, H(60));
+  const cache = typeof caches !== 'undefined' && caches.default ? caches.default : null, ck = new Request('https://route-cache.invalid/v1/' + a.join(',') + '/' + b.join(','));
+  if (cache) { const hit = await cache.match(ck); if (hit) { const t = await hit.text(); return new Response(t, { status: 200, headers: { 'Content-Type': 'application/json', 'X-Route-Cache': 'HIT', 'Cache-Control': 'public, max-age=60' } }); } }
+  const keep = (body, ttl) => { if (!cache) return; const p = cache.put(ck, new Response(body, { headers: { 'Content-Type': 'application/json', 'Cache-Control': 'public, max-age=' + ttl } })); if (ctx && ctx.waitUntil) ctx.waitUntil(p); return p; };
+  let out = null; const ac = new AbortController(), to = setTimeout(() => ac.abort(), RT_TIMEOUT_MS);
+  try {
+    const r = await fetch(tpl.replace('{a}', a[1] + ',' + a[0]).replace('{b}', b[1] + ',' + b[0]), { signal: ac.signal, headers: { Accept: 'application/json' } });
+    if (r.ok) { const j = await r.json(), rt = j && j.routes && j.routes[0], g = rt && rt.geometry && rt.geometry.coordinates; if (Array.isArray(g) && g.length > 1 && g.every(p => Array.isArray(p) && Number.isFinite(p[0]) && Number.isFinite(p[1]))) out = { route: rtThin(g).map(p => [Math.round(p[1] * 1e5) / 1e5, Math.round(p[0] * 1e5) / 1e5]), km: Math.round((Number(rt.distance) || km * 1000) / 100) / 10, min: Math.max(1, Math.round((Number(rt.duration) || km / 18 * 3600) / 60)) }; }
+  } catch (e) { out = null; } finally { clearTimeout(to); }
+  if (!out) { const body = JSON.stringify({ route: null, reason: 'unavailable' }); await keep(body, RT_FAIL_TTL); return new Response(body, { status: 200, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'public, max-age=15' } }); }
+  const body = JSON.stringify(out); await keep(body, RT_TTL);
+  return new Response(body, { status: 200, headers: { 'Content-Type': 'application/json', 'X-Route-Cache': 'MISS', 'Cache-Control': 'public, max-age=60' } });
+}
+
+async function foodApi({ request, env, pathname, ctx }) {
+  if (pathname === '/api/food/route' && request.method === 'GET') { try { return await foodRoute(env, request, ctx); } catch (e) { return json({ route: null, reason: 'error' }, 200, { 'Cache-Control': 'no-store' }); } }
   if (!env.REVIEWS) return json({ error: 'Storage (KV) is not connected yet' }, 503);
   const a = pathname.slice(10), m = request.method;
   try {
@@ -950,7 +1077,7 @@ export default {
   async fetch(request, env, ctx) {
     const { pathname } = new URL(request.url), m = request.method;
     if (m === 'GET' && env.REVIEWS && /^\/img\/[a-z0-9]{8,24}$/.test(pathname)) return foodImgServe(env, ctx, request, pathname.slice(5));
-    if (pathname.startsWith('/api/food/')) return foodApi({ request, env, pathname });
+    if (pathname.startsWith('/api/food/')) return foodApi({ request, env, pathname, ctx });
     if (pathname === '/api/create-order' && m === 'POST') return createOrder({ request, env });
     if (pathname === '/api/track' && m === 'GET') return trackOrder({ request, env });
     if (pathname === '/api/review' && m === 'POST') return reviewSubmit({ request, env });
