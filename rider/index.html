@@ -1,84 +1,367 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#050D08">
 <title>Rider | Riwaaz-e-Kashmir</title>
-<meta name="robots" content="noindex, nofollow"><meta name="color-scheme" content="dark"><meta name="theme-color" content="#0f1a13">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Jost:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0f1a13;--bg2:#14201a;--bg3:#1b2a21;--gold:#c9a961;--ivory:#f3ead7;--mute:#a9b4a8;--line:#2b3f33;--ok:#6fbf8a;--bad:#d9785f;--warn:#e0a63c;color-scheme:dark}
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-body{font:400 16px/1.5 Jost,system-ui,sans-serif;background:var(--bg);color:var(--ivory);min-height:100vh;padding:env(safe-area-inset-top) 0 calc(24px + env(safe-area-inset-bottom));touch-action:manipulation}
-button,input{font:inherit;color:inherit}
-.w{max-width:560px;margin:0 auto;padding:0 14px}
-h1,h2,h3{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;line-height:1.1}
-header{position:sticky;top:0;z-index:20;background:var(--bg2);border-bottom:1px solid var(--gold)}
-.hr{display:flex;align-items:center;gap:10px;padding:10px 0}.hr .t{flex:1;min-width:0}.hr small{display:block;font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:var(--gold)}.hr h1{font-size:22px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:48px;padding:10px 16px;border-radius:12px;border:1px solid var(--gold);background:var(--gold);color:#14110a;font-weight:500;cursor:pointer;text-decoration:none}
-.btn.o{background:transparent;color:var(--gold)}.btn.g{border-color:var(--ok);background:var(--ok);color:#0b1a10}.btn:disabled{opacity:.5}.btn.sm{min-height:42px;padding:8px 12px;font-size:14px}
-.gps{display:flex;align-items:center;gap:8px;margin:12px 0;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:var(--bg3);font-size:14px}
-.gps i{width:10px;height:10px;border-radius:50%;background:var(--bad);flex:none}.gps.on i{background:var(--ok)}.gps span{flex:1}
-.card{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px}
-.oh{display:flex;justify-content:space-between;align-items:baseline;gap:8px}.oh b{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold)}
-.tag{font-size:12px;padding:3px 9px;border:1px solid var(--line);border-radius:10px;color:var(--mute)}.tag.cod{border-color:var(--warn);color:var(--warn)}.tag.ok{border-color:var(--ok);color:var(--ok)}
-.lbl{margin-top:12px;font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:var(--gold)}
-.big{font-size:18px;margin-top:2px}.mu{color:var(--mute);font-size:14px}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.row.one{grid-template-columns:1fr}
-.empty{padding:34px 10px;text-align:center;color:var(--mute)}
-label{display:block;font-size:12px;color:var(--mute);margin:12px 0 4px}
-input[type=text],input[type=password]{width:100%;min-height:48px;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg3);color:var(--ivory);font-size:16px}
-.err{color:var(--bad);font-size:14px;margin-top:10px;min-height:20px}
-.login{max-width:420px;margin:30px auto}.login h2{font-size:30px;margin:14px 0 4px}
-.hide{display:none!important}
-.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--gold);color:#14110a;padding:10px 18px;border-radius:22px;font-size:14px;z-index:50;max-width:90vw}
-</style></head><body>
-<div id="lg" class="hide"><div class="w login">
-<p style="font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:var(--gold)">Riwaaz-e-Kashmir</p><h2>Rider login</h2>
-<p style="color:var(--mute)">Use the ID and password we gave you.</p>
-<form id="lf"><label for="li">Login ID</label><input id="li" type="text" autocomplete="username" autocapitalize="none" required>
-<label for="lp">Password</label><input id="lp" type="password" autocomplete="current-password" required>
-<p class="err" id="le" role="alert"></p><button class="btn" style="width:100%" type="submit">Log in</button></form></div></div>
+:root{--bg:#050D08;--sf:#0B1B12;--gold:#D4AF37;--cr:#F2E6C0;--mu:rgba(242,230,192,.68);--ln:rgba(212,175,55,.28);--warn:#EE8F74;--ok:#86D6A6;--serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;color-scheme:dark}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:radial-gradient(900px 420px at 50% -160px,#10281a,var(--bg));background-color:var(--bg);color:var(--cr);font:17px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;min-height:100vh;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+[hidden]{display:none!important}
+button,input,a.b{font:inherit;color:inherit}
+button,a.b{min-height:52px;padding:0 18px;border-radius:14px;border:1px solid var(--ln);background:transparent;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;text-align:center;text-decoration:none}
+.go{background:var(--gold)!important;border-color:var(--gold)!important;color:#1b1505!important}
+.big{min-height:60px;font-size:18px;width:100%}
+button:disabled{opacity:.55;cursor:default}
+input{min-height:52px;width:100%;padding:0 14px;border-radius:14px;border:1px solid var(--ln);background:#06120B}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+a{color:var(--gold)}
+h1,h2{font-family:var(--serif);font-weight:600;margin:0}
+.mark{width:42px;height:42px;border-radius:50%;border:2px solid var(--gold);display:grid;place-items:center;font-family:var(--serif);font-size:21px;color:var(--gold);flex:none}
+.brand{display:flex;align-items:center;gap:12px}
 
-<div id="ap" class="hide">
-<header><div class="w"><div class="hr"><div class="t"><small>Delivery rider</small><h1 id="nm">Rider</h1></div><button class="btn o sm" id="lo">Log out</button></div></div></header>
-<div class="w">
-<div class="gps" id="gps"><i></i><span id="gt">Location sharing is off.</span><button class="btn sm o" id="gb">Turn on</button></div>
-<div id="ov"></div>
-<p class="mu" style="text-align:center;margin-top:16px" id="up"></p>
-<p class="mu" style="text-align:center;margin-top:6px">Keep this page open and the screen on while you deliver, so customers can see where you are.</p>
-</div></div>
-<div id="tt" class="toast hide"></div>
+#login{min-height:100vh;display:grid;place-items:center;padding:20px}
+#login form{width:min(420px,100%);background:var(--sf);border:1px solid var(--ln);border-radius:20px;padding:26px;display:grid;gap:14px}
+#login h1{font-size:27px;line-height:1.15}
+#login p{margin:0;color:var(--mu)}
+#lerr{color:var(--warn);min-height:1.4em;font-weight:600}
+
+header{position:static;background:rgba(5,13,8,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--ln);padding:12px 16px}
+.hrow{display:flex;align-items:center;justify-content:space-between;gap:10px;max-width:640px;margin:0 auto}
+.hrow h1{font-size:21px;line-height:1.1}
+.hrow small{display:block;color:var(--mu);font-size:14px}
+.hbtn{display:flex;gap:8px}
+.hbtn button{min-height:46px;padding:0 14px}
+.sum{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:640px;margin:12px auto 0}
+.sum div{background:var(--sf);border:1px solid var(--ln);border-radius:14px;padding:10px 14px}
+.sum b{display:block;font-family:var(--serif);font-size:26px;color:var(--gold);line-height:1.1;font-variant-numeric:tabular-nums}
+.sum span{color:var(--mu);font-size:14px}
+#upd{max-width:640px;margin:8px auto 0;color:var(--mu);font-size:14px}
+#upd.bad{color:var(--warn);font-weight:600}
+main{max-width:640px;margin:0 auto;padding:14px 16px 56px;display:grid;gap:16px}
+#empty{text-align:center;color:var(--mu);padding:44px 12px}
+.card{background:var(--sf);border:1px solid var(--ln);border-radius:20px;padding:18px;display:grid;gap:14px}
+.card.new{border-color:var(--gold);box-shadow:0 0 0 2px rgba(212,175,55,.3)}
+.newtag{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--gold);color:#1b1505;border-radius:12px;padding:8px 8px 8px 14px;font-weight:700}
+.newtag button{min-height:44px;background:#1b1505;color:var(--gold);border-color:#1b1505;padding:0 14px}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.ref{font-family:var(--serif);font-size:30px;color:var(--gold);line-height:1.05}
+.pill{border:1px solid var(--ln);border-radius:999px;padding:5px 13px;font-size:15px;font-weight:600;white-space:nowrap}
+.pill.ready{background:var(--gold);color:#1b1505;border-color:var(--gold)}
+.pill.picked{border-color:var(--ok);color:var(--ok)}
+.sec{display:grid;gap:4px}
+.sec .k{color:var(--mu);font-size:14px}
+.sec .v{font-size:18px;overflow-wrap:anywhere}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+ul.items{margin:0;padding:0;list-style:none;display:grid;gap:2px}
+.cash{border:1px solid var(--gold);border-radius:14px;padding:12px 14px;font-weight:700;font-size:19px;color:var(--gold)}
+.cash.paid{border-color:var(--ok);color:var(--ok)}
+.note{margin:0;color:var(--mu);font-size:15px}
+.wait{margin:0;text-align:center;color:var(--mu);border:1px dashed var(--ln);border-radius:14px;padding:16px 12px;font-weight:600}
+dialog{background:var(--sf);color:var(--cr);border:1px solid var(--gold);border-radius:20px;padding:22px;width:min(440px,calc(100% - 28px))}
+dialog::backdrop{background:rgba(0,0,0,.7)}
+dialog h2{font-size:22px;margin-bottom:8px}
+dialog p{margin:0 0 18px;color:var(--mu)}
+dialog .btns{display:grid;gap:10px}
+#toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(16px + env(safe-area-inset-bottom));width:min(560px,calc(100% - 24px));z-index:20;display:grid;gap:8px;pointer-events:none}
+#toast div{background:#12301f;border:1px solid var(--ok);border-radius:14px;padding:14px 16px;font-weight:600;box-shadow:0 8px 28px rgba(0,0,0,.55)}
+#toast div.e{background:#3a1a12;border-color:var(--warn)}
+.gps{max-width:640px;margin:10px auto 0;border:1px solid var(--ln);border-radius:14px;padding:10px 14px;background:var(--sf);display:grid;gap:6px}
+.gtop{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.gdot{width:12px;height:12px;border-radius:50%;background:var(--mu);flex:none}
+.gps[data-s=live] .gdot{background:var(--ok)}
+.gps[data-s=waiting] .gdot{background:var(--gold)}
+.gps[data-s=stale] .gdot,.gps[data-s=denied] .gdot,.gps[data-s=unavail] .gdot{background:var(--warn)}
+.gps[data-s=live] #gst{color:var(--ok)}
+.gps[data-s=stale] #gst,.gps[data-s=denied] #gst,.gps[data-s=unavail] #gst{color:var(--warn)}
+#gst{font-size:18px}
+#gage{color:var(--mu);font-size:14px;margin-left:auto}
+#gmsg,#gnote{margin:0;font-size:15px;color:var(--mu)}
+#gnote{font-size:13px}
+#gbt{min-height:48px;justify-self:start}
+@media(max-width:360px){.two{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<section id="login">
+  <form id="lf">
+    <div class="brand"><div class="mark" aria-hidden="true">R</div><h1>Rider sign in</h1></div>
+    <p>Riwaaz-e-Kashmir deliveries. Use the login your manager gave you.</p>
+    <label>Login ID<input id="lid" name="username" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" required></label>
+    <label>Password<input id="lpw" name="password" type="password" autocomplete="current-password" required></label>
+    <div id="lerr" role="alert"></div>
+    <button class="go big" id="lgo" type="submit">Sign in</button>
+  </form>
+</section>
+
+<div id="app" hidden>
+  <header>
+    <div class="hrow"><div class="brand"><div class="mark" aria-hidden="true">R</div><div><h1 id="who">Rider</h1><small>Riwaaz-e-Kashmir</small></div></div>
+      <div class="hbtn"><button id="rf" type="button">Refresh</button><button id="lo" type="button">Sign out</button></div></div>
+    <div class="sum"><div><b id="sn">0</b><span>Delivered today</span></div><div><b id="sc">&#8377;0</b><span>Cash collected today</span></div></div>
+    <section id="gps" class="gps" data-s="off" aria-live="polite" aria-label="Location sharing"><div class="gtop"><span class="gdot" aria-hidden="true"></span><b id="gst">Off</b><span id="gage"></span></div><p id="gmsg"></p><p id="gnote" hidden></p><button id="gbt" type="button" hidden></button></section>
+    <div id="upd">Not updated yet</div>
+  </header>
+  <main id="list"></main>
+  <p id="empty" hidden>No deliveries assigned to you right now.<br>New orders appear here automatically.</p>
+</div>
+
+<dialog id="dlg"><h2 id="dt"></h2><p id="dm"></p><div class="btns"><button id="dy" class="go big" type="button"></button><button id="dn" class="big" type="button">Not yet</button></div></dialog>
+<div id="toast" role="status" aria-live="polite"></div>
 
 <script>
-const $=id=>document.getElementById(id),esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-let TK=null,ORD=[],TODAY={n:0,cash:0},LASTD=null,watch=null,pos=null,lastPing=0,gpsOn=false,wl=null,tmr=null;
-try{TK=localStorage.getItem('rr_tk')}catch(e){}
-function toast(m){const t=$('tt');t.textContent=m;t.classList.remove('hide');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.add('hide'),2600)}
-async function api(b){try{const r=await fetch('/api/food/rider',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(Object.assign({token:TK},b))}),j=await r.json().catch(()=>({}));if(r.status===401&&j.login){out();return {error:'login'}}return Object.assign({_s:r.status},j)}catch(e){return {error:'No internet connection.'}}}
-function out(){TK=null;try{localStorage.removeItem('rr_tk')}catch(e){}stopGps();clearInterval(tmr);$('ap').classList.add('hide');$('lg').classList.remove('hide')}
-$('lf').onsubmit=async e=>{e.preventDefault();$('le').textContent='';const r=await api({action:'login',id:$('li').value.trim(),password:$('lp').value});if(!r.ok){$('le').textContent=r.error||'Could not log in.';return}TK=r.token;try{localStorage.setItem('rr_tk',TK)}catch(e){}$('nm').textContent=r.name||'Rider';start()};
-$('lo').onclick=out;
-function nav(lat,lng,addr){return lat!=null&&lng!=null?`https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}&travelmode=driving`:`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(addr+' Srinagar')}`}
-function card(o){const cod=o.pay==='cod',ready=o.st==='ready',picked=o.st==='picked';
- let act='';if(o.st==='accepted')act='<p class="mu" style="margin-top:12px">The kitchen is still cooking. Go to the restaurant.</p>';
- else if(ready)act=`<div class="row one"><button class="btn" data-a="picked" data-o="${esc(o.id)}">I picked up the food</button></div>`;
- else if(picked)act=`<div class="row one"><button class="btn g" data-a="delivered" data-o="${esc(o.id)}" data-c="${cod?o.total:0}">Delivered${cod?' - cash Rs '+o.total+' collected':''}</button></div>`;
- return `<div class="card"><div class="oh"><b>${esc(String(o.id).slice(-9))}</b><span class="tag ${cod?'cod':'ok'}">${cod?'Collect Rs '+o.total+' cash':(o.paid?'Paid online':'Check payment')}</span></div>
- <div class="lbl">1. Pick up from</div><p class="big">${esc(o.rn)}</p>${o.rlat!=null?`<div class="row one"><a class="btn o sm" href="${nav(o.rlat,o.rlng,o.rn)}" target="_blank" rel="noopener">Directions to restaurant</a></div>`:''}
- <div class="lbl">2. Deliver to</div><p class="big">${esc(o.name)} - ${esc(o.zone)}</p><p class="mu">${esc(o.addr)}</p>${o.note?`<p class="mu">Note: ${esc(o.note)}</p>`:''}
- <div class="row"><a class="btn o sm" href="tel:${esc(o.phone)}">Call ${esc(o.phone)}</a><a class="btn o sm" href="${nav(o.clat,o.clng,o.addr)}" target="_blank" rel="noopener">${o.clat!=null?'Directions (pin)':'Search address'}</a></div>
- <p class="mu" style="margin-top:10px">${o.lines.map(l=>l.q+'x '+esc(l.n)).join(', ')}</p>${act}</div>`}
-function draw(){const dn=LASTD?`<div class="card" style="border-color:var(--ok)"><div class="oh"><b style="color:var(--ok)">Delivered ✓</b><span class="tag ok">${esc(String(LASTD.id).slice(-9))}</span></div><p class="mu" style="margin-top:6px">${LASTD.cash?'Cash Rs '+LASTD.cash+' collected. Keep it safe for hand-over.':'Thank you. Marked as delivered.'}</p></div>`:'',sm=`<div class="card"><div class="oh"><span class="lbl" style="margin:0">Today</span><span class="mu">${TODAY.n} delivered</span></div>${TODAY.cash?`<p class="big" style="margin-top:6px">Cash to hand over: <b style="color:var(--gold)">Rs ${TODAY.cash}</b></p>`:''}</div>`;$('ov').innerHTML=dn+(ORD.length?ORD.map(card).join(''):'<div class="empty">No delivery assigned to you right now.<br>New orders appear here by themselves.</div>')+sm}
-async function load(){const r=await api({action:'orders'});if(r.error){if(r.error!=='login')$('up').textContent='No internet. Showing the last list.';return}ORD=r.orders||[];TODAY=r.today||TODAY;if(r.name)$('nm').textContent=r.name;draw();$('up').textContent='Updated '+new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});ping()}
-$('ov').onclick=async e=>{const b=e.target.closest('button[data-a]');if(!b)return;const a=b.dataset.a;if(a==='delivered'&&!confirm('Mark this order as delivered?'))return;b.disabled=true;const r=await api({action:a,oid:b.dataset.o});if(r.ok){if(a==='delivered'){LASTD={id:b.dataset.o,cash:+(b.dataset.c||0)};setTimeout(()=>{LASTD=null;draw()},90000)}toast(a==='picked'?'Marked as picked up':'Delivered. Well done!');load()}else{b.disabled=false;toast(r.error||'Could not update. Try again.')}};
-/* location */
-function setGps(on,msg){gpsOn=on;$('gps').classList.toggle('on',on);$('gt').textContent=msg;$('gb').textContent=on?'Turn off':'Turn on'}
-async function keepAwake(){try{if('wakeLock' in navigator&&!wl){wl=await navigator.wakeLock.request('screen');wl.addEventListener('release',()=>{wl=null})}}catch(e){}}
-function startGps(){if(!navigator.geolocation){setGps(false,'This phone cannot share location.');return}
- stopGps();watch=navigator.geolocation.watchPosition(p=>{pos={lat:p.coords.latitude,lng:p.coords.longitude};setGps(true,'Sharing your location with customers.');ping()},er=>{setGps(false,er.code===1?'Location is blocked. Allow location for this site in the browser settings.':'Waiting for GPS signal…')},{enableHighAccuracy:true,maximumAge:10000,timeout:30000});keepAwake()}
-function stopGps(){if(watch!=null){navigator.geolocation.clearWatch(watch);watch=null}pos=null;setGps(false,'Location sharing is off.');try{wl&&wl.release()}catch(e){}wl=null}
-$('gb').onclick=()=>{if(gpsOn){stopGps();try{localStorage.setItem('rr_gps','0')}catch(e){}}else{startGps();try{localStorage.setItem('rr_gps','1')}catch(e){}}};
-document.addEventListener('visibilitychange',()=>{if(!document.hidden&&gpsOn)keepAwake()});
-function ping(){if(!gpsOn||!pos||Date.now()-lastPing<14000)return;const act=ORD.filter(o=>['ready','picked'].includes(o.st));if(!act.length)return;lastPing=Date.now();act.forEach(o=>api({action:'ping',oid:o.id,lat:pos.lat,lng:pos.lng}))}
-function start(){$('lg').classList.add('hide');$('ap').classList.remove('hide');load();clearInterval(tmr);tmr=setInterval(()=>{if(!document.hidden)load()},12000);let g='1';try{g=localStorage.getItem('rr_gps')||'1'}catch(e){}if(g==='1')startGps()}
-if(TK)start();else $('lg').classList.remove('hide');
-</script></body></html>
+(()=>{
+'use strict';
+/* Endpoints used (all existing): POST /api/food/rider with action login | orders | picked | delivered | ping (Phase 4: real GPS) */
+const API='/api/food/rider',POLL=25000,T0=document.title;
+const $=id=>document.getElementById(id);
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const ST={accepted:'Being prepared',ready:'Ready for pickup',picked:'On the way'};
+const RANK={ready:0,picked:1,accepted:2};
+let tok=null,who='',orders=[],today={n:0,cash:0},known=null,seen=new Set(),timer=null,busy=false,lastOk=0;
+try{tok=sessionStorage.getItem('rd_tok');who=sessionStorage.getItem('rd_who')||'';seen=new Set(JSON.parse(sessionStorage.getItem('rd_seen')||'[]'))}catch(e){}
+const saveSeen=()=>{try{sessionStorage.setItem('rd_seen',JSON.stringify([...seen]))}catch(e){}};
+
+function toast(m,bad){const d=document.createElement('div');d.textContent=m;if(bad)d.className='e';$('toast').appendChild(d);setTimeout(()=>d.remove(),bad?7500:4500)}
+async function api(action,extra){
+  let r;
+  try{r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({token:tok,action,...extra})})}
+  catch(e){throw{net:true,message:'No connection.'}}
+  let d={};try{d=await r.json()}catch(e){}
+  if(action!=='login'&&(r.status===401||d.login)){expire();throw{auth:true,message:'Session expired.'}}
+  if(!r.ok)throw{message:d.error||'Something went wrong.',status:r.status};
+  return d;
+}
+
+/* ---------- session ---------- */
+function wipe(){gpsReset();tok=null;orders=[];known=null;seen=new Set();today={n:0,cash:0};try{sessionStorage.removeItem('rd_tok');sessionStorage.removeItem('rd_who');sessionStorage.removeItem('rd_seen')}catch(e){}document.title=T0}
+function showLogin(msg){clearInterval(timer);timer=null;$('app').hidden=true;$('login').hidden=false;$('list').textContent='';$('lerr').textContent=msg||'';$('lpw').value='';(msg?$('lpw'):$('lid')).focus()}
+function expire(){wipe();showLogin('Your session has expired. Please sign in again.')}
+function showApp(){$('login').hidden=true;$('app').hidden=false;$('who').textContent=who||'Rider';clearInterval(timer);timer=setInterval(()=>{if(!document.hidden&&tok)refresh()},POLL);refresh(true)}
+$('lf').addEventListener('submit',async e=>{
+  e.preventDefault();const b=$('lgo');b.disabled=true;$('lerr').textContent='';
+  try{
+    tok=null;const d=await api('login',{id:$('lid').value.trim(),password:$('lpw').value});
+    if(d.role!=='rider'){$('lerr').textContent='This is not a rider account.';return}
+    tok=d.token;who=d.name||'';known=null;seen=new Set();
+    try{sessionStorage.setItem('rd_tok',tok);sessionStorage.setItem('rd_who',who);sessionStorage.removeItem('rd_seen')}catch(x){}
+    $('lpw').value='';showApp();
+  }catch(er){$('lerr').textContent=er.net?'No connection. Check the internet and try again.':er.message}
+  finally{b.disabled=false}
+});
+$('lo').addEventListener('click',()=>{wipe();showLogin('');toast('Signed out.')});
+
+/* ---------- data ---------- */
+async function refresh(manual){
+  if(busy||!tok)return;busy=true;$('rf').disabled=true;
+  try{
+    const d=await api('orders');
+    orders=d.orders||[];today=d.today||{n:0,cash:0};if(d.name&&!who){who=d.name;$('who').textContent=who}
+    const ids=orders.map(o=>o.id);
+    if(known){const fresh=orders.filter(o=>!known.has(o.id));if(fresh.length){toast('New assignment: '+fresh.map(o=>o.ref||o.id).join(', '));try{navigator.vibrate&&navigator.vibrate([200,100,200])}catch(e){}}}
+    known=new Set(ids);
+    lastOk=Date.now();$('upd').className='';$('upd').textContent='Updated '+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+    render();
+  }catch(er){
+    if(er.auth)return;
+    $('upd').className='bad';$('upd').textContent=er.net?'Offline. Showing the last update, retrying.':er.message;
+  }finally{busy=false;$('rf').disabled=false}
+}
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&tok&&Date.now()-lastOk>POLL)refresh()});
+$('rf').addEventListener('click',()=>refresh(true));
+
+
+/* ---------- GPS sharing (Phase 4) ----------
+   Runs only while this rider has an order that is ready or picked. One request per cycle covers all of those orders.
+   A point is sent when the rider moved GPS_MOVE metres, when GPS_HEART ms passed (keeps the customer's location fresh), or when the set of orders changed.
+   Live means: a good fix is under GPS_FIX_FRESH old AND the server accepted a point under GPS_SENT_FRESH ago. Anything older is shown as Stale. */
+const GPS_TICK=15000,GPS_HEART=45000,GPS_MOVE=20,GPS_ACC=100,GPS_FIX_FRESH=30000,GPS_SENT_FRESH=75000,GPS_TIMEOUT=12000,GPS_MAXAGE=20000;
+const GPS_LABEL={off:'Off',waiting:'Waiting',live:'Live',stale:'Stale',denied:'Permission denied',unavail:'Location unavailable',stopped:'Stopped'};
+const g={on:false,idle:'off',denied:false,unavail:'',loop:null,ui:null,busy:false,last:null,sig:'',fixAt:0,sentAt:0,weak:0,err:'',slow:false,manual:false,had:false,wake:null,permWatch:false};
+const eligible=()=>orders.filter(o=>o.st==='ready'||o.st==='picked');
+const meters=(a,b,c,d)=>{const r=Math.PI/180,x=(c-a)*r,y=(d-b)*r*Math.cos((a+c)/2*r);return Math.sqrt(x*x+y*y)*6371000};
+function gpsState(){
+  if(!g.on)return g.denied?'denied':g.idle;
+  if(g.unavail)return 'unavail';
+  const n=Date.now();
+  if(g.sentAt&&g.fixAt&&n-g.fixAt<=GPS_FIX_FRESH&&n-g.sentAt<=GPS_SENT_FRESH)return 'live';
+  return g.sentAt||g.fixAt?(g.sentAt?'stale':'waiting'):'waiting';
+}
+function gpsPaint(){
+  const st=gpsState(),n=Date.now(),el=eligible(),box=$('gps');
+  if(box.dataset.s!==st)box.dataset.s=st;
+  $('gst').textContent=GPS_LABEL[st];
+  $('gage').textContent=st==='live'||st==='stale'?(g.sentAt?'Last sent '+(n-g.sentAt<60000?Math.round((n-g.sentAt)/1000)+' s':Math.round((n-g.sentAt)/60000)+' min')+' ago':''):'';
+  let m='';
+  if(st==='off')m=el.length?'':(orders.length?'Location sharing starts when an order is ready for pickup.':'No delivery to track right now.');
+  else if(st==='waiting')m=g.err||(g.weak?'Weak GPS signal (accuracy about '+g.weak+' m). Not shared until it improves.':'Looking for your location...');
+  else if(st==='live')m='Customers can see your location for your active orders.';
+  else if(st==='stale')m=g.err||(g.weak?'Weak GPS signal (accuracy about '+g.weak+' m). Customers are not seeing a live location.':'Your location is not reaching customers right now.');
+  else if(st==='denied')m='Location is blocked for this page. Allow Location in your browser or phone settings, then tap Try again.';
+  else if(st==='unavail')m=g.unavail;
+  else if(st==='stopped')m=g.manual?'You stopped sharing. Customers cannot see your location.':'Deliveries finished. Location sharing stopped.';
+  $('gmsg').textContent=m;
+  const note=$('gnote');note.hidden=!g.on;
+  if(g.on)note.textContent=(g.wake?'Screen is being kept awake. ':'')+'Keep this app open. Tracking can pause if the phone locks or you switch apps.';
+  const b=$('gbt'),canStart=!g.on&&el.length>0;
+  b.hidden=!(g.on||canStart);
+  if(!b.hidden)b.textContent=g.on?'Stop sharing':(st==='denied'?'Try again':'Start sharing');
+}
+async function wakeOn(){try{if(!('wakeLock' in navigator)||document.hidden||g.wake)return;const w=await navigator.wakeLock.request('screen');g.wake=w;w.addEventListener('release',()=>{if(g.wake===w){g.wake=null;gpsPaint()}});gpsPaint()}catch(e){g.wake=null}}
+function wakeOff(){try{g.wake&&g.wake.release()}catch(e){}g.wake=null}
+function gpsClear(){g.last=null;g.sig='';g.fixAt=0;g.sentAt=0;g.weak=0;g.err='';g.slow=false;g.unavail=''}
+function gpsStop(kind){g.on=false;g.idle=kind;clearTimeout(g.loop);clearInterval(g.ui);g.loop=g.ui=null;wakeOff();gpsClear();gpsPaint()}
+function gpsReset(){g.manual=false;g.denied=false;g.had=false;gpsStop('off')}
+function gpsStart(){
+  if(g.on||!tok)return;
+  g.on=true;g.denied=false;g.had=true;gpsClear();
+  clearInterval(g.ui);g.ui=setInterval(gpsPaint,1000);
+  if(!g.permWatch&&navigator.permissions&&navigator.permissions.query){g.permWatch=true;try{navigator.permissions.query({name:'geolocation'}).then(p=>{p.onchange=()=>{if(p.state==='granted'&&g.denied){g.denied=false;gpsSync()}}}).catch(()=>{})}catch(e){}}
+  wakeOn();gpsPaint();gpsPoll();
+}
+function gpsSync(){
+  const el=eligible();
+  if(!el.length){g.manual=false;if(g.on)gpsStop('stopped');else{if(g.denied&&!orders.length)g.denied=false;gpsPaint()}return}
+  if(!g.on&&!g.manual&&!g.denied&&tok)gpsStart();else gpsPaint();
+}
+function gpsPoll(){
+  if(!g.on||g.busy)return;
+  if(!navigator.geolocation){g.unavail='This phone or browser cannot share location.';gpsPaint();return}
+  g.busy=true;const t0=Date.now();let done=false;
+  const next=()=>{g.busy=false;if(!g.on)return;clearTimeout(g.loop);g.loop=setTimeout(gpsPoll,Math.max(1000,GPS_TICK-(Date.now()-t0)));gpsPaint()};
+  const dog=setTimeout(()=>{if(!done){done=true;g.slow=true;next()}},GPS_TIMEOUT+5000);
+  try{
+    navigator.geolocation.getCurrentPosition(
+      pos=>{if(done)return;done=true;clearTimeout(dog);gpsFix(pos).catch(()=>{}).then(next)},
+      er=>{if(done)return;done=true;clearTimeout(dog);gpsErr(er);next()},
+      {enableHighAccuracy:true,timeout:GPS_TIMEOUT,maximumAge:5000});
+  }catch(e){done=true;clearTimeout(dog);g.unavail='Location could not be read.';next()}
+}
+function gpsErr(er){
+  const c=er&&er.code;
+  if(c===1){g.denied=true;gpsStop('off');return}
+  if(c===2){g.unavail='Your phone cannot find its location. Check that Location Services are on.';return}
+  g.slow=true;
+}
+async function gpsFix(pos){
+  const c=pos&&pos.coords;if(!c)return;
+  const now=Date.now(),lat=Number(c.latitude),lng=Number(c.longitude),acc=Number(c.accuracy),age=Math.max(0,now-(Number(pos.timestamp)||now));
+  if(!Number.isFinite(lat)||!Number.isFinite(lng)||Math.abs(lat)>90||Math.abs(lng)>180||(lat===0&&lng===0))return;   /* invalid reading: ignored, never sent, never counted as fresh */
+  if(age>GPS_MAXAGE)return;                                                                                            /* cached/old reading */
+  g.unavail='';g.slow=false;
+  if(Number.isFinite(acc)&&acc>GPS_ACC){g.weak=Math.round(acc);return}                                                  /* poor accuracy: not sent */
+  g.weak=0;g.fixAt=now-age;
+  const el=eligible();if(!el.length){gpsSync();return}
+  const sig=el.map(o=>o.id).sort().join(',');
+  const due=!g.last||sig!==g.sig||meters(g.last.lat,g.last.lng,lat,lng)>=GPS_MOVE||now-g.last.t>=GPS_HEART;
+  if(!due)return;
+  try{
+    const d=await api('ping',{oid:el[0].id,oids:el.map(o=>o.id),lat,lng,acc:Math.round(acc)||0,age});
+    if(!g.on)return;
+    g.last={lat,lng,t:now};g.sig=sig;
+    const r=d.results||{};let gone=false,good=false;
+    for(const o of el){const x=r[o.id];if(x==='denied'||x==='stop')gone=true;else if(['saved','throttled','still','old'].includes(x))good=true}
+    if(good){g.sentAt=now;g.err='';g.unavail=''}
+    else if(!gone)g.err='The server did not accept your location.';
+    if(gone)refresh(true);
+  }catch(er){
+    if(er.auth)return;
+    if(er.net)g.err='No connection. Your location is not reaching customers. Retrying.';
+    else if(er.status===400)g.unavail='This location is outside the delivery area, so it is not shared.';
+    else g.err=er.message||'Location could not be sent.';
+  }
+}
+$('gbt').addEventListener('click',()=>{
+  if(g.on){g.manual=true;gpsStop('stopped')}
+  else{g.manual=false;g.denied=false;gpsStart()}
+});
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&g.on){wakeOn();clearTimeout(g.loop);gpsPoll()}});
+
+/* ---------- view ---------- */
+const rs=n=>'\u20B9'+(Number(n)||0).toLocaleString('en-IN');
+const num=v=>v!=null&&v!==''&&Number.isFinite(Number(v));
+function mapTo(lat,lng,addr){
+  if(num(lat)&&num(lng))return 'https://www.google.com/maps/dir/?api=1&travelmode=driving&destination='+Number(lat)+','+Number(lng);
+  return 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(addr||'');
+}
+function cashBox(o){
+  if(o.pay==='cod')return o.paid?'<div class="cash paid">Cash collected</div>':`<div class="cash">Collect ${esc(rs(o.total))} cash from the customer</div>`;
+  if(o.pay==='online')return o.paid?'<div class="cash paid">Paid online. Do not collect cash.</div>':'<div class="cash">Online payment pending</div>';
+  return '<div class="cash paid">UPI payment</div>';
+}
+const payName=o=>o.pay==='cod'?'Cash on delivery':o.pay==='online'?'Online':'UPI';
+
+function render(){
+  const list=orders.slice().sort((a,b)=>(RANK[a.st]-RANK[b.st])||(a.ts-b.ts));
+  const nNew=list.filter(o=>!seen.has(o.id)).length;
+  document.title=(nNew?'('+nNew+') ':'')+T0;
+  $('sn').textContent=today.n||0;$('sc').textContent=rs(today.cash);
+  $('list').innerHTML=list.map(card).join('');
+  $('empty').hidden=!!list.length;
+  gpsSync();
+}
+function card(o){
+  const isNew=!seen.has(o.id),ref=o.ref||o.id;
+  const rest=num(o.rlat)&&num(o.rlng)?`<a href="https://www.google.com/maps/search/?api=1&query=${Number(o.rlat)},${Number(o.rlng)}" target="_blank" rel="noopener">Open restaurant on map</a>`:'<span class="note">Restaurant location not set</span>';
+  const items=(o.lines||[]).map(l=>`<li>${esc(l.q)} &times; ${esc(l.n)}</li>`).join('');
+  let act;
+  if(o.st==='ready')act=`<button class="go big" type="button" data-p="${esc(o.id)}">Mark picked up</button>`;
+  else if(o.st==='picked')act=`<button class="go big" type="button" data-d="${esc(o.id)}">Mark delivered</button>`;
+  else act='<p class="wait">Waiting for the kitchen to mark this order ready.'+(o.prep?' Prep time about '+esc(o.prep)+' min.':'')+'</p>';
+  return `<article class="card${isNew?' new':''}" data-id="${esc(o.id)}">
+${isNew?`<div class="newtag"><span>New assignment</span><button type="button" data-s="${esc(o.id)}">Got it</button></div>`:''}
+<div class="top"><div class="ref">${esc(ref)}</div><span class="pill ${esc(o.st)}">${esc(ST[o.st]||o.st)}</span></div>
+<div class="sec"><span class="k">Pick up from</span><span class="v"><b>${esc(o.rn)}</b></span>${rest}</div>
+<div class="sec"><span class="k">Deliver to</span><span class="v"><b>${esc(o.name)}</b></span><span class="v">${esc(o.addr)}${o.zone?', '+esc(o.zone):''}</span>${num(o.clat)&&num(o.clng)?'':'<span class="note">No map pin from the customer. Navigation searches the written address.</span>'}</div>
+<div class="two"><a class="b go" href="tel:${esc(o.phone)}">Call customer</a><a class="b go" href="${esc(mapTo(o.clat,o.clng,(o.addr||'')+' '+(o.zone||'')+' Srinagar'))}" target="_blank" rel="noopener">Navigate</a></div>
+<div class="sec"><span class="k">Items</span><ul class="items v">${items}</ul>${o.note?`<span class="note">Customer note: ${esc(o.note)}</span>`:''}</div>
+<div class="sec"><span class="k">Order total</span><span class="v">${esc(rs(o.total))} &middot; ${esc(payName(o))}</span></div>
+${cashBox(o)}
+${act}</article>`;
+}
+
+$('list').addEventListener('click',e=>{
+  const s=e.target.closest('[data-s]'),p=e.target.closest('[data-p]'),d=e.target.closest('[data-d]');
+  if(s){seen.add(s.dataset.s);saveSeen();render()}
+  else if(p)move(p.dataset.p,'picked',p);
+  else if(d)move(d.dataset.d,'delivered',d);
+});
+
+function ask(title,msg,yes){
+  return new Promise(res=>{
+    const dl=$('dlg');
+    if(!dl.showModal){res(window.confirm(title+'\n'+msg));return}
+    $('dt').textContent=title;$('dm').textContent=msg;$('dy').textContent=yes;
+    const done=v=>{dl.close();$('dy').onclick=$('dn').onclick=null;res(v)};
+    $('dy').onclick=()=>done(true);$('dn').onclick=()=>done(false);dl.oncancel=()=>res(false);dl.showModal();
+  });
+}
+async function move(oid,action,btn){
+  const o=orders.find(x=>x.id===oid);if(!o)return;const ref=o.ref||o.id;
+  if(action==='picked'&&o.st!=='ready')return toast('The kitchen has not marked '+ref+' ready yet.',true);
+  if(action==='delivered'){
+    if(o.st!=='picked')return toast(ref+' must be picked up first.',true);
+    const cash=o.pay==='cod'&&!o.paid;
+    if(!await ask('Mark '+ref+' delivered?',cash?'Confirm you have collected '+rs(o.total)+' in cash from '+o.name+'.':'Confirm the order has been handed to '+o.name+'.','Yes, delivered'))return;
+  }
+  btn.disabled=true;
+  try{
+    await api(action,{oid:o.id});
+    seen.add(o.id);saveSeen();
+    toast(ref+(action==='picked'?' marked as picked up.':' marked as delivered.'));
+  }catch(er){
+    if(er.auth)return;
+    toast(er.net?'No connection. Nothing was changed.':er.message,true);
+  }finally{btn.disabled=false;busy=false;refresh(true)}
+}
+
+if(tok)showApp();else showLogin('');
+})();
+</script>
+</body>
+</html>
