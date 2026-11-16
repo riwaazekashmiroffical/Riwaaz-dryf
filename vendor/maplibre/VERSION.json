@@ -1,0 +1,16 @@
+{
+ "name": "MapLibre GL JS",
+ "version": "6.18.0",
+ "versionEvidence": "@license header of maplibre-gl.mjs and maplibre-gl-worker.mjs: .../maplibre-gl-js/blob/v6.18.0/LICENSE.txt; getVersion() reports 6.18.0 at runtime (tested).",
+ "license": "3-Clause BSD (SPDX BSD-3-Clause)",
+ "licenseFullText": "NOT bundled: LICENSE.txt was not supplied and the sandbox has no network. Add it from https://github.com/maplibre/maplibre-gl-js/blob/v6.18.0/LICENSE.txt before any public deploy.",
+ "suppliedBy": "owner upload, Nov 14 2026",
+ "files": {
+  "maplibre-gl.mjs": "1e0a68844041aec6621a10d4725c9970c3b19cf7e1605d98b01dbc993e1058b2",
+  "maplibre-gl-worker.mjs": "c8998a2616612ebc7afc3a6f83e31ad1c5f6187550a018b4fd0561779c33015b",
+  "maplibre-gl.css": "a90798a1953017790e590f7e1bd35ff103a8a4263972cb47290b78adf86f8c20"
+ },
+ "officialIntegrityCheck": "NOT performed: the sandbox has no network, so the hashes could not be compared with the official npm tarball / GitHub release. Owner step: run `npm pack maplibre-gl@6.18.0`, unpack dist/ and compare with sha256sum.",
+ "runtimeDependencies": "none (self-contained ES modules, no imports); needs WebGL; main file loads the sibling maplibre-gl-worker.mjs as a module Worker (set explicitly by the adapter)",
+ "sourceMaps": "files end with sourceMappingURL comments; the .map files were not supplied (harmless: browsers only request them with DevTools open)"
+}
