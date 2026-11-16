@@ -6,6 +6,7 @@
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#050D08">
 <title>Rider | Riwaaz-e-Kashmir</title>
+<link rel="manifest" href="/rider/manifest.webmanifest"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Riwaaz Rider"><link rel="apple-touch-icon" href="/rider/apple-touch-icon.png">
 <style>
 :root{--bg:#050D08;--sf:#0B1B12;--gold:#D4AF37;--cr:#F2E6C0;--mu:rgba(242,230,192,.68);--ln:rgba(212,175,55,.28);--warn:#EE8F74;--ok:#86D6A6;--serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;color-scheme:dark}
 *{box-sizing:border-box}
@@ -84,6 +85,10 @@ dialog .btns{display:grid;gap:10px}
 #gnote{font-size:13px}
 #gbt{min-height:48px;justify-self:start}
 @media(max-width:360px){.two{grid-template-columns:1fr}}
+.hrow{flex-wrap:wrap;row-gap:8px}.hbtn{flex:1 1 auto;justify-content:flex-end;min-width:0}.hbtn button{position:relative;padding:0 10px;min-width:0}#rnbc{position:absolute;top:-6px;right:-4px;min-width:18px;height:18px;border-radius:9px;background:#EE8F74;color:#10200f;font-size:11px;font-weight:700;line-height:18px;text-align:center;padding:0 4px}#rnbc[hidden]{display:none}
+.prb{margin-top:10px;width:100%;background:none;border:1px solid rgba(238,143,116,.5);color:var(--warn);border-radius:12px;padding:12px;min-height:44px;font:inherit;cursor:pointer}
+.rni{border-bottom:1px solid var(--ln);padding:10px 0}.rni b{color:var(--gold)}.rni span{float:right;color:var(--mu);font-size:12px}.rni p{margin:4px 0 0;color:var(--cr)}.rnp{margin:10px 0}.rnl{max-height:38vh;overflow:auto;margin-bottom:12px}
+dialog select,dialog textarea,dialog input{width:100%;font:inherit;color:var(--cr);background:#07130c;border:1px solid var(--ln);border-radius:10px;padding:10px;min-height:44px;margin-bottom:10px}#rpe{color:var(--warn);min-height:1.2em;margin-bottom:8px}
 </style>
 </head>
 <body>
@@ -102,7 +107,7 @@ dialog .btns{display:grid;gap:10px}
 <div id="app" hidden>
   <header>
     <div class="hrow"><div class="brand"><div class="mark" aria-hidden="true">R</div><div><h1 id="who">Rider</h1><small>Riwaaz-e-Kashmir</small></div></div>
-      <div class="hbtn"><button id="rf" type="button">Refresh</button><button id="lo" type="button">Sign out</button></div></div>
+      <div class="hbtn"><button id="rnb" type="button">Alerts<span id="rnbc" hidden></span></button><button id="rf" type="button">Refresh</button><button id="lo" type="button">Sign out</button></div></div>
     <div class="sum"><div><b id="sn">0</b><span>Delivered today</span></div><div><b id="sc">&#8377;0</b><span>Cash collected today</span></div></div>
     <section id="gps" class="gps" data-s="off" aria-live="polite" aria-label="Location sharing"><div class="gtop"><span class="gdot" aria-hidden="true"></span><b id="gst">Off</b><span id="gage"></span></div><p id="gmsg"></p><p id="gnote" hidden></p><button id="gbt" type="button" hidden></button></section>
     <div id="upd">Not updated yet</div>
@@ -112,6 +117,8 @@ dialog .btns{display:grid;gap:10px}
 </div>
 
 <dialog id="dlg"><h2 id="dt"></h2><p id="dm"></p><div class="btns"><button id="dy" class="go big" type="button"></button><button id="dn" class="big" type="button">Not yet</button></div></dialog>
+<dialog id="rnd"><h2>Alerts</h2><div class="rnpu"></div><div class="rnl"></div><div class="btns"><button id="rnx" class="big" type="button">Close</button></div></dialog>
+<dialog id="rpd"><h2 id="rpt">Report a problem</h2><p>The control room is told straight away.</p><select id="rpk" aria-label="What is the problem"><option value="">What is the problem?</option><option value="vehicle">Vehicle problem</option><option value="address">Cannot find the address</option><option value="customer">Customer is not answering</option><option value="restaurant">Waiting too long at the restaurant</option><option value="accident">Accident or safety problem</option><option value="other">Something else</option></select><input id="rpn" maxlength="120" placeholder="Short note (optional)" aria-label="Note"><div id="rpe" role="alert"></div><div class="btns"><button id="rps" class="go big" type="button">Send to control room</button><button id="rpx" class="big" type="button">Cancel</button></div></dialog>
 <div id="toast" role="status" aria-live="polite"></div>
 
 <script>
@@ -154,7 +161,7 @@ $('lf').addEventListener('submit',async e=>{
   }catch(er){$('lerr').textContent=er.net?'No connection. Check the internet and try again.':er.message}
   finally{b.disabled=false}
 });
-$('lo').addEventListener('click',()=>{wipe();showLogin('');toast('Signed out.')});
+$('lo').addEventListener('click',()=>{rnOut();wipe();showLogin('');toast('Signed out.')});
 
 /* ---------- data ---------- */
 async function refresh(manual){
@@ -322,7 +329,7 @@ ${isNew?`<div class="newtag"><span>New assignment</span><button type="button" da
 <div class="sec"><span class="k">Items</span><ul class="items v">${items}</ul>${o.note?`<span class="note">Customer note: ${esc(o.note)}</span>`:''}</div>
 <div class="sec"><span class="k">Order total</span><span class="v">${esc(rs(o.total))} &middot; ${esc(payName(o))}</span></div>
 ${cashBox(o)}
-${act}</article>`;
+${act}<button class="prb" type="button" data-pr="${esc(o.id)}">Report a problem</button></article>`;
 }
 
 $('list').addEventListener('click',e=>{
@@ -359,6 +366,96 @@ async function move(oid,action,btn){
     toast(er.net?'No connection. Nothing was changed.':er.message,true);
   }finally{btn.disabled=false;busy=false;refresh(true)}
 }
+
+/* Phase 11 shared browser push helper (inlined into the customer page and the rider app by tools/build-phase11-pages.mjs). Never asks for permission by itself: only enable() does, and only from a tap. */
+const RKN=(()=>{
+  const SW_JSON={'Content-Type':'application/json'};
+  const LSg=(k)=>{try{return localStorage.getItem(k)}catch(e){return null}},LSs=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
+  const u8=b=>{b=String(b).replace(/-/g,'+').replace(/_/g,'/');while(b.length%4)b+='=';const r=atob(b),o=new Uint8Array(r.length);for(let i=0;i<r.length;i++)o[i]=r.charCodeAt(i);return o};
+  const ios=()=>/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+  const standalone=()=>{try{return window.navigator.standalone===true||window.matchMedia('(display-mode: standalone)').matches}catch(e){return false}};
+  let cfgP=null;
+  const api=async b=>{let r;try{r=await fetch('/api/food/notify',{method:'POST',headers:SW_JSON,body:JSON.stringify(b)})}catch(e){return{s:0,j:null}}let j=null;try{j=await r.json()}catch(e){}return{s:r.status,j}};
+  const config=()=>cfgP||(cfgP=api({action:'config'}).then(r=>r.j&&r.j.push?r.j.push:{enabled:false,key:null}));
+  const supported=()=>'serviceWorker' in navigator&&'PushManager' in window&&'Notification' in window;
+  /* returns: unsupported | ios-install | server-off | blocked | off | on */
+  async function state(sw){
+    if(!supported())return ios()&&!standalone()?'ios-install':'unsupported';
+    const c=await config();if(!c.enabled)return'server-off';
+    if(Notification.permission==='denied')return'blocked';
+    if(Notification.permission==='granted'&&LSg('rkn_on')==='1'){try{const reg=await navigator.serviceWorker.getRegistration(sw.scope);const s=reg&&await reg.pushManager.getSubscription();if(s)return'on'}catch(e){}}
+    return'off';
+  }
+  async function subscribe(sw,auth){
+    const c=await config();if(!c.enabled)return{ok:false,why:'server-off'};
+    const reg=await navigator.serviceWorker.register(sw.url,{scope:sw.scope});await navigator.serviceWorker.ready;
+    let s=await reg.pushManager.getSubscription();
+    if(!s)s=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:u8(c.key)});
+    const r=await api({...auth,action:'subscribe',sub:s.toJSON(),ua:navigator.userAgent.slice(0,80)});
+    return r.s===200?{ok:true}:{ok:false,why:(r.j&&r.j.error)||'The server refused the subscription.',register:!!(r.j&&r.j.register)};
+  }
+  /* call ONLY from a tap */
+  async function enable(sw,auth){
+    if(!supported())return{ok:false,why:ios()&&!standalone()?'ios-install':'unsupported'};
+    let p=Notification.permission;if(p==='default'){try{p=await Notification.requestPermission()}catch(e){p='default'}}
+    await api({...auth,action:'permission',state:p});
+    if(p!=='granted')return{ok:false,why:p==='denied'?'blocked':'dismissed'};
+    try{const r=await subscribe(sw,auth);if(r.ok)LSs('rkn_on','1');return r}catch(e){return{ok:false,why:'Could not set up alerts on this device ('+(e&&e.name||'error')+').'}}
+  }
+  async function disable(sw,auth){
+    LSs('rkn_on','0');
+    try{const reg=await navigator.serviceWorker.getRegistration(sw.scope);const s=reg&&await reg.pushManager.getSubscription();if(s)await s.unsubscribe()}catch(e){}
+    await api({...auth,action:'unsubscribe'});return{ok:true};
+  }
+  /* quiet repair on page load: if the person turned alerts on and the browser dropped the subscription, put it back. Never prompts. */
+  async function resync(sw,auth){
+    try{if(!supported()||LSg('rkn_on')!=='1'||Notification.permission!=='granted')return;const c=await config();if(!c.enabled)return;await subscribe(sw,auth)}catch(e){}
+    try{if(supported()&&Notification.permission!=='default')await api({...auth,action:'permission',state:Notification.permission})}catch(e){}
+  }
+  const ago=t=>{const m=Math.max(0,Math.round((Date.now()-t)/60000));return m<1?'just now':m<60?m+' min ago':m<1440?Math.round(m/60)+' h ago':Math.round(m/1440)+' d ago'};
+  return{api,config,state,enable,disable,resync,supported,ios,standalone,ago};
+})();
+
+/* ===== Phase 11: rider alerts (new delivery, reassignment, cancellation, ready), push permission, "Report a problem". Uses the app's own helpers: $, esc, toast, tok, refresh. ===== */
+const RKS={url:'/rider/sw.js',scope:'/rider/'};
+const rnDv=(()=>{let v='';try{v=localStorage.getItem('rk_rdv')||''}catch(e){}if(!/^[a-f0-9]{32}$/.test(v)){const a=new Uint8Array(16);crypto.getRandomValues(a);v=[...a].map(x=>x.toString(16).padStart(2,'0')).join('');try{localStorage.setItem('rk_rdv',v)}catch(e){}}return v})();
+const rnAuth=()=>({token:tok,dv:rnDv});
+let rn={items:[],unread:0,seen:null,push:'off',busy:0,timer:null};
+async function rnPoll(){
+  if(!tok||rn.busy)return;rn.busy=1;
+  try{const r=await RKN.api({token:tok,action:'feed',dv:rnDv});
+    if(r.s===200&&r.j&&r.j.ok){const items=r.j.items||[],ids=new Set(items.map(x=>x.id));
+      if(rn.seen){const fresh=items.filter(x=>!rn.seen.has(x.id));
+        if(fresh.length){const f=fresh[fresh.length-1];toast(f.t+(f.b?': '+f.b:''));try{navigator.vibrate&&navigator.vibrate([250,120,250,120,250])}catch(e){}if(fresh.some(x=>/^r_(assigned|unassigned|cancelled|ready)$/.test(x.ev)))setTimeout(()=>refresh(true),200)}}
+      rn.seen=ids;rn.items=items;rn.unread=r.j.unread||0;rnBadge();if($('rnd')&&$('rnd').open)rnRender()}
+  }catch(e){}finally{rn.busy=0}}
+function rnBadge(){const b=$('rnbc');if(b){b.textContent=rn.unread>9?'9+':String(rn.unread||'');b.hidden=!rn.unread}}
+function rnPushUi(){const s=rn.push;
+  if(s==='on')return'<p class="rnp"><b>Phone alerts are ON.</b> New deliveries reach you even when the app is closed.</p><button type="button" class="big" id="rnoff">Turn off phone alerts</button>';
+  if(s==='off')return'<p class="rnp"><b>Phone alerts are off.</b> Turn them on so new deliveries reach you with the app closed. Your phone will ask for permission.</p><button type="button" class="go big" id="rnon">Turn on phone alerts</button>';
+  if(s==='blocked')return'<p class="rnp"><b>Phone alerts are blocked.</b> Allow notifications for this site in your browser or phone settings, then tap below.</p><button type="button" class="big" id="rnre">I have allowed them</button>';
+  if(s==='ios-install')return'<p class="rnp"><b>iPhone / iPad:</b> open this page in Safari, tap Share, then "Add to Home Screen", and open the app from your Home Screen. Apple only allows alerts for Home Screen apps (iOS 16.4 or newer).</p>';
+  if(s==='server-off')return'<p class="rnp"><b>Phone alerts are not switched on yet.</b> Keep this app open to get alerts here.</p>';
+  return'<p class="rnp"><b>Phone alerts are not available in this browser.</b> Keep this app open to get alerts here.</p>'}
+function rnRender(){const d=$('rnd');d.querySelector('.rnl').innerHTML=rn.items.length?rn.items.map(x=>`<div class="rni"><b>${esc(x.t)}</b><span>${esc(RKN.ago(x.ts))}</span><p>${esc(x.b)}</p></div>`).join(''):'<p class="rnp">No alerts yet.</p>';d.querySelector('.rnpu').innerHTML=rnPushUi();
+  const g=id=>d.querySelector('#'+id);if(g('rnon'))g('rnon').onclick=rnOn;if(g('rnoff'))g('rnoff').onclick=async()=>{await RKN.disable(RKS,rnAuth());rn.push=await RKN.state(RKS);toast('Phone alerts are off.');rnRender()};if(g('rnre'))g('rnre').onclick=async()=>{rn.push=await RKN.state(RKS);if(rn.push==='off')rnOn();else rnRender()}}
+async function rnOn(){const r=await RKN.enable(RKS,rnAuth());toast(r.ok?'Phone alerts are on.':(r.why==='blocked'?'Notifications are blocked for this site in your settings.':r.why==='dismissed'?'No problem. You can turn them on any time.':(typeof r.why==='string'&&r.why.length<120&&r.why!=='ios-install'&&r.why!=='unsupported'?r.why:'Could not turn on alerts.')),!r.ok&&r.why!=='dismissed');rn.push=await RKN.state(RKS);rnRender()}
+async function rnOpen(){const d=$('rnd');rn.push=await RKN.state(RKS);rnRender();if(d.showModal)d.showModal();else d.setAttribute('open','');await rnPoll();rnRender();if(rn.unread){await RKN.api({token:tok,action:'read',dv:rnDv});rn.unread=0;rnBadge()}}
+function rnOut(){try{if(tok)RKN.disable(RKS,rnAuth())}catch(e){}rn.seen=null;rn.items=[];rn.unread=0;rnBadge()}
+$('rnb').addEventListener('click',rnOpen);$('rnx').addEventListener('click',()=>$('rnd').close());
+/* report a problem */
+let rpO=null;
+$('list').addEventListener('click',e=>{const b=e.target.closest('[data-pr]');if(!b)return;const o=orders.find(x=>x.id===b.dataset.pr);if(!o)return;rpO=o;$('rpt').textContent='Problem with '+(o.ref||o.id);$('rpn').value='';$('rpk').value='';$('rpe').textContent='';const d=$('rpd');if(d.showModal)d.showModal();else d.setAttribute('open','')});
+$('rpx').addEventListener('click',()=>$('rpd').close());
+$('rps').addEventListener('click',async()=>{if(!rpO)return;const k=$('rpk').value;if(!k){$('rpe').textContent='Choose what the problem is.';return}$('rps').disabled=true;
+  try{const r=await RKN.api({token:tok,action:'problem',oid:rpO.id,kind:k,note:$('rpn').value.slice(0,120)});if(r.s===200&&r.j&&r.j.ok){$('rpd').close();toast('Sent to the control room. They will call you.')}else $('rpe').textContent=(r.j&&r.j.error)||(r.s===0?'No connection. Try again.':'Could not send. Try again.')}
+  finally{$('rps').disabled=false}});
+setInterval(()=>{if(!document.hidden&&tok)rnPoll()},15000);
+setTimeout(()=>{if(tok){RKN.resync(RKS,rnAuth());rnPoll()}},2000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&tok)rnPoll()});
+const rnLogin=()=>{if(tok){RKN.resync(RKS,rnAuth());rnPoll()}};
+$('lf').addEventListener('submit',()=>setTimeout(rnLogin,1500));
+navigator.serviceWorker&&navigator.serviceWorker.addEventListener&&navigator.serviceWorker.addEventListener('message',m=>{if(m.data&&m.data.type==='rkn-open'){refresh(true);rnOpen()}});
 
 if(tok)showApp();else showLogin('');
 })();
