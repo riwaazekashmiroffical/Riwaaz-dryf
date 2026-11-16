@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="manifest" href="/control/manifest.webmanifest"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Riwaaz Control"><link rel="apple-touch-icon" href="/control/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Control Centre | Riwaaz-e-Kashmir</title><meta name="robots" content="noindex,nofollow"><meta name="color-scheme" content="dark"><meta name="theme-color" content="#050D08">
+<style>
+:root{--bg:#050D08;--pn:#0B1B12;--pn2:#10261a;--gd:#D4AF37;--cr:#F2E6C0;--mu:#9fb3a5;--ok:#6fcf97;--er:#e8a0a0;--ln:rgba(212,175,55,.25)}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--cr);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+body{padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+h1,h2,h3{font-family:Georgia,'Times New Roman',serif;font-weight:600;margin:0}h1{font-size:22px;color:var(--gd)}h2{font-size:20px;margin:6px 0 12px}h3{font-size:16px}
+.wrap{max-width:980px;margin:0 auto;padding:14px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border-bottom:1px solid var(--ln);background:var(--pn);position:sticky;top:0;z-index:5}
+.nav{display:flex;gap:8px;overflow-x:auto;padding:10px 14px;border-bottom:1px solid var(--ln)}
+.nav button{white-space:nowrap}
+button,.btn{font:inherit;color:var(--cr);background:var(--pn2);border:1px solid var(--ln);border-radius:999px;padding:9px 16px;min-height:40px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center}
+button.on{background:var(--gd);color:#10200f;border-color:var(--gd);font-weight:600}button.pri{background:var(--gd);color:#10200f;border-color:var(--gd);font-weight:600}button.dg{color:var(--er)}button:disabled{opacity:.5}
+.card{background:var(--pn);border:1px solid var(--ln);border-radius:14px;padding:14px;margin:0 0 12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.kpi{background:var(--pn2);border:1px solid var(--ln);border-radius:12px;padding:12px}.kpi b{display:block;font-size:24px;color:var(--gd)}.kpi span{color:var(--mu);font-size:13px}
+label{display:block;font-size:13px;color:var(--mu);margin:10px 0 4px}input,select{width:100%;font:inherit;color:var(--cr);background:#07130c;border:1px solid var(--ln);border-radius:10px;padding:10px;min-height:42px}input[type=checkbox]{width:auto;min-height:0}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.chips{display:flex;flex-wrap:wrap;gap:8px}.chip{border:1px solid var(--ln);border-radius:999px;padding:5px 12px;font-size:13px;background:var(--pn2)}
+.chip.ok{color:var(--ok)}.chip.off{color:var(--er)}.mu{color:var(--mu);font-size:13px}.er{color:var(--er);min-height:1.2em;margin:8px 0}
+.zc{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}.zc .acts{display:flex;gap:8px}
+.mods a{margin:0 8px 8px 0}.tag{font-size:12px;color:var(--mu)}
+#login{max-width:380px;margin:12vh auto;padding:0 14px}
+.sim{background:var(--pn2);border-radius:12px;padding:12px;margin-top:10px}.sim table{width:100%;border-collapse:collapse}.sim td{padding:4px 0}.sim td:last-child{text-align:right}
+</style></head><body>
+<div id="login" style="display:none"><div class="card"><h1>Control Centre</h1><p class="mu">Riwaaz-e-Kashmir food platform. Admin key required.</p>
+<label for="key">Admin key</label><input id="key" type="password" autocomplete="current-password"><div class="er" id="lerr" role="alert"></div><button class="pri" id="lgo" style="width:100%;justify-content:center">Open Control Centre</button></div></div>
+<div id="app" style="display:none">
+<div class="top"><h1>Control Centre</h1><div><span class="tag" id="stamp"></span> <button id="lout">Log out</button></div></div>
+<div class="nav" id="nav"><button data-t="ov" class="on">Overview</button><button data-t="zn">Zones &amp; Pricing</button><button data-t="of">Offers</button><button data-t="nt">Notifications <span id="ntb"></span></button></div>
+<div class="wrap">
+<section id="t-ov"><h2>Today</h2><div class="grid" id="kpis"></div>
+<div class="card" style="margin-top:12px"><div class="zc"><div><h3>Ordering</h3><div class="mu" id="pst"></div></div><div class="acts"><button id="ptog"></button></div></div><div class="er" id="perr"></div></div>
+<div class="card"><h3>Platform modules</h3><p class="mu">Everything below works on the same orders, restaurants, riders and prices.</p><div class="mods" id="mods"></div></div></section>
+<section id="t-zn" style="display:none"><h2>Delivery zones &amp; pricing</h2>
+<div class="card"><h3>Default pricing</h3><p class="mu">Used for every area that is not in a zone.</p><div class="row"><div><label for="df-fee">Delivery fee (₹)</label><input id="df-fee" inputmode="numeric"></div><div><label for="df-free">Free delivery from (₹)</label><input id="df-free" inputmode="numeric"></div></div><div class="er" id="derr"></div><button id="dsave">Save default pricing</button></div>
+<div id="zones"></div><button class="pri" id="znew">Add a zone</button>
+<div class="card" id="zform" style="display:none;margin-top:12px"><h3 id="zft">New zone</h3>
+<label for="zn-name">Zone name</label><input id="zn-name" maxlength="40" placeholder="e.g. Old City">
+<label>Areas in this zone</label><div class="chips" id="zn-areas"></div>
+<div class="row"><div><label for="zn-fee">Delivery fee ₹ (empty = default)</label><input id="zn-fee" inputmode="numeric"></div><div><label for="zn-free">Free from ₹ (empty = default, 0 = never free)</label><input id="zn-free" inputmode="numeric"></div></div>
+<div class="row"><div><label for="zn-min">Minimum order ₹</label><input id="zn-min" inputmode="numeric"></div><div><label for="zn-eta">Delivery time (minutes)</label><input id="zn-eta" inputmode="numeric"></div></div>
+<div class="row"><div><label for="zn-perkm">Extra ₹ per km</label><input id="zn-perkm" inputmode="numeric"></div><div><label for="zn-inc">Km included in the fee</label><input id="zn-inc" inputmode="numeric" placeholder="3"></div></div>
+<div class="row"><div><label for="zn-maxfee">Highest fee ₹ (0 = no cap)</label><input id="zn-maxfee" inputmode="numeric"></div><div><label for="zn-maxkm">Furthest km (0 = no limit)</label><input id="zn-maxkm" inputmode="numeric"></div></div>
+<label><input type="checkbox" id="zn-active" checked> Delivering to this zone</label>
+<p class="mu">Distance is measured in a straight line from the restaurant to the pin the customer drops. With no pin, only the fee above applies.</p>
+<div class="er" id="zerr" role="alert"></div><div class="acts" style="display:flex;gap:8px"><button class="pri" id="zsave">Save zone</button><button id="zcancel">Cancel</button></div></div>
+<div class="card" style="margin-top:12px"><h3>Price check</h3><p class="mu">Try an order and see the exact fee customers will be charged.</p>
+<div class="row"><div><label for="sm-area">Area</label><select id="sm-area"></select></div><div><label for="sm-sub">Items total ₹</label><input id="sm-sub" inputmode="numeric" value="300"></div></div>
+<div class="row"><div><label for="sm-km">Distance km (optional)</label><input id="sm-km" inputmode="decimal"></div><div><label><input type="checkbox" id="sm-fd"> Free-delivery promo</label></div></div>
+<button id="sm-go">Check price</button><div class="sim" id="sm-out" style="display:none"></div></div></section>
+<section id="t-nt" style="display:none"></section>
+<section id="t-of" style="display:none"><h2>Offers &amp; promotions</h2>
+<p class="mu">Automatic offers are applied at checkout with no code. One discount per order: the customer's promo code or the best offer, whichever is worth more. Promo codes are still managed in Food Admin.</p>
+<div id="offers"></div><button class="pri" id="onew">Add an offer</button>
+<div class="card" id="oform" style="display:none;margin-top:12px"><h3 id="oft">New offer</h3>
+<label for="of-title">Offer name (customers see this)</label><input id="of-title" maxlength="60" placeholder="e.g. Lunch 10% off">
+<div class="row"><div><label for="of-badge">Short badge on cards (optional)</label><input id="of-badge" maxlength="18" placeholder="10% OFF"></div><div><label for="of-desc">One line of detail (optional)</label><input id="of-desc" maxlength="140"></div></div>
+<div class="row"><div><label for="of-type">What it gives</label><select id="of-type"><option value="pct">Percent off the food</option><option value="flat">Money off the food</option><option value="freeDel">Free delivery</option></select></div><div><label for="of-value" id="of-vl">Percent (1-90)</label><input id="of-value" inputmode="numeric"></div></div>
+<div class="row"><div id="of-capw"><label for="of-cap">Highest discount ₹ (0 = no limit)</label><input id="of-cap" inputmode="numeric"></div><div><label for="of-min">Minimum order ₹</label><input id="of-min" inputmode="numeric"></div></div>
+<label for="of-rid">Restaurant</label><select id="of-rid"></select>
+<label>Delivery zones (none ticked = everywhere)</label><div class="chips" id="of-zones"></div>
+<label><input type="checkbox" id="of-first"> First order only (needs the customer's phone number)</label>
+<div class="row"><div><label for="of-per">Uses per customer (0 = unlimited)</label><input id="of-per" inputmode="numeric" value="1"></div><div><label for="of-tot">Total uses across everyone (0 = unlimited)</label><input id="of-tot" inputmode="numeric"></div></div>
+<label>Days (none ticked = every day)</label><div class="chips" id="of-days"></div>
+<div class="row"><div><label for="of-start">Daily from (India time)</label><input id="of-start" type="time"></div><div><label for="of-end">Daily until</label><input id="of-end" type="time"></div></div>
+<div class="row"><div><label for="of-from">Starts on</label><input id="of-from" type="date"></div><div><label for="of-until">Ends on (whole day)</label><input id="of-until" type="date"></div></div>
+<label for="of-fund">Who pays for the discount</label><select id="of-fund"><option value="platform">Riwaaz (platform)</option><option value="restaurant">The restaurant</option></select>
+<label><input type="checkbox" id="of-active" checked> Switched on</label>
+<div class="er" id="oerr" role="alert"></div><div style="display:flex;gap:8px"><button class="pri" id="osave">Save offer</button><button id="ocancel">Cancel</button></div></div>
+<div class="card" style="margin-top:12px"><h3>What would a customer get?</h3><p class="mu">Try a basket and see which offer wins, and why the others do not apply.</p>
+<div class="row"><div><label for="os-rid">Restaurant</label><select id="os-rid"></select></div><div><label for="os-area">Area</label><select id="os-area"></select></div></div>
+<div class="row"><div><label for="os-sub">Items total ₹</label><input id="os-sub" inputmode="numeric" value="300"></div><div><label for="os-phone">Customer phone (optional)</label><input id="os-phone" inputmode="numeric" maxlength="10"></div></div>
+<div class="row"><div><label for="os-code">Promo code (optional)</label><input id="os-code" maxlength="20"></div><div><label for="os-at">Pretend it is (India time, optional)</label><input id="os-at" type="datetime-local"></div></div>
+<button id="os-go">Check</button><div class="sim" id="os-out" style="display:none"></div></div></section>
+</div></div>
+<script>
+const $=id=>document.getElementById(id),esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])),M=n=>'\u20b9'+(Math.round(Number(n)||0)).toLocaleString('en-IN');
+let KEY='';try{KEY=sessionStorage.getItem('rk_ctl')||''}catch(e){}let editId=null,ZS=[],LOC=[],tm=null;
+async function api(action,extra){const r=await fetch('/api/food/admin',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:KEY,action,...(extra||{})})});if(r.status===401){logout(1);throw new Error('Session ended')}const j=await r.json().catch(()=>({}));if(!r.ok)throw new Error(j.error||'Something went wrong. Please try again.');return j}
+function logout(exp){KEY='';try{sessionStorage.removeItem('rk_ctl')}catch(e){}clearInterval(tm);$('app').style.display='none';$('login').style.display='block';$('key').value='';$('lerr').textContent=exp===1?'Your session ended. Please log in again.':''}
+async function login(){const k=$('key').value.trim();if(!k){$('lerr').textContent='Enter the admin key.';return}KEY=k;$('lgo').disabled=true;try{await api('cfg');try{sessionStorage.setItem('rk_ctl',KEY)}catch(e){}start()}catch(e){KEY='';$('lerr').textContent=e.message==='Session ended'?'That key is not correct.':e.message}$('lgo').disabled=false}
+function start(){$('login').style.display='none';$('app').style.display='block';showTab('ov');clearInterval(tm);tm=setInterval(()=>{if(!document.hidden&&$('t-ov').style.display!=='none')ov()},20000)}
+function showTab(t){for(const b of document.querySelectorAll('#nav button'))b.classList.toggle('on',b.dataset.t===t);$('t-ov').style.display=t==='ov'?'':'none';$('t-zn').style.display=t==='zn'?'':'none';$('t-of').style.display=t==='of'?'':'none';$('t-nt').style.display=t==='nt'?'':'none';if(t==='ov')ov();else if(t==='zn')zn();else if(t==='nt')nt();else of()}
+const MODS=[['Food Admin','../foodadmin/','Restaurants, menus, promos, refunds, reviews, settings'],['Dispatch','../dispatch/','Assign riders and follow deliveries'],['Rider app','../rider/','Rider login, pickups, GPS'],['Kitchen app','../restaurant/','Accept orders, mark ready, stock and prices'],['Customer site','../food/','What customers see']];
+async function ov(){try{const [o,c,z,xo]=await Promise.all([api('olist'),api('cfg'),api('zlist'),api('xlist')]);const L=o.orders||[],dn=L.filter(x=>x.st==='delivered'),act=L.filter(x=>['placed','accepted','ready','picked'].includes(x.st)),bad=L.filter(x=>['cancelled','rejected'].includes(x.st));
+const K=[['Orders today',L.length],['Active now',act.length],['Delivered',dn.length],['Cancelled / rejected',bad.length],['Sales (delivered)',M(dn.reduce((a,x)=>a+(x.sub||0),0))],['Delivery fees',M(dn.reduce((a,x)=>a+(x.fee||0),0))],['Delivery zones',(z.zones||[]).length],['Offers live now',(xo.offers||[]).filter(x=>x.when==='live').length]];
+$('kpis').innerHTML=K.map(([a,b])=>`<div class="kpi"><b>${esc(b)}</b><span>${esc(a)}</span></div>`).join('');
+const p=!!c.cfg.paused;$('pst').textContent=p?'Ordering is PAUSED: customers cannot place orders.':'Ordering is open.';$('ptog').textContent=p?'Resume ordering':'Pause ordering';$('ptog').className=p?'pri':'dg';$('ptog').dataset.p=p?1:0;
+$('mods').innerHTML=MODS.map(([n,h,d])=>`<a class="btn" href="${h}" title="${esc(d)}">${esc(n)}</a>`).join('');$('stamp').textContent='Updated '+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});$('perr').textContent=''}catch(e){if(e.message!=='Session ended')$('perr').textContent=e.message}}
+async function togglePause(){const p=$('ptog').dataset.p==='1';if(!p&&!confirm('Pause ordering? Customers will not be able to place new orders until you resume.'))return;try{await api('cfg',{set:{paused:!p}});ov()}catch(e){$('perr').textContent=e.message}}
+async function zn(){try{const [z,c]=await Promise.all([api('zlist'),api('cfg')]);ZS=z.zones||[];LOC=z.localities||[];$('df-fee').value=c.cfg.fee;$('df-free').value=c.cfg.freeAbove;
+const free=LOC.filter(l=>!ZS.some(x=>(x.localities||[]).includes(l)));
+$('zones').innerHTML=(ZS.length?ZS.map(z=>`<div class="card"><div class="zc"><div><h3>${esc(z.name)} <span class="chip ${z.active?'ok':'off'}">${z.active?'Delivering':'Paused'}</span></h3><div class="chips" style="margin:8px 0">${(z.localities||[]).map(l=>`<span class="chip">${esc(l)}</span>`).join('')}</div>
+<div class="mu">Fee ${z.fee==null?'default':M(z.fee)} \u00b7 free from ${z.freeAbove==null?'default':(z.freeAbove?M(z.freeAbove):'never')} \u00b7 minimum ${M(z.minOrder)}${z.etaMin?' \u00b7 about '+z.etaMin+' min':''}${z.perKm?' \u00b7 +'+M(z.perKm)+'/km after '+z.incKm+' km':''}${z.maxFee?' \u00b7 max '+M(z.maxFee):''}${z.maxKm?' \u00b7 up to '+z.maxKm+' km':''}</div></div>
+<div class="acts"><button data-e="${esc(z.id)}">Edit</button><button class="dg" data-d="${esc(z.id)}">Delete</button></div></div></div>`).join(''):'<div class="card mu">No zones yet. Every area uses the default pricing above.</div>')+(free.length&&ZS.length?`<p class="mu">Default pricing applies to: ${free.map(esc).join(', ')}</p>`:'');
+$('sm-area').innerHTML=LOC.map(l=>`<option>${esc(l)}</option>`).join('')}catch(e){if(e.message!=='Session ended')$('derr').textContent=e.message}}
+async function saveDefault(){$('derr').textContent='';const fee=$('df-fee').value.trim(),fa=$('df-free').value.trim();if(!/^\d+$/.test(fee)||!/^\d+$/.test(fa)){$('derr').textContent='Enter whole numbers (use 0 for none).';return}try{await api('cfg',{set:{fee:+fee,freeAbove:+fa}});$('derr').textContent='';zn();flash('dsave')}catch(e){$('derr').textContent=e.message}}
+function flash(i){const b=$(i),t=b.textContent;b.textContent='Saved';setTimeout(()=>b.textContent=t,1200)}
+function openForm(z){editId=z?z.id:null;$('zft').textContent=z?'Edit '+z.name:'New zone';$('zerr').textContent='';const v=(i,x)=>$(i).value=x==null?'':x;v('zn-name',z&&z.name);v('zn-fee',z&&z.fee);v('zn-free',z&&z.freeAbove);v('zn-min',z?z.minOrder:'');v('zn-eta',z?z.etaMin:'');v('zn-perkm',z?z.perKm:'');v('zn-inc',z?z.incKm:'');v('zn-maxfee',z?z.maxFee:'');v('zn-maxkm',z?z.maxKm:'');$('zn-active').checked=z?z.active:true;
+$('zn-areas').innerHTML=LOC.map(l=>{const other=ZS.find(x=>x.id!==editId&&(x.localities||[]).includes(l)),on=z&&(z.localities||[]).includes(l);return `<label class="chip" style="margin:0;${other?'opacity:.5':''}"><input type="checkbox" class="za" value="${esc(l)}" ${on?'checked':''} ${other?'disabled':''}> ${esc(l)}${other?' (in '+esc(other.name)+')':''}</label>`}).join('');$('zform').style.display='block';$('zform').scrollIntoView({block:'nearest'})}
+async function saveZone(){$('zerr').textContent='';const areas=[...document.querySelectorAll('.za:checked')].map(x=>x.value),g=i=>$(i).value.trim();
+const b={id:editId||undefined,name:g('zn-name'),localities:areas,fee:g('zn-fee'),freeAbove:g('zn-free'),minOrder:g('zn-min'),etaMin:g('zn-eta'),perKm:g('zn-perkm'),incKm:g('zn-inc'),maxFee:g('zn-maxfee'),maxKm:g('zn-maxkm'),active:$('zn-active').checked};
+if(b.name.length<2){$('zerr').textContent='Give the zone a name.';return}if(!areas.length){$('zerr').textContent='Tick at least one area.';return}
+for(const k of ['fee','freeAbove','minOrder','etaMin','perKm','incKm','maxFee','maxKm'])if(b[k]!==''&&!/^\d+$/.test(b[k])){$('zerr').textContent='Numbers only (whole numbers). Check: '+k;return}
+$('zsave').disabled=true;try{await api('zset',b);$('zform').style.display='none';zn()}catch(e){$('zerr').textContent=e.message}$('zsave').disabled=false}
+async function delZone(id){const z=ZS.find(x=>x.id===id);if(!z||!confirm('Delete the zone "'+z.name+'"? Its areas go back to the default pricing. Past orders are not changed.'))return;try{await api('zdel',{id});zn()}catch(e){$('derr').textContent=e.message}}
+async function simGo(){const out=$('sm-out');try{const r=await api('zsim',{locality:$('sm-area').value,sub:$('sm-sub').value,km:$('sm-km').value.trim(),freeDel:$('sm-fd').checked});
+out.style.display='block';out.innerHTML=`<table><tr><td>Pricing used</td><td><b>${r.zone?esc(r.zone.name):'Default pricing'}</b></td></tr><tr><td>Items</td><td>${M(r.sub)}</td></tr><tr><td>Base fee</td><td>${M(r.base)}</td></tr><tr><td>Distance charge</td><td>${r.km==null?'no distance given':M(r.extra)+' ('+r.km+' km)'}</td></tr><tr><td>Delivery charged</td><td><b>${r.fee?M(r.fee):'Free'}</b></td></tr><tr><td>Customer pays</td><td><b>${M(r.sub+r.fee)}</b></td></tr>${r.etaMin?`<tr><td>Delivery time</td><td>about ${r.etaMin} min</td></tr>`:''}</table>${r.deliverable?'':`<p class="er">Not deliverable: ${esc(r.reason)}</p>`}`}catch(e){out.style.display='block';out.innerHTML='<p class="er">'+esc(e.message)+'</p>'}}
+const WH={live:'Live now',paused:'Paused',scheduled:'Starts later',expired:'Ended','off-hours':'Not running at this day/time',exhausted:'Fully used'},DN=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];let OS=[],OR=[],OZ=[],oEdit=null;
+const ymd=t=>t?new Date(t+19800000).toISOString().slice(0,10):'';
+function oline(o){const a=[o.type==='pct'?o.value+'% off'+(o.cap?' (up to '+M(o.cap)+')':''):o.type==='flat'?M(o.value)+' off':'Free delivery'];if(o.minOrder)a.push('orders above '+M(o.minOrder));if(o.rid){const r=OR.find(x=>x.id===o.rid);a.push('only '+(r?r.name:o.rid))}if((o.zones||[]).length)a.push('zones: '+o.zones.map(z=>(OZ.find(x=>x.id===z)||{name:z}).name).join(', '));if(o.firstOrder)a.push('first order only');if((o.days||[]).length)a.push(o.days.map(d=>DN[d]).join(' '));if(o.start&&o.end)a.push(o.start+'-'+o.end);if(o.from)a.push('from '+ymd(o.from));if(o.until)a.push('until '+ymd(o.until));a.push(o.fund==='restaurant'?'restaurant pays':'Riwaaz pays');return a.join(' \u00b7 ')}
+async function of(){try{const j=await api('xlist');OS=j.offers||[];OR=j.restaurants||[];OZ=j.zones||[];
+$('offers').innerHTML=OS.length?OS.map(o=>`<div class="card"><div class="zc"><div><h3>${esc(o.title)} <span class="chip ${o.when==='live'?'ok':o.when==='paused'||o.when==='expired'||o.when==='exhausted'?'off':''}">${esc(WH[o.when]||o.when)}</span></h3><div class="mu" style="margin:6px 0">${esc(o.desc||'')}</div><div class="mu">${esc(oline(o))}</div><div class="mu" style="margin-top:6px">Used <b>${o.used}</b>${o.totalLimit?' of '+o.totalLimit:''} times \u00b7 discount given <b>${M(o.spent)}</b>${o.perCustomer?' \u00b7 '+o.perCustomer+' per customer':' \u00b7 unlimited per customer'}</div></div>
+<div class="acts"><button data-oe="${esc(o.id)}">Edit</button><button data-op="${esc(o.id)}">${o.active?'Pause':'Resume'}</button><button class="dg" data-od="${esc(o.id)}">Delete</button></div></div></div>`).join(''):'<div class="card mu">No offers yet. Add one and customers see it on the home page and get it automatically at checkout.</div>';
+$('os-rid').innerHTML=OR.map(r=>`<option value="${esc(r.id)}">${esc(r.name)}</option>`).join('');const z=await api('zlist');$('os-area').innerHTML=(z.localities||[]).map(l=>`<option>${esc(l)}</option>`).join('')}catch(e){if(e.message!=='Session ended')$('oerr').textContent=e.message}}
+function oType(){const t=$('of-type').value;$('of-capw').style.display=t==='pct'?'':'none';$('of-value').parentElement.style.display=t==='freeDel'?'none':'';$('of-vl').textContent=t==='pct'?'Percent (1-90)':'Money off \u20b9'}
+function openOffer(o){oEdit=o?o.id:null;$('oft').textContent=o?'Edit '+o.title:'New offer';$('oerr').textContent='';const v=(i,x)=>$(i).value=x==null?'':x;v('of-title',o&&o.title);v('of-badge',o&&o.badge);v('of-desc',o&&o.desc);$('of-type').value=o?o.type:'pct';v('of-value',o&&o.value||'');v('of-cap',o&&o.cap||'');v('of-min',o&&o.minOrder||'');v('of-per',o?o.perCustomer:1);v('of-tot',o&&o.totalLimit||'');v('of-start',o&&o.start);v('of-end',o&&o.end);v('of-from',o&&ymd(o.from));v('of-until',o&&ymd(o.until));$('of-fund').value=o&&o.fund||'platform';$('of-first').checked=!!(o&&o.firstOrder);$('of-active').checked=o?o.active:true;
+$('of-rid').innerHTML='<option value="">All restaurants</option>'+OR.map(r=>`<option value="${esc(r.id)}">${esc(r.name)}</option>`).join('');$('of-rid').value=o&&o.rid||'';
+$('of-zones').innerHTML=OZ.length?OZ.map(z=>`<label class="chip" style="margin:0"><input type="checkbox" class="oz" value="${esc(z.id)}" ${o&&(o.zones||[]).includes(z.id)?'checked':''}> ${esc(z.name)}</label>`).join(''):'<span class="mu">No zones yet: the offer works everywhere.</span>';
+$('of-days').innerHTML=DN.map((d,i)=>`<label class="chip" style="margin:0"><input type="checkbox" class="od" value="${i}" ${o&&(o.days||[]).includes(i)?'checked':''}> ${d}</label>`).join('');oType();$('oform').style.display='block';$('oform').scrollIntoView({block:'nearest'})}
+async function saveOffer(){$('oerr').textContent='';const g=i=>$(i).value.trim(),n=['of-value','of-cap','of-min','of-per','of-tot'];for(const i of n)if(g(i)!==''&&!/^\d+$/.test(g(i))){$('oerr').textContent='Numbers only (whole numbers).';return}
+if(g('of-title').length<3){$('oerr').textContent='Give the offer a name.';return}
+const b={id:oEdit||undefined,title:g('of-title'),badge:g('of-badge'),desc:g('of-desc'),type:$('of-type').value,value:g('of-value'),cap:g('of-cap'),minOrder:g('of-min'),rid:$('of-rid').value,zones:[...document.querySelectorAll('.oz:checked')].map(x=>x.value),firstOrder:$('of-first').checked,perCustomer:g('of-per'),totalLimit:g('of-tot'),days:[...document.querySelectorAll('.od:checked')].map(x=>+x.value),start:g('of-start'),end:g('of-end'),from:g('of-from'),until:g('of-until'),fund:$('of-fund').value,active:$('of-active').checked};
+$('osave').disabled=true;try{await api('xset',b);$('oform').style.display='none';of()}catch(e){$('oerr').textContent=e.message}$('osave').disabled=false}
+async function delOffer(id){const o=OS.find(x=>x.id===id);if(!o||!confirm('Delete the offer "'+o.title+'"? Past orders keep their discount.'))return;try{await api('xdel',{id});of()}catch(e){$('oerr').textContent=e.message}}
+async function pauseOffer(id){const o=OS.find(x=>x.id===id);if(!o)return;try{await api('xset',{...o,from:ymd(o.from),until:ymd(o.until),active:!o.active});of()}catch(e){$('oerr').textContent=e.message}}
+async function offSim(){const out=$('os-out'),at=$('os-at').value;try{const r=await api('xsim',{rid:$('os-rid').value,locality:$('os-area').value,sub:$('os-sub').value,phone:$('os-phone').value,code:$('os-code').value,at:at?at+':00+05:30':''});
+out.style.display='block';out.innerHTML=`<table><tr><td>Items</td><td>${M(r.sub)}</td></tr><tr><td>Discount</td><td><b>${r.disc?'\u2212'+M(r.disc):'none'}</b>${r.applied?' ('+(r.applied.kind==='offer'?esc(r.applied.title):'code '+esc(r.applied.code))+')':''}</td></tr><tr><td>Delivery</td><td>${r.fee?M(r.fee):'Free'}</td></tr><tr><td>Customer pays</td><td><b>${M(r.total)}</b></td></tr></table>${r.note?`<p class="mu">${esc(r.note)}</p>`:''}${r.codeError?`<p class="er">Code: ${esc(r.codeError)}</p>`:''}<p class="mu" style="margin:8px 0 2px">Every offer:</p>${(r.candidates||[]).map(c=>`<div class="mu">${c.eligible?'\u2713':'\u2717'} <b>${esc(c.title)}</b> \u2013 ${c.eligible?'could apply (worth '+M(c.worth)+')':esc(c.why)}</div>`).join('')||'<div class="mu">No offers exist.</div>'}`}catch(e){out.style.display='block';out.innerHTML='<p class="er">'+esc(e.message)+'</p>'}}
+$('onew').onclick=()=>openOffer(null);$('ocancel').onclick=()=>$('oform').style.display='none';$('osave').onclick=saveOffer;$('of-type').onchange=oType;$('os-go').onclick=offSim;$('offers').onclick=e=>{const a=e.target.dataset;if(a.oe)openOffer(OS.find(x=>x.id===a.oe));if(a.od)delOffer(a.od);if(a.op)pauseOffer(a.op)};
+$('lgo').onclick=login;$('key').onkeydown=e=>{if(e.key==='Enter')login()};$('lout').onclick=()=>logout(0);$('ptog').onclick=togglePause;$('dsave').onclick=saveDefault;$('znew').onclick=()=>openForm(null);$('zcancel').onclick=()=>$('zform').style.display='none';$('zsave').onclick=saveZone;$('sm-go').onclick=simGo;
+$('nav').onclick=e=>{const t=e.target.dataset&&e.target.dataset.t;if(t)showTab(t)};$('zones').onclick=e=>{const a=e.target.dataset;if(a.e)openForm(ZS.find(x=>x.id===a.e));if(a.d)delZone(a.d)};
+if(KEY)api('cfg').then(start).catch(()=>{$('login').style.display='block'});else $('login').style.display='block';
+/* Phase 11 shared browser push helper (inlined into the customer page and the rider app by tools/build-phase11-pages.mjs). Never asks for permission by itself: only enable() does, and only from a tap. */
+const RKN=(()=>{
+  const SW_JSON={'Content-Type':'application/json'};
+  const LSg=(k)=>{try{return localStorage.getItem(k)}catch(e){return null}},LSs=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
+  const u8=b=>{b=String(b).replace(/-/g,'+').replace(/_/g,'/');while(b.length%4)b+='=';const r=atob(b),o=new Uint8Array(r.length);for(let i=0;i<r.length;i++)o[i]=r.charCodeAt(i);return o};
+  const ios=()=>/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+  const standalone=()=>{try{return window.navigator.standalone===true||window.matchMedia('(display-mode: standalone)').matches}catch(e){return false}};
+  let cfgP=null;
+  const api=async b=>{let r;try{r=await fetch('/api/food/notify',{method:'POST',headers:SW_JSON,body:JSON.stringify(b)})}catch(e){return{s:0,j:null}}let j=null;try{j=await r.json()}catch(e){}return{s:r.status,j}};
+  const config=()=>cfgP||(cfgP=api({action:'config'}).then(r=>r.j&&r.j.push?r.j.push:{enabled:false,key:null}));
+  const supported=()=>'serviceWorker' in navigator&&'PushManager' in window&&'Notification' in window;
+  /* returns: unsupported | ios-install | server-off | blocked | off | on */
+  async function state(sw){
+    if(!supported())return ios()&&!standalone()?'ios-install':'unsupported';
+    const c=await config();if(!c.enabled)return'server-off';
+    if(Notification.permission==='denied')return'blocked';
+    if(Notification.permission==='granted'&&LSg('rkn_on')==='1'){try{const reg=await navigator.serviceWorker.getRegistration(sw.scope);const s=reg&&await reg.pushManager.getSubscription();if(s)return'on'}catch(e){}}
+    return'off';
+  }
+  async function subscribe(sw,auth){
+    const c=await config();if(!c.enabled)return{ok:false,why:'server-off'};
+    const reg=await navigator.serviceWorker.register(sw.url,{scope:sw.scope});await navigator.serviceWorker.ready;
+    let s=await reg.pushManager.getSubscription();
+    if(!s)s=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:u8(c.key)});
+    const r=await api({...auth,action:'subscribe',sub:s.toJSON(),ua:navigator.userAgent.slice(0,80)});
+    return r.s===200?{ok:true}:{ok:false,why:(r.j&&r.j.error)||'The server refused the subscription.',register:!!(r.j&&r.j.register)};
+  }
+  /* call ONLY from a tap */
+  async function enable(sw,auth){
+    if(!supported())return{ok:false,why:ios()&&!standalone()?'ios-install':'unsupported'};
+    let p=Notification.permission;if(p==='default'){try{p=await Notification.requestPermission()}catch(e){p='default'}}
+    await api({...auth,action:'permission',state:p});
+    if(p!=='granted')return{ok:false,why:p==='denied'?'blocked':'dismissed'};
+    try{const r=await subscribe(sw,auth);if(r.ok)LSs('rkn_on','1');return r}catch(e){return{ok:false,why:'Could not set up alerts on this device ('+(e&&e.name||'error')+').'}}
+  }
+  async function disable(sw,auth){
+    LSs('rkn_on','0');
+    try{const reg=await navigator.serviceWorker.getRegistration(sw.scope);const s=reg&&await reg.pushManager.getSubscription();if(s)await s.unsubscribe()}catch(e){}
+    await api({...auth,action:'unsubscribe'});return{ok:true};
+  }
+  /* quiet repair on page load: if the person turned alerts on and the browser dropped the subscription, put it back. Never prompts. */
+  async function resync(sw,auth){
+    try{if(!supported()||LSg('rkn_on')!=='1'||Notification.permission!=='granted')return;const c=await config();if(!c.enabled)return;await subscribe(sw,auth)}catch(e){}
+    try{if(supported()&&Notification.permission!=='default')await api({...auth,action:'permission',state:Notification.permission})}catch(e){}
+  }
+  const ago=t=>{const m=Math.max(0,Math.round((Date.now()-t)/60000));return m<1?'just now':m<60?m+' min ago':m<1440?Math.round(m/60)+' h ago':Math.round(m/1440)+' d ago'};
+  return{api,config,state,enable,disable,resync,supported,ios,standalone,ago};
+})();
+
+/* ===== Phase 11: Notification Centre tab for the Control Centre. Uses the page's own api(), $, esc. ===== */
+const RKS={url:'/control/sw.js',scope:'/control/'};
+let ntSub='al',ntTm=null,NTC={zones:[],restaurants:[],cfg:null},ntFeed=[],ntPushSt='off';
+const ntDv=(()=>{let v='';try{v=localStorage.getItem('rk_adv')||''}catch(e){}if(!/^[a-f0-9]{32}$/.test(v)){const a=new Uint8Array(16);crypto.getRandomValues(a);v=[...a].map(x=>x.toString(16).padStart(2,'0')).join('');try{localStorage.setItem('rk_adv',v)}catch(e){}}return v})();
+const ntA=()=>({key:KEY,dv:ntDv});
+const ntT=t=>t?new Date(t+19800000).toISOString().replace('T',' ').slice(0,16)+' IST':'';
+const ntIst=v=>{const m=/^(\d{4})-(\d\d)-(\d\d)T(\d\d):(\d\d)/.exec(v||'');return m?Date.UTC(+m[1],+m[2]-1,+m[3],+m[4],+m[5])-19800000:null};
+const ntInp=t=>t?new Date(t+19800000).toISOString().slice(0,16):'';
+const NTSEV={critical:'#ee9a8a',warn:'#e8c36a',info:'#a3b3a6'};
+function ntShell(){const s=$('t-nt');if(s.dataset.b)return;s.dataset.b='1';
+  s.innerHTML=`<h2>Notification Centre</h2><div class="nav" id="ntnav" style="padding:0 0 10px;border:0"><button data-s="al" class="on">Alerts <span id="ntcnt"></span></button><button data-s="cp">Promotions</button><button data-s="tp">Messages</button><button data-s="ts">Send &amp; log</button><button data-s="st">Setup &amp; settings</button></div><div id="ntbody"></div>`;
+  $('ntnav').onclick=e=>{const k=e.target.dataset&&e.target.dataset.s;if(k){ntSub=k;ntGo()}}}
+async function nt(){ntShell();ntGo();clearInterval(ntTm);ntTm=setInterval(()=>{if(!document.hidden&&$('t-nt').style.display!=='none'&&ntSub==='al')ntAlerts(true)},20000)}
+function ntGo(){for(const b of document.querySelectorAll('#ntnav button'))b.classList.toggle('on',b.dataset.s===ntSub);({al:ntAlerts,cp:ntCamps,tp:ntTpl,ts:ntSend,st:ntStatus})[ntSub]()}
+const ntErr=(e)=>`<div class="er" role="alert">${esc(e&&e.message||e)}</div>`;
+/* ---- alerts ---- */
+async function ntAlerts(quiet){const B=$('ntbody');if(!quiet)B.innerHTML='<p class="mu">Loading…</p>';
+  try{const r=await fetch('/api/food/notify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:KEY,action:'feed',limit:60})}),j=await r.json();if(r.status!==200)throw new Error(j.error||'Could not load alerts');
+    ntFeed=j.items||[];const un=ntFeed.filter(x=>!x.ack).length;$('ntcnt').textContent=un?'('+un+')':'';if(ntSub!=='al')return;
+    ntPushSt=await RKN.state(RKS);
+    B.innerHTML=`<div class="card"><div class="zc"><div><h3>Needs attention</h3><p class="mu">New orders, late orders, restaurant cancellations, rider problems and anything unusual. Checked whenever an app is open, and every few minutes by the optional timer.</p></div><div class="acts"><button id="ntall">Acknowledge all</button></div></div></div>`+
+    (ntFeed.length?ntFeed.map(x=>`<div class="card" style="border-left:4px solid ${NTSEV[x.sev]||NTSEV.info};${x.ack?'opacity:.6':''}"><div class="zc"><div><b>${esc(x.t)}</b> <span class="tag">${esc(ntT(x.ts))}${x.sev==='critical'?' · URGENT':''}</span><div>${esc(x.b)}</div></div>${x.ack?'<span class="tag">Done</span>':`<button data-ack="${esc(x.id)}">Done</button>`}</div></div>`).join(''):'<div class="card"><p class="mu">Nothing yet. Alerts appear here as orders come in.</p></div>')+
+    `<div class="card"><h3>Alerts on this device</h3>${ntPushUi()}</div>`;
+    $('ntall').onclick=async()=>{await fetch('/api/food/notify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:KEY,action:'read',all:true})});ntAlerts()};
+    B.onclick=async e=>{const a=e.target.dataset&&e.target.dataset.ack;if(a){await fetch('/api/food/notify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:KEY,action:'read',ids:[a]})});ntAlerts(true)}if(e.target.id==='ntpon'){const r=await RKN.enable(RKS,ntA());alert(r.ok?'Alerts are on for this device.':(r.why==='blocked'?'Notifications are blocked for this site in your browser settings.':r.why==='dismissed'?'Not turned on.':String(r.why)));ntAlerts()}if(e.target.id==='ntpoff'){await RKN.disable(RKS,ntA());ntAlerts()}}
+  }catch(e){if(!quiet)B.innerHTML=ntErr(e)}}
+function ntPushUi(){const s=ntPushSt;return s==='on'?'<p class="mu">This device receives urgent alerts (warnings and urgent problems) even when this page is closed.</p><button id="ntpoff">Turn off</button>':s==='off'?'<p class="mu">Get urgent alerts on this phone or computer even when this page is closed.</p><button class="pri" id="ntpon">Turn on alerts for this device</button>':s==='ios-install'?'<p class="mu">On iPhone/iPad: open in Safari, Share, "Add to Home Screen", then open it from the Home Screen.</p>':s==='blocked'?'<p class="mu">Blocked by the browser. Allow notifications for this site in the browser settings.</p>':s==='server-off'?'<p class="mu">Push is not set up on the server yet (see Setup &amp; settings).</p>':'<p class="mu">This browser cannot receive push alerts.</p>'}
+/* ---- promotions ---- */
+async function ntCamps(){const B=$('ntbody');B.innerHTML='<p class="mu">Loading…</p>';
+  try{const j=await api('nt.clist');NTC={zones:j.zones||[],restaurants:j.restaurants||[],cfg:j.cfg};const cs=j.campaigns||[];
+    B.innerHTML=`<div class="card"><div class="zc"><div><h3>Promotional notifications</h3><p class="mu">Only customers who switched on "Offers and promotions" in the app can receive these. Quiet hours and a daily limit protect customers (see Setup &amp; settings).</p></div><button class="pri" id="ncnew">New promotion</button></div></div><div id="ncform"></div>`+
+    (cs.length?cs.map(ntCard).join(''):'<div class="card"><p class="mu">No promotions yet.</p></div>');
+    $('ncnew').onclick=()=>ntForm(null);B.onclick=ntCampClick}catch(e){B.innerHTML=ntErr(e)}}
+function ntCard(c){const s=c.st||{},live=['scanning','sending'].includes(c.status),col={draft:'#a3b3a6',scheduled:'#e8c36a',scanning:'#6cb0f0',sending:'#6cb0f0',sent:'#74d49a',cancelled:'#ee9a8a'}[c.status]||'#a3b3a6';
+  const a=c.aud||{},au=[a.zones&&a.zones.length?'areas: '+a.zones.join(', '):'',a.restaurants&&a.restaurants.length?'restaurants: '+a.restaurants.join(', '):'',a.minOrders!=null?a.minOrders+'+ orders':'',a.maxOrders!=null?'up to '+a.maxOrders+' orders':'',a.orderedWithinDays!=null?'ordered in last '+a.orderedWithinDays+' days':'',a.inactiveDays!=null?'no order for '+a.inactiveDays+'+ days':''].filter(Boolean).join(' · ')||'All customers who opted in';
+  return`<div class="card" data-c="${esc(c.id)}"><div class="zc"><div><b>${esc(c.name)}</b> <span class="chip" style="color:${col}">${esc(c.status)}</span>${c.sched&&c.status==='scheduled'?` <span class="tag">${esc(ntT(c.sched))}</span>`:''}<div class="mu">“${esc(c.t)}” — ${esc(c.b)}</div><div class="tag">Audience: ${esc(au)} · ${c.ch.inapp?'In app':''}${c.ch.inapp&&c.ch.push?' + ':''}${c.ch.push?'Phone push':''}</div></div>
+  <div class="acts">${c.status==='draft'||c.status==='scheduled'?`<button data-e="${esc(c.id)}">Edit</button>`:''}${c.status==='draft'?`<button class="pri" data-s="${esc(c.id)}">${c.sched?'Schedule':'Send now'}</button>`:''}${c.status==='scheduled'?`<button data-sn="${esc(c.id)}">Send now instead</button>`:''}${['scheduled','scanning','sending'].includes(c.status)?`<button class="dg" data-x="${esc(c.id)}">Stop</button>`:''}<button data-d="${esc(c.id)}">Duplicate</button>${live?'':`<button class="dg" data-del="${esc(c.id)}">Delete</button>`}</div></div>
+  ${c.status==='sent'||live||c.status==='cancelled'&&c.total?`<div class="grid" style="margin-top:10px"><div class="kpi"><b>${s.targeted||c.total||0}</b><span>Customers targeted</span></div><div class="kpi"><b>${s.inapp||0}</b><span>Delivered in app</span></div><div class="kpi"><b>${s.pushOk||0}</b><span>Push accepted</span></div><div class="kpi"><b>${(s.pushFail||0)+(s.pushGone||0)}</b><span>Push failed or expired</span></div><div class="kpi"><b>${(s.capped||0)+(s.noConsent||0)+(s.dup||0)}</b><span>Skipped (daily limit / opted out)</span></div><div class="kpi"><b>${s.opened||0}</b><span>Opened in app</span></div></div><p class="mu">${live?'Sending… '+(s.processed||0)+' of '+(c.total||'?')+' processed. Keep this page open or wait for the next check.':'Push "accepted" means the phone company’s push service took it. It cannot confirm the phone showed it.'} ${c.note?esc(c.note):''}</p>`:''}</div>`}
+async function ntCampClick(e){const d=e.target.dataset;if(!d)return;const run=async(a,x,msg)=>{try{const j=await api('nt.'+a,x);if(j.message)alert(j.message);ntCamps()}catch(er){alert(er.message)}};
+  if(d.e){const j=await api('nt.clist');ntForm(j.campaigns.find(c=>c.id===d.e))}
+  else if(d.s||d.sn){const id=d.s||d.sn;if(confirm(d.sn?'Send this right now to everyone in the audience?':'Start this promotion? Customers will receive it.'))run('csend',{id,now:!!d.sn})}
+  else if(d.x){if(confirm('Stop this promotion? Customers who already received it keep it.'))run('ccancel',{id:d.x})}
+  else if(d.d)run('cdup',{id:d.d});else if(d.del){if(confirm('Delete this promotion?'))run('cdel',{id:d.del})}}
+function ntForm(c){c=c||{aud:{},ch:{inapp:true,push:true}};const a=c.aud||{},zs=new Set((a.zones||[]).map(x=>x.toLowerCase())),rs=new Set((a.restaurants||[]).map(x=>x.toLowerCase()));
+  $('ncform').innerHTML=`<div class="card"><h3>${c.id?'Edit promotion':'New promotion'}</h3>
+  <label for="nc-name">Name (only you see this)</label><input id="nc-name" maxlength="60" value="${esc(c.name||'')}" placeholder="e.g. Eid weekend offer">
+  <label for="nc-t">Notification title (customers see this)</label><input id="nc-t" maxlength="65" value="${esc(c.t||'')}">
+  <label for="nc-b">Message</label><textarea id="nc-b" maxlength="240" rows="3" style="width:100%;font:inherit;color:var(--cr);background:#07130c;border:1px solid var(--ln);border-radius:10px;padding:10px">${esc(c.b||'')}</textarea><div class="tag" id="nc-n"></div>
+  <label for="nc-u">Opens this page when tapped (optional, must start with /)</label><input id="nc-u" maxlength="120" value="${esc(c.u||'')}" placeholder="/food/">
+  <label>Deliver</label><div class="chips"><label class="chip"><input type="checkbox" id="nc-ia" ${c.ch.inapp!==false?'checked':''}> In the app (notification list)</label><label class="chip"><input type="checkbox" id="nc-pu" ${c.ch.push!==false?'checked':''}> Phone push (only phones with alerts on)</label></div>
+  <h3 style="margin-top:14px">Who gets it</h3><p class="mu">Always limited to customers who switched promotions on. Leave everything empty for all of them.</p>
+  <label>Areas</label><div class="chips" id="nc-z">${(NTC.zones||[]).map(z=>`<label class="chip"><input type="checkbox" value="${esc(z)}" ${zs.has(String(z).toLowerCase())?'checked':''}> ${esc(z)}</label>`).join('')||'<span class="mu">No areas set up.</span>'}</div>
+  <label>Restaurants they ordered from</label><div class="chips" id="nc-r">${(NTC.restaurants||[]).map(r=>`<label class="chip"><input type="checkbox" value="${esc(r.id)}" ${rs.has(String(r.id).toLowerCase())?'checked':''}> ${esc(r.name||r.id)}</label>`).join('')||'<span class="mu">No restaurants.</span>'}</div>
+  <div class="row"><div><label for="nc-min">At least this many orders</label><input id="nc-min" inputmode="numeric" value="${a.minOrders==null?'':a.minOrders}" placeholder="e.g. 3 for regulars"></div><div><label for="nc-max">At most this many orders</label><input id="nc-max" inputmode="numeric" value="${a.maxOrders==null?'':a.maxOrders}" placeholder="e.g. 1 for new customers"></div></div>
+  <div class="row"><div><label for="nc-w">Ordered in the last (days)</label><input id="nc-w" inputmode="numeric" value="${a.orderedWithinDays==null?'':a.orderedWithinDays}"></div><div><label for="nc-i">Has not ordered for (days)</label><input id="nc-i" inputmode="numeric" value="${a.inactiveDays==null?'':a.inactiveDays}" placeholder="e.g. 30 to win back"></div></div>
+  <label for="nc-s">Send later (India time, optional)</label><input id="nc-s" type="datetime-local" value="${ntInp(c.sched)}">
+  <div class="zc" style="margin-top:10px"><button id="nc-pv">Count who would get it</button><span id="nc-pvo" class="mu"></span></div>
+  <div class="er" id="nc-e" role="alert"></div><div class="acts" style="display:flex;gap:8px"><button class="pri" id="nc-save">Save draft</button><button id="nc-cancel">Cancel</button></div></div>`;
+  const body=()=>({id:c.id,name:$('nc-name').value,t:$('nc-t').value,b:$('nc-b').value,u:$('nc-u').value,ch:{inapp:$('nc-ia').checked,push:$('nc-pu').checked},sched:ntIst($('nc-s').value),aud:{zones:[...document.querySelectorAll('#nc-z input:checked')].map(x=>x.value),restaurants:[...document.querySelectorAll('#nc-r input:checked')].map(x=>x.value),minOrders:$('nc-min').value,maxOrders:$('nc-max').value,orderedWithinDays:$('nc-w').value,inactiveDays:$('nc-i').value}});
+  $('nc-b').oninput=()=>{$('nc-n').textContent=$('nc-b').value.length+' / 240'};$('nc-b').oninput();
+  $('nc-pv').onclick=async()=>{try{const b=body(),j=await api('nt.cprev',{ch:b.ch,aud:b.aud});$('nc-pvo').textContent=j.recipients+' customer'+(j.recipients===1?'':'s')+' ('+j.push+' with phone push). '+j.optedIn+' of '+j.customers+' customers have promotions on.'+(j.partial?' (counted from the first part of your list)':'')}catch(e){$('nc-pvo').textContent=e.message}};
+  $('nc-save').onclick=async()=>{try{await api('nt.cset',body());ntCamps()}catch(e){$('nc-e').textContent=e.message}};$('nc-cancel').onclick=()=>{$('ncform').innerHTML=''};$('ncform').scrollIntoView&&$('ncform').scrollIntoView({behavior:'smooth'})}
+/* ---- message templates ---- */
+async function ntTpl(){const B=$('ntbody');B.innerHTML='<p class="mu">Loading…</p>';
+  try{const j=await api('nt.tpl'),vars=j.vars.map(v=>'{'+v+'}').join(' ');let g='';
+    B.innerHTML=`<div class="card"><h3>Notification messages</h3><p class="mu">Every message the system sends on its own. Change the words or switch a channel off. Placeholders you can use: ${esc(vars)}. {prep}, {reason} and {refund} add a whole sentence only when it applies. Cancellation and refund messages to customers can never be switched off.</p></div>`+j.events.map(e=>{const h=e.group!==g?(g=e.group,`<h3 style="margin:16px 0 8px">${esc(g)} messages</h3>`):'';
+      return h+`<div class="card" data-ev="${esc(e.id)}"><div class="zc"><div><b>${esc(e.name)}</b>${e.custom?' <span class="chip">edited</span>':''}<div class="mu">${esc(e.when)}</div></div><div class="chips"><label class="chip"><input type="checkbox" data-f="on" ${e.on?'checked':''} ${e.ess?'disabled':''}> On</label><label class="chip"><input type="checkbox" data-f="ip" ${e.ip?'checked':''}> In app</label><label class="chip"><input type="checkbox" data-f="pu" ${e.pu?'checked':''}> Push</label></div></div>
+      <label>Title</label><input data-f="t" maxlength="70" value="${esc(e.t)}"><label>Message</label><input data-f="b" maxlength="240" value="${esc(e.b)}"><div class="tag" data-pv></div>
+      <div class="acts" style="display:flex;gap:8px;margin-top:8px"><button data-sv="${esc(e.id)}">Save</button><button data-pvb="${esc(e.id)}">Preview</button>${e.custom?`<button data-rs="${esc(e.id)}">Reset to default</button>`:''}</div></div>`}).join('');
+    B.onclick=async ev=>{const d=ev.target.dataset;if(!d)return;const card=ev.target.closest('[data-ev]');if(!card)return;const id=card.dataset.ev,f=n=>card.querySelector('[data-f="'+n+'"]'),vals=()=>({ev:id,on:f('on').checked,ip:f('ip').checked,pu:f('pu').checked,t:f('t').value,b:f('b').value});
+      try{if(d.sv){await api('nt.tplset',vals());ntTpl()}else if(d.rs){await api('nt.tplreset',{ev:id});ntTpl()}else if(d.pvb){const v=vals(),r=await api('nt.tplprev',{ev:id,t:v.t,b:v.b});card.querySelector('[data-pv]').textContent='Example: “'+r.t+'” — '+r.b}}catch(er){alert(er.message)}}}catch(e){B.innerHTML=ntErr(e)}}
+/* ---- send a message + delivery log ---- */
+async function ntSend(){const B=$('ntbody');B.innerHTML='<p class="mu">Loading…</p>';
+  try{const l=await api('nt.log'),rows=l.log||[],ico={ok:'delivered to push service',gone:'phone no longer subscribed',fail:'push service error',none:'in app only'};
+    B.innerHTML=`<div class="card"><h3>Send a message</h3><p class="mu">Test the system, or give one rider or customer an important update. Customers and riders see it in the app; phones with alerts on also get a push.</p>
+    <div class="row"><div><label for="ns-to">To</label><select id="ns-to"><option value="staff">This admin feed (test)</option><option value="customer">A customer</option><option value="rider">A rider</option></select></div><div><label for="ns-w" id="ns-wl">&nbsp;</label><input id="ns-w" placeholder="" style="display:none"></div></div>
+    <label for="ns-t">Title</label><input id="ns-t" maxlength="70"><label for="ns-b">Message</label><input id="ns-b" maxlength="240"><div class="er" id="ns-e" role="alert"></div><button class="pri" id="ns-go">Send</button></div>
+    <div class="card"><div class="zc"><h3>Recent deliveries</h3><button id="ns-rf">Refresh</button></div><p class="mu">Customer numbers are hidden except the last 4 digits. Push "delivered" means the phone company’s push service accepted it.</p>${rows.length?`<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:13px"><tr style="text-align:left;color:var(--mu)"><th>Time</th><th>To</th><th>Message</th><th>Order</th><th>Result</th></tr>${rows.slice(0,100).map(r=>`<tr><td>${esc(ntT(r.ts).slice(5))}</td><td>${esc(({c:'Customer ',r:'Rider ',a:'Admin '})[r.a]||'')}${esc(r.who||'')}</td><td>${esc(r.ev)}</td><td>${esc(r.ref||'')}</td><td>${esc(ico[r.ps]||r.ps)}</td></tr>`).join('')}</table></div>`:'<p class="mu">Nothing sent yet.</p>'}</div>`;
+    const to=$('ns-to'),sync=()=>{const w=$('ns-w');w.style.display=to.value==='staff'?'none':'';$('ns-wl').textContent=to.value==='customer'?'Customer phone (10 digits)':to.value==='rider'?'Rider login ID':' ';w.value=''};to.onchange=sync;sync();
+    $('ns-rf').onclick=ntSend;$('ns-go').onclick=async()=>{$('ns-e').textContent='';try{const j=await api('nt.send',{to:to.value,phone:$('ns-w').value,rider:$('ns-w').value,t:$('ns-t').value,b:$('ns-b').value});$('ns-e').style.color='var(--ok)';$('ns-e').textContent='Sent'+(j.push&&j.push.n?' (push to '+j.push.ok+' of '+j.push.n+' phone'+(j.push.n===1?'':'s')+')':'')+'.';$('ns-t').value=$('ns-b').value='';setTimeout(ntSend,1200)}catch(e){$('ns-e').style.color='';$('ns-e').textContent=e.message}}}catch(e){B.innerHTML=ntErr(e)}}
+/* ---- setup status and settings ---- */
+async function ntStatus(){const B=$('ntbody');B.innerHTML='<p class="mu">Loading…</p>';
+  try{const s=await api('nt.status'),c=(await api('nt.cfg')).cfg,ok=(v,t,f)=>`<span class="chip ${v?'ok':'off'}">${v?t:f}</span>`;
+    B.innerHTML=`<div class="card"><h3>Is it all set up?</h3><p class="mu">In-app notifications and Telegram work now. Phone push needs a one-time setup on the server.</p>
+    <p>In-app notifications ${ok(true,'Working','')}</p><p>Phone push (browser / iPhone Home Screen) ${ok(s.push.ready,'Ready','Not set up')} ${s.push.ready?'':`<span class="mu">${esc(s.push.problem||'')}</span>`}</p>
+    <p>Telegram alerts to staff ${ok(s.telegram.configured,'Connected','Not connected')}</p><p>Automatic timer (sends scheduled promotions and checks for late orders even when nobody has an app open) ${ok(s.cron.keySet,'Key set','Optional, not set up')}</p>
+    <div class="grid"><div class="kpi"><b>${s.devices.c}</b><span>Customer phones registered</span></div><div class="kpi"><b>${s.devices.optedIn}</b><span>Customers with promotions on</span></div><div class="kpi"><b>${s.devices.cPush}</b><span>Customer phones with push</span></div><div class="kpi"><b>${s.devices.r}</b><span>Rider devices</span></div></div>
+    <p class="mu">Last automatic check: ${s.lastSweep?esc(ntT(s.lastSweep)):'never'}. <button id="ntrun">Check now</button></p></div>
+    <div class="card"><h3>Settings</h3><div class="row"><div><label for="cf-a">Alert if the restaurant has not accepted after (minutes)</label><input id="cf-a" inputmode="numeric" value="${c.acceptMin}"></div><div><label for="cf-r">Alert if ready with no rider after (minutes)</label><input id="cf-r" inputmode="numeric" value="${c.riderMin}"></div></div>
+    <div class="row"><div><label for="cf-t">Alert if still open after (minutes)</label><input id="cf-t" inputmode="numeric" value="${c.totalMin}"></div><div><label for="cf-k">Alert if rider has not opened the job after (minutes)</label><input id="cf-k" inputmode="numeric" value="${c.ackMin}"></div></div>
+    <div class="row"><div><label for="cf-l">Alert if rider location is missing for (minutes)</label><input id="cf-l" inputmode="numeric" value="${c.staleMin}"></div><div><label for="cf-p">Promotions: at most one per customer every (hours, 0 = no limit)</label><input id="cf-p" inputmode="numeric" value="${c.promoCapH}"></div></div>
+    <label><input type="checkbox" id="cf-q" ${c.quietOn?'checked':''}> No promotions during quiet hours (India time)</label><div class="row"><div><label for="cf-qf">Quiet from (hour, 0-23)</label><input id="cf-qf" inputmode="numeric" value="${c.quietFrom}"></div><div><label for="cf-qt">Quiet until (hour, 0-23)</label><input id="cf-qt" inputmode="numeric" value="${c.quietTo}"></div></div>
+    <label><input type="checkbox" id="cf-sp" ${c.staffPush?'checked':''}> Push warnings and urgent problems to admin phones</label><label><input type="checkbox" id="cf-st" ${c.staffTg?'checked':''}> Send new kinds of alert (late orders, rider problems) to Telegram</label>
+    <div class="er" id="cf-e" role="alert"></div><button class="pri" id="cf-save">Save settings</button></div>
+    <div class="card"><h3>One-time server setup for phone push</h3><p class="mu">Not done by this page. See PHASE11_REPORT.md: create a VAPID key pair with <code>node tools/gen-vapid.mjs</code>, then add three secrets (VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY, VAPID_SUBJECT) to your <b>staging</b> site. Secrets present: ${Object.entries(s.push.secrets).map(([k,v])=>esc(k)+' '+(v?'✓':'✗')).join(' &middot; ')}</p></div>`;
+    $('ntrun').onclick=async()=>{try{await api('nt.run');ntStatus()}catch(e){alert(e.message)}};
+    $('cf-save').onclick=async()=>{try{await api('nt.cfg',{set:{acceptMin:$('cf-a').value,riderMin:$('cf-r').value,totalMin:$('cf-t').value,ackMin:$('cf-k').value,staleMin:$('cf-l').value,promoCapH:$('cf-p').value,quietOn:$('cf-q').checked,quietFrom:$('cf-qf').value,quietTo:$('cf-qt').value,staffPush:$('cf-sp').checked,staffTg:$('cf-st').checked}});$('cf-e').style.color='var(--ok)';$('cf-e').textContent='Saved.';setTimeout(()=>{$('cf-e').textContent=''},1800)}catch(e){$('cf-e').style.color='';$('cf-e').textContent=e.message}}}catch(e){B.innerHTML=ntErr(e)}}
+setTimeout(()=>{if(KEY){RKN.resync(RKS,ntA())}},2500);
+navigator.serviceWorker&&navigator.serviceWorker.addEventListener&&navigator.serviceWorker.addEventListener('message',m=>{if(m.data&&m.data.type==='rkn-open'){showTab('nt')}});
+/* nav badge: number of un-acknowledged staff alerts, refreshed quietly while the Control Centre is open */
+async function ntBadge(){if(!KEY||document.hidden)return;try{const r=await fetch('/api/food/notify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:KEY,action:'feed',limit:60})});if(r.status===401){return}const j=await r.json();if(j&&j.ok){const n=(j.items||[]).filter(x=>!x.ack).length;const b=$('ntb');if(b)b.textContent=n?'('+n+')':''}}catch(e){}}
+setInterval(ntBadge,45000);setTimeout(ntBadge,3000);
+
+</script></body></html>
